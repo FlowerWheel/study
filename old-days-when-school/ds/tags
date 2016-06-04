@@ -1,0 +1,771 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ADD	polynomaial/polynomaial.h	9;"	d
+ARR_SIZE	libc/define.h	29;"	d
+ATGraph	graph/graph.h	/^}ATVertex, *PtrToATV, *ATGraph;$/;"	t	typeref:struct:ATVertex
+ATVertex	graph/graph.h	/^typedef struct ATVertex{$/;"	s
+ATVertex	graph/graph.h	/^}ATVertex, *PtrToATV, *ATGraph;$/;"	t	typeref:struct:ATVertex
+AVLTree	bintree/AvltreeCpp.cpp	/^	AVLTree(): root(NULL){}$/;"	f	class:AVLTree
+AVLTree	bintree/AvltreeCpp.cpp	/^class AVLTree{$/;"	c	file:
+Accept	libc/wrapsocket.c	/^int Accept(int listenfd, struct sockaddr *cliaddr, socklen_t *addrlen)$/;"	f
+Add	polynomaial/polynomaial.h	7;"	d
+AddPolynomaial	polynomaial/polynomaial.h	12;"	d
+AddSubPolynomaial	polynomaial/polynomaial.c	/^void AddSubPolynomaial(polynomaial Poly1, polynomaial Poly2, polynomaial sum, int type)$/;"	f
+AvlElemType	bintree/avltree.h	9;"	d
+AvlNode	bintree/avltree.h	/^struct AvlNode {$/;"	s
+AvlNode	bintree/avltree.h	/^typedef struct AvlNode AvlNode;$/;"	t	typeref:struct:AvlNode
+AvlTree	bintree/avltree.h	/^typedef struct AvlNode *AvlTree;$/;"	t	typeref:struct:AvlNode
+BINTREE_H	bintree/BintreeCpp.cpp	3;"	d	file:
+BITSPERWORD	libc/bitmap.h	6;"	d
+BSBinTreeNode	bintree/binsearchtree.h	/^typedef	struct BinTreeNode BSBinTreeNode;$/;"	t	typeref:struct:BinTreeNode
+BSNode	bintree/binsearchtree.h	/^typedef BSBinTreeNode *BSTree, *pBSNode, BSNode;$/;"	t
+BSTElemType	bintree/binsearchtree.h	13;"	d
+BSTNode	bintree/AvltreeCpp.cpp	/^	BSTNode(): left(NULL), right(NULL){}$/;"	f	class:BSTNode
+BSTNode	bintree/AvltreeCpp.cpp	/^	BSTNode(const Type& key): key(key), left(NULL), right(NULL){}$/;"	f	class:BSTNode
+BSTNode	bintree/AvltreeCpp.cpp	/^class BSTNode{$/;"	c	file:
+BSTree	bintree/binsearchtree.h	/^typedef BSBinTreeNode *BSTree, *pBSNode, BSNode;$/;"	t
+BTElemType	bintree/binsearchtree.h	12;"	d
+BTElemType	bintree/binsearchtree.h	9;"	d
+BTElemType	bintree/type.h	25;"	d
+BTNode	bintree/bintree.h	/^typedef struct BinTreeNode *BinTree, BTNode, *pBTNode;$/;"	t	typeref:struct:
+BinTree	bintree/bintree.h	/^typedef struct BinTreeNode *BinTree, BTNode, *pBTNode;$/;"	t	typeref:struct:BinTreeNode
+BinTreeNode	bintree/BintreeCpp.cpp	/^		}BinTreeNode, *pBinTreeNode;$/;"	t	class:CBinTree	typeref:struct:CBinTree::tagBinTreeNode	file:
+BinTreeNode	bintree/bintree.h	/^struct BinTreeNode{$/;"	s
+Bind	libc/wrapsocket.c	/^void Bind(int sockfd, const struct sockaddr *localaddr, socklen_t addrlen)$/;"	f
+BitContainer	libc/bitmap.h	/^int BitContainer[1 + MAXNUMOFBC\/BITSPERWORD];$/;"	v
+BitMap	libc/bitmap.h	/^typedef struct BitMap{$/;"	s
+BitMap	libc/bitmap.h	/^}BitMap, BitSet;$/;"	t	typeref:struct:BitMap
+BitSet	libc/bitmap.h	/^}BitMap, BitSet;$/;"	t	typeref:struct:BitMap
+BuildHeap	priorityqueue/binheap.c	/^PriorityQueue BuildHeap(ElemType arr[], int n)$/;"	f
+CBinTree	bintree/BintreeCpp.cpp	/^		CBinTree()$/;"	f	class:CBinTree
+CBinTree	bintree/BintreeCpp.cpp	/^class CBinTree {$/;"	c	file:
+CC	hash/Makefile	/^CC = gcc$/;"	m
+CC	libc/Makefile	/^CC = gcc$/;"	m
+CC	priorityqueue/Makefile	/^CC = gcc$/;"	m
+CC	sort/Makefile	/^CC=gcc$/;"	m
+CCFLAGS	libc/Makefile	/^CCFLAGS = $/;"	m
+CFLAGS	bintree/Makefile	/^CFLAGS=-I..\/libc -g -Wall$/;"	m
+CFLAGS	hash/Makefile	/^CFLAGS = -I..\/libc\/ -g -Wall$/;"	m
+CFLAGS	libc/Makefile	/^CFLAGS =  -Wall -g$/;"	m
+CFLAGS	priorityqueue/Makefile	/^CFLAGS = -I..\/libc -g -Wall$/;"	m
+CFLAGS	sort/Makefile	/^CFLAGS= -g -Wall$/;"	m
+CMSG_LEN	apue.h	8;"	d
+CPU_VENDOR_OS	libc/config.h	334;"	d
+CPU_VENDOR_OS	libc/config.h	5;"	d
+CSNode	tree/tree.c	/^typedef struct CSNode$/;"	s	file:
+CSNode	tree/tree.c	/^}CSNode,*CSTree;$/;"	t	typeref:struct:CSNode	file:
+CSTree	tree/tree.c	/^}CSNode,*CSTree;$/;"	t	typeref:struct:CSNode	file:
+Calloc	libc/memmanage.c	/^void *Calloc(size_t nmemb, size_t size)$/;"	f
+Clear	bintree/AvltreeCpp.cpp	/^void AVLTree<Type>::Clear(){$/;"	f	class:AVLTree
+Clear	table/table.c	/^void Clear(const Table T)$/;"	f
+ClearQueue	bintree/queue.c	/^void  ClearQueue(Queue *Q)$/;"	f
+ClearQueue	queue/queue.c	/^void  ClearQueue(Queue *Q)$/;"	f
+ClearStack	bintree/stack.c	/^void  ClearStack(Stack *s)$/;"	f
+ClearStack	stack/stack.c	/^void  ClearStack(Stack *s)$/;"	f
+Close	libc/wrapsysio.c	/^void Close(int fd)$/;"	f
+ClrBit	libc/bitmap.h	/^void ClrBit (int i) {        BitContainer[i>>SHIFT] &= ~(1<<(i & MASK)); }$/;"	f
+ClrBitBM	libc/bitmap.h	/^int ClrBitBM(BitMap *BM, int i)$/;"	f
+ClrBitBMAll	libc/bitmap.h	/^void ClrBitBMAll(BitMap *BM)$/;"	f
+CoeffArray	polynomaial/polynomaial.h	/^	int		CoeffArray[MaxDegree+1];$/;"	m	struct:__anon1
+Conn	libc/define.h	1;"	d
+Connect	libc/wrapsocket.c	/^void Connect(int sockfd, const struct sockaddr *servaddr, socklen_t addrlen)$/;"	f
+Creat	table/table.c	/^void Creat (Table *T, void (*input)(ElemType *e))$/;"	f
+CreatBSTree	bintree/binsearchtree.c	/^void CreatBSTree(BSTree *BST)$/;"	f
+CreatList	cclklist/cclklist.c	/^List CreatList (void)$/;"	f
+CreatList	dblklist/dblklist.c	/^List CreatList (void)$/;"	f
+CreatStack	bintree/stack.c	/^Stack CreatStack(void)$/;"	f
+CreatStack	stack/stack.c	/^Stack CreatStack(void)$/;"	f
+CreateATGraph	graph/atgraph.c	/^void CreateATGraph(ATGraph *G, int vcount)$/;"	f
+CreateAVL	bintree/avltree.c	/^void CreateAVL(AvlTree *Avl)$/;"	f
+CreateCSTree	tree/tree.c	/^void CreateCSTree(CSTree *T,char *e,int *index)$/;"	f
+DBList	table/table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+DEP	libc/Makefile	/^DEP = $(patsubst %.c, %.o, hello.c $(wildcard *.c))$/;"	m
+DEQUE_H	dqueue/Deque.h	2;"	d
+DGLEN	libc/lueap.h	93;"	d
+DIR_MODE	apue.h	36;"	d
+DataType	tree/tree.c	/^typedef char DataType;$/;"	t	file:
+DblkNode	cclklist/cclklist.h	/^}DblkNode, *PtrToNode;$/;"	t	typeref:struct:Node
+DblkNode	dblklist/dblklist.h	/^}DblkNode, *PtrToNode;$/;"	t	typeref:struct:Node
+DeQueue	bintree/queue.c	/^void  DeQueue(Queue	*Q)$/;"	f
+DeQueue	queue/queue.c	/^void  DeQueue(Queue	*Q)$/;"	f
+Delete	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::Delete(BSTNode<Type>* &node, const Type &key){$/;"	f	class:AVLTree
+Delete	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::Delete(const Type& key){$/;"	f	class:AVLTree
+Delete	cclklist/cclklist.c	/^void Delete (const ElemType e, List *L)$/;"	f
+Delete	dblklist/dblklist.c	/^void Delete (const ElemType e, List *L)$/;"	f
+DeleteAVLNode	bintree/avltree.c	/^void DeleteAVLNode(AvlTree *avl, AvlElemType x)$/;"	f
+DeleteBSTMax	bintree/binsearchtree.c	/^void DeleteBSTMax(BSTree *BST)$/;"	f
+DeleteBSTMin	bintree/binsearchtree.c	/^void DeleteBSTMin(BSTree *BST)$/;"	f
+DeleteBSTNode	bintree/binsearchtree.c	/^void DeleteBSTNode(BSTree *BST, BSTElemType x)$/;"	f
+DeleteList	cclklist/cclklist.c	/^void DeleteList (List *L)$/;"	f
+DeleteList	dblklist/dblklist.c	/^void DeleteList (List *L)$/;"	f
+DeleteMin1LH	priorityqueue/leftheap.c	/^PriorityQueue DeleteMin1LH(PriorityQueue LH)$/;"	f
+DeleteMinPQ	priorityqueue/binheap.c	/^ElemType DeleteMinPQ(PriorityQueue PQ)$/;"	f
+Delete_i	table/table.c	/^int  Delete_i(const Table T, const int i, const ElemType e)$/;"	f
+Delete_p	table/table.c	/^int  Delete_p(const Table T, const Position p, const ElemType e)$/;"	f
+Deletei	cclklist/cclklist.c	/^void Deletei (const int i, List *L)$/;"	f
+Deletei	dblklist/dblklist.c	/^void Deletei (const int i, List *L)$/;"	f
+DepAVL	bintree/avltree.c	/^int	 DepAVL(const AvlTree Avl)$/;"	f
+DepBSTree	bintree/binsearchtree.h	23;"	d
+DepBinTree	bintree/bintree.c	/^int	 DepBinTree(const BinTree BT)$/;"	f
+DepCSTree	tree/tree.c	/^int DepCSTree(CSTree T)$/;"	f
+Deque	dqueue/Deque.h	/^	Deque ( )$/;"	f	class:Deque
+Deque	dqueue/Deque.h	/^class Deque$/;"	c
+Destory	table/table.c	/^void Destory(Table *T)$/;"	f
+DestoryAVL	bintree/avltree.c	/^void DestoryAVL(AvlTree *Avl)$/;"	f
+DestoryBM	libc/bitmap.h	/^void DestoryBM(BitMap *BM)$/;"	f
+DestoryBSTree	bintree/binsearchtree.h	21;"	d
+DestoryBinTree	bintree/bintree.c	/^void DestoryBinTree(BT)$/;"	f
+DestoryPQ	priorityqueue/binheap.c	/^void DestoryPQ(PriorityQueue *PQ)$/;"	f
+DestoryQueue	bintree/queue.c	/^void  DestoryQueue(Queue *Q)$/;"	f
+DestoryQueue	queue/queue.c	/^void  DestoryQueue(Queue *Q)$/;"	f
+DestoryStack	bintree/stack.c	/^void  DestoryStack(Stack *s)$/;"	f
+DestoryStack	stack/stack.c	/^void  DestoryStack(Stack *s)$/;"	f
+DestoryTable	hash/hash.c	/^void DestoryTable(HashTable *ht)$/;"	f
+Destroy	bintree/BintreeCpp.cpp	/^		void Destroy(pBinTreeNode& T)$/;"	f	class:CBinTree
+DestroyCSTree	tree/tree.c	/^void DestroyCSTree(CSTree *T)$/;"	f
+DisplayCSTree	tree/tree.c	/^void DisplayCSTree(DataType *e)$/;"	f
+DoubleRotateWithLeft	bintree/avltree.c	/^static pAvlNode DoubleRotateWithLeft(pAvlNode k3)$/;"	f	file:
+DoubleRotateWithRight	bintree/avltree.c	/^static pAvlNode DoubleRotateWithRight(pAvlNode k3)$/;"	f	file:
+Elem	bintree/queue.h	/^	QElemType		Elem;$/;"	m	struct:QNode
+Elem	bintree/stack.h	/^	SElemType		Elem;$/;"	m	struct:SNode
+Elem	cclklist/cclklist.h	/^	ElemType	Elem;$/;"	m	struct:Node
+Elem	dblklist/dblklist.h	/^	ElemType	Elem;$/;"	m	struct:Node
+Elem	graph/graph.h	/^	GElemType		Elem;$/;"	m	struct:ATVertex
+Elem	queue/queue.h	/^	QElemType		Elem;$/;"	m	struct:QNode
+Elem	stack/stack.h	/^	ElemType		Elem;$/;"	m	struct:SNode
+ElemType	cclklist/cclklist.h	/^typedef int		ElemType;$/;"	t
+ElemType	dblklist/dblklist.h	/^typedef int		ElemType;$/;"	t
+ElemType	hash/hash.h	/^typedef int	ElemType;$/;"	t
+ElemType	priorityqueue/binheap.h	/^typedef int	ElemType;$/;"	t
+ElemType	priorityqueue/leftheap.h	/^typedef int	ElemType;$/;"	t
+ElemType	sort/sort.h	4;"	d
+ElemType	stack/stack.h	/^typedef int		ElemType;$/;"	t
+ElemType	table/table.h	/^typedef int ElemType;$/;"	t
+ElementType	table/table.h	/^typedef struct ElementType{$/;"	s
+ElementType	table/table.h	/^}ElementType;$/;"	t	typeref:struct:ElementType
+EnQueue	bintree/queue.c	/^void  EnQueue(const QElemType x, Queue *Q)$/;"	f
+EnQueue	queue/queue.c	/^void  EnQueue(const QElemType x, Queue *Q)$/;"	f
+Eql	libc/lueap.h	100;"	d
+FALSE	bintree/type.h	14;"	d
+FILE_MODE	apue.h	31;"	d
+FPOS	libc/define.h	19;"	d
+FSIZ	libc/define.h	20;"	d
+Fclose	libc/wrapstdio.c	/^Fclose(FILE *fp)$/;"	f
+Fdopen	libc/wrapstdio.c	/^Fdopen(int fd, const char *type)$/;"	f
+Fgets	libc/wrapstdio.c	/^Fgets(char *ptr, int n, FILE *stream)$/;"	f
+Find	bintree/avltree.c	/^pAvlNode Find(AvlTree Avl, AvlElemType x)$/;"	f
+Find	bintree/binsearchtree.c	/^pBSNode Find(BSTree BST, BSTElemType x)$/;"	f
+Find	cclklist/cclklist.c	/^Position Find (const ElemType e,const List L)$/;"	f
+Find	dblklist/dblklist.c	/^Position Find (const ElemType e,const List L)$/;"	f
+Find	hash/hash.c	/^position Find(HashTable ht, ElemType key)$/;"	f
+Find	table/table.c	/^Position Find(const Table T, const ElemType e)$/;"	f
+FindIndex	cclklist/cclklist.c	/^int  FindIndex (const ElemType e, const List L)$/;"	f
+FindIndex	dblklist/dblklist.c	/^int  FindIndex (const ElemType e, const List L)$/;"	f
+FindMax	bintree/avltree.c	/^pAvlNode FindMax(AvlTree Avl)$/;"	f
+FindMax	bintree/binsearchtree.c	/^pBSNode FindMax(BSTree BST)$/;"	f
+FindMin	bintree/avltree.c	/^pAvlNode FindMin(AvlTree Avl)$/;"	f
+FindMin	bintree/binsearchtree.c	/^pBSNode FindMin(BSTree BST)$/;"	f
+FindMinLH	priorityqueue/leftheap.c	/^ElemType FindMinLH(PriorityQueue LH)$/;"	f
+FindMinPQ	priorityqueue/binheap.c	/^ElemType FindMinPQ(PriorityQueue PQ)$/;"	f
+FindPrevious	cclklist/cclklist.c	/^Position FindPrevious (const ElemType e,const List L)$/;"	f
+FindPrevious	dblklist/dblklist.c	/^Position FindPrevious (const ElemType e,const List L)$/;"	f
+Fopen	libc/wrapstdio.c	/^Fopen(const char *pathname, const char *mode)$/;"	f
+Fork	libc/procmanage.c	/^pid_t Fork()$/;"	f
+Fputs	libc/wrapstdio.c	/^Fputs(const char *ptr, FILE *stream)$/;"	f
+Free	libc/memmanage.c	/^void Free(void *ptr)$/;"	f
+Front	bintree/queue.c	/^QElemType Front(const Queue Q)$/;"	f
+Front	bintree/queue.h	/^	PtrToQNode  Front;$/;"	m	struct:Queue
+Front	dqueue/Deque.h	/^	LinkList Front;$/;"	m	class:Deque
+Front	queue/queue.c	/^QElemType Front(const Queue Q)$/;"	f
+Front	queue/queue.h	/^	PtrToQNode  Front;$/;"	m	struct:Queue
+GETBMMAX	libc/bitmap.h	23;"	d
+GETBMSIZE	libc/bitmap.h	24;"	d
+GElemType	graph/graph.h	/^typedef  int  GElemType;$/;"	t
+GetBSTMax	bintree/binsearchtree.c	/^BSTElemType GetBSTMax(BSTree BST)$/;"	f
+GetBSTMin	bintree/binsearchtree.c	/^BSTElemType GetBSTMin(BSTree BST)$/;"	f
+GetBSTValue	bintree/binsearchtree.c	/^BSTElemType GetBSTValue(pBSNode pBSN)$/;"	f
+GetBit	libc/bitmap.h	/^int  GetBit (int i) { return BitContainer[i>>SHIFT] &   (1<<(i & MASK)); }$/;"	f
+GetBitBM	libc/bitmap.h	/^int  GetBitBM(BitMap *BM, int i)$/;"	f
+GetElem	table/table.c	/^static void GetElem(ElemType *e)$/;"	f	file:
+GetRoot	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::GetRoot(){$/;"	f	class:AVLTree
+Getsockopt	libc/wrapsocket.c	/^void Getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen)$/;"	f
+HAVE_ADDRINFO_STRUCT	libc/config.h	8;"	d
+HAVE_ARPA_INET_H	libc/config.h	11;"	d
+HAVE_BZERO	libc/config.h	14;"	d
+HAVE_BZERO	libc/config.h	359;"	d
+HAVE_DEV_ZERO	libc/config.h	381;"	d
+HAVE_ERRNO_H	libc/config.h	26;"	d
+HAVE_FCNTL_H	libc/config.h	29;"	d
+HAVE_GETADDRINFO	libc/config.h	32;"	d
+HAVE_GETADDRINFO_PROTO	libc/config.h	35;"	d
+HAVE_GETHOSTBYNAME2	libc/config.h	38;"	d
+HAVE_GETHOSTBYNAME_R	libc/config.h	41;"	d
+HAVE_GETHOSTNAME	libc/config.h	44;"	d
+HAVE_GETHOSTNAME_PROTO	libc/config.h	368;"	d
+HAVE_GETHOSTNAME_PROTO	libc/config.h	47;"	d
+HAVE_GETNAMEINFO	libc/config.h	50;"	d
+HAVE_GETNAMEINFO_PROTO	libc/config.h	53;"	d
+HAVE_GETRUSAGE_PROTO	libc/config.h	369;"	d
+HAVE_GETRUSAGE_PROTO	libc/config.h	56;"	d
+HAVE_HSTRERROR	libc/config.h	59;"	d
+HAVE_HSTRERROR_PROTO	libc/config.h	62;"	d
+HAVE_IF_NAMEINDEX_STRUCT	libc/config.h	65;"	d
+HAVE_IF_NAMETOINDEX	libc/config.h	68;"	d
+HAVE_IF_NAMETOINDEX_PROTO	libc/config.h	71;"	d
+HAVE_INET6_RTH_INIT	libc/config.h	74;"	d
+HAVE_INET_ATON	libc/config.h	77;"	d
+HAVE_INET_ATON_PROTO	libc/config.h	80;"	d
+HAVE_INET_PTON	libc/config.h	83;"	d
+HAVE_INET_PTON_PROTO	libc/config.h	86;"	d
+HAVE_LIBPTHREAD	libc/config.h	98;"	d
+HAVE_MKSTEMP	libc/config.h	110;"	d
+HAVE_MQUEUE_H	libc/config.h	338;"	d
+HAVE_MSGHDR_MSG_CONTROL	libc/config.h	113;"	d
+HAVE_NETDB_H	libc/config.h	119;"	d
+HAVE_NETINET_IN_H	libc/config.h	125;"	d
+HAVE_POLL	libc/config.h	131;"	d
+HAVE_POLL	libc/config.h	361;"	d
+HAVE_POLL_H	libc/config.h	134;"	d
+HAVE_POLL_H	libc/config.h	339;"	d
+HAVE_PSELECT	libc/config.h	137;"	d
+HAVE_PSELECT	libc/config.h	362;"	d
+HAVE_PSELECT_PROTO	libc/config.h	140;"	d
+HAVE_PSELECT_PROTO	libc/config.h	370;"	d
+HAVE_PTHREAD_H	libc/config.h	143;"	d
+HAVE_PTHREAD_H	libc/config.h	340;"	d
+HAVE_RPC_RPC_H	libc/config.h	341;"	d
+HAVE_SEMAPHORE_H	libc/config.h	342;"	d
+HAVE_SHM_OPEN_PROTO	libc/config.h	371;"	d
+HAVE_SIGINFO_T_STRUCT	libc/config.h	376;"	d
+HAVE_SIGNAL_H	libc/config.h	146;"	d
+HAVE_SIGWAIT	libc/config.h	363;"	d
+HAVE_SNPRINTF	libc/config.h	149;"	d
+HAVE_SNPRINTF_PROTO	libc/config.h	152;"	d
+HAVE_SNPRINTF_PROTO	libc/config.h	372;"	d
+HAVE_SOCKATMARK	libc/config.h	161;"	d
+HAVE_SOCKATMARK_PROTO	libc/config.h	164;"	d
+HAVE_STDIO_H	libc/config.h	167;"	d
+HAVE_STDLIB_H	libc/config.h	170;"	d
+HAVE_STRINGS_H	libc/config.h	173;"	d
+HAVE_STRINGS_H	libc/config.h	343;"	d
+HAVE_STRING_H	libc/config.h	176;"	d
+HAVE_STRUCT_IFREQ_IFR_MTU	libc/config.h	182;"	d
+HAVE_STRUCT_SOCKADDR_STORAGE	libc/config.h	185;"	d
+HAVE_SYS_IOCTL_H	libc/config.h	194;"	d
+HAVE_SYS_IOCTL_H	libc/config.h	345;"	d
+HAVE_SYS_IPC_H	libc/config.h	346;"	d
+HAVE_SYS_MMAN_H	libc/config.h	347;"	d
+HAVE_SYS_MSG_H	libc/config.h	348;"	d
+HAVE_SYS_PARAM_H	libc/config.h	197;"	d
+HAVE_SYS_SELECT_H	libc/config.h	200;"	d
+HAVE_SYS_SELECT_H	libc/config.h	351;"	d
+HAVE_SYS_SEM_H	libc/config.h	349;"	d
+HAVE_SYS_SHM_H	libc/config.h	350;"	d
+HAVE_SYS_SOCKET_H	libc/config.h	203;"	d
+HAVE_SYS_STAT_H	libc/config.h	209;"	d
+HAVE_SYS_SYSCTL_H	libc/config.h	212;"	d
+HAVE_SYS_SYSCTL_H	libc/config.h	352;"	d
+HAVE_SYS_TIME_H	libc/config.h	215;"	d
+HAVE_SYS_TIME_H	libc/config.h	353;"	d
+HAVE_SYS_TYPES_H	libc/config.h	218;"	d
+HAVE_SYS_UIO_H	libc/config.h	221;"	d
+HAVE_SYS_UN_H	libc/config.h	224;"	d
+HAVE_SYS_WAIT_H	libc/config.h	227;"	d
+HAVE_TIMESPEC_STRUCT	libc/config.h	230;"	d
+HAVE_TIMESPEC_STRUCT	libc/config.h	377;"	d
+HAVE_TIME_H	libc/config.h	233;"	d
+HAVE_UNISTD_H	libc/config.h	236;"	d
+HAVE_VALLOC	libc/config.h	364;"	d
+HAVE_VSNPRINTF	libc/config.h	239;"	d
+HAVE_VSNPRINTF	libc/config.h	365;"	d
+Hash	hash/hash.c	124;"	d	file:
+Hash1	hash/hash.c	/^Index Hash1(const char *key, int TableSize)$/;"	f
+Hash2	hash/hash.c	/^Index Hash2(const char *key, int TableSize)$/;"	f
+Hash3	hash/hash.c	/^Index Hash3(const char *key, int TableSize)$/;"	f
+HashTable	hash/hash.h	/^typedef struct HashTbl *HashTable;$/;"	t	typeref:struct:HashTbl
+HashTbl	hash/hash.h	/^struct HashTbl{$/;"	s
+HeapStruct	priorityqueue/binheap.h	/^struct HeapStruct {$/;"	s
+Height	bintree/avltree.c	/^static int Height(pAvlNode p)$/;"	f	file:
+HeightUpdate	bintree/avltree.c	/^static int HeightUpdate(AvlTree Avl)$/;"	f	file:
+HighPower	polynomaial/polynomaial.h	/^	int		HighPower;$/;"	m	struct:__anon1
+INC_SAT	libc/define.h	27;"	d
+IPV4	libc/config.h	248;"	d
+IPV6	libc/config.h	251;"	d
+IPv4	libc/config.h	254;"	d
+IPv6	libc/config.h	257;"	d
+InOrderTraverse	bintree/BintreeCpp.cpp	/^		void InOrderTraverse(const pBinTreeNode T, void (*visit)(const ElemType &)) const$/;"	f	class:CBinTree
+InTraverseAVL	bintree/avltree.c	/^void InTraverseAVL(const AvlTree Avl, void (*visit)(AvlElemType e, int height))$/;"	f
+InTraverseBinTree	bintree/bintree.c	/^void InTraverseBinTree(const BinTree BT, void (*visit)(BTElemType e))$/;"	f
+Index	hash/hash.h	/^typedef unsigned int Index;$/;"	t
+IndexNode	table/table.h	/^typedef struct IndexNode{$/;"	s
+Init	table/table.c	/^void Init (Table *T)$/;"	f
+InitATGraph	graph/atgraph.c	/^void InitATGraph(ATGraph *G, int vcount)$/;"	f
+InitAVL	bintree/avltree.c	/^void InitAVL(AvlTree *Avl)$/;"	f
+InitBM	libc/bitmap.h	/^void InitBM(BitMap *BM, int max)$/;"	f
+InitBSTree	bintree/binsearchtree.h	19;"	d
+InitBinTree	bintree/bintree.c	/^void InitBinTree(BT)$/;"	f
+InitCSTree	tree/tree.c	/^void InitCSTree(CSTree *T)$/;"	f
+InitPQ	priorityqueue/binheap.c	/^PriorityQueue InitPQ(int MaxSize)$/;"	f
+InitQueue	bintree/queue.c	/^void	InitQueue (Queue *Q)$/;"	f
+InitQueue	queue/queue.c	/^void	InitQueue (Queue *Q)$/;"	f
+InitStack	bintree/stack.c	/^void  InitStack(Stack *s)$/;"	f
+InitStack	stack/stack.c	/^void  InitStack(Stack *s)$/;"	f
+InitTable	hash/hash.c	/^HashTable InitTable(int TableSize)$/;"	f
+Initialization	table/table.c	/^void Initialization (Table *T)$/;"	f
+Insert	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::Insert(BSTNode<Type>* &node, const Type &key){$/;"	f	class:AVLTree
+Insert	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::Insert(const Type& key){$/;"	f	class:AVLTree
+Insert	cclklist/cclklist.c	/^int  Insert (const int i, const ElemType e, List L)$/;"	f
+Insert	dblklist/dblklist.c	/^void Insert (const ElemType e, const int i, List L)$/;"	f
+Insert	hash/hash.c	/^void	Insert(HashTable ht, ElemType key)$/;"	f
+Insert1LH	priorityqueue/leftheap.c	/^PriorityQueue Insert1LH(PriorityQueue LH, ElemType x)$/;"	f
+InsertAVL	bintree/avltree.c	/^AvlTree InsertAVL(AvlTree *Avl, AvlElemType x)$/;"	f
+InsertBSTree	bintree/binsearchtree.c	/^void InsertBSTree(BSTree *BST, BSTElemType x)$/;"	f
+InsertPQ	priorityqueue/binheap.c	/^void InsertPQ(PriorityQueue PQ, ElemType x)$/;"	f
+InsertSort	sort/sort.h	/^void InsertSort(ElemType A[], int N)$/;"	f
+Insert_i	table/table.c	/^int  Insert_i(const Table T, const int i, const ElemType e)$/;"	f
+Insert_p	table/table.c	/^int  Insert_p(const Table T, const Position p, const ElemType e)$/;"	f
+IsEmpty	cclklist/cclklist.c	/^int	 IsEmpty (const List L)$/;"	f
+IsEmpty	dblklist/dblklist.c	/^int	 IsEmpty (const List L)$/;"	f
+IsEmpty	dqueue/Queue.h	/^	bool IsEmpty() const$/;"	f	class:Queue
+IsEmpty	table/table.c	/^int	 IsEmpty (const Table T)$/;"	f
+IsEmptyAVL	bintree/avltree.c	/^int	 IsEmptyAVL(AvlTree Avl)$/;"	f
+IsEmptyBSTree	bintree/binsearchtree.h	22;"	d
+IsEmptyBinTree	bintree/bintree.c	/^int	 IsEmptyBinTree(const BinTree BT)$/;"	f
+IsEmptyLH	priorityqueue/leftheap.c	/^int	IsEmptyLH(PriorityQueue LH)$/;"	f
+IsEmptyPQ	priorityqueue/binheap.c	/^int IsEmptyPQ(PriorityQueue PQ)$/;"	f
+IsEmptyQueue	bintree/queue.c	/^int   IsEmptyQueue(const Queue Q)$/;"	f
+IsEmptyQueue	queue/queue.c	/^int   IsEmptyQueue(const Queue Q)$/;"	f
+IsEmptyStack	bintree/stack.c	/^int	  IsEmptyStack(const Stack s)$/;"	f
+IsEmptyStack	stack/stack.c	/^int	  IsEmptyStack(const Stack s)$/;"	f
+IsFullPQ	priorityqueue/binheap.c	/^int IsFullPQ(PriorityQueue PQ)$/;"	f
+LDFLAGS	libc/Makefile	/^LDFLAGS = $/;"	m
+LIB	hash/Makefile	/^LIB =  -lm$/;"	m
+LIB	priorityqueue/Makefile	/^LIB = $/;"	m
+LIBS	libc/Makefile	/^LIBS = -lpthread -lm$/;"	m
+LISTENQ	libc/lueap.h	91;"	d
+LL	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::LL(BSTNode<Type>* &topNode){$/;"	f	class:AVLTree
+LR	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::LR(BSTNode<Type>* &topNode){$/;"	f	class:AVLTree
+Length	cclklist/cclklist.c	/^int  Length (const List L)$/;"	f
+Length	dblklist/dblklist.c	/^int  Length (const List L)$/;"	f
+Length	table/table.c	/^int  Length(const Table T)$/;"	f
+LevelOrderTraverse	bintree/BintreeCpp.cpp	/^		void LevelOrderTraverse( void (*visit)(const ElemType &) ) const$/;"	f	class:CBinTree
+LevelTraverseBinTree	bintree/bintree.c	/^void LevelTraverseBinTree(const BinTree BT, void (*visit)(BTElemType e))$/;"	f
+LinkList	dqueue/Deque.h	/^	} ListNode, * LinkList;$/;"	t	class:Deque	typeref:struct:Deque::ListNode
+LinkedList	cclklist/cclklist.h	/^typedef PtrToNode	LinkedList;$/;"	t
+LinkedList	dblklist/dblklist.h	/^typedef PtrToNode	LinkedList;$/;"	t
+List	cclklist/cclklist.h	/^typedef PtrToNode	List;$/;"	t
+List	dblklist/dblklist.h	/^typedef PtrToNode	List;$/;"	t
+List	hash/hash.h	/^typedef struct ListNode *position, *List;$/;"	t	typeref:struct:
+List	table/table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+ListNode	dqueue/Deque.h	/^	typedef struct ListNode$/;"	s	class:Deque
+ListNode	dqueue/Deque.h	/^	} ListNode, * LinkList;$/;"	t	class:Deque	typeref:struct:Deque::ListNode
+ListNode	hash/hash.h	/^struct ListNode{$/;"	s
+Listen	libc/wrapsocket.c	/^void Listen(int fd, int backlog)$/;"	f
+Locate	cclklist/cclklist.c	/^Position Locate (int i, const List L)$/;"	f
+Locate	dblklist/dblklist.c	/^Position Locate (int i, const List L)$/;"	f
+Locate	table/table.c	/^Position Locate(const Table T, const int i)$/;"	f
+LocatePrevious	cclklist/cclklist.c	/^Position LocatePrevious (int i, const List L)$/;"	f
+LocatePrevious	dblklist/dblklist.c	/^Position LocatePrevious (int i, const List L)$/;"	f
+MACRO	libc/define.h	5;"	d
+MACRO	libc/define.h	6;"	d
+MASK	libc/bitmap.h	8;"	d
+MAXFD	libc/daemon.c	4;"	d	file:
+MAXLINE	apue.h	26;"	d
+MAXLINE	libc/lueap.h	90;"	d
+MAXNUMOFBC	libc/bitmap.h	9;"	d
+MCAST	libc/config.h	260;"	d
+MEM_B	libc/define.h	16;"	d
+MEM_W	libc/define.h	17;"	d
+MINSIZE	priorityqueue/binheap.h	23;"	d
+MINTABLESIZE	hash/hash.h	15;"	d
+MakeEmpty	table/table.c	/^void MakeEmpty(const Table T)$/;"	f
+MakeEmptyBSTree	bintree/binsearchtree.h	20;"	d
+MakeEmptyBinTree	bintree/bintree.c	/^void MakeEmptyBinTree(BinTree *BT)$/;"	f
+MakeEmptyPQ	priorityqueue/binheap.c	/^void MakeEmptyPQ(PriorityQueue PQ)$/;"	f
+MakePrimeTable	libc/bitmap.h	/^BitMap MakePrimeTable(int N)$/;"	f
+Malloc	libc/memmanage.c	/^void *Malloc(size_t size)$/;"	f
+Max	libc/define.h	8;"	d
+Max	libc/lueap.h	98;"	d
+Max	polynomaial/polynomaial.h	6;"	d
+MaxDegree	polynomaial/polynomaial.h	4;"	d
+Merge1	priorityqueue/leftheap.c	/^static PriorityQueue Merge1(PriorityQueue LH1, PriorityQueue LH2)$/;"	f	file:
+MergeLH	priorityqueue/leftheap.c	/^PriorityQueue MergeLH(PriorityQueue LH1, PriorityQueue LH2)$/;"	f
+Min	libc/define.h	9;"	d
+Min	libc/lueap.h	99;"	d
+MultPolynomaial	polynomaial/polynomaial.c	/^void MultPolynomaial( polynomaial Poly1, polynomaial Poly2, polynomaial mult)$/;"	f
+N	priorityqueue/binheap_main.c	3;"	d	file:
+N	sort/sort.c	6;"	d	file:
+NDG	libc/lueap.h	92;"	d
+NO	bintree/type.h	16;"	d
+Next	bintree/queue.h	/^	struct QNode	*Next;$/;"	m	struct:QNode	typeref:struct:QNode::QNode
+Next	bintree/stack.h	/^	struct SNode	*Next;$/;"	m	struct:SNode	typeref:struct:SNode::SNode
+Next	cclklist/cclklist.h	/^	struct Node	*Next;$/;"	m	struct:Node	typeref:struct:Node::Node
+Next	dblklist/dblklist.h	/^	struct Node	*Next;$/;"	m	struct:Node	typeref:struct:Node::Node
+Next	graph/graph.h	/^	struct ATVertex	*Next;$/;"	m	struct:ATVertex	typeref:struct:ATVertex::ATVertex
+Next	queue/queue.h	/^	struct QNode	*Next;$/;"	m	struct:QNode	typeref:struct:QNode::QNode
+Next	stack/stack.h	/^	struct SNode	*Next;$/;"	m	struct:SNode	typeref:struct:SNode::SNode
+NextPrime	hash/hash.c	/^static int NextPrime(int size)$/;"	f	file:
+Node	cclklist/cclklist.h	/^typedef struct  Node{$/;"	s
+Node	dblklist/dblklist.h	/^typedef struct  Node{$/;"	s
+Node	table/table.h	/^typedef struct Node{$/;"	s
+Node	table/table.h	/^}Node, *PtrToNode, *Position, *doubleLinkedList;$/;"	t	typeref:struct:Node
+OFF	libc/fileflags.c	8;"	d	file:
+ON	libc/fileflags.c	7;"	d	file:
+Open	libc/wrapsysio.c	/^void Open()$/;"	f
+Output_DLR	bintree/AvltreeCpp.cpp	/^	void Output_DLR(){ \/\/Node -> left -> Right order$/;"	f	class:BSTNode
+Output_DLR	bintree/AvltreeCpp.cpp	/^void AVLTree<Type>::Output_DLR(){$/;"	f	class:AVLTree
+Output_LRN	bintree/AvltreeCpp.cpp	/^void AVLTree<Type>::Output_LRN(){$/;"	f	class:AVLTree
+PACKAGE_BUGREPORT	libc/config.h	263;"	d
+PACKAGE_NAME	libc/config.h	266;"	d
+PACKAGE_STRING	libc/config.h	269;"	d
+PACKAGE_TARNAME	libc/config.h	272;"	d
+PACKAGE_VERSION	libc/config.h	275;"	d
+PerolateDown	priorityqueue/binheap.c	/^void PerolateDown(ElemType arr[], int pos, int n)$/;"	f
+Pop	bintree/stack.c	/^void Pop(Stack *s)$/;"	f
+Pop	stack/stack.c	/^void Pop(Stack *s)$/;"	f
+Pop_h	table/table.c	/^void  Pop_h (Table T)$/;"	f
+Pop_t	table/table.c	/^void  Pop_t (Table T)$/;"	f
+Position	cclklist/cclklist.h	/^typedef PtrToNode	Position;$/;"	t
+Position	dblklist/dblklist.h	/^typedef PtrToNode	Position;$/;"	t
+Position	table/table.h	/^}Node, *PtrToNode, *Position, *doubleLinkedList;$/;"	t	typeref:struct:Node
+PostOrderTraverse	bintree/BintreeCpp.cpp	/^		void PostOrderTraverse(const pBinTreeNode T, void (*visit)(const ElemType &)) const$/;"	f	class:CBinTree
+PostTraverseAVL	bintree/avltree.c	/^void PostTraverseAVL(const AvlTree Avl, void (*visit)(AvlElemType e, int height))$/;"	f
+PostTraverseBinTree	bintree/bintree.c	/^void PostTraverseBinTree(const BinTree BT, void (*visit)(BTElemType e))$/;"	f
+PostTraverseCSTree	tree/tree.c	/^void PostTraverseCSTree(CSTree T,void(*visit)(DataType *e))$/;"	f
+PowerMod	libc/bitmap.h	/^int PowerMod(int a, int b, int c)$/;"	f
+PreCreateBinTree	bintree/BintreeCpp.cpp	/^		void PreCreateBinTree(pBinTreeNode& T)$/;"	f	class:CBinTree
+PreCreateBinTree	bintree/bintree.c	/^void PreCreateBinTree(BinTree *BT)$/;"	f
+PreOrderTraverse	bintree/BintreeCpp.cpp	/^		void PreOrderTraverse(const pBinTreeNode T, void (*visit)(const ElemType &)) const$/;"	f	class:CBinTree
+PreTraverseAVL	bintree/avltree.c	/^void PreTraverseAVL(const AvlTree Avl, void (*visit)(AvlElemType e, int height))$/;"	f
+PreTraverseBinTree	bintree/bintree.c	/^void PreTraverseBinTree(const BinTree BT, void (*visit)(BTElemType e))$/;"	f
+PreTraverseCSTree	tree/tree.c	/^void PreTraverseCSTree(CSTree T,void(*visit)(DataType *e))$/;"	f
+Prev	bintree/queue.h	/^	struct QNode	*Prev;$/;"	m	struct:QNode	typeref:struct:QNode::QNode
+Prev	cclklist/cclklist.h	/^	struct Node *Prev;$/;"	m	struct:Node	typeref:struct:Node::Node
+Prev	dblklist/dblklist.h	/^	struct Node *Prev;$/;"	m	struct:Node	typeref:struct:Node::Node
+Prev	queue/queue.h	/^	struct QNode	*Prev;$/;"	m	struct:QNode	typeref:struct:QNode::QNode
+PriorityQueue	priorityqueue/binheap.h	/^typedef	struct HeapStruct *PriorityQueue; $/;"	t	typeref:struct:HeapStruct
+PriorityQueue	priorityqueue/leftheap.h	/^typedef struct TreeNode *PriorityQueue;$/;"	t	typeref:struct:TreeNode
+Pthread_attr_destroy	libc/wrappthread.c	/^Pthread_attr_destroy(pthread_attr_t *attr)$/;"	f
+Pthread_attr_init	libc/wrappthread.c	/^Pthread_attr_init(pthread_attr_t *attr)$/;"	f
+Pthread_attr_setdetachstate	libc/wrappthread.c	/^Pthread_attr_setdetachstate(pthread_attr_t *attr, int detach)$/;"	f
+Pthread_attr_setscope	libc/wrappthread.c	/^Pthread_attr_setscope(pthread_attr_t *attr, int scope)$/;"	f
+Pthread_cond_broadcast	libc/wrappthread.c	/^Pthread_cond_broadcast(pthread_cond_t *cptr)$/;"	f
+Pthread_cond_signal	libc/wrappthread.c	/^Pthread_cond_signal(pthread_cond_t *cptr)$/;"	f
+Pthread_cond_timedwait	libc/wrappthread.c	/^Pthread_cond_timedwait(pthread_cond_t *cptr, pthread_mutex_t *mptr,$/;"	f
+Pthread_cond_wait	libc/wrappthread.c	/^Pthread_cond_wait(pthread_cond_t *cptr, pthread_mutex_t *mptr)$/;"	f
+Pthread_condattr_destroy	libc/wrappthread.c	/^Pthread_condattr_destroy(pthread_condattr_t *attr)$/;"	f
+Pthread_condattr_init	libc/wrappthread.c	/^Pthread_condattr_init(pthread_condattr_t *attr)$/;"	f
+Pthread_condattr_setpshared	libc/wrappthread.c	/^Pthread_condattr_setpshared(pthread_condattr_t *attr, int flag)$/;"	f
+Pthread_create	libc/wrappthread.c	/^Pthread_create(pthread_t *tid, const pthread_attr_t *attr,$/;"	f
+Pthread_detach	libc/wrappthread.c	/^Pthread_detach(pthread_t tid)$/;"	f
+Pthread_join	libc/wrappthread.c	/^Pthread_join(pthread_t tid, void **status)$/;"	f
+Pthread_key_create	libc/wrappthread.c	/^Pthread_key_create(pthread_key_t *key, void (*func)(void *))$/;"	f
+Pthread_kill	libc/wrappthread.c	/^Pthread_kill(pthread_t tid, int signo)$/;"	f
+Pthread_mutex_destroy	libc/wrappthread.c	/^Pthread_mutex_destroy(pthread_mutex_t *mptr)$/;"	f
+Pthread_mutex_init	libc/wrappthread.c	/^Pthread_mutex_init(pthread_mutex_t *mptr, pthread_mutexattr_t *attr)$/;"	f
+Pthread_mutex_lock	libc/wrappthread.c	/^Pthread_mutex_lock(pthread_mutex_t *mptr)$/;"	f
+Pthread_mutex_unlock	libc/wrappthread.c	/^Pthread_mutex_unlock(pthread_mutex_t *mptr)$/;"	f
+Pthread_mutexattr_destroy	libc/wrappthread.c	/^Pthread_mutexattr_destroy(pthread_mutexattr_t *attr)$/;"	f
+Pthread_mutexattr_init	libc/wrappthread.c	/^Pthread_mutexattr_init(pthread_mutexattr_t *attr)$/;"	f
+Pthread_mutexattr_setpshared	libc/wrappthread.c	/^Pthread_mutexattr_setpshared(pthread_mutexattr_t *attr, int flag)$/;"	f
+Pthread_once	libc/wrappthread.c	/^Pthread_once(pthread_once_t *ptr, void (*func)(void))$/;"	f
+Pthread_setcancelstate	libc/wrappthread.c	/^Pthread_setcancelstate(int state, int *oldstate)$/;"	f
+Pthread_setspecific	libc/wrappthread.c	/^Pthread_setspecific(pthread_key_t key, const void *value)$/;"	f
+PtrToATV	graph/graph.h	/^}ATVertex, *PtrToATV, *ATGraph;$/;"	t	typeref:struct:ATVertex
+PtrToIndexNode	table/table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+PtrToNode	cclklist/cclklist.h	/^}DblkNode, *PtrToNode;$/;"	t	typeref:struct:Node
+PtrToNode	dblklist/dblklist.h	/^}DblkNode, *PtrToNode;$/;"	t	typeref:struct:Node
+PtrToNode	table/table.h	/^}Node, *PtrToNode, *Position, *doubleLinkedList;$/;"	t	typeref:struct:Node
+PtrToQNode	bintree/queue.h	/^typedef struct QNode *PtrToQNode;$/;"	t	typeref:struct:QNode
+PtrToQNode	queue/queue.h	/^}*PtrToQNode;$/;"	t	typeref:struct:QNode
+PtrToQueue	bintree/queue.h	/^typedef struct Queue *PtrToQueue, *Queue;$/;"	t	typeref:struct:Queue
+PtrToQueue	queue/queue.h	/^}*PtrToQueue, *Queue;$/;"	t	typeref:struct:Queue
+PtrToSNode	bintree/stack.h	/^typedef struct SNode *PtrToSNode, *Stack;$/;"	t	typeref:struct:SNode
+PtrToSNode	stack/stack.h	/^}*PtrToSNode, *Stack;$/;"	t	typeref:struct:SNode
+Puch_h	table/table.c	/^void  Puch_h(Table T, const ElemType e)$/;"	f
+Puch_t	table/table.c	/^void  Puch_t(Table T, const ElemType e)$/;"	f
+Push	bintree/stack.c	/^void  Push(const SElemType x, Stack *s)$/;"	f
+Push	stack/stack.c	/^void  Push(const ElemType x, Stack s)$/;"	f
+QElemType	bintree/type.h	29;"	d
+QElemType	queue/queue.h	/^typedef int	QElemType;$/;"	t
+QNode	bintree/queue.h	/^struct QNode{$/;"	s
+QNode	queue/queue.h	/^typedef struct QNode{$/;"	s
+QUEUE_H	dqueue/Queue.h	2;"	d
+Queue	bintree/queue.h	/^struct Queue{$/;"	s
+Queue	bintree/queue.h	/^typedef struct Queue *PtrToQueue, *Queue;$/;"	t	typeref:struct:
+Queue	dqueue/Queue.h	/^class Queue$/;"	c
+Queue	queue/queue.h	/^typedef struct Queue{$/;"	s
+Queue	queue/queue.h	/^}*PtrToQueue, *Queue;$/;"	t	typeref:struct:Queue
+Queue	table/table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+QuickPower	libc/bitmap.h	/^unsigned long long QuickPower(unsigned long long a, unsigned long long b)$/;"	f
+RL	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::RL(BSTNode<Type>* &topNode){$/;"	f	class:AVLTree
+RPCGEN_ANSIC	libc/config.h	394;"	d
+RR	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::RR(BSTNode<Type>* &topNode){$/;"	f	class:AVLTree
+Read	libc/wrapsysio.c	/^ssize_t Read(int fd, void *buf, size_t count)$/;"	f
+Realloc	libc/memmanage.c	/^void *Realloc(void *ptr, size_t size)$/;"	f
+Rear	bintree/queue.h	/^	PtrToQNode	Rear;$/;"	m	struct:Queue
+Rear	dqueue/Deque.h	/^	LinkList Rear;$/;"	m	class:Deque
+Rear	queue/queue.h	/^	PtrToQNode	Rear;$/;"	m	struct:Queue
+Recv	libc/wrapsocket.c	/^ssize_t Recv(int sockfd, void *buff, size_t len, int flags)$/;"	f
+Recvfrom	libc/wrapsocket.c	/^ssize_t Recvfrom(int sockfd, void *buff, ssize_t nbytes, int flags, struct sockaddr *from, socklen_t *addrlen)$/;"	f
+Retrieve	hash/hash.c	/^void Retrieve(position p)$/;"	f
+RetrieveAVL	bintree/avltree.c	/^AvlElemType RetrieveAVL(pAvlNode p)$/;"	f
+Rotate	bintree/AvltreeCpp.cpp	/^BSTNode<Type>* AVLTree<Type>::Rotate(BSTNode<Type>* node){$/;"	f	class:AVLTree
+SElemType	bintree/type.h	27;"	d
+SHELL	libc/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHIFT	libc/bitmap.h	7;"	d
+SIG_ERR	apue.h	41;"	d
+SNode	bintree/stack.h	/^struct  SNode{$/;"	s
+SNode	stack/stack.h	/^typedef struct  SNode{$/;"	s
+STDC_HEADERS	libc/config.h	281;"	d
+SUB	polynomaial/polynomaial.h	10;"	d
+Send	libc/wrapsocket.c	/^ssize_t Send(int sockfd, void *buff, size_t len, int flags)$/;"	f
+Sendto	libc/wrapsocket.c	/^ssize_t Sendto(int sockfd, const void *buff, ssize_t nbytes, int flags, struct sockaddr *from, socklen_t addrlen)$/;"	f
+SetBit	libc/bitmap.h	/^void SetBit (int i) {        BitContainer[i>>SHIFT] |=  (1<<(i & MASK)); }$/;"	f
+SetBitBM	libc/bitmap.h	/^int SetBitBM(BitMap *BM, int i)$/;"	f
+SetBitBMAll	libc/bitmap.h	/^void SetBitBMAll(BitMap *BM)$/;"	f
+Setsockopt	libc/wrapsocket.c	/^void Setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen)$/;"	f
+ShellSort	sort/sort.h	/^void ShellSort(ElemType A[], int N)$/;"	f
+Sigfunc	apue.h	/^typedef	void	Sigfunc(int);	\/* for signal handlers *\/$/;"	t
+Signal	libc/sighandler.c	/^void Signal(int signum, sighandler_t sighandler)$/;"	f
+SingleRotateWithLeft	bintree/avltree.c	/^static pAvlNode SingleRotateWithLeft(pAvlNode k2)$/;"	f	file:
+SingleRotateWithRight	bintree/avltree.c	/^static pAvlNode SingleRotateWithRight(pAvlNode k2)$/;"	f	file:
+Sockatmask	libc/wrapsocket.c	/^int Sockatmask(int fd)$/;"	f
+Socket	libc/wrapsocket.c	/^int Socket(int family, int type, int protocol)$/;"	f
+Socketpair	libc/wrapsocket.c	/^void Socketpair(int domain, int type, int protocol, int sv[2])$/;"	f
+Stack	bintree/stack.h	/^typedef struct SNode *PtrToSNode, *Stack;$/;"	t	typeref:struct:
+Stack	stack/stack.h	/^}*PtrToSNode, *Stack;$/;"	t	typeref:struct:SNode
+Stack	table/table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+SubPolynomaial	polynomaial/polynomaial.h	13;"	d
+Swap	priorityqueue/binheap.c	/^void Swap(ElemType *a, ElemType *b)$/;"	f
+SwapChildren	priorityqueue/leftheap.c	/^static void SwapChildren(PriorityQueue LH)$/;"	f	file:
+TABLESIZE	hash/hash_main.c	6;"	d	file:
+TIME_WITH_SYS_TIME	libc/config.h	284;"	d
+TIME_WITH_SYS_TIME	libc/config.h	356;"	d
+TRUE	bintree/type.h	13;"	d
+Table	table/table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+TableSize	hash/hash.h	/^	int		TableSize;$/;"	m	struct:HashTbl
+TheLists	hash/hash.h	/^	List	*TheLists;$/;"	m	struct:HashTbl
+ToChar	libc/define.h	2;"	d
+ToString	libc/define.h	3;"	d
+Top	bintree/stack.c	/^SElemType Top(const Stack s)$/;"	f
+Top	stack/stack.c	/^ElemType Top(const Stack s)$/;"	f
+TopPop_h	table/table.c	/^ElemType  TopPop_h (Table T)$/;"	f
+TopPop_t	table/table.c	/^ElemType  TopPop_t (Table T)$/;"	f
+TopSortATG	graph/atgraph.c	/^void TopSortATG(const ATGraph G)$/;"	f
+Top_h	table/table.c	/^ElemType  Top_h (Table T)$/;"	f
+Top_t	table/table.c	/^ElemType  Top_t (Table T)$/;"	f
+Traverse	cclklist/cclklist.c	/^void Traverse(List L,void (*func) (ElemType))$/;"	f
+Traverse	dblklist/dblklist.c	/^void Traverse(List L,void (*func) (ElemType))$/;"	f
+Traverse	table/table.c	/^void Traverse(const Table T,void (*handle)(PtrToNode node))$/;"	f
+TraverseBM	libc/bitmap.h	/^void TraverseBM(BitMap *BM)$/;"	f
+TraverseTable	hash/hash.c	/^void TraverseTable(HashTable ht)$/;"	f
+TreeNode	priorityqueue/leftheap.h	/^struct TreeNode {$/;"	s
+UNIXDOMAIN	libc/config.h	287;"	d
+UNIXSTR_PATH	libc/lueap.h	95;"	d
+UNIXdomain	libc/config.h	290;"	d
+UPCASE	libc/define.h	25;"	d
+VPATH	bintree/Makefile	/^VPATH=..\/$/;"	m
+VPATH	libc/Makefile	/^VPATH = $/;"	m
+VPATH	priorityqueue/Makefile	/^VPATH = ..\/libc$/;"	m
+WORD_HI	libc/define.h	23;"	d
+WORD_LO	libc/define.h	22;"	d
+Waitpid	libc/procmanage.c	/^void Waitpid(pid_t pid, int *status, int options)$/;"	f
+Write	libc/wrapsysio.c	/^void Write(int fd, void *buf, size_t count)$/;"	f
+YES	bintree/type.h	15;"	d
+ZeroPolynomaial	polynomaial/polynomaial.c	/^void ZeroPolynomaial(polynomaial Poly)$/;"	f
+_APUE_H	apue.h	4;"	d
+_AVLTREE_H_	bintree/avltree.h	2;"	d
+_BINHEAP_H_	priorityqueue/binheap.h	2;"	d
+_BINTREE_H_	bintree/bintree.h	2;"	d
+_BSTREE_H_	bintree/binsearchtree.h	2;"	d
+_GRAPH_H_	graph/graph.h	2;"	d
+_HASH_H_	hash/hash.h	2;"	d
+_LEFTHEAP_H_	priorityqueue/leftheap.h	2;"	d
+_LINKEDLIST_H_	cclklist/cclklist.h	2;"	d
+_LINKEDLIST_H_	dblklist/dblklist.h	2;"	d
+_QUEUE_H_	bintree/queue.h	2;"	d
+_QUEUE_H_	queue/queue.h	2;"	d
+_SORT_H_	sort/sort.h	2;"	d
+_STACK_H_	bintree/stack.h	2;"	d
+_STACK_H_	stack/stack.h	2;"	d
+_TABLE_H_	table/table.h	2;"	d
+_TYPE_H_	bintree/type.h	2;"	d
+_XOPEN_SOURCE	apue.h	10;"	d
+_XOPEN_SOURCE	apue.h	7;"	d
+__BTElemType	bintree/type.h	/^typedef char		__BTElemType;$/;"	t
+__LUEAP_H	libc/lueap.h	5;"	d
+__QElemType	bintree/type.h	/^typedef ptrBTNode	__QElemType;$/;"	t
+__SElemType	bintree/type.h	/^typedef ptrBTNode	__SElemType;$/;"	t
+back	dqueue/Deque.h	/^	T & back() const$/;"	f	class:Deque
+base	libc/bitmap.h	/^	int		*base;$/;"	m	struct:BitMap
+base	priorityqueue/binheap.h	/^	ElemType	*base;$/;"	m	struct:HeapStruct
+c	dqueue/Queue.h	/^	Deque <T> c;$/;"	m	class:Queue
+capacity	priorityqueue/binheap.h	/^	int			capacity;$/;"	m	struct:HeapStruct
+clear	bintree/AvltreeCpp.cpp	/^	void clear(){$/;"	f	class:BSTNode
+count	libc/sockdgram.c	/^static int	count = 0;$/;"	v	file:
+creat	table/table.c	/^void creat (Table *T)$/;"	f
+daemon_inetd	libc/daemon.c	/^void daemon_inetd(const char *pname, int facility)$/;"	f
+daemon_init	libc/daemon.c	/^int daemon_init(const char *pname, int facility)$/;"	f
+daemon_proc	libc/error.c	/^int		daemon_proc;		\/* set nonzero by daemon_init() *\/$/;"	v
+data	bintree/BintreeCpp.cpp	/^			ElemType				data;$/;"	m	struct:CBinTree::tagBinTreeNode	file:
+data	bintree/avltree.h	/^	AvlElemType		data;$/;"	m	struct:AvlNode
+data	bintree/bintree.h	/^	BTElemType			data;$/;"	m	struct:BinTreeNode
+data	hash/hash.h	/^	ElemType		data;$/;"	m	struct:ListNode
+data	priorityqueue/leftheap.h	/^	ElemType		data;$/;"	m	struct:TreeNode
+data	tree/tree.c	/^	DataType data;$/;"	m	struct:CSNode	file:
+dg_cli	libc/sockdgram.c	/^void dg_cli(FILE *fp, int sockfd, struct sockaddr *PtrServAddr, socklen_t addrlen)$/;"	f
+dg_cliaddr	libc/sockdgram.c	/^void dg_cliaddr(FILE *fp, int sockfd, struct sockaddr *PtrServAddr, socklen_t addrlen)$/;"	f
+dg_echo	libc/sockdgram.c	/^void dg_echo(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoaddr	libc/sockdgram.c	/^void dg_echoaddr(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoloop1	libc/sockdgram.c	/^void dg_echoloop1(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoloop2	libc/sockdgram.c	/^void dg_echoloop2(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+doubleLinkedList	table/table.h	/^}Node, *PtrToNode, *Position, *doubleLinkedList;$/;"	t	typeref:struct:Node
+elem	dqueue/Deque.h	/^		T elem;$/;"	m	struct:Deque::ListNode
+elem	table/table.h	/^	ElemType		elem;$/;"	m	struct:Node
+err_doit	error.c	/^err_doit(int errnoflag, int error, const char *fmt, va_list ap)$/;"	f	file:
+err_doit	libc/error.c	/^err_doit(int errnoflag, int level, const char *fmt, va_list ap)$/;"	f	file:
+err_dump	error.c	/^err_dump(const char *fmt, ...)$/;"	f
+err_dump	libc/error.c	/^err_dump(const char *fmt, ...)$/;"	f
+err_exit	error.c	/^err_exit(int error, const char *fmt, ...)$/;"	f
+err_msg	error.c	/^err_msg(const char *fmt, ...)$/;"	f
+err_msg	libc/error.c	/^err_msg(const char *fmt, ...)$/;"	f
+err_quit	error.c	/^err_quit(const char *fmt, ...)$/;"	f
+err_quit	libc/error.c	/^err_quit(const char *fmt, ...)$/;"	f
+err_ret	error.c	/^err_ret(const char *fmt, ...)$/;"	f
+err_ret	libc/error.c	/^err_ret(const char *fmt, ...)$/;"	f
+err_sys	error.c	/^err_sys(const char *fmt, ...)$/;"	f
+err_sys	libc/error.c	/^err_sys(const char *fmt, ...)$/;"	f
+firstchild	tree/tree.c	/^	struct CSNode *firstchild,*nextsibling;$/;"	m	struct:CSNode	typeref:struct:CSNode::CSNode	file:
+fl_off	libc/fileflags.c	30;"	d	file:
+fl_on	libc/fileflags.c	28;"	d	file:
+front	dqueue/Deque.h	/^	T & front() const$/;"	f	class:Deque
+getHeight	bintree/AvltreeCpp.cpp	/^	int getHeight(){$/;"	f	class:BSTNode
+getfl	libc/fileflags.c	/^void getfl(int fd)$/;"	f
+getkey	bintree/AvltreeCpp.cpp	/^	Type getkey(){return key;}$/;"	f	class:BSTNode
+head	table/table.h	/^	doubleLinkedList	head;$/;"	m	struct:IndexNode
+height	bintree/avltree.h	/^	int				height;$/;"	m	struct:AvlNode
+host_serv	libc/sockusedns.c	/^struct  addrinfo *host_serv(const char *hostname, const char *service, int family, int socktype)$/;"	f
+isEmpty	dqueue/Deque.h	/^	bool isEmpty() const$/;"	f	class:Deque
+is_read_lockable	apue.h	104;"	d
+is_read_lockable	libc/lueap.h	237;"	d
+is_write_lockable	apue.h	106;"	d
+is_write_lockable	libc/lueap.h	240;"	d
+key	bintree/AvltreeCpp.cpp	/^	Type key;$/;"	m	class:BSTNode	file:
+key	table/table.h	/^	int		key;$/;"	m	struct:ElementType
+left	bintree/AvltreeCpp.cpp	/^	BSTNode *left;$/;"	m	class:BSTNode	file:
+left	bintree/avltree.h	/^	struct AvlNode *left;$/;"	m	struct:AvlNode	typeref:struct:AvlNode::AvlNode
+left	bintree/bintree.h	/^	struct BinTreeNode	*left;$/;"	m	struct:BinTreeNode	typeref:struct:BinTreeNode::BinTreeNode
+left	priorityqueue/leftheap.h	/^	PriorityQueue	left;$/;"	m	struct:TreeNode
+lock_reg	libc/flock.c	/^int lock_reg(int fd, int cmd, int type, off_t offset, int whence, off_t len)$/;"	f
+lock_test	libc/flock.c	/^int lock_test(int fd, int type, off_t offset, int whence, off_t len)$/;"	f
+m_pHead	bintree/BintreeCpp.cpp	/^		pBinTreeNode m_pHead;$/;"	m	class:CBinTree	file:
+main	bintree/AvltreeCpp.cpp	/^int main() {$/;"	f
+main	bintree/BintreeCpp.cpp	/^int main(void)$/;"	f
+main	bintree/avltree_main.c	/^int main (void)$/;"	f
+main	bintree/binsearchtree_main.c	/^int main (void)$/;"	f
+main	bintree/bintree_main.c	/^int main(int argc, char **argv)$/;"	f
+main	cclklist/main.c	/^int main()$/;"	f
+main	dblklist/main.c	/^int main()$/;"	f
+main	dqueue/main.cpp	/^int main()$/;"	f
+main	graph/test_atg.c	/^int main (void)$/;"	f
+main	hash/hash_main.c	/^int main (void)$/;"	f
+main	libc/hello.c	/^int main (void)$/;"	f
+main	polynomaial/main.c	/^int main ()$/;"	f
+main	priorityqueue/binheap_main.c	/^int main (void)$/;"	f
+main	priorityqueue/leftheap_main.c	/^int main (void)$/;"	f
+main	priorityqueue/skewheap_main.c	/^int main (void)$/;"	f
+main	queue/main.c	/^int main (void)$/;"	f
+main	sort/sort.c	/^int main (void)$/;"	f
+main	stack/main.c	/^int main(void)$/;"	f
+main	table/main.c	/^int main (void)$/;"	f
+main	tree/tree.c	/^int main()$/;"	f
+max	apue.h	45;"	d
+max	libc/bitmap.h	/^	int		max;$/;"	m	struct:BitMap
+min	apue.h	44;"	d
+next	dqueue/Deque.h	/^		ListNode * next;$/;"	m	struct:Deque::ListNode
+next	hash/hash.h	/^	struct ListNode *next;$/;"	m	struct:ListNode	typeref:struct:ListNode::ListNode
+next	table/table.h	/^	struct Node		*next;$/;"	m	struct:Node	typeref:struct:Node::Node
+nextsibling	tree/tree.c	/^	struct CSNode *firstchild,*nextsibling;$/;"	m	struct:CSNode	typeref:struct:CSNode::	file:
+nonRecursiveInOrderTraverse	bintree/BintreeCpp.cpp	/^		void nonRecursiveInOrderTraverse(void (*visit)(const ElemType &)) const$/;"	f	class:CBinTree
+nonRecursiveInTraverseBinTree	bintree/bintree.c	/^void nonRecursiveInTraverseBinTree(const BinTree BT, void (*visit)(BTElemType e))$/;"	f
+nonRecursivePostOrderTraverse	bintree/BintreeCpp.cpp	/^		void nonRecursivePostOrderTraverse(void (*visit)(const ElemType &)) const$/;"	f	class:CBinTree
+nonRecursivePostTraverseBinTree	bintree/bintree.c	/^void nonRecursivePostTraverseBinTree(const BinTree BT, void (*visit)(BTElemType e))$/;"	f
+nonRecursivePreOrderTraverse	bintree/BintreeCpp.cpp	/^		void nonRecursivePreOrderTraverse(void (*visit)(const ElemType &)) const$/;"	f	class:CBinTree
+nonRecursivePreTraverseBinTree	bintree/bintree.c	/^void nonRecursivePreTraverseBinTree(const BinTree BT, void (*visit)(BTElemType e))$/;"	f
+npl	priorityqueue/leftheap.h	/^	int				npl;$/;"	m	struct:TreeNode
+pAvlNode	bintree/avltree.h	/^typedef struct AvlNode *pAvlNode;$/;"	t	typeref:struct:AvlNode
+pBSNode	bintree/binsearchtree.h	/^typedef BSBinTreeNode *BSTree, *pBSNode, BSNode;$/;"	t
+pBTNode	bintree/bintree.h	/^typedef struct BinTreeNode *BinTree, BTNode, *pBTNode;$/;"	t	typeref:struct:
+pBinTreeNode	bintree/BintreeCpp.cpp	/^		}BinTreeNode, *pBinTreeNode;$/;"	t	class:CBinTree	typeref:struct:CBinTree::tagBinTreeNode	file:
+plChild	bintree/BintreeCpp.cpp	/^			struct tagBinTreeNode*	plChild;$/;"	m	struct:CBinTree::tagBinTreeNode	typeref:struct:CBinTree::tagBinTreeNode::tagBinTreeNode	file:
+polynomaial	polynomaial/polynomaial.h	/^}*polynomaial;$/;"	t	typeref:struct:__anon1
+pop	dqueue/Queue.h	/^	void pop()$/;"	f	class:Queue
+pop_back	dqueue/Deque.h	/^	void pop_back()$/;"	f	class:Deque
+pop_front	dqueue/Deque.h	/^	void pop_front()$/;"	f	class:Deque
+position	hash/hash.h	/^typedef struct ListNode *position, *List;$/;"	t	typeref:struct:ListNode
+prChild	bintree/BintreeCpp.cpp	/^			struct tagBinTreeNode*	prChild;$/;"	m	struct:CBinTree::tagBinTreeNode	typeref:struct:CBinTree::tagBinTreeNode::tagBinTreeNode	file:
+pr_thread_id	libc/wrappthread.c	/^pr_thread_id(pthread_t *ptr)$/;"	f
+prev	dqueue/Deque.h	/^		ListNode * prev;$/;"	m	struct:Deque::ListNode
+prev	table/table.h	/^	struct Node		*prev;$/;"	m	struct:Node	typeref:struct:Node::Node
+print	bintree/BintreeCpp.cpp	/^void print(const char& ch)$/;"	f
+print	bintree/avltree_main.c	/^void print(AvlElemType e, int height)$/;"	f
+print	bintree/binsearchtree_main.c	/^void print(__BTElemType x)$/;"	f
+print	bintree/bintree_main.c	/^void print(char ch)$/;"	f
+print	cclklist/cclklist.c	/^static void print (ElemType e)$/;"	f	file:
+print	dblklist/dblklist.c	/^static void print (ElemType e)$/;"	f	file:
+print	table/main.c	/^static void print(PtrToNode node)$/;"	f	file:
+ptrBTNode	bintree/type.h	/^typedef struct BinTreeNode *ptrBTNode;$/;"	t	typeref:struct:BinTreeNode
+push	dqueue/Queue.h	/^	void push( const T & e )$/;"	f	class:Queue
+push_back	dqueue/Deque.h	/^	void push_back( const T & e )$/;"	f	class:Deque
+push_front	dqueue/Deque.h	/^	void push_front( const T & e )$/;"	f	class:Deque
+read_lock	apue.h	91;"	d
+read_lock	libc/lueap.h	222;"	d
+readable_timeo	libc/wrapsocket.c	/^int readable_timeo(int fd, int sec)$/;"	f
+readline1	libc/wrapsysio.c	/^ssize_t readline1(int fd, void *vptr, size_t linelen)$/;"	f
+readn	libc/wrapsysio.c	/^ssize_t readn(int fd, void *vptr, size_t n)$/;"	f
+readw_lock	apue.h	93;"	d
+readw_lock	libc/lueap.h	225;"	d
+recvfrom_alarm	libc/sockdgram.c	/^static void recvfrom_alarm(int signo)$/;"	f	file:
+recvfrom_int	libc/sockdgram.c	/^static void recvfrom_int(int signo)$/;"	f	file:
+right	bintree/AvltreeCpp.cpp	/^	BSTNode *right;$/;"	m	class:BSTNode	file:
+right	bintree/avltree.h	/^	struct AvlNode *right;$/;"	m	struct:AvlNode	typeref:struct:AvlNode::AvlNode
+right	bintree/bintree.h	/^	struct BinTreeNode	*right;$/;"	m	struct:BinTreeNode	typeref:struct:BinTreeNode::BinTreeNode
+right	priorityqueue/leftheap.h	/^	PriorityQueue	right;$/;"	m	struct:TreeNode
+root	bintree/AvltreeCpp.cpp	/^	BSTNode<Type> *root;$/;"	m	class:AVLTree	file:
+set_fl	libc/fileflags.c	/^void set_fl(int fd, int flags, int type)$/;"	f
+sig_chld	libc/sighandler.c	/^void sig_chld(int signo)$/;"	f
+sighandler_t	libc/lueap.h	/^typedef void (*sighandler_t)(int);$/;"	t
+size	libc/bitmap.h	/^	int		size;$/;"	m	struct:BitMap
+size	priorityqueue/binheap.h	/^	int			size;$/;"	m	struct:HeapStruct
+sock_ntop	libc/sockaddr.c	/^char *sock_ntop(const struct sockaddr *sa, socklen_t salen)$/;"	f
+srcdir	libc/Makefile	/^srcdir = $/;"	m
+str_cli	libc/sockstream.c	/^void str_cli(FILE *fp, int  sockfd)$/;"	f
+str_echo	libc/sockstream.c	/^void str_echo(int fd)$/;"	f
+t_scalar_t	libc/config.h	314;"	d
+t_uscalar_t	libc/config.h	317;"	d
+tagBinTreeNode	bintree/BintreeCpp.cpp	/^		typedef struct tagBinTreeNode {$/;"	s	class:CBinTree	file:
+tail	table/table.h	/^	doubleLinkedList	tail;$/;"	m	struct:IndexNode
+tcp_connect	libc/sockusedns.c	/^int		tcp_connect(const char *hostname, const char *service)$/;"	f
+tcp_listen	libc/sockusedns.c	/^int	tcp_listen(const char *hostname, const char *service, socklen_t *addrlenp)$/;"	f
+top	dqueue/Queue.h	/^	T & top() const$/;"	f	class:Queue
+udp_client	libc/sockusedns.c	/^int		udp_client(const char *hostname, const char *service, struct sockaddr *saptr, socklen_t *addrlenp)$/;"	f
+udp_connect	libc/sockusedns.c	/^int		udp_connect(const char *hostname, const char *service)$/;"	f
+udp_server	libc/sockusedns.c	/^int		udp_server(const char *hostname, const char *service, socklen_t *addrlenp)$/;"	f
+uint16_t	libc/config.h	388;"	d
+uint32_t	libc/config.h	389;"	d
+uint8_t	libc/config.h	387;"	d
+un_lock	apue.h	99;"	d
+un_lock	libc/lueap.h	234;"	d
+vnum	graph/graph.h	/^	int			    vnum;	$/;"	m	struct:ATVertex
+write_lock	apue.h	95;"	d
+write_lock	libc/lueap.h	228;"	d
+writen	libc/wrapsysio.c	/^ssize_t writen(int fd, const void *vptr, size_t n)$/;"	f
+writew_lock	apue.h	97;"	d
+writew_lock	libc/lueap.h	231;"	d
+~CBinTree	bintree/BintreeCpp.cpp	/^		virtual ~CBinTree()$/;"	f	class:CBinTree
+~Deque	dqueue/Deque.h	/^	~Deque()$/;"	f	class:Deque

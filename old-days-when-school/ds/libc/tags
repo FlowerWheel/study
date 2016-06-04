@@ -1,0 +1,272 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Accept	wrapsocket.c	/^int Accept(int listenfd, struct sockaddr *cliaddr, socklen_t *addrlen)$/;"	f
+BITSPERWORD	bitmap.h	5;"	d
+Bind	wrapsocket.c	/^void Bind(int sockfd, const struct sockaddr *localaddr, socklen_t addrlen)$/;"	f
+BitContainer	bitmap.h	/^int BitContainer[1 + N\/BITSPERWORD];$/;"	v
+BitMap	bitmap.h	/^typedef struct BitMap{$/;"	s
+BitMap	bitmap.h	/^}BitMap, BitSet;$/;"	t	typeref:struct:BitMap
+BitSet	bitmap.h	/^}BitMap, BitSet;$/;"	t	typeref:struct:BitMap
+CC	Makefile	/^CC = gcc$/;"	m
+CCFLAGS	Makefile	/^CCFLAGS = $/;"	m
+CFLAGS	Makefile	/^CFLAGS =  -Wall -g$/;"	m
+CPU_VENDOR_OS	config.h	334;"	d
+CPU_VENDOR_OS	config.h	5;"	d
+Calloc	memmanage.c	/^void *Calloc(size_t nmemb, size_t size)$/;"	f
+Close	wrapsysio.c	/^void Close(int fd)$/;"	f
+ClrBit	bitmap.h	/^void ClrBit (int i) {        BitContainer[i>>SHIFT] &= ~(1<<(i & MASK)); }$/;"	f
+ClrBitBM	bitmap.h	/^int ClrBitBM(BitMap *BM, int i)$/;"	f
+ClrBitBMAll	bitmap.h	/^void ClrBitBMAll(BitMap *BM)$/;"	f
+Connect	wrapsocket.c	/^void Connect(int sockfd, const struct sockaddr *servaddr, socklen_t addrlen)$/;"	f
+DEP	Makefile	/^DEP = $(patsubst %.c, %.o, hello.c $(wildcard *.c))$/;"	m
+DGLEN	lueap.h	93;"	d
+DestoryBM	bitmap.h	/^void DestoryBM(BitMap *BM)$/;"	f
+Eql	lueap.h	100;"	d
+Fclose	wrapstdio.c	/^Fclose(FILE *fp)$/;"	f
+Fdopen	wrapstdio.c	/^Fdopen(int fd, const char *type)$/;"	f
+Fgets	wrapstdio.c	/^Fgets(char *ptr, int n, FILE *stream)$/;"	f
+Fopen	wrapstdio.c	/^Fopen(const char *pathname, const char *mode)$/;"	f
+Fork	procmanage.c	/^pid_t Fork()$/;"	f
+Fputs	wrapstdio.c	/^Fputs(const char *ptr, FILE *stream)$/;"	f
+Free	memmanage.c	/^void Free(void *ptr)$/;"	f
+GETBMMAX	bitmap.h	22;"	d
+GETBMSIZE	bitmap.h	23;"	d
+GetBit	bitmap.h	/^int  GetBit (int i) { return BitContainer[i>>SHIFT] &   (1<<(i & MASK)); }$/;"	f
+GetBitBM	bitmap.h	/^int  GetBitBM(BitMap *BM, int i)$/;"	f
+Getsockopt	wrapsocket.c	/^void Getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen)$/;"	f
+HAVE_ADDRINFO_STRUCT	config.h	8;"	d
+HAVE_ARPA_INET_H	config.h	11;"	d
+HAVE_BZERO	config.h	14;"	d
+HAVE_BZERO	config.h	359;"	d
+HAVE_DEV_ZERO	config.h	381;"	d
+HAVE_ERRNO_H	config.h	26;"	d
+HAVE_FCNTL_H	config.h	29;"	d
+HAVE_GETADDRINFO	config.h	32;"	d
+HAVE_GETADDRINFO_PROTO	config.h	35;"	d
+HAVE_GETHOSTBYNAME2	config.h	38;"	d
+HAVE_GETHOSTBYNAME_R	config.h	41;"	d
+HAVE_GETHOSTNAME	config.h	44;"	d
+HAVE_GETHOSTNAME_PROTO	config.h	368;"	d
+HAVE_GETHOSTNAME_PROTO	config.h	47;"	d
+HAVE_GETNAMEINFO	config.h	50;"	d
+HAVE_GETNAMEINFO_PROTO	config.h	53;"	d
+HAVE_GETRUSAGE_PROTO	config.h	369;"	d
+HAVE_GETRUSAGE_PROTO	config.h	56;"	d
+HAVE_HSTRERROR	config.h	59;"	d
+HAVE_HSTRERROR_PROTO	config.h	62;"	d
+HAVE_IF_NAMEINDEX_STRUCT	config.h	65;"	d
+HAVE_IF_NAMETOINDEX	config.h	68;"	d
+HAVE_IF_NAMETOINDEX_PROTO	config.h	71;"	d
+HAVE_INET6_RTH_INIT	config.h	74;"	d
+HAVE_INET_ATON	config.h	77;"	d
+HAVE_INET_ATON_PROTO	config.h	80;"	d
+HAVE_INET_PTON	config.h	83;"	d
+HAVE_INET_PTON_PROTO	config.h	86;"	d
+HAVE_LIBPTHREAD	config.h	98;"	d
+HAVE_MKSTEMP	config.h	110;"	d
+HAVE_MQUEUE_H	config.h	338;"	d
+HAVE_MSGHDR_MSG_CONTROL	config.h	113;"	d
+HAVE_NETDB_H	config.h	119;"	d
+HAVE_NETINET_IN_H	config.h	125;"	d
+HAVE_POLL	config.h	131;"	d
+HAVE_POLL	config.h	361;"	d
+HAVE_POLL_H	config.h	134;"	d
+HAVE_POLL_H	config.h	339;"	d
+HAVE_PSELECT	config.h	137;"	d
+HAVE_PSELECT	config.h	362;"	d
+HAVE_PSELECT_PROTO	config.h	140;"	d
+HAVE_PSELECT_PROTO	config.h	370;"	d
+HAVE_PTHREAD_H	config.h	143;"	d
+HAVE_PTHREAD_H	config.h	340;"	d
+HAVE_RPC_RPC_H	config.h	341;"	d
+HAVE_SEMAPHORE_H	config.h	342;"	d
+HAVE_SHM_OPEN_PROTO	config.h	371;"	d
+HAVE_SIGINFO_T_STRUCT	config.h	376;"	d
+HAVE_SIGNAL_H	config.h	146;"	d
+HAVE_SIGWAIT	config.h	363;"	d
+HAVE_SNPRINTF	config.h	149;"	d
+HAVE_SNPRINTF_PROTO	config.h	152;"	d
+HAVE_SNPRINTF_PROTO	config.h	372;"	d
+HAVE_SOCKATMARK	config.h	161;"	d
+HAVE_SOCKATMARK_PROTO	config.h	164;"	d
+HAVE_STDIO_H	config.h	167;"	d
+HAVE_STDLIB_H	config.h	170;"	d
+HAVE_STRINGS_H	config.h	173;"	d
+HAVE_STRINGS_H	config.h	343;"	d
+HAVE_STRING_H	config.h	176;"	d
+HAVE_STRUCT_IFREQ_IFR_MTU	config.h	182;"	d
+HAVE_STRUCT_SOCKADDR_STORAGE	config.h	185;"	d
+HAVE_SYS_IOCTL_H	config.h	194;"	d
+HAVE_SYS_IOCTL_H	config.h	345;"	d
+HAVE_SYS_IPC_H	config.h	346;"	d
+HAVE_SYS_MMAN_H	config.h	347;"	d
+HAVE_SYS_MSG_H	config.h	348;"	d
+HAVE_SYS_PARAM_H	config.h	197;"	d
+HAVE_SYS_SELECT_H	config.h	200;"	d
+HAVE_SYS_SELECT_H	config.h	351;"	d
+HAVE_SYS_SEM_H	config.h	349;"	d
+HAVE_SYS_SHM_H	config.h	350;"	d
+HAVE_SYS_SOCKET_H	config.h	203;"	d
+HAVE_SYS_STAT_H	config.h	209;"	d
+HAVE_SYS_SYSCTL_H	config.h	212;"	d
+HAVE_SYS_SYSCTL_H	config.h	352;"	d
+HAVE_SYS_TIME_H	config.h	215;"	d
+HAVE_SYS_TIME_H	config.h	353;"	d
+HAVE_SYS_TYPES_H	config.h	218;"	d
+HAVE_SYS_UIO_H	config.h	221;"	d
+HAVE_SYS_UN_H	config.h	224;"	d
+HAVE_SYS_WAIT_H	config.h	227;"	d
+HAVE_TIMESPEC_STRUCT	config.h	230;"	d
+HAVE_TIMESPEC_STRUCT	config.h	377;"	d
+HAVE_TIME_H	config.h	233;"	d
+HAVE_UNISTD_H	config.h	236;"	d
+HAVE_VALLOC	config.h	364;"	d
+HAVE_VSNPRINTF	config.h	239;"	d
+HAVE_VSNPRINTF	config.h	365;"	d
+IPV4	config.h	248;"	d
+IPV6	config.h	251;"	d
+IPv4	config.h	254;"	d
+IPv6	config.h	257;"	d
+InitBitMap	bitmap.h	/^void InitBitMap(BitMap *BM, int max)$/;"	f
+LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
+LIBS	Makefile	/^LIBS = -lpthread$/;"	m
+LISTENQ	lueap.h	91;"	d
+Listen	wrapsocket.c	/^void Listen(int fd, int backlog)$/;"	f
+MASK	bitmap.h	7;"	d
+MAXFD	daemon.c	4;"	d	file:
+MAXLINE	lueap.h	90;"	d
+MCAST	config.h	260;"	d
+Malloc	memmanage.c	/^void *Malloc(size_t size)$/;"	f
+Max	lueap.h	98;"	d
+Min	lueap.h	99;"	d
+N	bitmap.h	8;"	d
+NDG	lueap.h	92;"	d
+OFF	fileflags.c	8;"	d	file:
+ON	fileflags.c	7;"	d	file:
+Open	wrapsysio.c	/^void Open()$/;"	f
+PACKAGE_BUGREPORT	config.h	263;"	d
+PACKAGE_NAME	config.h	266;"	d
+PACKAGE_STRING	config.h	269;"	d
+PACKAGE_TARNAME	config.h	272;"	d
+PACKAGE_VERSION	config.h	275;"	d
+Pthread_attr_destroy	wrappthread.c	/^Pthread_attr_destroy(pthread_attr_t *attr)$/;"	f
+Pthread_attr_init	wrappthread.c	/^Pthread_attr_init(pthread_attr_t *attr)$/;"	f
+Pthread_attr_setdetachstate	wrappthread.c	/^Pthread_attr_setdetachstate(pthread_attr_t *attr, int detach)$/;"	f
+Pthread_attr_setscope	wrappthread.c	/^Pthread_attr_setscope(pthread_attr_t *attr, int scope)$/;"	f
+Pthread_cond_broadcast	wrappthread.c	/^Pthread_cond_broadcast(pthread_cond_t *cptr)$/;"	f
+Pthread_cond_signal	wrappthread.c	/^Pthread_cond_signal(pthread_cond_t *cptr)$/;"	f
+Pthread_cond_timedwait	wrappthread.c	/^Pthread_cond_timedwait(pthread_cond_t *cptr, pthread_mutex_t *mptr,$/;"	f
+Pthread_cond_wait	wrappthread.c	/^Pthread_cond_wait(pthread_cond_t *cptr, pthread_mutex_t *mptr)$/;"	f
+Pthread_condattr_destroy	wrappthread.c	/^Pthread_condattr_destroy(pthread_condattr_t *attr)$/;"	f
+Pthread_condattr_init	wrappthread.c	/^Pthread_condattr_init(pthread_condattr_t *attr)$/;"	f
+Pthread_condattr_setpshared	wrappthread.c	/^Pthread_condattr_setpshared(pthread_condattr_t *attr, int flag)$/;"	f
+Pthread_create	wrappthread.c	/^Pthread_create(pthread_t *tid, const pthread_attr_t *attr,$/;"	f
+Pthread_detach	wrappthread.c	/^Pthread_detach(pthread_t tid)$/;"	f
+Pthread_join	wrappthread.c	/^Pthread_join(pthread_t tid, void **status)$/;"	f
+Pthread_key_create	wrappthread.c	/^Pthread_key_create(pthread_key_t *key, void (*func)(void *))$/;"	f
+Pthread_kill	wrappthread.c	/^Pthread_kill(pthread_t tid, int signo)$/;"	f
+Pthread_mutex_destroy	wrappthread.c	/^Pthread_mutex_destroy(pthread_mutex_t *mptr)$/;"	f
+Pthread_mutex_init	wrappthread.c	/^Pthread_mutex_init(pthread_mutex_t *mptr, pthread_mutexattr_t *attr)$/;"	f
+Pthread_mutex_lock	wrappthread.c	/^Pthread_mutex_lock(pthread_mutex_t *mptr)$/;"	f
+Pthread_mutex_unlock	wrappthread.c	/^Pthread_mutex_unlock(pthread_mutex_t *mptr)$/;"	f
+Pthread_mutexattr_destroy	wrappthread.c	/^Pthread_mutexattr_destroy(pthread_mutexattr_t *attr)$/;"	f
+Pthread_mutexattr_init	wrappthread.c	/^Pthread_mutexattr_init(pthread_mutexattr_t *attr)$/;"	f
+Pthread_mutexattr_setpshared	wrappthread.c	/^Pthread_mutexattr_setpshared(pthread_mutexattr_t *attr, int flag)$/;"	f
+Pthread_once	wrappthread.c	/^Pthread_once(pthread_once_t *ptr, void (*func)(void))$/;"	f
+Pthread_setcancelstate	wrappthread.c	/^Pthread_setcancelstate(int state, int *oldstate)$/;"	f
+Pthread_setspecific	wrappthread.c	/^Pthread_setspecific(pthread_key_t key, const void *value)$/;"	f
+RPCGEN_ANSIC	config.h	394;"	d
+Read	wrapsysio.c	/^ssize_t Read(int fd, void *buf, size_t count)$/;"	f
+Realloc	memmanage.c	/^void *Realloc(void *ptr, size_t size)$/;"	f
+Recv	wrapsocket.c	/^ssize_t Recv(int sockfd, void *buff, size_t len, int flags)$/;"	f
+Recvfrom	wrapsocket.c	/^ssize_t Recvfrom(int sockfd, void *buff, ssize_t nbytes, int flags, struct sockaddr *from, socklen_t *addrlen)$/;"	f
+SHELL	Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHIFT	bitmap.h	6;"	d
+STDC_HEADERS	config.h	281;"	d
+Sem_close	wrapsem.c	/^int Sem_close(sem_t *sem)$/;"	f
+Sem_getvalue	wrapsem.c	/^int Sem_getvalue(sem_t *sem, int *valp)$/;"	f
+Sem_open	wrapsem.c	/^sem_t *Sem_open(const char *name, int flags, ...)$/;"	f
+Sem_post	wrapsem.c	/^int Sem_post(sem_t *sem)$/;"	f
+Sem_trywait	wrapsem.c	/^int Sem_trywait(sem_t *sem)$/;"	f
+Sem_unlink	wrapsem.c	/^int Sem_unlink(const char *name)$/;"	f
+Sem_wait	wrapsem.c	/^int Sem_wait(sem_t *sem)$/;"	f
+Send	wrapsocket.c	/^ssize_t Send(int sockfd, void *buff, size_t len, int flags)$/;"	f
+Sendto	wrapsocket.c	/^ssize_t Sendto(int sockfd, const void *buff, ssize_t nbytes, int flags, struct sockaddr *from, socklen_t addrlen)$/;"	f
+SetBit	bitmap.h	/^void SetBit (int i) {        BitContainer[i>>SHIFT] |=  (1<<(i & MASK)); }$/;"	f
+SetBitBM	bitmap.h	/^int SetBitBM(BitMap *BM, int i)$/;"	f
+SetBitBMAll	bitmap.h	/^void SetBitBMAll(BitMap *BM)$/;"	f
+Setsockopt	wrapsocket.c	/^void Setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen)$/;"	f
+Signal	sighandler.c	/^void Signal(int signum, sighandler_t sighandler)$/;"	f
+Sockatmask	wrapsocket.c	/^int Sockatmask(int fd)$/;"	f
+Socket	wrapsocket.c	/^int Socket(int family, int type, int protocol)$/;"	f
+Socketpair	wrapsocket.c	/^void Socketpair(int domain, int type, int protocol, int sv[2])$/;"	f
+TIME_WITH_SYS_TIME	config.h	284;"	d
+TIME_WITH_SYS_TIME	config.h	356;"	d
+TraverseBM	bitmap.h	/^void TraverseBM(BitMap *BM)$/;"	f
+UNIXDOMAIN	config.h	287;"	d
+UNIXSTR_PATH	lueap.h	95;"	d
+UNIXdomain	config.h	290;"	d
+VPATH	Makefile	/^VPATH = $/;"	m
+Waitpid	procmanage.c	/^void Waitpid(pid_t pid, int *status, int options)$/;"	f
+Write	wrapsysio.c	/^void Write(int fd, void *buf, size_t count)$/;"	f
+__LUEAP_H	lueap.h	5;"	d
+base	bitmap.h	/^	int		*base;$/;"	m	struct:BitMap
+count	sockdgram.c	/^static int	count = 0;$/;"	v	file:
+daemon_inetd	daemon.c	/^void daemon_inetd(const char *pname, int facility)$/;"	f
+daemon_init	daemon.c	/^int daemon_init(const char *pname, int facility)$/;"	f
+daemon_proc	error.c	/^int		daemon_proc;		\/* set nonzero by daemon_init() *\/$/;"	v
+dg_cli	sockdgram.c	/^void dg_cli(FILE *fp, int sockfd, struct sockaddr *PtrServAddr, socklen_t addrlen)$/;"	f
+dg_cliaddr	sockdgram.c	/^void dg_cliaddr(FILE *fp, int sockfd, struct sockaddr *PtrServAddr, socklen_t addrlen)$/;"	f
+dg_echo	sockdgram.c	/^void dg_echo(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoaddr	sockdgram.c	/^void dg_echoaddr(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoloop1	sockdgram.c	/^void dg_echoloop1(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoloop2	sockdgram.c	/^void dg_echoloop2(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+err_doit	error.c	/^err_doit(int errnoflag, int level, const char *fmt, va_list ap)$/;"	f	file:
+err_dump	error.c	/^err_dump(const char *fmt, ...)$/;"	f
+err_msg	error.c	/^err_msg(const char *fmt, ...)$/;"	f
+err_quit	error.c	/^err_quit(const char *fmt, ...)$/;"	f
+err_ret	error.c	/^err_ret(const char *fmt, ...)$/;"	f
+err_sys	error.c	/^err_sys(const char *fmt, ...)$/;"	f
+fl_off	fileflags.c	30;"	d	file:
+fl_on	fileflags.c	28;"	d	file:
+getfl	fileflags.c	/^void getfl(int fd)$/;"	f
+host_serv	sockusedns.c	/^struct  addrinfo *host_serv(const char *hostname, const char *service, int family, int socktype)$/;"	f
+is_read_lockable	lueap.h	237;"	d
+is_write_lockable	lueap.h	240;"	d
+lock_reg	flock.c	/^int lock_reg(int fd, int cmd, int type, off_t offset, int whence, off_t len)$/;"	f
+lock_test	flock.c	/^int lock_test(int fd, int type, off_t offset, int whence, off_t len)$/;"	f
+max	bitmap.h	/^	int		max;$/;"	m	struct:BitMap
+pr_thread_id	wrappthread.c	/^pr_thread_id(pthread_t *ptr)$/;"	f
+read_lock	lueap.h	222;"	d
+readable_timeo	wrapsocket.c	/^int readable_timeo(int fd, int sec)$/;"	f
+readline1	wrapsysio.c	/^ssize_t readline1(int fd, void *vptr, size_t linelen)$/;"	f
+readn	wrapsysio.c	/^ssize_t readn(int fd, void *vptr, size_t n)$/;"	f
+readw_lock	lueap.h	225;"	d
+recvfrom_alarm	sockdgram.c	/^static void recvfrom_alarm(int signo)$/;"	f	file:
+recvfrom_int	sockdgram.c	/^static void recvfrom_int(int signo)$/;"	f	file:
+set_fl	fileflags.c	/^void set_fl(int fd, int flags, int type)$/;"	f
+sig_chld	sighandler.c	/^void sig_chld(int signo)$/;"	f
+sighandler_t	lueap.h	/^typedef void (*sighandler_t)(int);$/;"	t
+size	bitmap.h	/^	int		size;$/;"	m	struct:BitMap
+sock_ntop	sockaddr.c	/^char *sock_ntop(const struct sockaddr *sa, socklen_t salen)$/;"	f
+srcdir	Makefile	/^srcdir = $/;"	m
+str_cli	sockstream.c	/^void str_cli(FILE *fp, int  sockfd)$/;"	f
+str_echo	sockstream.c	/^void str_echo(int fd)$/;"	f
+t_scalar_t	config.h	314;"	d
+t_uscalar_t	config.h	317;"	d
+tcp_connect	sockusedns.c	/^int		tcp_connect(const char *hostname, const char *service)$/;"	f
+tcp_listen	sockusedns.c	/^int	tcp_listen(const char *hostname, const char *service, socklen_t *addrlenp)$/;"	f
+udp_client	sockusedns.c	/^int		udp_client(const char *hostname, const char *service, struct sockaddr *saptr, socklen_t *addrlenp)$/;"	f
+udp_connect	sockusedns.c	/^int		udp_connect(const char *hostname, const char *service)$/;"	f
+udp_server	sockusedns.c	/^int		udp_server(const char *hostname, const char *service, socklen_t *addrlenp)$/;"	f
+uint16_t	config.h	388;"	d
+uint32_t	config.h	389;"	d
+uint8_t	config.h	387;"	d
+un_lock	lueap.h	234;"	d
+write_lock	lueap.h	228;"	d
+writen	wrapsysio.c	/^ssize_t writen(int fd, const void *vptr, size_t n)$/;"	f
+writew_lock	lueap.h	231;"	d

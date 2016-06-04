@@ -1,0 +1,209 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Accept	lib/warpsock.c	/^int Accept(int listenfd, struct sockaddr *cliaddr, socklen_t *addrlen)$/;"	f
+Bind	lib/warpsock.c	/^void Bind(int sockfd, const struct sockaddr *localaddr, socklen_t addrlen)$/;"	f
+CC	gettime/Makefile	/^CC = gcc$/;"	m
+CC	mycat/Makefile	/^CC = gcc$/;"	m
+CC	sockopt/Makefile	/^CC = gcc$/;"	m
+CC	tcp/Makefile	/^CC = gcc$/;"	m
+CC	transf/Makefile	/^CC = gcc$/;"	m
+CC	udp/Makefile	/^CC = gcc$/;"	m
+CC	unixdomain/Makefile	/^CC = gcc$/;"	m
+CCFLAGS	gettime/Makefile	/^CCFLAGS = $/;"	m
+CCFLAGS	mycat/Makefile	/^CCFLAGS = $/;"	m
+CCFLAGS	tcp/Makefile	/^CCFLAGS =$/;"	m
+CCFLAGS	transf/Makefile	/^CCFLAGS = $/;"	m
+CCFLAGS	udp/Makefile	/^CCFLAGS =$/;"	m
+CFLAGS	gettime/Makefile	/^CFLAGS = -I..\/lib\/ -g -Wall$/;"	m
+CFLAGS	mycat/Makefile	/^CFLAGS = -I..\/lib -Wall -g$/;"	m
+CFLAGS	sockopt/Makefile	/^CFLAGS = -I..\/lib -Wall -g$/;"	m
+CFLAGS	tcp/Makefile	/^CFLAGS = -I..\/lib -Wall -g$/;"	m
+CFLAGS	transf/Makefile	/^CFLAGS = -I..\/lib -Wall -g$/;"	m
+CFLAGS	udp/Makefile	/^CFLAGS = -I..\/lib -Wall -g$/;"	m
+CFLAGS	unixdomain/Makefile	/^CFLAGS = -I..\/lib -g -Wall$/;"	m
+Close	lib/warpsysio.c	/^void Close(int fd)$/;"	f
+Connect	lib/warpsock.c	/^void Connect(int sockfd, const struct sockaddr *servaddr, socklen_t addrlen)$/;"	f
+DEP_UDPCLI_01	udp/Makefile	/^DEP_UDPCLI_01 = udpcli_01.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_02	udp/Makefile	/^DEP_UDPCLI_02 = udpcli_02.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_03	udp/Makefile	/^DEP_UDPCLI_03 = udpcli_03.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_04	udp/Makefile	/^DEP_UDPCLI_04 = udpcli_04.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_05	udp/Makefile	/^DEP_UDPCLI_05 = udpcli_05.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_06	udp/Makefile	/^DEP_UDPCLI_06 = udpcli_06.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPSRVSELECT_01	udp/Makefile	/^DEP_UDPSRVSELECT_01 = $(patsubst  %.c, %.o, udpsrvselect01.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_01	udp/Makefile	/^DEP_UDPSRV_01 = $(patsubst  %.c, %.o, udpsrv_01.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_02	udp/Makefile	/^DEP_UDPSRV_02 = $(patsubst  %.c, %.o, udpsrv_02.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_03	udp/Makefile	/^DEP_UDPSRV_03 = $(patsubst  %.c, %.o, udpsrv_03.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_04	udp/Makefile	/^DEP_UDPSRV_04 = $(patsubst  %.c, %.o, udpsrv_04.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_05	udp/Makefile	/^DEP_UDPSRV_05 = $(patsubst  %.c, %.o, udpsrv_05.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_06	udp/Makefile	/^DEP_UDPSRV_06 = $(patsubst  %.c, %.o, udpsrv_06.c $(wildcard ..\/lib\/*.c))$/;"	m
+DGLEN	lib/myunp.h	91;"	d
+Fgets	lib/warpstdio.c	/^void Fgets(char *buf, int n, FILE *fp)$/;"	f
+Fork	lib/procmanage.c	/^pid_t Fork()$/;"	f
+Fputs	lib/warpstdio.c	/^void Fputs(const char str, FILE *fp)$/;"	f
+Getsockopt	lib/warpsock.c	/^void Getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen)$/;"	f
+LDFLAGS	mycat/Makefile	/^LDFLAGS =$/;"	m
+LDFLAGS	tcp/Makefile	/^LDFLAGS = $/;"	m
+LDFLAGS	transf/Makefile	/^LDFLAGS =$/;"	m
+LDFLAGS	udp/Makefile	/^LDFLAGS = $/;"	m
+LIBS	gettime/Makefile	/^LIBS =$/;"	m
+LIBS	mycat/Makefile	/^LIBS = $/;"	m
+LIBS	sockopt/Makefile	/^LIBS = $/;"	m
+LIBS	tcp/Makefile	/^LIBS = $/;"	m
+LIBS	transf/Makefile	/^LIBS = $/;"	m
+LIBS	udp/Makefile	/^LIBS = $/;"	m
+LIBS	unixdomain/Makefile	/^LIBS = $/;"	m
+LISTENQ	lib/myunp.h	89;"	d
+Listen	lib/warpsock.c	/^void Listen(int fd, int backlog)$/;"	f
+MAXFD	lib/daemon.c	4;"	d	file:
+MAXLINE	lib/myunp.h	88;"	d
+MCDEP	mycat/Makefile	/^MCDEP = $(patsubst %.c, %.o, $(wildcard ..\/lib\/*.c))$/;"	m
+Malloc	lib/memmanage.c	/^void *Malloc(size_t size)$/;"	f
+NDG	lib/myunp.h	90;"	d
+OFDEP	mycat/Makefile	/^OFDEP = $(patsubst %.c , %.o, $(wildcard ..\/lib\/*.c))$/;"	m
+OPEN_MAX	tcp/tcpserv03.c	6;"	d	file:
+Open	lib/warpsysio.c	/^void Open()$/;"	f
+PORT	udp/udpcli_01.c	3;"	d	file:
+PORT	udp/udpcli_02.c	3;"	d	file:
+PORT	udp/udpcli_03.c	3;"	d	file:
+PORT	udp/udpcli_04.c	3;"	d	file:
+PORT	udp/udpcli_05.c	3;"	d	file:
+PORT	udp/udpcli_06.c	3;"	d	file:
+PORT	udp/udpsrv_01.c	3;"	d	file:
+PORT	udp/udpsrv_02.c	3;"	d	file:
+PORT	udp/udpsrv_03.c	3;"	d	file:
+PORT	udp/udpsrv_04.c	3;"	d	file:
+PORT	udp/udpsrv_05.c	3;"	d	file:
+PORT	udp/udpsrv_06.c	3;"	d	file:
+PORT	udp/udpsrvselect01.c	3;"	d	file:
+Read	lib/warpsysio.c	/^ssize_t Read(int fd, void *buf, size_t count)$/;"	f
+Recvfrom	lib/warpsock.c	/^ssize_t Recvfrom(int sockfd, void *buff, ssize_t nbytes, int flags, struct sockaddr *from, socklen_t *addrlen)$/;"	f
+SERVPORT	tcp/tcpcli01.c	3;"	d	file:
+SERVPORT	tcp/tcpserv01.c	3;"	d	file:
+SERVPORT	tcp/tcpserv02.c	3;"	d	file:
+SERVPORT	tcp/tcpserv03.c	5;"	d	file:
+SHELL	gettime/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	mycat/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	sockopt/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	tcp/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	transf/Makefile	/^SHELL = \/bin\/sh $/;"	m
+SHELL	udp/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	unixdomain/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SRCDIR	transf/Makefile	/^SRCDIR = $/;"	m
+Sendto	lib/warpsock.c	/^ssize_t Sendto(int sockfd, const void *buff, ssize_t nbytes, int flags, struct sockaddr *from, socklen_t addrlen)$/;"	f
+Setsockopt	lib/warpsock.c	/^void Setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen)$/;"	f
+Signal	lib/sighandler.c	/^void Signal(int signum, sighandler_t sighandler)$/;"	f
+Socket	lib/warpsock.c	/^int Socket(int family, int type, int protocol)$/;"	f
+Socketpair	lib/warpsock.c	/^void Socketpair(int domain, int type, int protocol, int sv[2])$/;"	f
+TCPCLI01_DEP	tcp/Makefile	/^TCPCLI01_DEP = $(patsubst %.c, %.o, tcpcli01.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPCLI02_DEP	tcp/Makefile	/^TCPCLI02_DEP = $(patsubst %.c, %.o, tcpcli02.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPCLI03_DEP	tcp/Makefile	/^TCPCLI03_DEP = $(patsubst %.c, %.o, tcpcli03.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPSERV01_DEP	tcp/Makefile	/^TCPSERV01_DEP = $(patsubst %.c, %.o, tcpserv01.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPSERV02_DEP	tcp/Makefile	/^TCPSERV02_DEP = $(patsubst %.c, %.o, tcpserv02.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPSERV03_DEP	tcp/Makefile	/^TCPSERV03_DEP = $(patsubst %.c, %.o, tcpserv03.c $(wildcard ..\/lib\/*.c))$/;"	m
+UNIXSTR_PATH	lib/myunp.h	93;"	d
+VPATH	gettime/Makefile	/^VPATH = ..\/lib\/$/;"	m
+VPATH	mycat/Makefile	/^VPATH = ..\/lib$/;"	m
+VPATH	sockopt/Makefile	/^VPATH = ..\/lib$/;"	m
+VPATH	tcp/Makefile	/^VPATH = ..\/lib$/;"	m
+VPATH	transf/Makefile	/^VPATH = ..\/lib$/;"	m
+VPATH	udp/Makefile	/^VPATH = ..\/lib$/;"	m
+VPATH	unixdomain/Makefile	/^VPATH = ..\/lib\/$/;"	m
+Waitpid	lib/procmanage.c	/^void Waitpid(pid_t pid, int *status, int options)$/;"	f
+Write	lib/warpsysio.c	/^void Write(int fd, void *buf, size_t count)$/;"	f
+__myunp_h	lib/myunp.h	5;"	d
+count	lib/sockdgram.c	/^static int	count = 0;$/;"	v	file:
+daemon_inetd	lib/daemon.c	/^void daemon_inetd(const char *pname, int facility)$/;"	f
+daemon_init	lib/daemon.c	/^int daemon_init(const char *pname, int facility)$/;"	f
+daemon_proc	lib/error.c	/^int		daemon_proc;		\/* set nonzero by daemon_init() *\/$/;"	v
+dg_cli	lib/sockdgram.c	/^void dg_cli(FILE *fp, int sockfd, struct sockaddr *PtrServAddr, socklen_t addrlen)$/;"	f
+dg_cliaddr	lib/sockdgram.c	/^void dg_cliaddr(FILE *fp, int sockfd, struct sockaddr *PtrServAddr, socklen_t addrlen)$/;"	f
+dg_echo	lib/sockdgram.c	/^void dg_echo(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoaddr	lib/sockdgram.c	/^void dg_echoaddr(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoloop1	lib/sockdgram.c	/^void dg_echoloop1(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoloop2	lib/sockdgram.c	/^void dg_echoloop2(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+err_doit	lib/error.c	/^err_doit(int errnoflag, int level, const char *fmt, va_list ap)$/;"	f	file:
+err_dump	lib/error.c	/^err_dump(const char *fmt, ...)$/;"	f
+err_msg	lib/error.c	/^err_msg(const char *fmt, ...)$/;"	f
+err_quit	lib/error.c	/^err_quit(const char *fmt, ...)$/;"	f
+err_ret	lib/error.c	/^err_ret(const char *fmt, ...)$/;"	f
+err_sys	lib/error.c	/^err_sys(const char *fmt, ...)$/;"	f
+host_serv	lib/sockusedns.c	/^struct  addrinfo *host_serv(const char *hostname, const char *service, int family, int socktype)$/;"	f
+i_val	sockopt/checkopts.c	/^  int				i_val;$/;"	m	union:val	file:
+l_val	sockopt/checkopts.c	/^  long				l_val;$/;"	m	union:val	file:
+linger_val	sockopt/checkopts.c	/^  struct linger		linger_val;$/;"	m	union:val	typeref:struct:val::linger	file:
+main	gettime/daytimetcpcli.c	/^int main (int argc, char **argv)$/;"	f
+main	gettime/daytimetcpserv.c	/^int main (int argc, char **argv)$/;"	f
+main	gettime/daytimeudpcli.c	/^int main (int argc, char **argv)$/;"	f
+main	gettime/daytimeudpserv.c	/^int main (int argc, char **argv)$/;"	f
+main	inetd/daytimetcpserv.c	/^int main (int argc, char **argv)$/;"	f
+main	mycat/mycat.c	/^int main(int argc, char **argv)$/;"	f
+main	mycat/openfile.c	/^int main (int argc, char **argv)$/;"	f
+main	sockopt/checkopts.c	/^main(int argc, char **argv)$/;"	f
+main	tcp/tcpcli01.c	/^int main(int argc, char **argv)$/;"	f
+main	tcp/tcpcli02.c	/^int main (int argc, char **argv)$/;"	f
+main	tcp/tcpcli03.c	/^int main (int argc, char **argv)$/;"	f
+main	tcp/tcpserv01.c	/^int main(int argc, char **argv)$/;"	f
+main	tcp/tcpserv02.c	/^int main (int argc, char **argv)$/;"	f
+main	tcp/tcpserv03.c	/^int main (int argc, char **argv)$/;"	f
+main	transf/daytimetcpcli01.c	/^int main (int argc, char **argv)$/;"	f
+main	transf/daytimetcpsrv.c	/^int main (int argc, char ** argv)$/;"	f
+main	transf/getaddrinfo.c	/^int main (int argc, char **argv)$/;"	f
+main	transf/gethostbyaddr.c	/^int main (int argc, char **argv)$/;"	f
+main	transf/gethostbyname.c	/^int main (int argc, char **argv)$/;"	f
+main	transf/getservbyname.c	/^int main (int argc, char **argv)$/;"	f
+main	transf/getservbyport.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpcli_01.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpcli_02.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpcli_03.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpcli_04.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpcli_05.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpcli_06.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpsrv_01.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpsrv_02.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpsrv_03.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpsrv_04.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpsrv_05.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpsrv_06.c	/^int main (int argc, char **argv)$/;"	f
+main	udp/udpsrvselect01.c	/^int main (int argc, char **argv)$/;"	f
+main	unixdomain/unixbind.c	/^int main (int argc, char **argv)$/;"	f
+main	unixdomain/unixdgcli01.c	/^int main (int argc, char **argv)$/;"	f
+main	unixdomain/unixdgsrv01.c	/^int main (int argc, char **argv)$/;"	f
+my_open	mycat/my_open.c	/^int my_open(const char *pathname, int mode)$/;"	f
+opt_level	sockopt/checkopts.c	/^  int		opt_level;$/;"	m	struct:sock_opts	file:
+opt_name	sockopt/checkopts.c	/^  int		opt_name;$/;"	m	struct:sock_opts	file:
+opt_str	sockopt/checkopts.c	/^  const char	   *opt_str;$/;"	m	struct:sock_opts	file:
+opt_val_str	sockopt/checkopts.c	/^  char   *(*opt_val_str)(union val *, int);$/;"	m	struct:sock_opts	file:
+read_fd	mycat/read_fd.c	/^ssize_t read_fd(int fd, void *ptr, size_t nbytes, int *recvfd)$/;"	f
+readable_timeo	lib/warpsock.c	/^int readable_timeo(int fd, int sec)$/;"	f
+readline1	lib/warpsysio.c	/^ssize_t readline1(int fd, void *vptr, size_t linelen)$/;"	f
+readn	lib/warpsysio.c	/^ssize_t readn(int fd, void *vptr, size_t n)$/;"	f
+recvfrom_alarm	lib/sockdgram.c	/^static void recvfrom_alarm(int signo)$/;"	f	file:
+recvfrom_int	lib/sockdgram.c	/^static void recvfrom_int(int signo)$/;"	f	file:
+sig_chld	lib/sighandler.c	/^void sig_chld(int signo)$/;"	f
+sighandler_t	lib/myunp.h	/^typedef void (*sighandler_t)(int);$/;"	t
+sock_ntop	lib/sockaddr.c	/^char *sock_ntop(const struct sockaddr *sa, socklen_t salen)$/;"	f
+sock_opts	sockopt/checkopts.c	/^struct sock_opts {$/;"	s	file:
+sock_opts	sockopt/checkopts.c	/^} sock_opts[] = {$/;"	v	typeref:struct:sock_opts
+sock_str_flag	sockopt/checkopts.c	/^sock_str_flag(union val *ptr, int len)$/;"	f	file:
+sock_str_int	sockopt/checkopts.c	/^sock_str_int(union val *ptr, int len)$/;"	f	file:
+sock_str_linger	sockopt/checkopts.c	/^sock_str_linger(union val *ptr, int len)$/;"	f	file:
+sock_str_timeval	sockopt/checkopts.c	/^sock_str_timeval(union val *ptr, int len)$/;"	f	file:
+srcdir	tcp/Makefile	/^srcdir =$/;"	m
+srcdir	udp/Makefile	/^srcdir =$/;"	m
+str_cli	lib/sockstream.c	/^void str_cli(FILE *fp, int  sockfd)$/;"	f
+str_echo	lib/sockstream.c	/^void str_echo(int fd)$/;"	f
+strres	sockopt/checkopts.c	/^static char	strres[128];$/;"	v	file:
+tcp_connect	lib/sockusedns.c	/^int		tcp_connect(const char *hostname, const char *service)$/;"	f
+tcp_listen	lib/sockusedns.c	/^int	tcp_listen(const char *hostname, const char *service, socklen_t *addrlenp)$/;"	f
+timeval_val	sockopt/checkopts.c	/^  struct timeval	timeval_val;$/;"	m	union:val	typeref:struct:val::timeval	file:
+udp_client	lib/sockusedns.c	/^int		udp_client(const char *hostname, const char *service, struct sockaddr *saptr, socklen_t *addrlenp)$/;"	f
+udp_connect	lib/sockusedns.c	/^int		udp_connect(const char *hostname, const char *service)$/;"	f
+udp_server	lib/sockusedns.c	/^int		udp_server(const char *hostname, const char *service, socklen_t *addrlenp)$/;"	f
+val	sockopt/checkopts.c	/^union val {$/;"	u	file:
+val	sockopt/checkopts.c	/^} val;$/;"	v	typeref:union:val
+write_fd	mycat/write_fd.c	/^ssize_t write_fd(int fd, void *ptr, size_t nbytes, int sendfd)$/;"	f
+writen	lib/warpsysio.c	/^ssize_t writen(int fd, const void *vptr, size_t n)$/;"	f

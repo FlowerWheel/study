@@ -1,0 +1,82 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+$	tags	/^WDGraph	WDGraph.hpp	\/^class WDGraph:public GraphBase< GraphNode<T> >{$\/;"	c	inherits:GraphBase$/;"	m	class:WDGraph	file:	access:private
+Add	DGraph.hpp	/^		DGraph& Add(const int i, const int j);$/;"	p	class:DGraph	access:public	signature:(const int i, const int j)
+Add	DGraph.hpp	/^DGraph& DGraph::Add(const int i, const int j)$/;"	f	class:DGraph	signature:(const int i, const int j)
+Add	Graph.hpp	/^		Graph& Add(const int i, const int j);$/;"	p	class:Graph	access:public	signature:(const int i, const int j)
+Add	Graph.hpp	/^Graph& Graph::Add(const int i,const int j)$/;"	f	class:Graph	signature:(const int i,const int j)
+AddNoCheck	DGraph.hpp	/^		DGraph& AddNoCheck(const int i, const int j);$/;"	p	class:DGraph	access:protected	signature:(const int i, const int j)
+AddNoCheck	DGraph.hpp	/^DGraph& DGraph::AddNoCheck( const int i, const int j )$/;"	f	class:DGraph	signature:( const int i, const int j )
+AddNoCheck	Graph.hpp	/^		Graph& AddNoCheck(int i, int j);$/;"	p	class:Graph	access:protected	signature:(int i, int j)
+AddNoCheck	Graph.hpp	/^Graph& Graph::AddNoCheck(const int i, const int j)$/;"	f	class:Graph	signature:(const int i, const int j)
+AddNoCheck	WDGraph.hpp	/^		WDGraph<T>& AddNoCheck(const int i, const int j, const T& w);$/;"	p	class:WDGraph	access:protected	signature:(const int i, const int j, const T& w)
+DGRAPH_HPP	DGraph.hpp	2;"	d
+DGraph	DGraph.hpp	/^		DGraph(int Vertices = 10)	$/;"	f	class:DGraph	access:public	signature:(int Vertices = 10)
+DGraph	DGraph.hpp	/^class DGraph:public GraphBase<int>{$/;"	c	inherits:GraphBase
+DGraph::Add	DGraph.hpp	/^		DGraph& Add(const int i, const int j);$/;"	p	class:DGraph	access:public	signature:(const int i, const int j)
+DGraph::Add	DGraph.hpp	/^DGraph& DGraph::Add(const int i, const int j)$/;"	f	class:DGraph	signature:(const int i, const int j)
+DGraph::AddNoCheck	DGraph.hpp	/^		DGraph& AddNoCheck(const int i, const int j);$/;"	p	class:DGraph	access:protected	signature:(const int i, const int j)
+DGraph::AddNoCheck	DGraph.hpp	/^DGraph& DGraph::AddNoCheck( const int i, const int j )$/;"	f	class:DGraph	signature:( const int i, const int j )
+DGraph::DGraph	DGraph.hpp	/^		DGraph(int Vertices = 10)	$/;"	f	class:DGraph	access:public	signature:(int Vertices = 10)
+DGraph::Del	DGraph.hpp	/^		DGraph& Del(const int i, const int j);$/;"	p	class:DGraph	access:public	signature:(const int i, const int j)
+DGraph::Del	DGraph.hpp	/^DGraph& DGraph::Del(const int i, const int j)$/;"	f	class:DGraph	signature:(const int i, const int j)
+DGraph::Exist	DGraph.hpp	/^		bool Exist(const int i, const int j) const;$/;"	p	class:DGraph	access:public	signature:(const int i, const int j) const
+DGraph::Exist	DGraph.hpp	/^bool DGraph::Exist(int i,int j) const$/;"	f	class:DGraph	signature:(int i,int j) const
+DGraph::InDegree	DGraph.hpp	/^		int InDegree(const int i) const;$/;"	p	class:DGraph	access:public	signature:(const int i) const
+DGraph::InDegree	DGraph.hpp	/^int DGraph::InDegree(const int i) const$/;"	f	class:DGraph	signature:(const int i) const
+Degree	Graph.hpp	/^		int Degree(int i) const {return InDegree(i);}$/;"	f	class:Graph	access:public	signature:(int i) const
+Del	DGraph.hpp	/^		DGraph& Del(const int i, const int j);$/;"	p	class:DGraph	access:public	signature:(const int i, const int j)
+Del	DGraph.hpp	/^DGraph& DGraph::Del(const int i, const int j)$/;"	f	class:DGraph	signature:(const int i, const int j)
+Del	Graph.hpp	/^		Graph& Del(const int i, const int j);$/;"	p	class:Graph	access:public	signature:(const int i, const int j)
+Del	Graph.hpp	/^Graph& Graph::Del(const int i, const int j)$/;"	f	class:Graph	signature:(const int i, const int j)
+Edges	GraphBase.hpp	/^		int Edges() const { return e; }$/;"	f	class:GraphBase	access:public	signature:() const
+Exist	DGraph.hpp	/^		bool Exist(const int i, const int j) const;$/;"	p	class:DGraph	access:public	signature:(const int i, const int j) const
+Exist	DGraph.hpp	/^bool DGraph::Exist(int i,int j) const$/;"	f	class:DGraph	signature:(int i,int j) const
+Exist	WDGraph.hpp	/^		bool Exist(const int i, const int j) const;$/;"	p	class:WDGraph	access:public	signature:(const int i, const int j) const
+GRAPHBASE_HPP	GraphBase.hpp	2;"	d
+GRAPH_HPP	Graph.hpp	2;"	d
+Graph	Graph.hpp	/^		Graph(int Vertices = 10)$/;"	f	class:Graph	access:public	signature:(int Vertices = 10)
+Graph	Graph.hpp	/^class Graph:public DGraph{$/;"	c	inherits:DGraph
+Graph::Add	Graph.hpp	/^		Graph& Add(const int i, const int j);$/;"	p	class:Graph	access:public	signature:(const int i, const int j)
+Graph::Add	Graph.hpp	/^Graph& Graph::Add(const int i,const int j)$/;"	f	class:Graph	signature:(const int i,const int j)
+Graph::AddNoCheck	Graph.hpp	/^		Graph& AddNoCheck(int i, int j);$/;"	p	class:Graph	access:protected	signature:(int i, int j)
+Graph::AddNoCheck	Graph.hpp	/^Graph& Graph::AddNoCheck(const int i, const int j)$/;"	f	class:Graph	signature:(const int i, const int j)
+Graph::Degree	Graph.hpp	/^		int Degree(int i) const {return InDegree(i);}$/;"	f	class:Graph	access:public	signature:(int i) const
+Graph::Del	Graph.hpp	/^		Graph& Del(const int i, const int j);$/;"	p	class:Graph	access:public	signature:(const int i, const int j)
+Graph::Del	Graph.hpp	/^Graph& Graph::Del(const int i, const int j)$/;"	f	class:Graph	signature:(const int i, const int j)
+Graph::Graph	Graph.hpp	/^		Graph(int Vertices = 10)$/;"	f	class:Graph	access:public	signature:(int Vertices = 10)
+Graph::OutDegree	Graph.hpp	/^		int OutDegree(int i) const {return InDegree(i);}$/;"	f	class:Graph	access:public	signature:(int i) const
+GraphBase	GraphBase.hpp	/^		GraphBase(int Vertices = 10)$/;"	f	class:GraphBase	access:public	signature:(int Vertices = 10)
+GraphBase	GraphBase.hpp	/^class GraphBase{$/;"	c
+GraphBase::Edges	GraphBase.hpp	/^		int Edges() const { return e; }$/;"	f	class:GraphBase	access:public	signature:() const
+GraphBase::GraphBase	GraphBase.hpp	/^		GraphBase(int Vertices = 10)$/;"	f	class:GraphBase	access:public	signature:(int Vertices = 10)
+GraphBase::OutDegree	GraphBase.hpp	/^		int OutDegree(const int i) const$/;"	f	class:GraphBase	access:public	signature:(const int i) const
+GraphBase::Vertices	GraphBase.hpp	/^		int Vertices() const { return n; }$/;"	f	class:GraphBase	access:public	signature:() const
+GraphBase::e	GraphBase.hpp	/^		int		e;$/;"	m	class:GraphBase	access:protected
+GraphBase::h	GraphBase.hpp	/^		list<T> *h;$/;"	m	class:GraphBase	access:protected
+GraphBase::n	GraphBase.hpp	/^		int		n;$/;"	m	class:GraphBase	access:protected
+GraphBase::~GraphBase	GraphBase.hpp	/^		~GraphBase(){ delete [] h; }$/;"	f	class:GraphBase	access:public	signature:()
+InDegree	DGraph.hpp	/^		int InDegree(const int i) const;$/;"	p	class:DGraph	access:public	signature:(const int i) const
+InDegree	DGraph.hpp	/^int DGraph::InDegree(const int i) const$/;"	f	class:DGraph	signature:(const int i) const
+OutDegree	Graph.hpp	/^		int OutDegree(int i) const {return InDegree(i);}$/;"	f	class:Graph	access:public	signature:(int i) const
+OutDegree	GraphBase.hpp	/^		int OutDegree(const int i) const$/;"	f	class:GraphBase	access:public	signature:(const int i) const
+Vertices	GraphBase.hpp	/^		int Vertices() const { return n; }$/;"	f	class:GraphBase	access:public	signature:() const
+WDGRAPH_HPP	WDGraph.hpp	2;"	d
+WDGraph	WDGraph.hpp	/^		WDGraph(int Vertices = 10) $/;"	f	class:WDGraph	access:public	signature:(int Vertices = 10)
+WDGraph	WDGraph.hpp	/^class WDGraph:public GraphBase< GraphNode<T> >{$/;"	c	inherits:GraphBase
+WDGraph	tags	/^WDGraph	WDGraph.hpp	\/^class WDGraph:public GraphBase< GraphNode<T> >{$\/;"	c	inherits:GraphBase$/;"	c	file:	inherits:GraphBase
+WDGraph::$	tags	/^WDGraph	WDGraph.hpp	\/^class WDGraph:public GraphBase< GraphNode<T> >{$\/;"	c	inherits:GraphBase$/;"	m	class:WDGraph	file:	access:private
+WDGraph::AddNoCheck	WDGraph.hpp	/^		WDGraph<T>& AddNoCheck(const int i, const int j, const T& w);$/;"	p	class:WDGraph	access:protected	signature:(const int i, const int j, const T& w)
+WDGraph::Exist	WDGraph.hpp	/^		bool Exist(const int i, const int j) const;$/;"	p	class:WDGraph	access:public	signature:(const int i, const int j) const
+WDGraph::WDGraph	WDGraph.hpp	/^		WDGraph(int Vertices = 10) $/;"	f	class:WDGraph	access:public	signature:(int Vertices = 10)
+WGRAPH_HPP	WGraph.hpp	2;"	d
+e	GraphBase.hpp	/^		int		e;$/;"	m	class:GraphBase	access:protected
+format	tags	/^!_TAG_FILE_FORMAT	2	\/extended format; --format=1 will not append ;" to lines\/$/;"	v
+h	GraphBase.hpp	/^		list<T> *h;$/;"	m	class:GraphBase	access:protected
+main	graph.cpp	/^int main(int argc, char *argv[])$/;"	f	signature:(int argc, char *argv[])
+n	GraphBase.hpp	/^		int		n;$/;"	m	class:GraphBase	access:protected
+~GraphBase	GraphBase.hpp	/^		~GraphBase(){ delete [] h; }$/;"	f	class:GraphBase	access:public	signature:()

@@ -1,0 +1,86 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+$	tags	/^AdjGraph	AdjGraph.hpp	\/^class AdjGraph:public AdjWGraph<int>{$\/;"	c	inherits:AdjWGraph$/;"	m	class:AdjWGraph::__anon1	file:	access:private
+$	tags	/^AdjWGraph	AdjWGraph.hpp	\/^class AdjWGraph:public AdjWDGraph<T>{$\/;"	c	inherits:AdjWDGraph$/;"	m	class:AdjWGraph	file:	access:private
+Add	AdjDGraph.hpp	/^		AdjDGraph& Add(const int i, const int j)$/;"	f	class:AdjDGraph	access:public	signature:(const int i, const int j)
+Add	AdjGraph.hpp	/^		AdjGraph& Add(const int i, const int j)$/;"	f	class:AdjGraph	access:public	signature:(const int i, const int j)
+Add	AdjWDGraph.hpp	/^		AdjWDGraph<T>& Add(const int i, const int j, const T& w);$/;"	p	class:AdjWDGraph	access:public	signature:(const int i, const int j, const T& w)
+Add	AdjWDGraph.hpp	/^AdjWDGraph<T>& AdjWDGraph<T>::Add(const int i, const int j, const T& w)$/;"	f	class:AdjWDGraph	signature:(const int i, const int j, const T& w)
+Add	AdjWGraph.hpp	/^		AdjWGraph& Add(const int i, const int j, const T& w)$/;"	f	class:AdjWGraph	access:public	signature:(const int i, const int j, const T& w)
+AdjDGraph	AdjDGraph.hpp	/^		AdjDGraph(int Vertices = 10) $/;"	f	class:AdjDGraph	access:public	signature:(int Vertices = 10)
+AdjDGraph	AdjDGraph.hpp	/^class AdjDGraph:public AdjWDGraph<int>{$/;"	c	inherits:AdjWDGraph
+AdjDGraph::Add	AdjDGraph.hpp	/^		AdjDGraph& Add(const int i, const int j)$/;"	f	class:AdjDGraph	access:public	signature:(const int i, const int j)
+AdjDGraph::AdjDGraph	AdjDGraph.hpp	/^		AdjDGraph(int Vertices = 10) $/;"	f	class:AdjDGraph	access:public	signature:(int Vertices = 10)
+AdjDGraph::Del	AdjDGraph.hpp	/^		AdjDGraph& Del(const int i, const int j)$/;"	f	class:AdjDGraph	access:public	signature:(const int i, const int j)
+AdjGraph	AdjGraph.hpp	/^		AdjGraph(int Vertices = 10)$/;"	f	class:AdjGraph	access:public	signature:(int Vertices = 10)
+AdjGraph	AdjGraph.hpp	/^class AdjGraph:public AdjWGraph<int>{$/;"	c	inherits:AdjWGraph
+AdjGraph::Add	AdjGraph.hpp	/^		AdjGraph& Add(const int i, const int j)$/;"	f	class:AdjGraph	access:public	signature:(const int i, const int j)
+AdjGraph::AdjGraph	AdjGraph.hpp	/^		AdjGraph(int Vertices = 10)$/;"	f	class:AdjGraph	access:public	signature:(int Vertices = 10)
+AdjGraph::Del	AdjGraph.hpp	/^		AdjGraph& Del(const int i, const int j)$/;"	f	class:AdjGraph	access:public	signature:(const int i, const int j)
+AdjWDGraph	AdjWDGraph.hpp	/^		AdjWDGraph(int Vertices = 10, T noEdge = 0)$/;"	f	class:AdjWDGraph	access:public	signature:(int Vertices = 10, T noEdge = 0)
+AdjWDGraph	AdjWDGraph.hpp	/^class AdjWDGraph{$/;"	c
+AdjWDGraph::Add	AdjWDGraph.hpp	/^		AdjWDGraph<T>& Add(const int i, const int j, const T& w);$/;"	p	class:AdjWDGraph	access:public	signature:(const int i, const int j, const T& w)
+AdjWDGraph::Add	AdjWDGraph.hpp	/^AdjWDGraph<T>& AdjWDGraph<T>::Add(const int i, const int j, const T& w)$/;"	f	class:AdjWDGraph	signature:(const int i, const int j, const T& w)
+AdjWDGraph::AdjWDGraph	AdjWDGraph.hpp	/^		AdjWDGraph(int Vertices = 10, T noEdge = 0)$/;"	f	class:AdjWDGraph	access:public	signature:(int Vertices = 10, T noEdge = 0)
+AdjWDGraph::Del	AdjWDGraph.hpp	/^		AdjWDGraph<T>& Del(const int i, const int j);$/;"	p	class:AdjWDGraph	access:public	signature:(const int i, const int j)
+AdjWDGraph::Del	AdjWDGraph.hpp	/^AdjWDGraph<T>& AdjWDGraph<T>::Del(const int i, const int j)$/;"	f	class:AdjWDGraph	signature:(const int i, const int j)
+AdjWDGraph::Delete2DArray	AdjWDGraph.hpp	/^		void Delete2DArray(T **&arr, int rows)$/;"	f	class:AdjWDGraph	access:private	signature:(T **&arr, int rows)
+AdjWDGraph::Edges	AdjWDGraph.hpp	/^		int  Edges() const { return e; }$/;"	f	class:AdjWDGraph	access:public	signature:() const
+AdjWDGraph::Exist	AdjWDGraph.hpp	/^		bool Exist(const int i, const int j) const;		$/;"	p	class:AdjWDGraph	access:public	signature:(const int i, const int j) const
+AdjWDGraph::Exist	AdjWDGraph.hpp	/^bool AdjWDGraph<T>::Exist(const int i, const int j) const$/;"	f	class:AdjWDGraph	signature:(const int i, const int j) const
+AdjWDGraph::InDegree	AdjWDGraph.hpp	/^		int InDegree(int i) const;$/;"	p	class:AdjWDGraph	access:public	signature:(int i) const
+AdjWDGraph::InDegree	AdjWDGraph.hpp	/^int AdjWDGraph<T>::InDegree(const int i) const$/;"	f	class:AdjWDGraph	signature:(const int i) const
+AdjWDGraph::Make2DArray	AdjWDGraph.hpp	/^		void Make2DArray(T **&arr, int rows, int cols)$/;"	f	class:AdjWDGraph	access:private	signature:(T **&arr, int rows, int cols)
+AdjWDGraph::NoEdge	AdjWDGraph.hpp	/^		T	NoEdge;$/;"	m	class:AdjWDGraph	access:protected
+AdjWDGraph::OutDegree	AdjWDGraph.hpp	/^		int OutDegree(int i) const;$/;"	p	class:AdjWDGraph	access:public	signature:(int i) const
+AdjWDGraph::OutDegree	AdjWDGraph.hpp	/^int AdjWDGraph<T>::OutDegree(const int i) const$/;"	f	class:AdjWDGraph	signature:(const int i) const
+AdjWDGraph::Vertices	AdjWDGraph.hpp	/^		int	 Vertices() const { return n; }$/;"	f	class:AdjWDGraph	access:public	signature:() const
+AdjWDGraph::Weight	AdjWDGraph.hpp	/^		const T& Weight(const int i, const int j) const;$/;"	p	class:AdjWDGraph	access:public	signature:(const int i, const int j) const
+AdjWDGraph::Weight	AdjWDGraph.hpp	/^const T& AdjWDGraph<T>::Weight(const int i, const int j) const$/;"	f	class:AdjWDGraph	signature:(const int i, const int j) const
+AdjWDGraph::a	AdjWDGraph.hpp	/^		T	**a;$/;"	m	class:AdjWDGraph	access:protected
+AdjWDGraph::e	AdjWDGraph.hpp	/^		int e;$/;"	m	class:AdjWDGraph	access:protected
+AdjWDGraph::n	AdjWDGraph.hpp	/^		int n;$/;"	m	class:AdjWDGraph	access:protected
+AdjWDGraph::~AdjWDGraph	AdjWDGraph.hpp	/^		~AdjWDGraph(){ Delete2DArray(a, n+1); } \/* DeConstructor *\/  $/;"	f	class:AdjWDGraph	access:public	signature:()
+AdjWGraph	AdjWGraph.hpp	/^		AdjWGraph(int Vertices = 0, T noEdge = 0)$/;"	f	class:AdjWGraph	access:public	signature:(int Vertices = 0, T noEdge = 0)
+AdjWGraph	AdjWGraph.hpp	/^class AdjWGraph:public AdjWDGraph<T>{$/;"	c	inherits:AdjWDGraph
+AdjWGraph	tags	/^AdjWGraph	AdjWGraph.hpp	\/^class AdjWGraph:public AdjWDGraph<T>{$\/;"	c	inherits:AdjWDGraph$/;"	c	file:	inherits:AdjWDGraph
+AdjWGraph::$	tags	/^AdjWGraph	AdjWGraph.hpp	\/^class AdjWGraph:public AdjWDGraph<T>{$\/;"	c	inherits:AdjWDGraph$/;"	m	class:AdjWGraph	file:	access:private
+AdjWGraph::Add	AdjWGraph.hpp	/^		AdjWGraph& Add(const int i, const int j, const T& w)$/;"	f	class:AdjWGraph	access:public	signature:(const int i, const int j, const T& w)
+AdjWGraph::AdjWGraph	AdjWGraph.hpp	/^		AdjWGraph(int Vertices = 0, T noEdge = 0)$/;"	f	class:AdjWGraph	access:public	signature:(int Vertices = 0, T noEdge = 0)
+AdjWGraph::Degree	AdjWGraph.hpp	/^		int Degree(const int i) const$/;"	f	class:AdjWGraph	access:public	signature:(const int i) const
+AdjWGraph::Del	AdjWGraph.hpp	/^		AdjWGraph& Del(const int i, const int j)$/;"	f	class:AdjWGraph	access:public	signature:(const int i, const int j)
+AdjWGraph::__anon1::$	tags	/^AdjGraph	AdjGraph.hpp	\/^class AdjGraph:public AdjWGraph<int>{$\/;"	c	inherits:AdjWGraph$/;"	m	class:AdjWGraph::__anon1	file:	access:private
+Degree	AdjWGraph.hpp	/^		int Degree(const int i) const$/;"	f	class:AdjWGraph	access:public	signature:(const int i) const
+Del	AdjDGraph.hpp	/^		AdjDGraph& Del(const int i, const int j)$/;"	f	class:AdjDGraph	access:public	signature:(const int i, const int j)
+Del	AdjGraph.hpp	/^		AdjGraph& Del(const int i, const int j)$/;"	f	class:AdjGraph	access:public	signature:(const int i, const int j)
+Del	AdjWDGraph.hpp	/^		AdjWDGraph<T>& Del(const int i, const int j);$/;"	p	class:AdjWDGraph	access:public	signature:(const int i, const int j)
+Del	AdjWDGraph.hpp	/^AdjWDGraph<T>& AdjWDGraph<T>::Del(const int i, const int j)$/;"	f	class:AdjWDGraph	signature:(const int i, const int j)
+Del	AdjWGraph.hpp	/^		AdjWGraph& Del(const int i, const int j)$/;"	f	class:AdjWGraph	access:public	signature:(const int i, const int j)
+Delete2DArray	AdjWDGraph.hpp	/^		void Delete2DArray(T **&arr, int rows)$/;"	f	class:AdjWDGraph	access:private	signature:(T **&arr, int rows)
+Edges	AdjWDGraph.hpp	/^		int  Edges() const { return e; }$/;"	f	class:AdjWDGraph	access:public	signature:() const
+Exist	AdjWDGraph.hpp	/^		bool Exist(const int i, const int j) const;		$/;"	p	class:AdjWDGraph	access:public	signature:(const int i, const int j) const
+Exist	AdjWDGraph.hpp	/^bool AdjWDGraph<T>::Exist(const int i, const int j) const$/;"	f	class:AdjWDGraph	signature:(const int i, const int j) const
+InDegree	AdjWDGraph.hpp	/^		int InDegree(int i) const;$/;"	p	class:AdjWDGraph	access:public	signature:(int i) const
+InDegree	AdjWDGraph.hpp	/^int AdjWDGraph<T>::InDegree(const int i) const$/;"	f	class:AdjWDGraph	signature:(const int i) const
+Make2DArray	AdjWDGraph.hpp	/^		void Make2DArray(T **&arr, int rows, int cols)$/;"	f	class:AdjWDGraph	access:private	signature:(T **&arr, int rows, int cols)
+NoEdge	AdjWDGraph.hpp	/^		T	NoEdge;$/;"	m	class:AdjWDGraph	access:protected
+OutDegree	AdjWDGraph.hpp	/^		int OutDegree(int i) const;$/;"	p	class:AdjWDGraph	access:public	signature:(int i) const
+OutDegree	AdjWDGraph.hpp	/^int AdjWDGraph<T>::OutDegree(const int i) const$/;"	f	class:AdjWDGraph	signature:(const int i) const
+VNUM	adjgraph.cpp	/^const int VNUM = 20;$/;"	v
+Vertices	AdjWDGraph.hpp	/^		int	 Vertices() const { return n; }$/;"	f	class:AdjWDGraph	access:public	signature:() const
+Weight	AdjWDGraph.hpp	/^		const T& Weight(const int i, const int j) const;$/;"	p	class:AdjWDGraph	access:public	signature:(const int i, const int j) const
+Weight	AdjWDGraph.hpp	/^const T& AdjWDGraph<T>::Weight(const int i, const int j) const$/;"	f	class:AdjWDGraph	signature:(const int i, const int j) const
+_ADJDGRAPH_HPP_	AdjDGraph.hpp	2;"	d
+_ADJGRAPH_	AdjGraph.hpp	2;"	d
+_ADJWDGRAPH_	AdjWDGraph.hpp	2;"	d
+_ADJWGRAPH_HPP_	AdjWGraph.hpp	2;"	d
+a	AdjWDGraph.hpp	/^		T	**a;$/;"	m	class:AdjWDGraph	access:protected
+e	AdjWDGraph.hpp	/^		int e;$/;"	m	class:AdjWDGraph	access:protected
+format	tags	/^!_TAG_FILE_FORMAT	2	\/extended format; --format=1 will not append ;" to lines\/$/;"	v
+main	adjgraph.cpp	/^int main(int argc, char *argv[])$/;"	f	signature:(int argc, char *argv[])
+n	AdjWDGraph.hpp	/^		int n;$/;"	m	class:AdjWDGraph	access:protected
+~AdjWDGraph	AdjWDGraph.hpp	/^		~AdjWDGraph(){ Delete2DArray(a, n+1); } \/* DeConstructor *\/  $/;"	f	class:AdjWDGraph	access:public	signature:()

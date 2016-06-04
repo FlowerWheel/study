@@ -1,0 +1,182 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC = g++$/;"	m
+Folder	Message.h	/^class Folder{$/;"	c
+Folder::msg	Message.h	/^		Message *msg;$/;"	m	class:Folder	access:private
+LinkScreen	LinkScreen.h	/^class LinkScreen{$/;"	c
+LinkScreen::next	LinkScreen.h	/^	LinkScreen *next;$/;"	m	class:LinkScreen	access:private
+LinkScreen::prev	LinkScreen.h	/^	LinkScreen *prev;	$/;"	m	class:LinkScreen	access:private
+LinkScreen::window	LinkScreen.h	/^	Screen		window;$/;"	m	class:LinkScreen	access:private
+Message	Message.h	/^		Message(const Message& );$/;"	p	class:Message	access:public	signature:(const Message& )
+Message	Message.h	/^		Message(const string &str = "")$/;"	f	class:Message	access:public	signature:(const string &str = Ó)
+Message	Message.h	/^Message::Message(const Message &msg)$/;"	f	class:Message	signature:(const Message &msg)
+Message	Message.h	/^class Message{$/;"	c
+Message::Message	Message.h	/^		Message(const Message& );$/;"	p	class:Message	access:public	signature:(const Message& )
+Message::Message	Message.h	/^		Message(const string &str = "")$/;"	f	class:Message	access:public	signature:(const string &str = Ó)
+Message::Message	Message.h	/^Message::Message(const Message &msg)$/;"	f	class:Message	signature:(const Message &msg)
+Message::contents	Message.h	/^		string contents;$/;"	m	class:Message	access:private
+Message::folders	Message.h	/^		set<Folder *> folders;$/;"	m	class:Message	access:private
+Message::operator =	Message.h	/^		Message & operator=(const Message& );$/;"	p	class:Message	access:public	signature:(const Message& )
+Message::operator =	Message.h	/^Message& Message::operator=(const Message &rhs)$/;"	f	class:Message	signature:(const Message &rhs)
+Message::put_msg_in_folders	Message.h	/^		void put_msg_in_folders(const set<Folder *>&);$/;"	p	class:Message	access:private	signature:(const set<Folder *>&)
+Message::put_msg_in_folders	Message.h	/^void Message::put_msg_in_folders(const set<Folder* > rhs)$/;"	f	class:Message	signature:(const set<Folder* > rhs)
+Message::remove	Message.h	/^		void remove(Folder &);$/;"	p	class:Message	access:public	signature:(Folder &)
+Message::remove_msg_from_folders	Message.h	/^		void remove_msg_from_folders();$/;"	p	class:Message	access:private	signature:()
+Message::save	Message.h	/^		void save(Folder &);$/;"	p	class:Message	access:public	signature:(Folder &)
+Message::~Message	Message.h	/^		~Message();$/;"	p	class:Message	access:public	signature:()
+Person	Person.h	/^		Person(int num, string name, string addr, unsigned age)$/;"	f	class:Person	access:public	signature:(int num, string name, string addr, unsigned age)
+Person	Person.h	/^class Person{$/;"	c
+Person::Person	Person.h	/^		Person(int num, string name, string addr, unsigned age)$/;"	f	class:Person	access:public	signature:(int num, string name, string addr, unsigned age)
+Person::get_addr	Person.h	/^		string get_addr() const$/;"	f	class:Person	access:public	signature:() const
+Person::get_name	Person.h	/^		string get_name() const$/;"	f	class:Person	access:public	signature:() const
+Person::p_addr	Person.h	/^		std::string		p_addr;$/;"	m	class:Person	access:private
+Person::p_age	Person.h	/^		unsigned		p_age;$/;"	m	class:Person	access:private
+Person::p_name	Person.h	/^		std::string		p_name;$/;"	m	class:Person	access:private
+Person::p_num	Person.h	/^		int				p_num;$/;"	m	class:Person	access:private
+Sales_item	Sales_item.h	/^		Sales_item() $/;"	f	class:Sales_item	access:public	signature:()
+Sales_item	Sales_item.h	/^		Sales_item(const Sales_item &orig)$/;"	f	class:Sales_item	access:public	signature:(const Sales_item &orig)
+Sales_item	Sales_item.h	/^		explicit Sales_item(const string& book)$/;"	f	class:Sales_item	access:public	signature:(const string& book)
+Sales_item	Sales_item.h	/^		explicit Sales_item(istream &is);$/;"	p	class:Sales_item	access:public	signature:(istream &is)
+Sales_item	Sales_item.h	/^Sales_item::Sales_item(istream& is)$/;"	f	class:Sales_item	signature:(istream& is)
+Sales_item	Sales_item.h	/^class Sales_item{$/;"	c
+Sales_item::Sales_item	Sales_item.h	/^		Sales_item() $/;"	f	class:Sales_item	access:public	signature:()
+Sales_item::Sales_item	Sales_item.h	/^		Sales_item(const Sales_item &orig)$/;"	f	class:Sales_item	access:public	signature:(const Sales_item &orig)
+Sales_item::Sales_item	Sales_item.h	/^		explicit Sales_item(const string& book)$/;"	f	class:Sales_item	access:public	signature:(const string& book)
+Sales_item::Sales_item	Sales_item.h	/^		explicit Sales_item(istream &is);$/;"	p	class:Sales_item	access:public	signature:(istream &is)
+Sales_item::Sales_item	Sales_item.h	/^Sales_item::Sales_item(istream& is)$/;"	f	class:Sales_item	signature:(istream& is)
+Sales_item::avg_price	Sales_item.h	/^		inline double	avg_price() const;$/;"	p	class:Sales_item	access:public	signature:() const
+Sales_item::avg_price	Sales_item.h	/^inline double Sales_item :: avg_price() const$/;"	f	class:Sales_item	signature:() const
+Sales_item::isbn	Sales_item.h	/^		std::string isbn;$/;"	m	class:Sales_item	access:private
+Sales_item::operator =	Sales_item.h	/^		Sales_item & operator = (const Sales_item &orig)$/;"	f	class:Sales_item	access:public	signature:(const Sales_item &orig)
+Sales_item::revenue	Sales_item.h	/^		double		revenue;$/;"	m	class:Sales_item	access:private
+Sales_item::same_isbn	Sales_item.h	/^		bool	same_isbn(const Sales_item &rhs) const$/;"	f	class:Sales_item	access:public	signature:(const Sales_item &rhs) const
+Sales_item::units_sold	Sales_item.h	/^		unsigned	units_sold;$/;"	m	class:Sales_item	access:private
+Sales_item::~Sales_item	Sales_item.h	/^		~Sales_item(){}$/;"	f	class:Sales_item	access:public	signature:()
+Screen	Screen.h	/^		Screen(index hg, index wd, string contains)$/;"	f	class:Screen	access:public	signature:(index hg, index wd, string contains)
+Screen	Screen.h	/^class Screen{$/;"	c
+Screen	cscope.cpp	/^		Screen( index cur = 2, index ht = 2, index wd = 2 )$/;"	f	class:Screen	access:public	signature:( index cur = 2, index ht = 2, index wd = 2 )
+Screen	cscope.cpp	/^class Screen{$/;"	c	file:
+Screen::Screen	Screen.h	/^		Screen(index hg, index wd, string contains)$/;"	f	class:Screen	access:public	signature:(index hg, index wd, string contains)
+Screen::Screen	cscope.cpp	/^		Screen( index cur = 2, index ht = 2, index wd = 2 )$/;"	f	class:Screen	access:public	signature:( index cur = 2, index ht = 2, index wd = 2 )
+Screen::cursor	cscope.cpp	/^		index cursor;$/;"	m	class:Screen	file:	access:private
+Screen::display	Screen.h	/^		Screen& display(ostream &os)$/;"	f	class:Screen	access:public	signature:(ostream &os)
+Screen::display	Screen.h	/^		const Screen& display(ostream &os) const$/;"	f	class:Screen	access:public	signature:(ostream &os) const
+Screen::do_display	Screen.h	/^		void do_display(std::ostream &os) const$/;"	f	class:Screen	access:private	signature:(std::ostream &os) const
+Screen::dummy_fcn	cscope.cpp	/^		void dummy_fcn(index height)$/;"	f	class:Screen	access:public	signature:(index height)
+Screen::get	Screen.h	/^		char get() const$/;"	f	class:Screen	access:public	signature:() const
+Screen::get	Screen.h	/^		inline char get(index ht, index wd) const;$/;"	p	class:Screen	access:public	signature:(index ht, index wd) const
+Screen::get_cursor	Screen.h	/^		inline index get_cursor() const;$/;"	p	class:Screen	access:public	signature:() const
+Screen::get_cursor	Screen.h	/^inline Screen::index Screen::get_cursor() const$/;"	f	class:Screen	signature:() const
+Screen::height	cscope.cpp	/^		index height;$/;"	m	class:Screen	file:	access:private
+Screen::index	Screen.h	/^		typedef std::string::size_type	index;$/;"	t	class:Screen	access:public
+Screen::index	cscope.cpp	/^		typedef int	index;$/;"	t	class:Screen	file:	access:public
+Screen::move	Screen.h	/^		void move(index hg, index wd)$/;"	f	class:Screen	access:public	signature:(index hg, index wd)
+Screen::print	cscope.cpp	/^		void print(void) const$/;"	f	class:Screen	access:public	signature:(void) const
+Screen::s_access_ctr	Screen.h	/^		mutable	size_t s_access_ctr;$/;"	m	class:Screen	access:private
+Screen::s_contents	Screen.h	/^		std::string s_contents;$/;"	m	class:Screen	access:private
+Screen::s_cursor	Screen.h	/^		index		s_cursor;$/;"	m	class:Screen	access:private
+Screen::s_height	Screen.h	/^		index		s_height, s_width;$/;"	m	class:Screen	access:private
+Screen::s_width	Screen.h	/^		index		s_height, s_width;$/;"	m	class:Screen	access:private
+Screen::set	Screen.h	/^		void set(char ch)$/;"	f	class:Screen	access:public	signature:(char ch)
+Screen::width	cscope.cpp	/^		index width;$/;"	m	class:Screen	file:	access:private
+TypeName	operator.h	/^class TypeName{$/;"	c
+TypeName::operator ()	operator.h	/^	TypeName& operator () (arg1, arg2, arg3, ...);$/;"	p	class:TypeName	access:private	signature:(arg1, arg2, arg3, ...)
+TypeName::operator *	operator.h	/^	TypeName& operator * ();$/;"	p	class:TypeName	access:private	signature:()
+TypeName::operator ++	operator.h	/^	TypeName& operator ++();$/;"	p	class:TypeName	access:private	signature:()
+TypeName::operator ++	operator.h	/^	TypeName& operator ++(int);$/;"	p	class:TypeName	access:private	signature:(int)
+TypeName::operator --	operator.h	/^	TypeName& operator --();$/;"	p	class:TypeName	access:private	signature:()
+TypeName::operator --	operator.h	/^	TypeName& operator --(int);$/;"	p	class:TypeName	access:private	signature:(int)
+TypeName::operator ->	operator.h	/^	TypeName& operator -> ();$/;"	p	class:TypeName	access:private	signature:()
+TypeName::operator <<	operator.h	/^	friend operator << (ostream &os, TypeName &name);$/;"	p	class:TypeName	access:friend	signature:(ostream &os, TypeName &name)
+TypeName::operator =	operator.h	/^	operator = (const TypeName &name); \/\/ must return *this$/;"	p	class:TypeName	access:private	signature:(const TypeName &name)
+TypeName::operator >>	operator.h	/^	friend operator >> (istream &is, TypeName &name);$/;"	p	class:TypeName	access:friend	signature:(istream &is, TypeName &name)
+Window_Mgr	Window_Mgr.h	/^class Window_Mgr{$/;"	c
+X	XY.h	/^class X{$/;"	c
+X::X_ptr_y	XY.h	/^	Y	*X_ptr_y;$/;"	m	class:X	access:private
+X_ptr_y	XY.h	/^	Y	*X_ptr_y;$/;"	m	class:X	access:private
+Y	XY.h	/^class Y{$/;"	c
+Y::Y_x	XY.h	/^	X	Y_x;$/;"	m	class:Y	access:private
+Y_x	XY.h	/^	X	Y_x;$/;"	m	class:Y	access:private
+_LINKSCREEN_H_	LinkScreen.h	2;"	d
+_PERSON_H_	Person.h	2;"	d
+_SALESITEM_H_	Sales_item.h	2;"	d
+_SCREEN_H_	Screen.h	2;"	d
+_WINDOWMGR_H_	Window_Mgr.h	2;"	d
+_XY_H_	XY.h	2;"	d
+avg_price	Sales_item.h	/^		inline double	avg_price() const;$/;"	p	class:Sales_item	access:public	signature:() const
+avg_price	Sales_item.h	/^inline double Sales_item :: avg_price() const$/;"	f	class:Sales_item	signature:() const
+contents	Message.h	/^		string contents;$/;"	m	class:Message	access:private
+cursor	cscope.cpp	/^		index cursor;$/;"	m	class:Screen	file:	access:private
+display	Screen.h	/^		Screen& display(ostream &os)$/;"	f	class:Screen	access:public	signature:(ostream &os)
+display	Screen.h	/^		const Screen& display(ostream &os) const$/;"	f	class:Screen	access:public	signature:(ostream &os) const
+do_display	Screen.h	/^		void do_display(std::ostream &os) const$/;"	f	class:Screen	access:private	signature:(std::ostream &os) const
+dummy_fcn	cscope.cpp	/^		void dummy_fcn(index height)$/;"	f	class:Screen	access:public	signature:(index height)
+folders	Message.h	/^		set<Folder *> folders;$/;"	m	class:Message	access:private
+get	Screen.h	/^		char get() const$/;"	f	class:Screen	access:public	signature:() const
+get	Screen.h	/^		inline char get(index ht, index wd) const;$/;"	p	class:Screen	access:public	signature:(index ht, index wd) const
+get_addr	Person.h	/^		string get_addr() const$/;"	f	class:Person	access:public	signature:() const
+get_cursor	Screen.h	/^		inline index get_cursor() const;$/;"	p	class:Screen	access:public	signature:() const
+get_cursor	Screen.h	/^inline Screen::index Screen::get_cursor() const$/;"	f	class:Screen	signature:() const
+get_name	Person.h	/^		string get_name() const$/;"	f	class:Person	access:public	signature:() const
+height	cscope.cpp	/^		index height;$/;"	m	class:Screen	file:	access:private
+height	cscope.cpp	/^index height = -1;$/;"	v
+index	Screen.h	/^		typedef std::string::size_type	index;$/;"	t	class:Screen	access:public
+index	cscope.cpp	/^		typedef int	index;$/;"	t	class:Screen	file:	access:public
+index	cscope.cpp	/^typedef int	index;$/;"	t	file:
+isbn	Sales_item.h	/^		std::string isbn;$/;"	m	class:Sales_item	access:private
+main	Person.cpp	/^int main (int argc, char **argv)$/;"	f	signature:(int argc, char **argv)
+main	Sales_item.cpp	/^int main (int argc, char **argv)$/;"	f	signature:(int argc, char **argv)
+main	Screen.cpp	/^int main (void)$/;"	f	signature:(void)
+main	cscope.cpp	/^int main(void)$/;"	f	signature:(void)
+move	Screen.h	/^		void move(index hg, index wd)$/;"	f	class:Screen	access:public	signature:(index hg, index wd)
+msg	Message.h	/^		Message *msg;$/;"	m	class:Folder	access:private
+next	LinkScreen.h	/^	LinkScreen *next;$/;"	m	class:LinkScreen	access:private
+operator !=	operator.h	/^bool operator != (const TypeName &lhs, const TypeName &rhs);$/;"	p	signature:(const TypeName &lhs, const TypeName &rhs)
+operator ()	operator.h	/^	TypeName& operator () (arg1, arg2, arg3, ...);$/;"	p	class:TypeName	access:private	signature:(arg1, arg2, arg3, ...)
+operator *	operator.h	/^	TypeName& operator * ();$/;"	p	class:TypeName	access:private	signature:()
+operator +	operator.h	/^TypeName operator + (const TypeName &lhs, const TypeName &rhs);$/;"	p	signature:(const TypeName &lhs, const TypeName &rhs)
+operator ++	operator.h	/^	TypeName& operator ++();$/;"	p	class:TypeName	access:private	signature:()
+operator ++	operator.h	/^	TypeName& operator ++(int);$/;"	p	class:TypeName	access:private	signature:(int)
+operator +=	operator.h	/^TypeName operator += (const TypeName &lhs, const TypeName &rhs);$/;"	p	signature:(const TypeName &lhs, const TypeName &rhs)
+operator --	operator.h	/^	TypeName& operator --();$/;"	p	class:TypeName	access:private	signature:()
+operator --	operator.h	/^	TypeName& operator --(int);$/;"	p	class:TypeName	access:private	signature:(int)
+operator ->	operator.h	/^	TypeName& operator -> ();$/;"	p	class:TypeName	access:private	signature:()
+operator <	operator.h	/^bool operator < (const TypeName &lhs, const TypeName &rhs);$/;"	p	signature:(const TypeName &lhs, const TypeName &rhs)
+operator <<	operator.h	/^	friend operator << (ostream &os, TypeName &name);$/;"	p	class:TypeName	access:friend	signature:(ostream &os, TypeName &name)
+operator <=	operator.h	/^bool operator <= (const TypeName &lhs, const TypeName &rhs);$/;"	p	signature:(const TypeName &lhs, const TypeName &rhs)
+operator =	Message.h	/^		Message & operator=(const Message& );$/;"	p	class:Message	access:public	signature:(const Message& )
+operator =	Message.h	/^Message& Message::operator=(const Message &rhs)$/;"	f	class:Message	signature:(const Message &rhs)
+operator =	Sales_item.h	/^		Sales_item & operator = (const Sales_item &orig)$/;"	f	class:Sales_item	access:public	signature:(const Sales_item &orig)
+operator =	operator.h	/^	operator = (const TypeName &name); \/\/ must return *this$/;"	p	class:TypeName	access:private	signature:(const TypeName &name)
+operator ==	operator.h	/^bool operator == (const TypeName &lhs, const TypeName &rhs);$/;"	p	signature:(const TypeName &lhs, const TypeName &rhs)
+operator >	operator.h	/^bool operator > (const TypeName &lhs, const TypeName &rhs);$/;"	p	signature:(const TypeName &lhs, const TypeName &rhs)
+operator >=	operator.h	/^bool operator >= (const TypeName &lhs, const TypeName &rhs);$/;"	p	signature:(const TypeName &lhs, const TypeName &rhs)
+operator >>	operator.h	/^	friend operator >> (istream &is, TypeName &name);$/;"	p	class:TypeName	access:friend	signature:(istream &is, TypeName &name)
+p_addr	Person.h	/^		std::string		p_addr;$/;"	m	class:Person	access:private
+p_age	Person.h	/^		unsigned		p_age;$/;"	m	class:Person	access:private
+p_name	Person.h	/^		std::string		p_name;$/;"	m	class:Person	access:private
+p_num	Person.h	/^		int				p_num;$/;"	m	class:Person	access:private
+prev	LinkScreen.h	/^	LinkScreen *prev;	$/;"	m	class:LinkScreen	access:private
+print	cscope.cpp	/^		void print(void) const$/;"	f	class:Screen	access:public	signature:(void) const
+put_msg_in_folders	Message.h	/^		void put_msg_in_folders(const set<Folder *>&);$/;"	p	class:Message	access:private	signature:(const set<Folder *>&)
+put_msg_in_folders	Message.h	/^void Message::put_msg_in_folders(const set<Folder* > rhs)$/;"	f	class:Message	signature:(const set<Folder* > rhs)
+remove	Message.h	/^		void remove(Folder &);$/;"	p	class:Message	access:public	signature:(Folder &)
+remove_msg_from_folders	Message.h	/^		void remove_msg_from_folders();$/;"	p	class:Message	access:private	signature:()
+revenue	Sales_item.h	/^		double		revenue;$/;"	m	class:Sales_item	access:private
+s_access_ctr	Screen.h	/^		mutable	size_t s_access_ctr;$/;"	m	class:Screen	access:private
+s_contents	Screen.h	/^		std::string s_contents;$/;"	m	class:Screen	access:private
+s_cursor	Screen.h	/^		index		s_cursor;$/;"	m	class:Screen	access:private
+s_height	Screen.h	/^		index		s_height, s_width;$/;"	m	class:Screen	access:private
+s_width	Screen.h	/^		index		s_height, s_width;$/;"	m	class:Screen	access:private
+same_isbn	Sales_item.h	/^		bool	same_isbn(const Sales_item &rhs) const$/;"	f	class:Sales_item	access:public	signature:(const Sales_item &rhs) const
+save	Message.h	/^		void save(Folder &);$/;"	p	class:Message	access:public	signature:(Folder &)
+set	Screen.h	/^		void set(char ch)$/;"	f	class:Screen	access:public	signature:(char ch)
+units_sold	Sales_item.h	/^		unsigned	units_sold;$/;"	m	class:Sales_item	access:private
+width	cscope.cpp	/^		index width;$/;"	m	class:Screen	file:	access:private
+window	LinkScreen.h	/^	Screen		window;$/;"	m	class:LinkScreen	access:private
+~Message	Message.h	/^		~Message();$/;"	p	class:Message	access:public	signature:()
+~Sales_item	Sales_item.h	/^		~Sales_item(){}$/;"	f	class:Sales_item	access:public	signature:()

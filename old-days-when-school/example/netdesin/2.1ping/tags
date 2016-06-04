@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BUFSIZE	ping.c	9;"	d	file:
+ERROR	Ping.c	25;"	d	file:
+PACKET_SIZE	Ping.c	24;"	d	file:
+SUCCESS	Ping.c	26;"	d	file:
+cal_chksum	Ping.c	/^unsigned short cal_chksum(unsigned short *addr, int len)$/;"	f
+datalen	ping.c	/^int			datalen = 56;$/;"	v
+host	ping.c	/^char		*host; $/;"	v
+icmp_type_name	Ping.c	/^void icmp_type_name (int id)  \/\/定义返回类型，提示出我们看到的信息，其中，ICMP_ECHOREPLY是正确的返回，ICMP_ECHO是正确的发送$/;"	f
+main	Ping.c	/^int main(int argc, char** argv)$/;"	f
+main	ping.c	/^int main (int argc, char **argv)$/;"	f
+nsent	ping.c	/^int			nsent;$/;"	v
+pack	Ping.c	/^int pack(int pack_no, char *sendpacket)$/;"	f
+pid	ping.c	/^pid_t		pid;$/;"	v
+ping	Ping.c	/^int ping( char *ips, int timeout)$/;"	f
+sockfd	ping.c	/^int			sockfd;$/;"	v
+tv_sub	Ping.c	/^	void tv_sub(struct timeval *out,struct timeval *in)$/;"	f
+unpack	Ping.c	/^int unpack(char *buf,int len,  struct sockaddr_in from, char *ips)$/;"	f
+verbose	ping.c	/^int			verbose;$/;"	v

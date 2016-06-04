@@ -1,0 +1,52 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Clear	table.c	/^void Clear(const Table T)$/;"	f
+Creat	table.c	/^void Creat (Table *T, void (*input)(ElemType *e))$/;"	f
+DBList	table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+Delete_i	table.c	/^int  Delete_i(const Table T, const int i, const ElemType e)$/;"	f
+Delete_p	table.c	/^int  Delete_p(const Table T, const Position p, const ElemType e)$/;"	f
+Destory	table.c	/^void Destory(Table *T)$/;"	f
+ElemType	table.h	/^typedef int ElemType;$/;"	t
+Find	table.c	/^Position Find(const Table T, const ElemType e)$/;"	f
+GetElem	table.c	/^static void GetElem(ElemType *e)$/;"	f	file:
+IndexNode	table.h	/^typedef struct IndexNode{$/;"	s
+Init	table.c	/^void Init (Table *T)$/;"	f
+Initialization	table.c	/^void Initialization (Table *T)$/;"	f
+Insert_i	table.c	/^int  Insert_i(const Table T, const int i, const ElemType e)$/;"	f
+Insert_p	table.c	/^int  Insert_p(const Table T, const Position p, const ElemType e)$/;"	f
+IsEmpty	table.c	/^int	 IsEmpty (const Table T)$/;"	f
+Length	table.c	/^int  Length(const Table T)$/;"	f
+List	table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+Locate	table.c	/^Position Locate(const Table T, const int i)$/;"	f
+MakeEmpty	table.c	/^void MakeEmpty(const Table T)$/;"	f
+Node	table.h	/^typedef struct Node{$/;"	s
+Node	table.h	/^}Node, *PtrToNode, *Position, *doubleLinkedList;$/;"	t	typeref:struct:Node
+Pop_h	table.c	/^void  Pop_h (Table T)$/;"	f
+Pop_t	table.c	/^void  Pop_t (Table T)$/;"	f
+Position	table.h	/^}Node, *PtrToNode, *Position, *doubleLinkedList;$/;"	t	typeref:struct:Node
+PtrToIndexNode	table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+PtrToNode	table.h	/^}Node, *PtrToNode, *Position, *doubleLinkedList;$/;"	t	typeref:struct:Node
+Puch_h	table.c	/^void  Puch_h(Table T, const ElemType e)$/;"	f
+Puch_t	table.c	/^void  Puch_t(Table T, const ElemType e)$/;"	f
+Queue	table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+Stack	table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+Table	table.h	/^}*PtrToIndexNode, *Table, *List, *DBList, *Stack, *Queue;$/;"	t	typeref:struct:IndexNode
+TopPop_h	table.c	/^ElemType  TopPop_h (Table T)$/;"	f
+TopPop_t	table.c	/^ElemType  TopPop_t (Table T)$/;"	f
+Top_h	table.c	/^ElemType  Top_h (Table T)$/;"	f
+Top_t	table.c	/^ElemType  Top_t (Table T)$/;"	f
+Traverse	table.c	/^void Traverse(const Table T,void (*handle)(PtrToNode node))$/;"	f
+_TABLE_H_	table.h	2;"	d
+creat	table.c	/^void creat (Table *T)$/;"	f
+doubleLinkedList	table.h	/^}Node, *PtrToNode, *Position, *doubleLinkedList;$/;"	t	typeref:struct:Node
+elem	table.h	/^	ElemType		elem;$/;"	m	struct:Node
+head	table.h	/^	doubleLinkedList	head;$/;"	m	struct:IndexNode
+main	main.c	/^int main (void)$/;"	f
+next	table.h	/^	struct Node		*next;$/;"	m	struct:Node	typeref:struct:Node::Node
+prev	table.h	/^	struct Node		*prev;$/;"	m	struct:Node	typeref:struct:Node::Node
+print	main.c	/^static void print(PtrToNode node)$/;"	f	file:
+tail	table.h	/^	doubleLinkedList	tail;$/;"	m	struct:IndexNode

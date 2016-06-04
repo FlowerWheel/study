@@ -1,0 +1,53 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC = gcc$/;"	m
+CCFLAGS	Makefile	/^CCFLAGS =$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -I..\/lib -Wall -g$/;"	m
+DEP_UDPCLI_01	Makefile	/^DEP_UDPCLI_01 = udpcli_01.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_02	Makefile	/^DEP_UDPCLI_02 = udpcli_02.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_03	Makefile	/^DEP_UDPCLI_03 = udpcli_03.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_04	Makefile	/^DEP_UDPCLI_04 = udpcli_04.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_05	Makefile	/^DEP_UDPCLI_05 = udpcli_05.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPCLI_06	Makefile	/^DEP_UDPCLI_06 = udpcli_06.o $(wildcard ..\/lib\/*.c)$/;"	m
+DEP_UDPSRVSELECT_01	Makefile	/^DEP_UDPSRVSELECT_01 = $(patsubst  %.c, %.o, udpsrvselect01.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_01	Makefile	/^DEP_UDPSRV_01 = $(patsubst  %.c, %.o, udpsrv_01.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_02	Makefile	/^DEP_UDPSRV_02 = $(patsubst  %.c, %.o, udpsrv_02.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_03	Makefile	/^DEP_UDPSRV_03 = $(patsubst  %.c, %.o, udpsrv_03.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_04	Makefile	/^DEP_UDPSRV_04 = $(patsubst  %.c, %.o, udpsrv_04.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_05	Makefile	/^DEP_UDPSRV_05 = $(patsubst  %.c, %.o, udpsrv_05.c $(wildcard ..\/lib\/*.c))$/;"	m
+DEP_UDPSRV_06	Makefile	/^DEP_UDPSRV_06 = $(patsubst  %.c, %.o, udpsrv_06.c $(wildcard ..\/lib\/*.c))$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
+LIBS	Makefile	/^LIBS = $/;"	m
+PORT	udpcli_01.c	3;"	d	file:
+PORT	udpcli_02.c	3;"	d	file:
+PORT	udpcli_03.c	3;"	d	file:
+PORT	udpcli_04.c	3;"	d	file:
+PORT	udpcli_05.c	3;"	d	file:
+PORT	udpcli_06.c	3;"	d	file:
+PORT	udpsrv_01.c	3;"	d	file:
+PORT	udpsrv_02.c	3;"	d	file:
+PORT	udpsrv_03.c	3;"	d	file:
+PORT	udpsrv_04.c	3;"	d	file:
+PORT	udpsrv_05.c	3;"	d	file:
+PORT	udpsrv_06.c	3;"	d	file:
+PORT	udpsrvselect01.c	3;"	d	file:
+SHELL	Makefile	/^SHELL = \/bin\/sh$/;"	m
+VPATH	Makefile	/^VPATH = ..\/lib$/;"	m
+main	udpcli_01.c	/^int main (int argc, char **argv)$/;"	f
+main	udpcli_02.c	/^int main (int argc, char **argv)$/;"	f
+main	udpcli_03.c	/^int main (int argc, char **argv)$/;"	f
+main	udpcli_04.c	/^int main (int argc, char **argv)$/;"	f
+main	udpcli_05.c	/^int main (int argc, char **argv)$/;"	f
+main	udpcli_06.c	/^int main (int argc, char **argv)$/;"	f
+main	udpsrv_01.c	/^int main (int argc, char **argv)$/;"	f
+main	udpsrv_02.c	/^int main (int argc, char **argv)$/;"	f
+main	udpsrv_03.c	/^int main (int argc, char **argv)$/;"	f
+main	udpsrv_04.c	/^int main (int argc, char **argv)$/;"	f
+main	udpsrv_05.c	/^int main (int argc, char **argv)$/;"	f
+main	udpsrv_06.c	/^int main (int argc, char **argv)$/;"	f
+main	udpsrvselect01.c	/^int main (int argc, char **argv)$/;"	f
+srcdir	Makefile	/^srcdir =$/;"	m

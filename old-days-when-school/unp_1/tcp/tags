@@ -1,0 +1,31 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC = gcc$/;"	m
+CCFLAGS	Makefile	/^CCFLAGS =$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -I..\/lib -Wall -g$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
+LIBS	Makefile	/^LIBS = $/;"	m
+OPEN_MAX	tcpserv03.c	6;"	d	file:
+SERVPORT	tcpcli01.c	3;"	d	file:
+SERVPORT	tcpserv01.c	3;"	d	file:
+SERVPORT	tcpserv02.c	3;"	d	file:
+SERVPORT	tcpserv03.c	5;"	d	file:
+SHELL	Makefile	/^SHELL = \/bin\/sh$/;"	m
+TCPCLI01_DEP	Makefile	/^TCPCLI01_DEP = $(patsubst %.c, %.o, tcpcli01.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPCLI02_DEP	Makefile	/^TCPCLI02_DEP = $(patsubst %.c, %.o, tcpcli02.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPCLI03_DEP	Makefile	/^TCPCLI03_DEP = $(patsubst %.c, %.o, tcpcli03.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPSERV01_DEP	Makefile	/^TCPSERV01_DEP = $(patsubst %.c, %.o, tcpserv01.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPSERV02_DEP	Makefile	/^TCPSERV02_DEP = $(patsubst %.c, %.o, tcpserv02.c $(wildcard ..\/lib\/*.c))$/;"	m
+TCPSERV03_DEP	Makefile	/^TCPSERV03_DEP = $(patsubst %.c, %.o, tcpserv03.c $(wildcard ..\/lib\/*.c))$/;"	m
+VPATH	Makefile	/^VPATH = ..\/lib$/;"	m
+main	tcpcli01.c	/^int main(int argc, char **argv)$/;"	f
+main	tcpcli02.c	/^int main (int argc, char **argv)$/;"	f
+main	tcpcli03.c	/^int main (int argc, char **argv)$/;"	f
+main	tcpserv01.c	/^int main(int argc, char **argv)$/;"	f
+main	tcpserv02.c	/^int main (int argc, char **argv)$/;"	f
+main	tcpserv03.c	/^int main (int argc, char **argv)$/;"	f
+srcdir	Makefile	/^srcdir =$/;"	m

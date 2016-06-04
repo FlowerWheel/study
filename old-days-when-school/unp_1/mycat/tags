@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC = gcc$/;"	m
+CCFLAGS	Makefile	/^CCFLAGS = $/;"	m
+CFLAGS	Makefile	/^CFLAGS = -I..\/lib -Wall -g$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS =$/;"	m
+LIBS	Makefile	/^LIBS = $/;"	m
+MCDEP	Makefile	/^MCDEP = $(patsubst %.c, %.o, $(wildcard ..\/lib\/*.c))$/;"	m
+OFDEP	Makefile	/^OFDEP = $(patsubst %.c , %.o, $(wildcard ..\/lib\/*.c))$/;"	m
+SHELL	Makefile	/^SHELL = \/bin\/sh$/;"	m
+VPATH	Makefile	/^VPATH = ..\/lib$/;"	m
+main	mycat.c	/^int main(int argc, char **argv)$/;"	f
+main	openfile.c	/^int main (int argc, char **argv)$/;"	f
+my_open	my_open.c	/^int my_open(const char *pathname, int mode)$/;"	f
+read_fd	read_fd.c	/^ssize_t read_fd(int fd, void *ptr, size_t nbytes, int *recvfd)$/;"	f
+write_fd	write_fd.c	/^ssize_t write_fd(int fd, void *ptr, size_t nbytes, int sendfd)$/;"	f

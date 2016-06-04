@@ -1,0 +1,70 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Accept	warpsock.c	/^int Accept(int listenfd, struct sockaddr *cliaddr, socklen_t *addrlen)$/;"	f
+Bind	warpsock.c	/^void Bind(int sockfd, const struct sockaddr *localaddr, socklen_t addrlen)$/;"	f
+Calloc	memmanage.c	/^void *Calloc(size_t nmemb, size_t size)$/;"	f
+Close	warpsysio.c	/^void Close(int fd)$/;"	f
+Connect	warpsock.c	/^void Connect(int sockfd, const struct sockaddr *servaddr, socklen_t addrlen)$/;"	f
+DGLEN	myunp.h	91;"	d
+Fgets	warpstdio.c	/^void Fgets(char *buf, int n, FILE *fp)$/;"	f
+Fork	procmanage.c	/^pid_t Fork()$/;"	f
+Fputs	warpstdio.c	/^void Fputs(const char str, FILE *fp)$/;"	f
+Free	memmanage.c	/^void Free(void *ptr)$/;"	f
+Getsockopt	warpsock.c	/^void Getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen)$/;"	f
+LISTENQ	myunp.h	89;"	d
+Listen	warpsock.c	/^void Listen(int fd, int backlog)$/;"	f
+MAXFD	daemon.c	4;"	d	file:
+MAXLINE	myunp.h	88;"	d
+Malloc	memmanage.c	/^void *Malloc(size_t size)$/;"	f
+NDG	myunp.h	90;"	d
+Open	warpsysio.c	/^void Open()$/;"	f
+Read	warpsysio.c	/^ssize_t Read(int fd, void *buf, size_t count)$/;"	f
+Realloc	memmanage.c	/^void *Realloc(void *ptr, size_t size)$/;"	f
+Recvfrom	warpsock.c	/^ssize_t Recvfrom(int sockfd, void *buff, ssize_t nbytes, int flags, struct sockaddr *from, socklen_t *addrlen)$/;"	f
+Sendto	warpsock.c	/^ssize_t Sendto(int sockfd, const void *buff, ssize_t nbytes, int flags, struct sockaddr *from, socklen_t addrlen)$/;"	f
+Setsockopt	warpsock.c	/^void Setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen)$/;"	f
+Signal	sighandler.c	/^void Signal(int signum, sighandler_t sighandler)$/;"	f
+Socket	warpsock.c	/^int Socket(int family, int type, int protocol)$/;"	f
+Socketpair	warpsock.c	/^void Socketpair(int domain, int type, int protocol, int sv[2])$/;"	f
+UNIXSTR_PATH	myunp.h	93;"	d
+Waitpid	procmanage.c	/^void Waitpid(pid_t pid, int *status, int options)$/;"	f
+Write	warpsysio.c	/^void Write(int fd, void *buf, size_t count)$/;"	f
+__myunp_h	myunp.h	5;"	d
+count	sockdgram.c	/^static int	count = 0;$/;"	v	file:
+daemon_inetd	daemon.c	/^void daemon_inetd(const char *pname, int facility)$/;"	f
+daemon_init	daemon.c	/^int daemon_init(const char *pname, int facility)$/;"	f
+daemon_proc	error.c	/^int		daemon_proc;		\/* set nonzero by daemon_init() *\/$/;"	v
+dg_cli	sockdgram.c	/^void dg_cli(FILE *fp, int sockfd, struct sockaddr *PtrServAddr, socklen_t addrlen)$/;"	f
+dg_cliaddr	sockdgram.c	/^void dg_cliaddr(FILE *fp, int sockfd, struct sockaddr *PtrServAddr, socklen_t addrlen)$/;"	f
+dg_echo	sockdgram.c	/^void dg_echo(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoaddr	sockdgram.c	/^void dg_echoaddr(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoloop1	sockdgram.c	/^void dg_echoloop1(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+dg_echoloop2	sockdgram.c	/^void dg_echoloop2(int sockfd, struct sockaddr* PtrCliAddr, socklen_t clilen)$/;"	f
+err_doit	error.c	/^err_doit(int errnoflag, int level, const char *fmt, va_list ap)$/;"	f	file:
+err_dump	error.c	/^err_dump(const char *fmt, ...)$/;"	f
+err_msg	error.c	/^err_msg(const char *fmt, ...)$/;"	f
+err_quit	error.c	/^err_quit(const char *fmt, ...)$/;"	f
+err_ret	error.c	/^err_ret(const char *fmt, ...)$/;"	f
+err_sys	error.c	/^err_sys(const char *fmt, ...)$/;"	f
+host_serv	sockusedns.c	/^struct  addrinfo *host_serv(const char *hostname, const char *service, int family, int socktype)$/;"	f
+max	myunp.h	96;"	d
+readable_timeo	warpsock.c	/^int readable_timeo(int fd, int sec)$/;"	f
+readline1	warpsysio.c	/^ssize_t readline1(int fd, void *vptr, size_t linelen)$/;"	f
+readn	warpsysio.c	/^ssize_t readn(int fd, void *vptr, size_t n)$/;"	f
+recvfrom_alarm	sockdgram.c	/^static void recvfrom_alarm(int signo)$/;"	f	file:
+recvfrom_int	sockdgram.c	/^static void recvfrom_int(int signo)$/;"	f	file:
+sig_chld	sighandler.c	/^void sig_chld(int signo)$/;"	f
+sighandler_t	myunp.h	/^typedef void (*sighandler_t)(int);$/;"	t
+sock_ntop	sockaddr.c	/^char *sock_ntop(const struct sockaddr *sa, socklen_t salen)$/;"	f
+str_cli	sockstream.c	/^void str_cli(FILE *fp, int  sockfd)$/;"	f
+str_echo	sockstream.c	/^void str_echo(int fd)$/;"	f
+tcp_connect	sockusedns.c	/^int		tcp_connect(const char *hostname, const char *service)$/;"	f
+tcp_listen	sockusedns.c	/^int	tcp_listen(const char *hostname, const char *service, socklen_t *addrlenp)$/;"	f
+udp_client	sockusedns.c	/^int		udp_client(const char *hostname, const char *service, struct sockaddr *saptr, socklen_t *addrlenp)$/;"	f
+udp_connect	sockusedns.c	/^int		udp_connect(const char *hostname, const char *service)$/;"	f
+udp_server	sockusedns.c	/^int		udp_server(const char *hostname, const char *service, socklen_t *addrlenp)$/;"	f
+writen	warpsysio.c	/^ssize_t writen(int fd, const void *vptr, size_t n)$/;"	f

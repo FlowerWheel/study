@@ -1,0 +1,5 @@
+/usr/include/libuser/error.h
+/usr/include/alsa/error.h
+/usr/include/error.h
+/usr/include/linux/can/error.h
+/usr/include/bits/error.h

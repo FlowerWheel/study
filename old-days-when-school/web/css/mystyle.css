@@ -1,0 +1,92 @@
+hr {
+	color:sienna;
+}
+
+p {
+	margin-left:20px;
+}
+
+body {
+	background-image:url("images/back.gif");
+}
+
+#template {
+	background:
+	background-attachment: fixed;
+	background-color:yellow ;padding: 20px;
+	background-image: url("/images/bg.gif");
+	background-position: center top bottom right left (50% 50%) (50px 100px); 
+	background-repeat: repeat-y repeat-x repeat no-repeat;
+
+	text-align: left right center justify;
+	text-indent: 5em;
+	text-decoration: none underline overline line-through blink;
+	text-transform: none capitalize lowercase uppercase;
+
+
+	word-spacing: 30px -0.5em;
+	letter-spacing: 30px -0.5em;
+	white-space: normal pre nowrap pre-wrap pre-line;
+	direction: ltr rtl;
+	color:
+	line-height:
+	unicode-bidi:
+
+	font:
+	font-family:
+	font-size:
+	font-style:
+	font-variant:
+	font-weight:
+
+	list-style:
+	list-style-image:
+	list-style-position:
+	list-style-type:
+
+	outline:
+	outline-color:
+	outline-style:
+	outline-width:
+
+
+	padding:
+	padding-top:
+	padding-right:
+	padding-bottom:
+	padding-left:
+
+	border:
+	border-style:
+	border-color:
+	border-width:
+	border-collapse:
+	border-spacing:
+
+	border-top:
+	border-top-style:
+	border-top-color:
+	border-top-width:
+	border-left:
+	border-left-style:
+	border-left-color:
+	border-left-width:
+	border-right:
+	border-right-style:
+	border-right-color:
+	border-right-width:
+	border-bottom:
+	border-bottom-style:
+	border-bottom-color:
+	border-bottom-width:
+
+	margin:
+	margin-right:
+	margin-left:
+	margin-top:
+	margin-bottom:
+
+	max-height:
+	max-width:
+
+}

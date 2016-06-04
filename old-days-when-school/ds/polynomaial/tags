@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ADD	polynomaial.h	12;"	d
+Add	polynomaial.h	10;"	d
+AddPolynomaial	polynomaial.h	15;"	d
+AddSubPolynomaial	polynomaial.c	/^void AddSubPolynomaial(polynomaial Poly1, polynomaial Poly2, polynomaial sum, int type)$/;"	f
+CC	Makefile	/^CC = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -I..\/libc -ggdb -Wall$/;"	m
+CoeffArray	polynomaial.h	/^	int		CoeffArray[MaxDegree+1];$/;"	m	struct:__anon1
+HighPower	polynomaial.h	/^	int		HighPower;$/;"	m	struct:__anon1
+Max	polynomaial.h	9;"	d
+MaxDegree	polynomaial.h	7;"	d
+MultPolynomaial	polynomaial.c	/^void MultPolynomaial( polynomaial Poly1, polynomaial Poly2, polynomaial mult)$/;"	f
+POLYNOMAIAL_H	polynomaial.h	2;"	d
+SUB	polynomaial.h	13;"	d
+SubPolynomaial	polynomaial.h	16;"	d
+VPATH	Makefile	/^VPATH = ..\/libc$/;"	m
+ZeroPolynomaial	polynomaial.c	/^void ZeroPolynomaial(polynomaial Poly)$/;"	f
+main	main.c	/^int main ()$/;"	f
+polynomaial	polynomaial.h	/^}*polynomaial;$/;"	t	typeref:struct:__anon1

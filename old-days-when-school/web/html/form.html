@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>
+			hello form
+		</title>
+	</head>
+	<body>
+		<form>
+			<fieldset>
+				<legend>any form</legend>
+				<form>
+					First name:<input type="TEXT" name="firstname" />
+					<br />
+					Last name:<input type="TEXT" name"lastname" />
+				</form>
+				<form name="input" action="html_form_action.asp" method="get">
+					I D :<input type="TEXT" name="firstname" />
+					<br />
+					PW:<input type="PASSWORD" name"password" />
+					<input type="SUBMIT" value="Submit" />
+				</form>
+				<form>
+					<input type="RADIO" name="sex" value="male" />
+					<input type="RADIO" name="sex" value="famale" />
+				</form>
+				<form>
+					<input type="CHECKBOX" name="bike" />
+					<input type="CHECKBOX" name="car" />
+				</form>
+				<form>
+					<select name="num(1~5)">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5" selected="selected">5</option>
+					</form>
+					<form>
+						<input type="button" value="Hello world" />
+					</form>
+				</fieldset>
+			</form>
+
+			<form>
+				<label for="male">Male</label>
+				<input type="RADIO" name="sex" id="male" />
+				<br />
+				<label for="female">Female</label>
+				<input type="RADIO" name="sex" id="female" />
+			</form>
+
+			<select>
+				<optgroup label="Swedish Cars">
+					<option value ="volvo">Volvo</option>
+					<option value ="saab">Saab</option>
+				</optgroup>
+
+				<optgroup label="German Cars">
+					<option value ="mercedes">Mercedes</option>
+					<option value ="audi">Audi</option>
+				</optgroup>
+			</select>
+
+			<br />
+
+			<textarea cols="50" rows="10">
+AAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAA
+
+			</textarea>
+
+	</body>
+</html>

@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BUFLEN	getrt.c	3;"	d	file:
+CC	Makefile	/^CC = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -I..\/lib -Wall -g$/;"	m
+DEP_GETRT	Makefile	/^DEP_GETRT = $(patsubst %.c, %.o, $(wildcard ..\/lib\/*.c))$/;"	m
+If_indextoname	if_indextoname.c	/^If_indextoname(unsigned int idx, char *name)$/;"	f
+If_nameindex	if_nameindex.c	/^If_nameindex(void)$/;"	f
+If_nametoindex	if_nametoindex.c	/^If_nametoindex(const char *name)$/;"	f
+LIBS	Makefile	/^LIBS = $/;"	m
+NEXT_SA	get_rtaddrs.c	12;"	d	file:
+Net_rt_dump	net_rt_dump.c	/^Net_rt_dump(int family, int flags, size_t *lenp)$/;"	f
+Net_rt_iflist	net_rt_iflist.c	/^Net_rt_iflist(int family, int flags, size_t *lenp)$/;"	f
+ROUNDUP	get_rtaddrs.c	6;"	d	file:
+SEQ	getrt.c	5;"	d	file:
+SHELL	Makefile	/^SHELL = \/bin\/sh$/;"	m
+Sock_masktop	unproute.h	20;"	d
+get_rtaddrs	get_rtaddrs.c	/^get_rtaddrs(int addrs, SA *sa, SA **rti_info)$/;"	f
+if_freenameindex	if_nameindex.c	/^if_freenameindex(struct if_nameindex *ptr)$/;"	f
+if_indextoname	if_indextoname.c	/^if_indextoname(unsigned int idx, char *name)$/;"	f
+if_nameindex	if_nameindex.c	/^if_nameindex(void)$/;"	f
+if_nametoindex	if_nametoindex.c	/^if_nametoindex(const char *name)$/;"	f
+main	getrt.c	/^int main (int argc, char **argv)$/;"	f
+net_rt_dump	net_rt_dump.c	/^net_rt_dump(int family, int flags, size_t *lenp)$/;"	f
+net_rt_iflist	net_rt_iflist.c	/^net_rt_iflist(int family, int flags, size_t *lenp)$/;"	f
+sock_masktop	sock_masktop.c	/^sock_masktop(SA *sa, socklen_t salen)$/;"	f
