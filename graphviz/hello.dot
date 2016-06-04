@@ -1,0 +1,5 @@
+//hello.dot 
+digraph{
+    hello -> world
+}
+

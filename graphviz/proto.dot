@@ -1,0 +1,5 @@
+//proto.dot 
+digraph{
+    Objectprototype -> null;
+    Object -> Objectprototype;
+}
