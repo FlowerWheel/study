@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    border: 5px navy;
+    border-style: dotted double;
+}
+
+table {
+    width: 960px;
+    margin: 0 auto;
+    /*border-spacing: 0px;*/
+    border-collapse: collapse;
+}
+
+.header {
+    height: 120px;
+    background-color: olive;
+}
+
+.aside {
+    width: 200px;
+    height: 500px;
+    background-color: purple;
+}
+
+.section {
+    width: 760px;
+    background-color: maroon;
+}
+
+.footer {
+    height: 120px;
+    background-color: gray;
+}

@@ -1,0 +1,3 @@
+
+def dial():
+    print('f')
