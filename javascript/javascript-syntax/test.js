@@ -39,3 +39,18 @@ console.log();
 // console.log(Object instanceof Object);
 // console.log([] instanceof Object);
 // console.log({} instanceof Object);
+
+
+void function iife() {
+  var bar = function () {};
+  var baz = function () {};
+  var foo = function () {
+    bar();
+    baz();
+  };
+  var biz = function () {};
+
+  foo();
+  biz();
+  console.log('...............')
+}();

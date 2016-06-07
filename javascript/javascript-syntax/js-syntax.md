@@ -2,15 +2,17 @@ javascript-syntax
 =================
 
 参考：
-javascript-the-core [翻译](http://weizhifeng.net/javascript-the-core.html) [原文](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/)
+
+* javascript-the-core [翻译](http://weizhifeng.net/javascript-the-core.html) [原文](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/)
 
 ### 属性类型
 
 #### 数据属性
-* `[[Configurable]]`    表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true
-* `[[Enumerable]]`      表示能否通过for-in循环返回属性。true
-* `[[Writable]]`	    表示能否修改属性值。ture
-* `[[Value]]`		    包含实际值。undefined
+|--|--|
+|`[[Configurable]]` |表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true|
+|`[[Enumerable]]`   |表示能否通过for-in循环返回属性。true|
+|`[[Writable]]`	    |表示能否修改属性值。ture|
+|`[[Value]]`		|包含实际值。undefined|
 
 严格模式下不合法的操作会抛出异常，非严格模式会忽略相关操作。
 
@@ -33,15 +35,18 @@ console.log(person.sax);        // M
 ```
 
 #### 访问器属性: `getter` `setter`
-* `[[Configurable]]`	表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true
-* `[[Enumerable]]`	    表示能否通过for-in循环返回属性。true
-* `[[Getter]]`		    取值函数。undefined
-* `[[Setter]]`		    赋值函数。undefined
+|-|-|
+|`[[Configurable]]`	|表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true|
+|`[[Enumerable]]`	|表示能否通过for-in循环返回属性。true|
+|`[[Getter]]`		|取值函数。undefined|
+|`[[Setter]]`		|赋值函数。undefined|
 
-note:
+Note:
+
 * `getter`和`setter`不一定要成对出现;
 * 只有`getter`函数证明该属性只读，尝试写入在非严格模式下会被忽略，严格模式会抛出错误;
 * 只有`setter`函数证明该属性只写，尝试读取在非严格模式下返回undefined，严格模式则抛出错误;
+* 对象的``数据属性``、``访问器属性``都包含`[[configurable]]`和`[[enumerable]]`，但不能同时有`[[writeable]]`/`[[value]]`和`[[get]]`/`[[set]]`，数据属性也可以函数。
 
 ```js
 var book1 = { _year: 2014, edition: 1 };
@@ -104,10 +109,8 @@ console.log(desc2);
 // }
 ```
 
-note：
-对象的``数据属性``、``访问器属性``都包含`[[configurable]]`和`[[enumerable]]`，
-但不能同时有`[[writeable]]`/`[[value]]`和`[[get]]`/`[[set]]`，
-数据属性也可以函数。
+应用：观察者模式
+例子[JavaScript实现MVVM之我就是想监测一个普通对象的变化](http://hcysun.me/2016/04/28/JavaScript%E5%AE%9E%E7%8E%B0MVVM%E4%B9%8B%E6%88%91%E5%B0%B1%E6%98%AF%E6%83%B3%E7%9B%91%E6%B5%8B%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96/)
 
 
 ### 对象保护
@@ -124,13 +127,13 @@ ECMAScript5对象保护功能
 ```js
 var person1 = { name: 'liuht' };
 Object.preventExtensions(person1);
-console.log('isFrozen:', Object.isFrozen(person1));				// -> true
-console.log('isSealed:', Object.isSealed(person1));				// -> true
-console.log('isExtensible:', Object.isExtensible(person1)); 	// -> false
+console.log('isFrozen:', Object.isFrozen(person1));             // -> true
+console.log('isSealed:', Object.isSealed(person1));             // -> true
+console.log('isExtensible:', Object.isExtensible(person1));     // -> false
 person1.sex = 1;
 console.log(person1);
 console.log(person1.sex);
-console.log();
+
 ```
 
 * 禁止删除属性：密封。禁止删除对象已存在的属性和方法。
@@ -138,13 +141,13 @@ console.log();
 ```js
 var person2 = { name: 'liuht' };
 Object.seal(person2);
-console.log('isFrozen:', Object.isFrozen(person2));				// -> true
-console.log('isSealed:', Object.isSealed(person2));				// -> true
-console.log('isExtensible:', Object.isExtensible(person2)); 	// -> false
+console.log('isFrozen:', Object.isFrozen(person2));             // -> true
+console.log('isSealed:', Object.isSealed(person2));             // -> true
+console.log('isExtensible:', Object.isExtensible(person2));     // -> false
 delete person2.name;
 person2.age = 10;
 console.log(person2);
-console.log();
+
 ```
 
 * 禁止添加或删除属性：冻结。禁止修改对象已存在的属性和方法，所有字段都是只读的。
@@ -152,24 +155,42 @@ console.log();
 ```js
 var persion3 = { name: 'liuht' };
 Object.freeze(persion3);
-console.log('isFrozen:', Object.isFrozen(persion3));			// -> true
-console.log('isSealed:', Object.isSealed(persion3));			// -> true
+console.log('isFrozen:', Object.isFrozen(persion3));            // -> true
+console.log('isSealed:', Object.isSealed(persion3));            // -> true
 console.log('isExtensible:', Object.isExtensible(persion3)); 	// -> false
 delete persion3.name;
 persion3.age = 10;
 persion3.name = 'new name';
 console.log(persion3);
-console.log();
+
 ```
+
+***`访问器属性`和`数据保护功能`都是针对对象属性，而不是变量。***
 
 
 ### 数据类型
 
-五种基本类型 `Undefined`，`Null`，`Boolean`，`Number`，`String`，但是当需要的时候，它们也会被转换成对象，如基本类型的包装类型。
+五种基本类型 `Undefined`，`Null`，`Boolean`，`Number`，`String`。
+
+平时使用的时候都使用的是字面量形式，但是当需要的时候，它们也会被转换成对象，即基本类型的包装类型。
+
+没有`Undefined`和`Null`内建函数，而是有`Undefined`和`Null`类型的内建象，分别是`undefined`和`null`。
+
+ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的, 相同的地方是都可以视为布尔值的false。
 
 引用类型：`Object`、`Function`、`Array`、`Error`、`Regexp`、`Map`、`Set`...
 
-***note：JavaScript中除了 `null` 和 `undefined` 之外的一切都被当做对象！***
+***Note：JavaScript中除了 `null` 和 `undefined` 之外的一切都被当做对象！***
+
+undefined与null的区别：
+null表示"没有对象"，即该处不应该有值。
+1. 作为函数的参数，表示该函数的参数不是对象。
+2. 作为对象原型链的终点。
+undefined表示"缺少值"，就是此处应该有一个值，但是还没有定义。
+1. 变量被声明了，但没有赋值时，就等于undefined。
+2. 调用函数时，应该提供的参数没有提供，该参数等于undefined。
+3. 对象没有赋值的属性，该属性的值为undefined。
+4. 函数没有返回值时，默认返回undefined。
 
 ```js
 console.log(undefined instanceof Object);   // false
@@ -178,12 +199,10 @@ console.log(null instanceof Object);        // false
 console.log(typeof null);                   // object
 console.log(undefined === null);            // false
 console.log(undefined == null);             // true Object.prototype.valueOf(undefined) === Object.prototype.valueOf(null)
-console.log();
 
 var undefined = 'foo';
 console.log(undefined, typeof undefined);   // foo 'string'
-console.log(void 0 === undefined);          // true
-console.log();
+console.log(void(0) === undefined);         // true
 
 var num = 0;
 var numObj = new Number(0);
@@ -196,7 +215,6 @@ console.log(typeof num);                    // number
 console.log(typeof numObj);                 // object
 console.log(numObj === new Number(0));      // false
 console.log(numObj === numObj);             // true
-console.log();
 
 var str = '';
 var strObj = new String('');
@@ -207,7 +225,6 @@ console.log(strObj instanceof String);      // true
 console.log(str === strObj);                // false
 console.log(typeof str);                    // string
 console.log(typeof strObj);                 // object
-console.log();
 
 var bool = true;
 var boolObj = new Boolean(true);
@@ -218,7 +235,6 @@ console.log(boolObj instanceof Boolean);    // true
 console.log(bool === boolObj);              // false
 console.log(typeof bool);                   // boolean
 console.log(typeof boolObj);                // object
-console.log();
 
 // 引用类型Object
 var obj = {};
@@ -228,15 +244,29 @@ console.log(boolObj instanceof Object);     // true
 console.log(obj === boolObj);               // false
 console.log(typeof obj);                    // object
 console.log(typeof boolObj);                // object
-console.log();
 ```
+
+
+### void
+
+`void UnaryExpression` 按如下流程解释:
+
+* 令`expr`为解释执行`UnaryExpression`的结果。
+* 调用 `GetValue(expr)`.
+* 返回 `undefined`.
+
+注意：GetValue一定要调用，即使它的值不会被用到，但是这个表达式可能会有副作用(side-effects)。
+
+为什么要用void？undefined不是保留字，可以重新赋值。采用void方式获取undefined便成了通用准则。
+
+[谈谈Javascript中的void操作符](https://segmentfault.com/a/1190000000474941)
 
 
 ### 对象
 
 ECMAScript做为一个高度抽象的面向对象语言，是通过对象来交互的。
-一个对象就是一个属性集合，并拥有一个独立的`prototype`（原型）对象，这个`prototype`可以是一个`对象`或者`null`。
-一个对象的`prototype`是以内部的`[[Prototype]]`属性来引用的。
+一个对象就是一个属性集合，并拥有一个独立的`原型对象`，这个`原型对象`可以是一个`对象`或者`null`。
+一个对象的`原型对象`是以对象内部的`[[Prototype]]`属性来引用的。
 
 在示意图里边我们将会使用`__<internal-property>__`下划线标记来替代两个括号，对于prototype对象来说是：`__proto__`。
 
@@ -252,7 +282,7 @@ var foo = {
 
 我们拥有一个这样的结构，两个明显的自身属性和一个隐藏的属性`__proto__`，这个属性是对`foo.prototype`的引用：
 
-![basic-object](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/basic-object.png)
+![basic-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/basic-object.png)
 
 这些`prototype`有什么用？让我们以`原型链`的概念来回答这个问题。
 
@@ -300,7 +330,7 @@ b和c访问到了在对象a中定义的calculate方法，这是通过`原型链l
 
 下一张图展示了对象a，b，c之间的继承层级：
 
-![prototype-chain](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/prototype-chain.png)
+![prototype-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/prototype-chain.png)
 
 ES5标准化了一个实现原型继承的可选方法，即使用`Object.create`函数：
 
@@ -319,7 +349,7 @@ The `__proto__` property of `Object.prototype` is an `accessor property` (a gett
 
 如果没有明确为一个对象指定原型，那么它将会使用`__proto__`的默认值－`Object.prototype`。`Object.prototype`对象自身也有一个`__proto__`属性，这是原型链的终点并且值为`null`。
 
-***note:项目中不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()`读取原型，`Object.create()`设置原型。***
+***Note:项目中不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()`读取原型，`Object.create()`设置原型。***
 
 ```js
 var Shape = function () { };
@@ -338,7 +368,7 @@ console.log('circle:', typeof circle); 												// object
 console.log('circle:', circle instanceof Shape); 									// true
 console.log('circle:', circle instanceof Object); 									// true
 circle.say(); 																		// hello world!
-console.log();
+
 
 var rectangle = Object.create(proto);
 console.log('ractangle:', rectangle.__proto__ === Shape.prototype);					// true
@@ -347,7 +377,7 @@ console.log('ractangle:', typeof rectangle); 										// object
 console.log('ractangle:', rectangle instanceof Shape); 								// true
 console.log('ractangle:', rectangle instanceof Object); 							// true
 circle.say(); 																		// hello world!
-console.log();
+
 
 var objPrototype = Object.prototype;
 console.log(objPrototype);
@@ -430,7 +460,7 @@ console.log(
 
 这个代码可以表示为如下关系：
 
-![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/constructor-proto-chain.png)
+![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/constructor-proto-chain.png)
 
 可以看到，构造函数`Foo`也有自己的`__proto__`，值为`Function.prototype`，`Function.prototype`也通过其`__proto__`属性关联到`Object.prototype`。实际上除了`null`之外的每个对象都有`原型`。
 
@@ -822,7 +852,7 @@ exports.inherits = function(ctor, superCtor) {
 
 下图是一个Javascript Prototype Chain关系图：
 
-![Javascript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/javascript-prototype.png)
+![Javascript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
 
 
 现在，在我们知道了对象的基础之后，让我们看看运行时程序的执行（runtime program execution）在ECMAScript中是如何实现的。
@@ -867,7 +897,7 @@ foo(30);
 
 所有ECMAScript程序的运行时可以用执行上下文（EC）栈来表示，栈顶是当前活动的上下文：
 
-![ec-stack](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/ec-stack.png)
+![ec-stack](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/ec-stack.png)
 
 当程序开始的时候它会进入全局执行上下文，此上下文位于栈底并且是栈中的第一个元素。然后全局代码进行一些初始化，创建需要的对象和函数。
 
@@ -877,7 +907,7 @@ foo(30);
 
 在下个图中，拥有一些函数上下文EC1和全局上下文Global EC，当EC1进入和退出全局上下文的时候下面的栈将会发生变化：
 
-![ec-stack-changes](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/ec-stack-changes.png)
+![ec-stack-changes](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/ec-stack-changes.png)
 
 这就是ECMAScript的运行时系统如何真正地管理代码执行的。
 
@@ -892,7 +922,7 @@ foo(30);
 
 一个执行上下文可以抽象的表示为一个简单的对象。每一个执行上下文拥有一些属性（可以叫作上下文状态）用来跟踪和它相关的代码的执行过程。在下图中展示了一个上下文的结构：
 
-![execution-context](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/execution-context.png)
+![execution-context](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/execution-context.png)
 
 除了这三个必需的属性，变量对象、this、作用域链之外，执行上下文可以拥有其他附加的状态，这取决于实现。
 
@@ -924,7 +954,7 @@ console.log(baz); // ReferenceError, "baz" is not defined
 
 之后，全局上下文的`变量对象`将会拥有如下属性：
 
-![variable-object](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/variable-object.png)
+![variable-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/variable-object.png)
 
 再看一遍，函数baz是一个函数表达式，没有被包含在变量对象之中。这就是为什么当我们想要在函数自身之外访问它的时候会出现ReferenceError。
 
@@ -955,7 +985,7 @@ foo(10, 20);
 
 我们看下函数foo的上下文中的活动对象（activation object，简称AO）：
 
-![activation-object](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/activation-object.png)
+![activation-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/activation-object.png)
 
 并且函数表达式baz还是没有被包含在`变量/活动对象`中。
 
@@ -1000,7 +1030,7 @@ var x = 10;
 
 作用域链的另一个表现方式可以是一个简单的数组。利用`__parent__`概念，我们可以用下面的图来表现上面的例子（并且父变量对象存储在函数的`[[Scope]]`属性中）：
 
-![scope-chain](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/scope-chain.png)
+![scope-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/scope-chain.png)
 
 在代码执行过程中，作用域链可以通过使用with语句和catch从句对象来增强。并且由于这些对象是简单的对象，它们可以拥有原型（和原型链）。
 
@@ -1053,7 +1083,7 @@ console.log(x); // 10
 
 我们可以给出如下的结构（确切的说，在我们查找`__parent__`连接之前，首先查找`__proto__`链）：
 
-![scope-chain-with](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/scope-chain-with.png)
+![scope-chain-with](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/scope-chain-with.png)
 
 注意，不是在所有的实现中全局对象都是继承自Object.prototype。上图中描述的行为（从全局上下文中引用「未定义」的变量x）可以在诸如SpiderMonkey引擎中进行测试。
 
@@ -1177,7 +1207,7 @@ console.log(
 
 以上代码可以通过下图进行说明：
 
-![shared-scope](https://raw.githubusercontent.com/liuyanjie/js-core/master/javascript-syntax/images/shared-scope.png)
+![shared-scope](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/shared-scope.png)
 
 确切来说这个特性在循环中创建多个函数的时候会使人非常困惑。在创建的函数中使用循环计数器的时候，一些程序员经常会得到非预期的结果，所有函数中的计数器都是同样的值。
 
