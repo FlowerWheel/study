@@ -8,7 +8,8 @@ javascript-syntax
 ### 属性类型
 
 #### 数据属性
-|--|--|
+属性|说明
+---|---
 |`[[Configurable]]` |表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true|
 |`[[Enumerable]]`   |表示能否通过for-in循环返回属性。true|
 |`[[Writable]]`	    |表示能否修改属性值。ture|
@@ -35,11 +36,12 @@ console.log(person.sax);        // M
 ```
 
 #### 访问器属性: `getter` `setter`
-|-|-|
-|`[[Configurable]]`	|表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true|
-|`[[Enumerable]]`	|表示能否通过for-in循环返回属性。true|
-|`[[Getter]]`		|取值函数。undefined|
-|`[[Setter]]`		|赋值函数。undefined|
+属性|说明
+---|---
+`[[Configurable]]`	|表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true
+`[[Enumerable]]`	|表示能否通过for-in循环返回属性。true
+`[[Getter]]`		|取值函数。undefined
+`[[Setter]]`		|赋值函数。undefined
 
 Note:
 
@@ -198,7 +200,7 @@ console.log(typeof undefined);              // undefined
 console.log(null instanceof Object);        // false
 console.log(typeof null);                   // object
 console.log(undefined === null);            // false
-console.log(undefined == null);             // true Object.prototype.valueOf(undefined) === Object.prototype.valueOf(null)
+console.log(undefined == null);             // true
 
 var undefined = 'foo';
 console.log(undefined, typeof undefined);   // foo 'string'
