@@ -163,20 +163,29 @@ text-align start | end | left | right | center | justify | match-parent
 text-align-last start | end | left | right | center | justify | match-parent
 text-combine-upright 
 text-decoration 装饰文本
+text-decoration-style
 text-decoration-color
 text-decoration-line
-text-decoration-style
 text-emphasis 该属性常用于设定中文排版中文本的着重样式
+text-emphasis-style
 text-emphasis-color
 text-emphasis-position
-text-emphasis-style
 text-indent 属性规定文本块中首行文本的缩进。
 text-orientation 设定文本方向
 text-overflow 设定文本溢出处理方式
 text-rendering
 text-shadow 设定文本阴影
-text-transform
+text-transform 为文本块转换大小写
 text-underline-position
+
+text-justify
+
+whitespace
+direction
+letter-spacing
+word-spacing
+line-height
+word-warp
 
 transform
 transform-box
