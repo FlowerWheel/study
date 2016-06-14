@@ -118,6 +118,17 @@ padding-block-end
 padding-inline-start
 padding-inline-end
 
+### 定位
+top
+bottom
+left
+right
+z-index
+position
+float
+clear
+
+
 ### 字体
 font
 font-size
