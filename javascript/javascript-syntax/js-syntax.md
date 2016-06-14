@@ -43,12 +43,10 @@ console.log(person.sax);        // M
 `[[Getter]]`		|取值函数。undefined
 `[[Setter]]`		|赋值函数。undefined
 
-Note:
-
-* `getter`和`setter`不一定要成对出现;
-* 只有`getter`函数证明该属性只读，尝试写入在非严格模式下会被忽略，严格模式会抛出错误;
-* 只有`setter`函数证明该属性只写，尝试读取在非严格模式下返回undefined，严格模式则抛出错误;
-* 对象的``数据属性``、``访问器属性``都包含`[[configurable]]`和`[[enumerable]]`，但不能同时有`[[writeable]]`/`[[value]]`和`[[get]]`/`[[set]]`，数据属性也可以函数。
+> `getter`和`setter`不一定要成对出现;
+> 只有`getter`函数证明该属性只读，尝试写入在非严格模式下会被忽略，严格模式会抛出错误;
+> 只有`setter`函数证明该属性只写，尝试读取在非严格模式下返回undefined，严格模式则抛出错误;
+> 对象的``数据属性``、``访问器属性``都包含`[[configurable]]`和`[[enumerable]]`，但不能同时有`[[writeable]]`/`[[value]]`和`[[get]]`/`[[set]]`，数据属性也可以函数。
 
 ```js
 var book1 = { _year: 2014, edition: 1 };
@@ -115,14 +113,10 @@ console.log(desc2);
 例子[JavaScript实现MVVM之我就是想监测一个普通对象的变化](http://hcysun.me/2016/04/28/JavaScript%E5%AE%9E%E7%8E%B0MVVM%E4%B9%8B%E6%88%91%E5%B0%B1%E6%98%AF%E6%83%B3%E7%9B%91%E6%B5%8B%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96/)
 
 
-### 对象保护
+### ECMAScript5对象保护功能
 
-ECMAScript5对象保护功能
-
+在JavaScript里，默认情况下，你可修改任何你可以访问到的对象，你可以自由的删除对象的属性或覆盖对象的方法。这在多人协作开发的项目中，会造成很大问题，因为你不知道你的修改会对别人造成什么样的影响。如果你是一个模块或代码库的作者，你可能想锁定一些核心库的某些部分，保证任何人不能有意或无意的修改它们。
 严格模式下抛出异常，普通模式下安静的失败；
-在JavaScript里，默认情况下，你可修改任何你可以访问到的对象；
-你可以自由的删除对象的属性或覆盖对象的方法，这在多人协作开发的项目中，会造成很大问题，因为你不知道你的修改会对别人造成什么样的影响；
-如果你是一个模块或代码库的作者，你可能想锁定一些核心库的某些部分，保证任何人不能有意或无意的修改它们。
 
 * 禁止添加属性：禁止扩展。禁止为对象添加属性和方法，但已存在的属性和方法是可以被修改和删除的。
 
@@ -167,7 +161,7 @@ console.log(persion3);
 
 ```
 
-***`访问器属性`和`数据保护功能`都是针对对象属性，而不是变量。***
+***`访问器属性`和`对象保护功能`都是针对对象属性，而不是变量。***
 
 
 ### 数据类型
@@ -176,13 +170,13 @@ console.log(persion3);
 
 平时使用的时候都使用的是字面量形式，但是当需要的时候，它们也会被转换成对象，即基本类型的包装类型。
 
-没有`Undefined`和`Null`内建函数，而是有`Undefined`和`Null`类型的内建象，分别是`undefined`和`null`。
+没有`Undefined()`和`Null()`内建函数，而是有`Undefined`和`Null`类型的内建对象`undefined`和`null`。
 
 ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的, 相同的地方是都可以视为布尔值的false。
 
 引用类型：`Object`、`Function`、`Array`、`Error`、`Regexp`、`Map`、`Set`...
 
-***Note：JavaScript中除了 `null` 和 `undefined` 之外的一切都被当做对象！***
+> JavaScript中除了 `null` 和 `undefined` 之外的一切都被当做对象！
 
 undefined与null的区别：
 null表示"没有对象"，即该处不应该有值。
@@ -257,7 +251,7 @@ console.log(typeof boolObj);                // object
 * 调用 `GetValue(expr)`.
 * 返回 `undefined`.
 
-注意：GetValue一定要调用，即使它的值不会被用到，但是这个表达式可能会有副作用(side-effects)。
+注意：GetValue一定会被调用，即使它的值不会被用到，但是这个表达式可能会有副作用(side-effects)。
 
 为什么要用void？undefined不是保留字，可以重新赋值。采用void方式获取undefined便成了通用准则。
 
@@ -282,7 +276,7 @@ var foo = {
 };
 ```
 
-我们拥有一个这样的结构，两个明显的自身属性和一个隐藏的属性`__proto__`，这个属性是对`foo.prototype`的引用：
+我们拥有一个这样的结构，两个明显的自身属性和一个隐藏的`__proto__`属性，这个属性是对`foo.prototype`的引用：
 
 ![basic-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/basic-object.png)
 
@@ -291,11 +285,20 @@ var foo = {
 
 ### 原型链（prototype-chain）
 
-`原型对象`也是简单的对象并且可以拥有它们自己的原型，如果一个原型对象的原型是一个非`null`的引用，那么以此类推，这就叫作`原型链`。
-`原型链`是一个用来实现`继承`和`共享属性`的有限长度的对象链。
-`原型链`是为了实现代码重用，在基于类的系统中，这个代码重用风格叫作`类继承`。
+`原型对象`也是简单的对象并且可以拥有它们自己的原型，如果一个原型对象的`原型`是一个非`null`的引用，那么以此类推，原型对象连成的链，就叫作`原型链`。
+`原型链`是一个用来实现`继承`和`共享`属性的有限长度的`对象链`。
+`原型链`是为了实现代码重用而设计的，在基于类的系统中，这个代码重用风格叫作`类继承`。
 
-ECMAScript中没有类的概念，但是代码重用的风格并没有太多不同且通过原型链来实现，这种继承方式叫作委托继承(delegation based inheritance)，或者，更贴近ECMAScript一些，叫作原型继承(prototype based inheritance)。
+ECMAScript中没有类的概念，但是代码重用的风格并没有太多不同，且通过原型链来实现，这种继承方式叫作委托继承(delegation based inheritance)，或者，更贴近ECMAScript一些，叫作原型继承(prototype based inheritance)。
+
+ES5标准化了一个实现原型继承的可选方法，即使用`Object.create`函数：
+
+```js
+var b = Object.create(a, {y: {value: 20}});
+var c = Object.create(a, {y: {value: 30}});
+```
+
+ES6标准化了`__proto__`属性，并且可以在对象初始化的时候使用它，如下面的用法。
 
 ```js
 var a = {
@@ -309,49 +312,41 @@ var b = {
   y: 20,
   __proto__: a
 };
+// 或 var b = Object.create(a, {y: {value: 20}});
 
 var c = {
   y: 30,
   __proto__: a
 };
+// 或 var c = Object.create(a, {y: {value: 30}});
 
 // call the inherited method
 b.calculate(30); // 60
 c.calculate(40); // 80
 ```
 
-b和c访问到了在对象a中定义的calculate方法，这是通过`原型链lookup`实现的。
+`b`和`c`可以访问到`a`对象中定义的`calculate()`方法，是通过原型链`lookup`实现的。
 
 原型链lookup规则：
 
-如果一个属性或者一个方法在对象自身中无法找到，它会尝试在原型链中寻找这个`属性`/`方法`。
+如果一个`属性`/`方法`在对象自身中无法找到，JS引擎会尝试遍历整个原型链，寻找这个`属性`/`方法`，第一个被查找到的同名`属性`/`方法`会被使用。如果在遍历了整个原型链之后还是没有查找到这个属性的话，返回undefined值。
 
-如果这个属性在原型中没有查找到，那么将会查找原型的原型，以此类推，遍历整个原型链，第一个被查找到的同名`属性`/`方法`会被使用。如果在遍历了整个原型链之后还是没有查找到这个属性的话，返回undefined值。
+在类继承中也是类似的，当解析一个继承的方法的时候－遍历`class chain`。
 
-在类继承中也是一样的，当解析一个继承的方法的时候－我们遍历class链（class chain）
-
-下一张图展示了对象a，b，c之间的继承层级：
+下一张图展示了对象`a`，`b`，`c`之间的继承关系：
 
 ![prototype-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/prototype-chain.png)
 
-ES5标准化了一个实现原型继承的可选方法，即使用`Object.create`函数：
 
-```js
-var b = Object.create(a, {y: {value: 20}});
-var c = Object.create(a, {y: {value: 30}});
-```
+### `__proto__`
 
-ES6标准化了`__proto__`属性，并且可以在对象初始化的时候使用它。
+如果没有明确为一个对象指定原型，那么它将会使用`__proto__`的默认值`Object.prototype`。
 
-### __proto__
-
-`Object.prototype.__proto__`
+`Object.prototype`对象自身也有一个`__proto__`属性，这是原型链的终点并且值为`null`。 即：`Object.prototype.__proto__ === null`
 
 The `__proto__` property of `Object.prototype` is an `accessor property` (a getter function and a setter function) that exposes the internal `[[Prototype]]` (either an object or null) of the object through which it is accessed.
 
-如果没有明确为一个对象指定原型，那么它将会使用`__proto__`的默认值－`Object.prototype`。`Object.prototype`对象自身也有一个`__proto__`属性，这是原型链的终点并且值为`null`。
-
-***Note:项目中不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()`读取原型，`Object.create()`设置原型。***
+> 项目中建议不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()``Object.create()`访问原型。
 
 ```js
 var Shape = function () { };
@@ -371,7 +366,6 @@ console.log('circle:', circle instanceof Shape); 									// true
 console.log('circle:', circle instanceof Object); 									// true
 circle.say(); 																		// hello world!
 
-
 var rectangle = Object.create(proto);
 console.log('ractangle:', rectangle.__proto__ === Shape.prototype);					// true
 console.log('ractangle:', Object.getPrototypeOf(rectangle) === Shape.prototype);	// true
@@ -379,7 +373,6 @@ console.log('ractangle:', typeof rectangle); 										// object
 console.log('ractangle:', rectangle instanceof Shape); 								// true
 console.log('ractangle:', rectangle instanceof Object); 							// true
 circle.say(); 																		// hello world!
-
 
 var objPrototype = Object.prototype;
 console.log(objPrototype);
@@ -397,27 +390,25 @@ console.log({} instanceof Object);
 
 通常情况下需要对象拥有相同或者相似的状态结构（也就是相同的属性集合），赋以不同的状态值，在这个情况下我们可能需要使用`构造函数`(constructor function)，其以指定的模式来创造对象。
 
+> 其实`typeof`和`instanceof`的目的都是检测变量的类型，两个的区别在于typeof一般是检测的是基本数据类型，instanceof主要检测的是引用类型!
+
 
 ### 构造函数
 
 除了以指定模式创建对象之外，构造函数也做了另一个有用的事情－它自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
 
-我们可以使用构造函数来重写上一个拥有对象b和对象c的例子。因此，对象a（一个原型对象）的角色由Foo.prototype来扮演：
+我们可以使用构造函数来重写上一个拥有对象`b`和对象`c`的例子。因此，对象`a`的角色由Foo.prototype来扮演：
 
 ```js
-// a constructor function
+// constructor function
 function Foo(y) {
-  // which may create objects
-  // by specified pattern: they have after
-  // creation own "y" property
+  // which may create objects by specified pattern: they have after creation own "y" property
   this.y = y;
 }
 
-// also "Foo.prototype" stores reference
-// to the prototype of newly created objects,
-// so we may use it to define shared/inherited
-// properties or methods, so the same as in
-// previous example we have:
+// also "Foo.prototype" stores reference to the prototype of newly created objects, 
+// so we may use it to define shared/inherited properties or methods, 
+// so the same as in previous example we have:
 
 // inherited property "x"
 Foo.prototype.x = 10;
@@ -450,13 +441,12 @@ console.log(
   // instances "b" and "c" may found it via
   // delegation and use to check their constructor
 
-  b.constructor === Foo, // true
-  c.constructor === Foo, // true
-  Foo.prototype.constructor === Foo // true
+  b.constructor === Foo,                            // true
+  c.constructor === Foo,                            // true
+  Foo.prototype.constructor === Foo                 // true
 
-  b.calculate === b.__proto__.calculate, // true
+  b.calculate === b.__proto__.calculate,            // true
   b.__proto__.calculate === Foo.prototype.calculate // true
-
 );
 ```
 
@@ -464,9 +454,9 @@ console.log(
 
 ![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/constructor-proto-chain.png)
 
-可以看到，构造函数`Foo`也有自己的`__proto__`，值为`Function.prototype`，`Function.prototype`也通过其`__proto__`属性关联到`Object.prototype`。实际上除了`null`之外的每个对象都有`原型`。
+可以看到，构造函数`Foo`也有自己的`__proto__`，值为`Function.prototype`，`Function.prototype`也通过其`__proto__`属性关联到`Object.prototype`。
 
-如果思考一下类的概念，那么构造函数和原型对象合在一起可以叫作「类」。例如：Python的First-Class Dynamic-Classes显然是以同样的属性/方法处理方案来实现的。从这个角度来说，Python中的类就是ECMAScript使用的委托继承的一个语法糖。
+如果思考一下类的概念，那么构造函数和原型对象合在一起可以叫作「类」。例如：Python的`First-Class``Dynamic-Classes`显然是以同样的`属性`/`方法`处理方案来实现的。从这个角度来说，Python中的类就是ECMAScript使用的委托继承的一个语法糖。
 
 在ES6中「类」的概念被标准化了，并且实际上以一种构建在构造函数上面的语法糖来实现，就像上面描述的一样。
 
@@ -496,12 +486,12 @@ console.log(bar.getName()); // John Doe
 
 ### new 操作符 都做了什么？
 
-***Note：用`new`来调用，就是构造函数，不用`new`调用，就是普通函数。***
-
 1. 创建一个新对象
 2. 将构造函数作用域赋给新对象，即this指向了新对象
 3. 执行构造函数中的代码
 4. 返回新对象的引用
+
+> 只要用`new`来调用函数，就是构造函数，否则，就是普通函数。
 
 ```js
 var o = new NewObject(11, 22)
@@ -525,16 +515,6 @@ obj3.func();
 console.log(obj1.func === obj3.func); 		// false
 console.log(obj1.func() === obj3.func()); 	// true  ???
 ```
-
-
-### 为什么要有`bind`、`call`、`apply`三个函数存在。
-    
-TODO: 要改
-从设计者的角度去考虑各个点，call、apply、bind 存在的原因。
-C++中类的方法是隐式传递了this指针，python的方法都是显示的指定self，而js也同样需要this。
-但是this在js中是作为一个执行环境上下文的概念存在，并且对于任意一个函数（一级公民），它有语法逻辑上的上下文，但是它的上下文又可以是人为绑定的，
-这三个函数就可以用来完成绑定工作。任何一个函数也是在一个上下文对象上进行工作。上下文是一个this对象。
-这是一种松散的绑定关系，随时可以根据需要来绑定。因此就可以自由的将其他模块上的属性方法，绑定到自己身上，但是要避免名字冲突。
 
 
 ### 对象构造
@@ -823,7 +803,7 @@ function inheritPrototype(subType, supType) {
 //var prot = new Object.prototype;   // error
 ```
 
-Node.js原生实现：
+Node.js原生实现的继承函数：
 
 ```js
 exports.inherits = function(ctor, superCtor) {
@@ -861,13 +841,30 @@ exports.inherits = function(ctor, superCtor) {
 
 这叫作执行上下文栈（execution context stack），其中的每个元素也可以抽象成为一个对象。是的，ECMAScript几乎在任何地方都和对象的概念打交道;)
 
+
+### `bind`、`call`、`apply`三个函数是干嘛用的。
+    
+TODO: 要改，举例说明使用方法。
+从设计者的角度去考虑各个点，call、apply、bind 存在的原因。
+C++中类的方法是隐式传递了this指针，python的方法都是显示的指定self，而js也同样需要this。
+但是this在js中是作为一个执行环境上下文的概念存在，并且对于任意一个函数（一级公民），它有语法逻辑上的上下文，但是它的上下文又可以是人为绑定的，
+这三个函数就可以用来完成绑定工作。任何一个函数也是在一个上下文对象上进行工作。上下文是一个this对象。
+这是一种松散的绑定关系，随时可以根据需要来绑定。因此就可以自由的将其他模块上的属性方法，绑定到自己身上，但是要避免名字冲突。
+
+
 ### 执行上下文堆栈
+
+> EC(执行环境或者执行上下文，Execution Context)
+> ECS(执行环境栈Execution Context Stack)
+> VO(变量对象，Variable Object)
+> AO(活动对象，Active Object)
+> Scope Chain(作用域链)和`[[scope]]`属性
 
 这里有三种类型的ECMAScript代码：`全局代码`、`函数代码`和`eval代码`。
 
-每个代码是在其执行上下文（execution context）中被求值的。
+每个代码是在其执行上下文（EC）中被求值的。
 
-这里只有一个全局上下文，可能有多个函数执行上下文以及eval执行上下文。
+全局上下文只有一个，可能有多个函数执行上下文以及eval执行上下文。
 
 对一个函数的每次调用，会进入到函数执行上下文中，并对函数代码类型进行求值。
 
@@ -878,34 +875,30 @@ exports.inherits = function(ctor, superCtor) {
 ```js
 function foo(bar) {}
 
-// call the same function,
-// generate three different
-// contexts in each call, with
-// different context state (e.g. value
-// of the "bar" argument)
+// call the same function, generate three different contexts in each call, with different context state (e.g. value of the "bar" argument)
 
 foo(10);
 foo(20);
 foo(30);
 ```
 
-一个执行上下文可能会触发另一个上下文，比如，一个函数调用另一个函数（或者在全局上下文中调用一个全局函数）。从逻辑上来说，这是以栈的形式实现的，它叫作执行上下文栈。
+一个执行上下文(EC)可能会触发另一个上下文(EC)，如，一个函数调用另一个函数。从逻辑上来说，这是以栈的形式实现的，它叫作执行上下文栈(ECS)。
 
-一个触发其他上下文的上下文叫作`caller`，被触发的上下文叫作`callee`，`callee`在同一时间可能是一些其他`callee`的`caller`（比如，一个在全局上下文中被调用的函数，之后调用了一些内部函数）。
+一个触发其他上下文的上下文叫作`caller`，被触发的上下文叫作`callee`，`callee`在同一时间可能是一些其他`callee`的`caller`。
 
-当一个`caller`触发（调用）了一个`callee`，这个`caller`会暂缓自身的执行，然后把控制权传递给`callee`。
-这个`callee`被push到栈中，并成为一个运行中（活动的）执行上下文，在`callee`的上下文结束后，它会把控制权返回给`caller`，然后`caller`的上下文继续执行（它可能触发其他上下文）直到它结束，以此类推。
-`callee`可能简单的返回或者由于异常而退出，一个抛出的但是没有被捕获的异常可能退出一个或者多个上下文。
+当一个`caller`触发（调用）了一个`callee`，这个`caller`会暂缓自身的执行，然后把控制权传递给`callee`，控制权转移。
 
-所有ECMAScript程序的运行时可以用执行上下文（EC）栈来表示，栈顶是当前活动的上下文：
+这个`callee`被push到栈中，并成为一个`活动的`执行上下文，在`callee`的上下文结束后（`callee`可能简单的返回或者由于异常而退出，一个抛出的但没有被捕获的异常可能退出一个或者多个上下文），它会把控制权返回给`caller`，然后`caller`的上下文继续执行直到它结束，以此类推。
+
+所有ECMAScript程序的运行时可以用执行上下文栈（ECS）来表示，栈顶是当前活动的上下文：
 
 ![ec-stack](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/ec-stack.png)
 
-当程序开始的时候它会进入全局执行上下文，此上下文位于栈底并且是栈中的第一个元素。然后全局代码进行一些初始化，创建需要的对象和函数。
+当程序开始的时候它会进入全局执行上下文，此上下文位于栈顶并且是栈中的第一个元素。然后全局代码进行一些初始化，创建需要的对象和函数。
 
-在全局上下文的执行过程中，它的代码可能触发其他（已经创建完成的）函数，这些函数将会进入它们自己的执行上下文，向栈中push新的元素，以此类推。
+在全局上下文的执行过程中，它的代码会触发其他函数，进入它们自己的执行上下文，向栈中push新的元素，以此类推。
 
-当初始化完成之后，运行时系统（runtime system）就会等待一些事件（比如，用户鼠标点击），这些事件将会触发一些函数，从而进入新的执行上下文中。
+当初始化完成之后，运行时系统（runtime system）就会等待一些事件，这些事件将会触发一些函数，从而进入新的执行上下文中。
 
 在下个图中，拥有一些函数上下文EC1和全局上下文Global EC，当EC1进入和退出全局上下文的时候下面的栈将会发生变化：
 
@@ -926,29 +919,30 @@ foo(30);
 
 ![execution-context](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/execution-context.png)
 
-除了这三个必需的属性，变量对象、this、作用域链之外，执行上下文可以拥有其他附加的状态，这取决于实现。
+除了这三个必需的属性`变量对象`、`this`、`作用域链`之外，执行上下文可以拥有其他附加的状态，这取决于实现。
 
 让我们详细看看上下文中的这些重要的属性。
 
 
-### 变量对象（variable object）
+#### 变量对象（variable object）
 
 `变量对象`是与`执行上下文`相关的`数据作用域`。它是一个与上下文相关的特殊对象，其中存储了在上下文中定义的`变量`和`函数声明`。
-注意，函数表达式（与函数声明相对）不包含在变量对象之中。
 
-变量对象是一个抽象概念。对于不同的上下文类型，在物理上，是使用不同的对象。在全局上下文中变量对象就是全局对象本身，这就是为什么我们可以通过全局对象的属性名来关联全局变量。
+> 函数表达式（与函数声明相对）不包含在变量对象之中。
+
+变量对象是一个抽象概念。对于不同的上下文类型，在物理上，是使用不同的对象。在全局上下文中变量对象就是全局对象本身，这就是为什么我们可以通过`全局对象的属性名`来关联`全局变量`。
 
 让我们在全局执行上下文中考虑下面这个例子：
 
 ```js
 var foo = 10;
 
-function bar() {} // function declaration, FD
-(function baz() {}); // function expression, FE
+function bar() {}       // function declaration, FD
+(function baz() {});    // function expression, FE
 
 console.log(
-  this.foo == foo, // true
-  window.bar == bar // true
+  this.foo == foo,      // true
+  window.bar == bar     // true
 );
 
 console.log(baz); // ReferenceError, "baz" is not defined
@@ -958,7 +952,7 @@ console.log(baz); // ReferenceError, "baz" is not defined
 
 ![variable-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/variable-object.png)
 
-再看一遍，函数baz是一个函数表达式，没有被包含在变量对象之中。这就是为什么当我们想要在函数自身之外访问它的时候会出现ReferenceError。
+函数baz是一个函数表达式，没有被包含在变量对象之中。这就是为什么当我们想要在函数自身之外访问它的时候会出现ReferenceError。
 
 注意，与其他语言（比如C/C++）相比，在ECMAScript中只有函数可以创建一个新的作用域。在函数作用域中所定义的变量和内部函数在函数外边是不能直接访问到的，而且并不会污染全局变量对象。
 
@@ -967,7 +961,7 @@ console.log(baz); // ReferenceError, "baz" is not defined
 那么函数和它的变量对象是怎么样的？在函数上下文中，变量对象是以`活动对象`来表示的。
 
 
-### 活动对象（activation object）
+#### 活动对象（activation object）
 
 当一个函数被`caller`调用，一个特殊的对象，叫作`活动对象`（activation object）将会被创建。这个对象中包含形参和那个特殊的`arguments`对象（是对形参的一个映射，但是值是通过索引来获取）。活动对象之后会做为函数上下文的变量对象来使用。
 
@@ -998,7 +992,7 @@ foo(10, 20);
 众所周知，在ECMAScript中我们可以使用内部函数，然后在这些内部函数我们可以引用父函数的变量或者全局上下文中的变量。当我们把变量对象命名为上下文的作用域对象，与上面讨论的原型链相似，这里有一个叫作`作用域链`的东西。
 
 
-### 作用域链(scope chain)
+#### 作用域链(scope chain)
 
 作用域链是一个对象列表，上下文代码中出现的标识符在这个列表中进行查找。
 
@@ -1306,6 +1300,7 @@ otherFoo(); // again global object
 
 为了深入理解this为什么（并且更本质一些－如何）在每个函数调用中可能会发生变化，你可以阅读第三章 This。在那里，上面所提到的情况都会有详细的讨论。
 
+http://www.kancloud.cn/kancloud/deep-understand-javascript/43686
 
 ### 总结
 
@@ -1316,7 +1311,6 @@ otherFoo(); // again global object
 ### 闭包 
 
 有权访问另一个函数作用域中的变量的函数
-
 
 当函数被调用时 会创建一个 执行环境 和相应 作用域链  然后使用arguments和其他命名函数初始化 活动对象
 
@@ -1418,8 +1412,6 @@ var SyntaxTree = {
  * a对于函数声明和匿名函数表达式来说，[scope]就是它创建时的作用域
  * b对于有名字的函数表达式，[scope]顶端是一个新的JS对象（也就是继承了Object.prototype），这个对象有两个属性，
  * 第一个是自身的名称，第二个是定义的作用域，第一个函数名称是为了确保函数内部的代码可以无误地访问自己的函数名进行递归。
-
-
 
  * 2.解析运行
  * JS代码是一段段执行的。也就是以函数内部的活动代码为单位，一段段活动代码执行。
