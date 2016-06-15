@@ -11,7 +11,7 @@ let uglifyJsPlugin =  new webpack.optimize.UglifyJsPlugin({
 })
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/index.js',
   output: {
     path: './bin',
     filename: 'app.bundle.js'
