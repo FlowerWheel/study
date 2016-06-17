@@ -74,28 +74,20 @@ mongobackup是用于复制集的增量备份与恢复工具。在恢复时，需
 2. 增量备份
 
 2.1 全量备份
+# mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017  -h 10.1.11.99 --backup
+# mongobackup --port 27047  --backup
 
-# mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017  -h 10.1.11.99 --backup
-1
-# mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017  -h 10.1.11.99 --backup
 2.2 流模式备份
+# mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017 –h 10.1.11.99 --backup --stream
+mongobackup --port 27047  --backup --stream
 
-# mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017 –h 10.1.11.99 --backup --stream
-1
-# mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017 –h 10.1.11.99 --backup --stream
 2.3 指定备份初始时间点
-
 # mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017  -h 10.1.11.99 --backup -s 1385367056,1
-1
-# mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017  -h 10.1.11.99 --backup -s 1385367056,1
-3. 增量 恢复
+mongobackup  --port 27027 --backup -s 1385367056,1
 
-必须指定起止时间点，配合全备，可以恢复到任意时间点（结束时间点），开始时间点可以理解为全备的时间点。
-
+3. 增量 恢复 必须指定起止时间点，配合全备，可以恢复到任意时间点（结束时间点），开始时间点可以理解为全备的时间点。
 # mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017 -h 10.1.11.99 --recovery   -s 1385367098,27350  -t  1385367132,35490  ./backup/
-1
 # mongobackup  -u ttlsa -p 'www.ttlsa.com' --port 27017 -h 10.1.11.99 --recovery   -s 1385367098,27350
-
 
 mongosync不多说了，全量同步，增量同步等都支持，非常强大； 
 mongobackup 增量备份与恢复。
@@ -114,11 +106,10 @@ mongodb中的副本集搭建实践
 http://www.cnblogs.com/visionwang/p/3290435.html
 
 ========================================================================================================================================================
-MongoDB实时备份工具mongobackup初体验 (2015-01-17 16:03:18)转载▼
-标签： it mogodb wiredtiger
-       mongobackup是用于Mongodb的增量备份与恢复工具，恢复时，需要结合全量备份与恢复使用，目前该工具尚未开源。该工具可以实时地读取目标mongo实例的oplog，然后以BSON格式存储到文件中，在做数据恢复时通过回放BSON文件中的oplog实现数据的恢复。这与Mongodb自身提供的备份恢复工具mongodump和mongorestore类似，但是mongobackup在备份和恢复时可以指定时间戳，即可以备份和恢复指定时间段内的数据，因此可以实现增量。
+MongoDB实时备份工具mongobackup初体验
+ mongobackup是用于Mongodb的增量备份与恢复工具，恢复时，需要结合全量备份与恢复使用，目前该工具尚未开源。该工具可以实时地读取目标mongo实例的oplog，然后以BSON格式存储到文件中，在做数据恢复时通过回放BSON文件中的oplog实现数据的恢复。这与Mongodb自身提供的备份恢复工具mongodump和mongorestore类似，但是mongobackup在备份和恢复时可以指定时间戳，即可以备份和恢复指定时间段内的数据，因此可以实现增量。
 
-       目前mongobackup还没有完善的使用说明文档，因此希望通过试用摸清该工具的使用方法，验证其功能是否正确，具体流程如下：
+ 目前mongobackup还没有完善的使用说明文档，因此希望通过试用摸清该工具的使用方法，验证其功能是否正确，具体流程如下：
 	1）通过YCSB工具向mongo实例中加载1000W条记录；
 	2）在数据加载过程中启动mongodump命令对已加载的数据进行备份，而在执行mongodump命令前先启动mongobackup工具实时记录mongo实例的oplog；
 	3）在数据加载完成后停止mongobackup对于oplog的实时记录；
@@ -131,7 +122,7 @@ MongoDB实时备份工具mongobackup初体验 (2015-01-17 16:03:18)转载▼
 ./bin/ycsb load mongodb -threads 100 -P workloads/readandupdateandinsert1 > load.result
 
 2. 待数据加载到一半时，启动mongobackup的流式备份，开始记录mongo实例的oplog，起始时间戳为1420446193,1
-[frankey@mongo-server3 ~]$ ./mongobackup --port 27017 --host mongo-server1 --backup --stream -s 1420446193,1
+[frankey@mongo-server3 ~]$ ./mongobackup --backup --stream --host= --port=27017 -s 1466169280,94
 connected to: mongo-server1:27017
 Mon Jan  5 16:24:41.188 local.oplog.$main to backup/oplog.bson
 Mon Jan  5 16:24:44.003 Backup Progress: 221800/197606 112% (objects)
