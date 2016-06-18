@@ -12,7 +12,7 @@ mongobackup test
 
 ### 加载数据
 
-通过自制脚本插入一定量的数据，
+通过自制脚本插入一定量的数据
 
 ### 备份数据
 
@@ -84,3 +84,13 @@ Sat Jun 18 00:59:50.370 Successfully Recovered.
 ### 总结
 
 通过以上过程可知，mongobackup的实现应该是参考了mongodump --oplog和mongorestore --oplogReplay的源码。在使用mongobackup进行增量备份恢复时，数据恢复速度与mongorestore类似，即每秒钟恢复20000条记录。
+
+
+### 其他
+
+db.idschemas.find().sort({_id:-1}).limit(10);
+db.oplog.rs.find().sort({ts: -1}).limit(20);
+
+./mongobackup --port=27047 --backup --stream -s 1466242777,2
+
+./mongobackup --port 27017 --recovery -s 1466240853,1 -t 1466242240,4
