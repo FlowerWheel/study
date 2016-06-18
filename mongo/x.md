@@ -186,7 +186,7 @@ Mon Jan  5 16:39:43.003 Progress: 1391583177/1399539468 99% (bytes)
 5224511 objects found
 Mon Jan  5 16:39:44.213 Creating index: { name: "_id_", key: { _id: 1 }, ns: "ycsb.usertable” }
 
-./mongobackup --port 27047 --recovery -s 1466234664,66 -t 1466234959000,1
+./mongobackup --port 27017 --recovery -s 1466234664,66 -t 1466234959000,1
 6. mongobackup回放增量数据
 通过mongobackup回放oplog来恢复mongodump备份完成之后的增量数据，
 通过执行结果可知通过oplog000000.bson回放了3346277条记录，通过oplog000001.bson回放了2014156条记录，
