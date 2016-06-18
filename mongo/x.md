@@ -118,17 +118,21 @@ MongoDB实时备份工具mongobackup初体验
 
 根据以上流程执行每一步测试，以下为整个测试过程的结果记录：
 
-1. 启动YCSB工具开始加载数据
+1. 加载数据
+启动YCSB工具开始加载数据
 ./bin/ycsb load mongodb -threads 100 -P workloads/readandupdateandinsert1 > load.result
 
-2. 待数据加载到一半时，启动mongobackup的流式备份，开始记录mongo实例的oplog，起始时间戳为1420446193,1
+2. mongobackup开启流式备份
+待数据加载到一半时，启动mongobackup的流式备份，开始记录mongo实例的oplog，起始时间戳为1420446193,1
 [frankey@mongo-server3 ~]$ ./mongobackup --backup --stream --host= --port=27017 -s 1466169280,94
 connected to: mongo-server1:27017
 Mon Jan  5 16:24:41.188 local.oplog.$main to backup/oplog.bson
 Mon Jan  5 16:24:44.003 Backup Progress: 221800/197606 112% (objects)
 ...
 
-3. 在启动mongobackup记录oplog的同时，启动mongodump进行部分数据备份，通过执行结果可知mongodump一共备份了5224511条记录
+mongodump --port 27047 -o /backup/27047
+3. mongodump数据备份
+在启动mongobackup记录oplog的同时，启动mongodump进行部分数据备份，通过执行结果可知mongodump一共备份了5224511条记录
 [frankey@mongo-server3]$ mongodump --host mongo-server1 --port 27017 -o /data/mongobackup/mongo-server1/27017
 connected to: mongo-server1:27017
 Mon Jan  5 16:25:15.168 all dbs
@@ -145,7 +149,11 @@ Mon Jan  5 16:25:31.764 5224511 objects
 Mon Jan  5 16:25:31.764 Metadata for ycsb.usertable to /data/mongobackup/mongo-server1/27017/ycsb/usertable.metadata.json
 Mon Jan  5 16:25:31.764 DATABASE: admin to /data/mongobackup/mongo-server1/27017/admin
 
-4. 在数据加载完成后终止mongobackup对于oplog的记录，此时可以看到通过oplog共记录了5360433，此时mongodump生成的备份文件包含了一部分数据，mongobackup生成的oplog备份文件包含了一部分增量数据，要想获取全量数据必须两者配合
+4. 终止mongobackup
+在数据加载完成后终止mongobackup对于oplog的记录，此时可以看到通过oplog共记录了5360433。
+此时mongodump生成的备份文件包含了一部分数据，
+mongobackup生成的oplog备份文件包含了一部分增量数据，
+要想获取全量数据必须两者配合。mongodump + mongobackup
 Mon Jan  5 16:33:38.001 Backup Progress: 5268700/197606 2666% (objects)
 Mon Jan  5 16:33:41.005 Backup Progress: 5298600/197606 2681% (objects)
 Mon Jan  5 16:33:44.001 Backup Progress: 5327700/197606 2696% (objects)
@@ -160,7 +168,9 @@ Mon Jan  5 16:34:06.290 Use -s 1420446841,1 to resume.
 Mon Jan  5 16:34:06.290 Metadata for oplog000001 to backup/oplog.metadata.json
 Mon Jan  5 16:34:06.290 5360433 objects
 
-5. 假定此时mongo实例出现故障，全部数据丢失，此时通过mongorestore命令将最近一次全量备份数据导入到数据库中，通过该工具恢复数据共计5224511条，此时连接mongo实例查看集合的记录个数为5224511
+5. mongorestore恢复数据
+假定此时mongo实例出现故障，全部数据丢失，此时通过mongorestore命令将最近一次全量备份数据导入到数据库中，
+通过该工具恢复数据共计5224511条，此时连接mongo实例查看集合的记录个数为5224511
 [frankey@mongo-server3]$ mongorestore --host mongo-server1 --port 27017 --drop /data/mongobackup/mongo-server1/27017
 connected to: mongo-server1:27017
 Mon Jan  5 16:36:01.022 /data/mongobackup/mongo-server1/27017/ycsb/usertable.bson
@@ -176,7 +186,12 @@ Mon Jan  5 16:39:43.003 Progress: 1391583177/1399539468 99% (bytes)
 5224511 objects found
 Mon Jan  5 16:39:44.213 Creating index: { name: "_id_", key: { _id: 1 }, ns: "ycsb.usertable” }
 
-6. 通过mongobackup回放oplog来恢复mongodump备份完成之后的增量数据，通过执行结果可知通过oplog000000.bson回放了3346277条记录，通过oplog000001.bson回放了2014156条记录，此时再次连接mongo实例查看集合的记录个数为10000000，与实际加载的记录个数相同
+./mongobackup --port 27047 --recovery -s 1466234664,66 -t 1466234959000,1
+6. mongobackup回放增量数据
+通过mongobackup回放oplog来恢复mongodump备份完成之后的增量数据，
+通过执行结果可知通过oplog000000.bson回放了3346277条记录，通过oplog000001.bson回放了2014156条记录，
+此时再次连接mongo实例查看集合的记录个数为10000000，
+与实际加载的记录个数相同
 [frankey@mongo-server3 ~]$ ./mongobackup --port 27017 --host mongo-server1 --recovery -s 1420446193,1 -t 1420446841,1
 connected to: mongo-server1:27017
 Mon Jan  5 16:43:40.903 Replaying file:oplog000000.bson
@@ -196,7 +211,12 @@ Mon Jan  5 16:48:10.006 Progress: 635047026/646295159 98% (bytes)
 2014156 objects found
 Mon Jan  5 16:48:11.677 Successfully Recovered.
 
-7. 继续通过YCSB命令执行压力测试，已验证恢复后数据的完整性，该测试共执行1000W条操作，90%read、5%update和5%insert，通过执行结果可知update和insert执行操作全部成功，而read操作有12个失败，导致read操作失败的原因是否因为数据恢复有问题暂时无法确定，YCSB也没有提供更详细的失败原因，所以使用mongodump+mongorestore+mongobackup来实现增量备份是否可靠还需要进一步确认。
+7. 继续
+继续通过YCSB命令执行压力测试，已验证恢复后数据的完整性，
+该测试共执行1000W条操作，90%read、5%update和5%insert，
+通过执行结果可知update和insert执行操作全部成功，而read操作有12个失败，导致read操作失败的原因是否因为数据恢复有问题暂时无法确定，
+YCSB也没有提供更详细的失败原因，
+所以使用mongodump+mongorestore+mongobackup来实现增量备份是否可靠还需要进一步确认。
 [frankey@mongo-server3 ycsb-0.1.4]$ ./bin/ycsb run mongodb -threads 100 -P workloads/readandupdateandinsert1 > run.result
 [UPDATE], Operations, 499944
 [UPDATE], AverageLatency(us), 20879.322764149583
@@ -221,12 +241,4 @@ Mon Jan  5 16:48:11.677 Successfully Recovered.
 [READ], Return=0, 9000217
 [READ], Return=1, 12
 
-       通过以上过程可知，mongobackup的实现应该是参考了mongodump --oplog和mongorestore --oplogReplay的源码。在使用mongobackup进行增量备份恢复时，数据恢复速度与mongorestore类似，即每秒钟恢复20000条记录。
-
-
-
-
-
-
-
-
+通过以上过程可知，mongobackup的实现应该是参考了mongodump --oplog和mongorestore --oplogReplay的源码。在使用mongobackup进行增量备份恢复时，数据恢复速度与mongorestore类似，即每秒钟恢复20000条记录。
