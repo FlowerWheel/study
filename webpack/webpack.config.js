@@ -11,11 +11,16 @@ let uglifyJsPlugin =  new webpack.optimize.UglifyJsPlugin({
 })
 
 module.exports = {
-  //entry: './src/index.js',
-  entry: './app.vue/index.js',
+  // entry: './src/index.js',
+  entry: [
+    // './app.vue/vue.app.js',
+    './app.react/react.app.js'
+  ],
   output: {
     path: './bin',
-    filename: 'app.bundle.js'
+    filename: '[name].bundle.js'
+  },
+  external: {
   },
   module: {
     loaders: [{
