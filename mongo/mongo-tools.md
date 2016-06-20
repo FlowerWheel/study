@@ -1,5 +1,5 @@
-mongodb tools arguments
-=============================
+mongodb tools
+=============
 
 ### common arguments
 --help

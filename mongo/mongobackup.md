@@ -1,6 +1,10 @@
 mongobackup test
 ================
 
+mongodb中的副本集搭建实践
+http://www.cnblogs.com/visionwang/p/3290435.html
+
+
     mongobackup是用于Mongodb的增量备份与恢复工具，恢复时，需要结合全量备份与恢复使用，目前该工具尚未开源。
     该工具可以实时地读取目标mongo实例的oplog，然后以BSON格式存储到文件中，在做数据恢复时通过回放BSON文件中的oplog实现数据的恢复。
     这与Mongodb自身提供的备份恢复工具mongodump和mongorestore类似，但是mongobackup在备份和恢复时可以指定时间戳，即可以备份和恢复指定时间段内的数据，因此可以实现增量。
