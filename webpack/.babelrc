@@ -1,4 +1,4 @@
  {
-     "presets": [ "self-defined" ]
+     "presets": [ "self-defined", "react" ]
  }
 
