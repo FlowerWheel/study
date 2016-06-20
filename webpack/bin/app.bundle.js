@@ -44,13 +44,21 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	__webpack_require__(1);
-	__webpack_require__(2);
+	module.exports = __webpack_require__(7);
+
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(2);
+	__webpack_require__(3);
+
+/***/ },
+/* 2 */
 /***/ function(module, exports) {
 
 	/*istanbul ignore next*/"use strict";
@@ -62,14 +70,14 @@
 	/*istanbul ignore next*/module.exports = exports["default"]; // required to safely use babel/register within a browserify codebase
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Vue = __webpack_require__(3);
+	var Vue = __webpack_require__(4);
 
-	var VueRouter = __webpack_require__(5);
+	var VueRouter = __webpack_require__(6);
 
 	Vue.use(VueRouter);
 
@@ -84,7 +92,7 @@
 	ruter.start(App, '#app');
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {/*!
@@ -10117,10 +10125,10 @@
 	}, 0);
 
 	module.exports = Vue;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(4)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(5)))
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -10245,7 +10253,7 @@
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -12957,6 +12965,12 @@
 	  return Router;
 
 	}));
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	'use strict';
 
 /***/ }
 /******/ ]);
