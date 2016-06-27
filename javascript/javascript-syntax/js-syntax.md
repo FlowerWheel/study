@@ -93,19 +93,19 @@ Object.defineProperties(book2, {
 // 获取 属性 信息
 var desc1 = Object.getOwnPropertyDescriptor(book2, 'year');
 console.log(desc1);
-// { 
+// {
 //   get: [Function],
 //   set: [Function],
 //   enumerable: false,
-//   configurable: false 
+//   configurable: false
 // }
 var desc2 = Object.getOwnPropertyDescriptor(book2, 'getContents');
 console.log(desc2);
-// { 
+// {
 //   value: [Function],
 //   writable: false,
 //   enumerable: false,
-//   configurable: false 
+//   configurable: false
 // }
 ```
 
@@ -406,8 +406,8 @@ function Foo(y) {
   this.y = y;
 }
 
-// also "Foo.prototype" stores reference to the prototype of newly created objects, 
-// so we may use it to define shared/inherited properties or methods, 
+// also "Foo.prototype" stores reference to the prototype of newly created objects,
+// so we may use it to define shared/inherited properties or methods,
 // so the same as in previous example we have:
 
 // inherited property "x"
@@ -640,7 +640,7 @@ ConstructPrototypeObject.prototype.display = function () {
 function ConstructPrototypeObject(name, desc) {
 	this.name = name;
 	this.desc = desc;
-	if (!ConstructPrototypeObject.prototypeInstantiated) {  
+	if (!ConstructPrototypeObject.prototypeInstantiated) {
 	    //只在第一次调用构造函数时　实例化原型
 		ConstructPrototypeObject.prototype.prototypeInstantiated = true;
 		ConstructPrototypeObject.prototype.display = function () {
@@ -843,7 +843,7 @@ exports.inherits = function(ctor, superCtor) {
 
 
 ### `bind`、`call`、`apply`三个函数是干嘛用的。
-    
+
 TODO: 要改，举例说明使用方法。
 从设计者的角度去考虑各个点，call、apply、bind 存在的原因。
 C++中类的方法是隐式传递了this指针，python的方法都是显示的指定self，而js也同样需要this。
@@ -1302,226 +1302,346 @@ otherFoo(); // again global object
 
 http://www.kancloud.cn/kancloud/deep-understand-javascript/43686
 
-### 总结
 
-我们只是没有涉及到两个大的主题：函数（和不同函数之间的区别，比如，函数声明和函数表达式）和ECMAScript中所使用的求值策略(evaluation strategy)。这两个主题是可以ES3系列的在对应章节找到：第五章 函数 和 第八章 求值策略。
 
 ### 函数表达式
 
-### 闭包 
+### 闭包
 
 有权访问另一个函数作用域中的变量的函数
 
 当函数被调用时 会创建一个 执行环境 和相应 作用域链  然后使用arguments和其他命名函数初始化 活动对象
 
- #### 语法分析树（SyntaxTree）
+c/c++: 函数无法嵌套定义，可以传递函数指针
+java c#:
+python ruby
+go swift
+javascript typescript coffeescript ...
+
+```js
+'use strict';
+var classA = function () {
+  this.prop1 = 1;
+};
+
+classA.prototype.func1 = function () {
+  var that = this,
+      var1 = 2;
+
+  function f() {
+    return function () {
+      console.log(var1);
+    }.apply(that);
+  }
+
+  f();
+};
+
+var objA = new ClassA();
+objA.func1();
+```
+
+有时候一个方法定义的地方和使用的地方会相隔十万八千里，那方法执行时，它能访问哪些变量，不能访问哪些变量，这个怎么判断呢？这个就是我们这次需要分析的问题—词法作用域
+
+词法作用域：变量的作用域是在定义时决定而不是执行时决定，也就是说词法作用域取决于源码，通过静态分析就能确定，因此词法作用域也叫做静态作用域。 with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）。
+
+
+### 执行过程
+
+#### 执行顺序
+ * 编译型语言，编译步骤分为：词法分析、语法分析、语义检查、代码优化和字节生成。
+ * 解释型语言，通过词法分析和语法分析得到语法分析树后，就可以开始解释执行了。这里是一个简单原始的关于解析过程的原理，仅作为参考，详细的解析过程（各种JS引擎还有不同）还需要更深一步的研究
+
+ JavaScript执行过程，如果一个文档流中包含多个script代码段（用script标签分隔的js代码或引入的js文件），它们的运行顺序是：
+
+ 阶段一：解析
+ 步骤1. 载入第一个代码段（js执行引擎并非一行一行地执行程序，而是一段一段地分析执行的）。
+ 步骤2. 做词法分析->[词法作用域] 和 语法分析->[语法分析树]，有错则报语法错误(Syntax Error)（解析时错误，比如括号不匹配等），并跳转到步骤5。
+ 步骤3. 对[var]变量和[function]定义做`预解析`（永远不会报错的，因为只解析正确的声明）。
+
+ 阶段二：执行
+ 步骤4. 执行代码段，有错则报错（运行时错误，比如变量未定义）。
+
+ 步骤5. 如果还有下一个代码段，则读入下一个代码段，重复步骤2。
+ 步骤6. 结束
+
+ JS代码是一段段执行的。也就是以函数内部的活动代码为单位，一段段活动代码执行。
+ 实例化就是调用对象（Call Object）的过程，上面我们一直说这个分析很像类结构。
+ 这次就真的是把这个像类的词法分析出来的结果进行伪类的实例化了。
+ 实例化的同时，这个调用对象的一个属性被初始化成一个名叫 arguments 的属性，
+ 它引用了这个函数的 Arguments 对象，Arguments 对象是函数的实际参数。
+
+#### 关键步骤
+ 上面的过程，我们主要是分成两个阶段
+ 解析：就是通过语法分析和预解析构造合法的语法分析树。
+ 执行：执行具体的某个函数，JS引擎在执行每个函数实例时，都会创建一个执行环境（ExecutionContext）和活动对象（activeObject）（它们属于宿主对象，与函数实例的生命周期保持一致）
+
+#### 关键概念
+ * 语法分析树（SyntaxTree）
  可以直观地表示出这段代码的相关信息，具体的实现就是JS引擎创建了一些表，
  用来记录每个方法的 内部变量集（variables）、内嵌函数集（functions）和作用域（scope）等
 
- #### 执行环境（ExecutionContext）
+ * 执行环境（ExecutionContext）
  可理解为一个记录当前执行的方法【外部描述信息】的对象,
  记录所执行方法的类型，名称，参数和活动对象（activeObject）
 
- #### 活动对象（activeObject）
+ * 活动对象（activeObject）
  可理解为一个记录当前执行的方法【内部执行信息】的对象,
  记录 内部变量集（variables）、内嵌函数集（functions）、实参（arguments）、作用域链（scopeChain）等执行所需信息，
- 其中 内部变量集（variables）、内嵌函数集（functions）是直接从第一步建立的语法分析树复制过来的
+ 其中 内部变量集（variables）、内嵌函数集（functions）是直接从第一步建立的语法分析树复制过来的.
+ 方法开始执行，活动对象里的内部变量集全部被重置为 undefined, 创建形参（parameters）和实参（arguments）对象，同名的实参，形参和变量之间是【引用】关系, 执行方法内的赋值语句，这才会对变量集中的变量进行赋值处理
+ 变量查找规则是首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object
+ 方法执行完成后，内部变量值不会被重置，至于变量什么时候被销毁, 方法内变量的生存周期取决于方法实例是否存在活动引用，如没有就销毁活动对象
 
- #### 词法作用域
+ * 词法作用域
  变量的作用域是在定义时决定而不是执行时决定，也就是说词法作用域取决于源码，通过静态分析就能确定，因此词法作用域也叫做静态作用域。
  with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）
 
- #### 作用域链
+ * 作用域链
  词法作用域的实现机制就是作用域链（scopeChain）。
  作用域链是一套按名称查找（Name Lookup）的机制，
  首先在当前执行环境的 ActiveObject 中寻找，没找到，
  则顺着作用域链到父 ActiveObject 中寻找，一直找到全局调用对象（Global Object）
 
-```js
-var v1 = 1;
-var v2;
+ * 闭包
+闭包是一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。
+1、保护函数内的变量安全。　通过保护变量的安全实现JS私有属性和 私有方法（不能被外部访问）.
+2、在内存中维持一个变量。
+3、闭包就是将函数内部和函数外部连接起来的一座桥梁。 让外部环境有接口访问内部变量
+4、闭包函数可以访问所保持的作用域链上的外部环境。
 
-function f1() {
-	console.log(f1);
-	var v3 = 3;
-	var v4;
 
-	function f3() {
-		console.log(f3);
-	}
-	f3();		//f1()执行时进行实例化
+TODO 详细分析 上面描述的整个执行过程
+### javascript词法分析 lexical analyzer  Lexer  Tokenizer
+
+ 词法分析主要分为3步：
+ 第1步：分析形参
+ 第2步：分析变量声明
+ 第3步：分析函数声明
+
+http://blog.csdn.net/guixuecheng/article/details/43670323
+
+
+ JavaScript的每个函数function都有自己的作用域，使用Active Object（简称AO）活动对象来保存，在相互嵌套的函数中形成了作用域链，如图：
+ 作用域链就是从里到外的AO链变量的寻找：
+
+ 函数fn3中使用的变量，如在fn3作用域内寻找不到，则往外层fn2作用域寻找，以此类推，直到全局对象window
+
+ 解析模拟
+ 估计，看到这儿，大家还是很朦胧吧，什么是语法分析树，语法分析树到底长什么样子，作用域链又怎么实现的，活动对象又有什么内容等等，还是不是太清晰，
+ 下面我们就通过一段实际的代码来模拟整个解析过程，我们就把语法分析树，活动对象实实在在的创建出来，理解作用域，作用域链的到底是怎么实现的
+
+// 1、模拟代码
+var i = 1, j = 2, k = 3;
+function a(o, p, x, q) {
+  var x = 4;
+  console.log(i);
+  function b(r, s) {
+    var i = 11, y = 5;
+    console.log(i);
+    function c(t) {
+      var z = 6;
+      console.log(i);
+    }
+    //函数表达式
+    var d = function () {
+      console.log(y);
+    };
+    c(60);
+    d();
+  }
+  b(40, 50);
 }
+a(10, 20, 30);
 
-function f2() {
-	console.log(f2);
-}
+2、语法分析树
+ 上面的代码很简单，就是先定义了一些全局变量和全局方法，接着在方法内再定义局部变量和局部方法，现在JS解释器读入这段代码开始解析，
+ 前面提到 JS 引擎会先通过语法分析和预解析得到语法分析树，至于语法分析树长什么样儿，都有些什么信息，下面我们以一种简单的结构：
+ 一个 JS 对象(为了清晰表示个各种对象间的引用关系，这里的只是伪对象表示，可能无法运行)来描述语法分析树
+（这是我们比较熟悉的，实际结构我们不去深究，肯定复杂得多，这里是为了帮助理解解析过程而特意简化）
 
-f1();		//全局环境执行时进行实例化
-f2();		//全局环境执行时进行实例化
-
-```
-
-
- * 1.预解析
- * 词法作用域伪类 把变量，函数格式化成伪类的形式，定义词法作用域的范围，这就是预解析阶段做的啊！
- * 语法分析树：变量集、方法集、作用域等
-
-```js
+//  模拟建立一棵语法分析树，存储function内的变量和方法
 var SyntaxTree = {
-	global: {
-		variables: {
-			v1: { value: 1 },
-			v2: { value: undefined }
-		},
-		functions: {
-			f1: this.f1,
-			f2: this.f2
-		},
-		scope: this.global
-	},
+  // 全局对象在语法分析树中的表示
+  window: {
+    variables: {
+      i: {value: 1},
+      j: {value: 2},
+      k: {value: 3}
+    },
+    functions: {
+      a: this.a
+    }
+  },
 
-	f1: {
-		variables: {
-			v3: { value: 3 },
-			v4: { value: undefined }
-		},
-		functions: {
-			f3: this.f3
-		},
-		scope: this.global
-	},
+  a: {
+    variables: {
+      x: 'undefined'
+    },
+    functions: {
+      b: this.b
+    },
+    scope    : this.window
+  },
 
-	f2: {
-		variables: {},
-		functions: {},
-		scope: this.global
-	},
+  b: {
+    variables: {
+      y: 'undefined'
+    },
+    functions: {
+      c: this.c,
+      d: this.d
+    },
+    scope    : this.a
+  },
 
-	f3: {
-		variables: {},
-		functions: {},
-		scope: this.a
-	}
-}
-```
+  c: {
+    variables: {
+      z: 'undefined'
+    },
+    functions: {},
+    scope    : this.b
+  },
 
- 语法分析树关键点
- * 1变量集（variables）中，只有变量定义，没有变量值，这时候的变量值全部为“undefined”
- * 2作用域（scope），根据词法作用域的特点，这个时候每个变量的作用域就已经明确了，而不会随执行时的环境而改变。
- * 3作用域（scope）建立规则
- * a对于函数声明和匿名函数表达式来说，[scope]就是它创建时的作用域
- * b对于有名字的函数表达式，[scope]顶端是一个新的JS对象（也就是继承了Object.prototype），这个对象有两个属性，
- * 第一个是自身的名称，第二个是定义的作用域，第一个函数名称是为了确保函数内部的代码可以无误地访问自己的函数名进行递归。
-
- * 2.解析运行
- * JS代码是一段段执行的。也就是以函数内部的活动代码为单位，一段段活动代码执行。
- * 实例化就是调用对象（Call Object）的过程，上面我们一直说这个分析很像类结构。
- * 这次就真的是把这个像类的词法分析出来的结果进行伪类的实例化了。
- * 实例化的同时，这个调用对象的一个属性被初始化成一个名叫 arguments 的属性，
- * 它引用了这个函数的 Arguments 对象，Arguments 对象是函数的实际参数。
- * 活动对象：变量集、方法集、实参列表、作用域链等		形参（parameters） 实参（arguments）
- *
- * 活动对象关键点：
- * 创建活动对象，从语法分析树复制方法的内部变量集（variables）和内嵌函数集（functions）
- * 方法开始执行，活动对象里的内部变量集全部被重置为 undefined
- * 创建形参（parameters）和实参（arguments）对象，同名的实参，形参和变量之间是【引用】关系
- *
- * 执行方法内的赋值语句，这才会对变量集中的变量进行赋值处理
- * 变量查找规则是首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object（window）
- * 方法执行完成后，内部变量值不会被重置，至于变量什么时候被销毁，请参考下面一条
- * 方法内变量的生存周期取决于方法实例是否存在活动引用，如没有就销毁活动对象
- * 6和7 是使闭包能访问到外部变量的根本原因
-
-```js
-var ActiveObject = {
-	global: {
-		variables: {
-			v1: {value: 1},
-			v2: {value: undefined}
-		},
-		functions: {
-			f1: this.f1,
-			f2: this.f2
-		}
-	},
-
-	f1: {
-		variables : {
-			v3: {value: 3},
-			v4: {value: undefined}
-		},
-		functions : {
-			f3: SyntaxTree.f3
-		},
-		//scope    : this.global,
-		parameters: { },
-		arguments : [this.v3.value, this.v4.value]
-	},
-
-	f2: {
-		variables : { },
-		functions : { },
-		//scope    : this.global
-		parameters: { },
-		arguments : []
-	},
-
-	f3: {
-		variables : { },
-		functions : { },
-		//scope    : this.a
-		parameters: { },
-		arguments : []
-	}
-}
-```
-
- * 执行环境：函数执行时创建的执行环境
- * 		body属性，直接指向当前方法的活动对象
- * 		scopeChain属性，作用域链，它是一个链表结构，根据语法分析树中当前方法对应的scope属性，它指向scope对应的方法的活动对象（ActivceObject）。
-```js
-var ExecutionContext = {
-	global: {
-		type: 'global',
-		name: 'global',
-		body: ActiveObject.global
-		//scopeChain: this.global
-	},
-
-	f1: {
-		type: 'function',
-		name: 'f1',
-		body: ActiveObject.f1,
-		scopeChain: this.global.body
-	},
-
-	f2: {
-		type: 'function',
-		name: 'f2',
-		body: ActiveObject.f2,
-		scopeChain: this.global.body
-	},
-
-	f3: {
-		type: 'function',
-		name: 'f3',
-		body: ActiveObject.f3,
-		scopeChain: this.f1.body
-	}
+  d: {
+    variables: {},
+    functions: {},
+    scope    : {
+      myname: d,
+      scope : this.b
+    }
+  }
 };
-```
 
- * 闭包是一个拥有许多 变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。
- * 	1、保护函数内的变量安全。　通过保护变量的安全实现JS私有属性和 私有方法（不能被外部访问）
- *	2、在内存中维持一个变量。
- *	3、闭包就是将函数内部和函数外部连接起来的一座桥梁。 让外部环境有接口访问内部变量
- *	4、闭包函数可以访问所保持的作用域链上的外部环境。
+ 上面就是关于语法分析树的一个简单表示，正如我们前面分析的，语法分析树主要记录了每个 function 中的变量集（variables），方法集（functions）和作用域（scope）
+
+ 执行环境
+// 执行环境:函数执行时创建的执行环境
+var ExecutionContext = {
+  window: {
+    type: 'global',
+    name: 'global',
+    body: ActiveObject.window
+  },
+
+  a: {
+    type      : 'function',
+    name      : 'a',
+    body      : ActiveObject.a,
+    scopeChain: this.window.body
+  },
+
+  b: {
+    type      : 'function',
+    name      : 'b',
+    body      : ActiveObject.b,
+    scopeChain: this.a.body
+  },
+
+  c: {
+    type      : 'function',
+    name      : 'c',
+    body      : ActiveObject.c,
+    scopeChain: this.b.body
+  },
+
+  d: {
+    type      : 'function',
+    name      : 'd',
+    body      : ActiveObject.d,
+    scopeChain: this.b.body
+  }
+};
+
+上面每一个方法的执行环境都存储了相应方法的类型（function）、方法名称（funcName）、活动对象（ActiveObject）、作用域链（scopeChain）等信息,
+其关键点如下：
+body属性，直接指向当前方法的活动对象
+scopeChain属性，作用域链，它是一个链表结构，根据语法分析树中当前方法对应的scope属性，
+它指向scope对应的方法的活动对象（ActivceObject），变量查找就是跟着这条链条查找的活动对象
+
+//活动对象：函数执行时创建的活动对象列表
+var ActiveObject = {
+  window: {
+    variables: {
+      i: {value: 1},
+      j: {value: 2},
+      k: {value: 3}
+    },
+    functions: {
+      a: this.a
+    }
+  },
+
+  a: {
+    variables : {
+      x: {value: 4}
+    },
+    functions : {
+      b: SyntaxTree.b
+    },
+    parameters: {
+      o: {value: 10},
+      p: {value: 20},
+      x: this.variables.x,
+      q: 'undefined'
+    },
+    arguments : [this.parameters.o, this.parameters.p, this.parameters.x]
+  },
+
+  b: {
+    variables : {
+      y: {value: 5}
+    },
+    functions : {
+      c: SyntaxTree.c,
+      d: SyntaxTree.d
+    },
+    parameters: {
+      r: {value: 40},
+      s: {value: 50}
+    },
+    arguments : [this.parameters.r, this.parameters.s]
+  },
+
+  c: {
+    variables : {
+      z: {value: 6}
+    },
+    functions : {},
+    parameters: {
+      u: {value: 70}
+    },
+    arguments : [this.parameters.u]
+  },
+
+  d: {
+    variables : {},
+    functions : {},
+    parameters: {},
+    arguments : []
+  }
+};
+
+ 上面每一个活动对象都存储了相应方法的内部变量集（variables）、内嵌函数集（functions）、形参（parameters）、实参（arguments）等执行所需信息，活动对象关键点
+ 创建活动对象，从语法分析树复制方法的内部变量集（variables）和内嵌函数集（functions）
+ 方法开始执行，活动对象里的内部变量集全部被重置为 undefined
+ 创建形参（parameters）和实参（arguments）对象，同名的实参，形参和变量之间是【引用】关系
+ 执行方法内的赋值语句，这才会对变量集中的变量进行赋值处理
+ 变量查找规则是首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object（window）
+ 方法执行完成后，内部变量值不会被重置，至于变量什么时候被销毁，请参考下面一条
+ 方法内变量的生存周期取决于方法实例是否存在活动引用，如没有就销毁活动对象
+ 6和7 是使闭包能访问到外部变量的根本原因
+ 重释经典案例
+ 案列一二三
+ 根据【在一个方法中，同名的实参，形参和变量之间是引用关系，也就是JS引擎的处理是同名变量和形参都引用同一个内存地址】，所以才会有二中的修改arguments会影响到局部变量的情况出现
+ 案例四
+ 根据【JS引擎变量查找规则，首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object（window）】，所以在四中，因为在当前的ActiveObject中找到了有变量 i 的定义，只是值为 “undefined”，所以直接输出 “undefined” 了
+ 总结
+ 以上是我在学习和使用了JS一段时间后,为了更深入的了解它, 也为了更好的把握对它的应用, 从而在对闭包的学习过程中,自己对于词法作用域的一些理解和总结,中间可能有一些地方和真实的JS解释引擎有差异,因为我只是站在一个刚入门的前端开发人员而不是系统设计者的角度上去分析这个问题，希望能对JS开发者理解此法作用域带来一些帮助！
 
 
- * 预解析先建立语法分析树
- * 执行环境定义了变量或函数有权访问的其他数据，决定了他们各自的行为。
- * 每个执行环境都有与之关联的 变量对象(VO)， 环境中定义的所有变量和函数都保存在这个对象中。
- * 全局环境是最外围的执行环境。
- * 每个函数都有自己的自行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。
- * 当代码在一个环境中执行时，会创建 变量对象(VO)的作用域链，用以保证对执行环境中有权访问的所有变量和函数进行有序访问。
- * 作用域链的前端，始终都是当前执行代码所在环境的变量对象，如果这个环境是函数，则将其活动对象作为变量对象。
+### 总结
+
+我们只是没有涉及到两个大的主题：函数（和不同函数之间的区别，比如，函数声明和函数表达式）和ECMAScript中所使用的求值策略(evaluation strategy)。这两个主题是可以ES3系列的在对应章节找到：第五章 函数 和 第八章 求值策略。
+
+
