@@ -93,7 +93,7 @@ sh.enableSharding("<database>")
 
 Optionally, you can enable sharding for a database using the enableSharding command, which uses the following syntax:
 
-db.runCommand( { enableSharding: <database> } )
+db.runCommand({enableSharding: <database>})
 
 
 ### Shard a Collection
