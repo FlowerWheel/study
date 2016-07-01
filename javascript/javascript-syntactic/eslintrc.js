@@ -305,7 +305,7 @@ module.exports = {
     'no-shadow-restricted-names': 2,
 
     // 不允许作用域链中出现同名的变量
-    'no-shadow': 2,
+    'no-shadow': [2, {'builtinGlobals': true, 'hoist':'functions', 'allow': ['resolve', 'reject', 'done', 'fn', 'cb', 'callback']}],
 
     // 不允许初始化变量为undefined。因为不进行初始化，会默认初始化为undefined
     'no-undef-init': 2,
@@ -321,7 +321,7 @@ module.exports = {
     'no-unused-vars': [2, {vars: 'local', args: 'after-used'}],
 
     // 不允许在声明之前使用变量
-    'no-use-before-define': 2,
+    'no-use-before-define': [2, { 'functions': false }],
 
     // node.js部分
     // 强制把回调放在`return`语句中
@@ -357,6 +357,12 @@ module.exports = {
     'array-bracket-spacing': [2, 'never'],
 
     // 始终使用代码块，且代码块的{不出现在行首
+    // "1tbs" (default) enforces one true brace style
+    // "stroustrup" enforces Stroustrup style
+    // "allman" enforces Allman style
+    // This rule has an object option for an exception:
+    // 
+    // "allowSingleLine": true (default false) allows the opening and closing braces for a block to be on the same line
     'brace-style': [2, '1tbs', {'allowSingleLine': false }],
 
     // 使用驼峰命名法，无论是变量名还是属性名
@@ -420,7 +426,7 @@ module.exports = {
     'max-nested-callbacks': 0,
 
     // 强制构造函数首字母大写
-    'new-cap': [2, {'newIsCap': true}],
+    'new-cap': [2, {'newIsCap': true, 'capIsNew': false}],
 
     // 是否允许当构造函数没有参数时省略()进行调用
     // 「待商议」
@@ -590,7 +596,7 @@ module.exports = {
     'object-shorthand': [2, 'always'],
 
     // 优先使用箭头函数而不是函数表达式声明回调函数
-    'prefer-arrow-callback': 2,
+    'prefer-arrow-callback': [2, { 'allowNamedFunctions': true , 'allowUnboundThis': false}],
 
     // 优先使用`const`
     'prefer-const': 2,
