@@ -1,19 +1,18 @@
 javascript-syntax
 =================
-
 参考：
-
 * javascript-the-core [翻译](http://weizhifeng.net/javascript-the-core.html) [原文](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/)
+
 
 ### 属性类型
 
 #### 数据属性
 属性|说明
 ---|---
-|`[[Configurable]]` |表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true|
-|`[[Enumerable]]`   |表示能否通过for-in循环返回属性。true|
-|`[[Writable]]`	    |表示能否修改属性值。ture|
-|`[[Value]]`		|包含实际值。undefined|
+`[[Configurable]]` |表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true|
+`[[Enumerable]]`   |表示能否通过for-in循环返回属性。true|
+`[[Writable]]`	    |表示能否修改属性值。ture|
+`[[Value]]`		    |包含实际值。undefined|
 
 严格模式下不合法的操作会抛出异常，非严格模式会忽略相关操作。
 
@@ -43,10 +42,10 @@ console.log(person.sax);        // M
 `[[Getter]]`		|取值函数。undefined
 `[[Setter]]`		|赋值函数。undefined
 
-> `getter`和`setter`不一定要成对出现;
-> 只有`getter`函数证明该属性只读，尝试写入在非严格模式下会被忽略，严格模式会抛出错误;
-> 只有`setter`函数证明该属性只写，尝试读取在非严格模式下返回undefined，严格模式则抛出错误;
-> 对象的``数据属性``、``访问器属性``都包含`[[configurable]]`和`[[enumerable]]`，但不能同时有`[[writeable]]`/`[[value]]`和`[[get]]`/`[[set]]`，数据属性也可以函数。
+* `getter`和`setter`不一定要成对出现;
+* 只有`getter`函数证明该属性只读，尝试写入在非严格模式下会被忽略，严格模式会抛出错误;
+* 只有`setter`函数证明该属性只写，尝试读取在非严格模式下返回undefined，严格模式则抛出错误;
+* 对象的``数据属性``、``访问器属性``都包含`[[configurable]]`和`[[enumerable]]`，但不能同时有`[[writeable]]`/`[[value]]`和`[[get]]`/`[[set]]`，数据属性也可以函数。
 
 ```js
 var book1 = { _year: 2014, edition: 1 };
@@ -67,7 +66,9 @@ console.log(book1);			// { _year: 2014, edition: 1, year: [Getter/Setter] }
 console.log(book1.year);	// 2014
 book.year = 2016;
 console.log(book1);			// { _year: 2016, edition: 3, year: [Getter/Setter] }
+```
 
+```js
 // 给 对象 设置 多个 `数据属性` 和 `访问器属性`
 var book2 = { _year: 2014, edition: 1 };
 Object.defineProperties(book2, {
@@ -89,7 +90,9 @@ Object.defineProperties(book2, {
 		}
 	}
 });
+```
 
+```js
 // 获取 属性 信息
 var desc1 = Object.getOwnPropertyDescriptor(book2, 'year');
 console.log(desc1);
@@ -109,16 +112,19 @@ console.log(desc2);
 // }
 ```
 
-应用：观察者模式
-例子[JavaScript实现MVVM之我就是想监测一个普通对象的变化](http://hcysun.me/2016/04/28/JavaScript%E5%AE%9E%E7%8E%B0MVVM%E4%B9%8B%E6%88%91%E5%B0%B1%E6%98%AF%E6%83%B3%E7%9B%91%E6%B5%8B%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96/)
+应用：
+* 观察者模式
+  - 例子[JavaScript实现MVVM监测一个普通对象的变化](http://hcysun.me/2016/04/28/JavaScript%E5%AE%9E%E7%8E%B0MVVM%E4%B9%8B%E6%88%91%E5%B0%B1%E6%98%AF%E6%83%B3%E7%9B%91%E6%B5%8B%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96/)
 
 
 ### ECMAScript5对象保护功能
 
-在JavaScript里，默认情况下，你可修改任何你可以访问到的对象，你可以自由的删除对象的属性或覆盖对象的方法。这在多人协作开发的项目中，会造成很大问题，因为你不知道你的修改会对别人造成什么样的影响。如果你是一个模块或代码库的作者，你可能想锁定一些核心库的某些部分，保证任何人不能有意或无意的修改它们。
+在JavaScript里，默认情况下，你可修改任何你可以访问到的对象，你可以自由的删除对象的属性或覆盖对象的方法。
+这在多人协作开发的项目中，会造成很大问题，因为你不知道你的修改会对别人造成什么样的影响。
+如果你是一个模块或代码库的作者，你可能想锁定一些核心库的某些部分，保证任何人不能有意或无意的修改它们。
 严格模式下抛出异常，普通模式下安静的失败；
 
-* 禁止添加属性：禁止扩展。禁止为对象添加属性和方法，但已存在的属性和方法是可以被修改和删除的。
+* 禁止添加属性：禁止扩展。即：禁止为对象添加属性和方法，但已存在的属性和方法是可以被修改和删除的。
 
 ```js
 var person1 = { name: 'liuht' };
@@ -129,10 +135,9 @@ console.log('isExtensible:', Object.isExtensible(person1));     // -> false
 person1.sex = 1;
 console.log(person1);
 console.log(person1.sex);
-
 ```
 
-* 禁止删除属性：密封。禁止删除对象已存在的属性和方法。
+* 禁止删除属性：密封。即：禁止删除对象已存在的属性和方法。
 
 ```js
 var person2 = { name: 'liuht' };
@@ -143,51 +148,56 @@ console.log('isExtensible:', Object.isExtensible(person2));     // -> false
 delete person2.name;
 person2.age = 10;
 console.log(person2);
-
 ```
 
-* 禁止添加或删除属性：冻结。禁止修改对象已存在的属性和方法，所有字段都是只读的。
+* 禁止添加或删除属性：冻结。即：禁止修改对象已存在的属性和方法，所有字段都是只读的。
 
 ```js
 var persion3 = { name: 'liuht' };
 Object.freeze(persion3);
 console.log('isFrozen:', Object.isFrozen(persion3));            // -> true
 console.log('isSealed:', Object.isSealed(persion3));            // -> true
-console.log('isExtensible:', Object.isExtensible(persion3)); 	// -> false
+console.log('isExtensible:', Object.isExtensible(persion3));    // -> false
 delete persion3.name;
 persion3.age = 10;
 persion3.name = 'new name';
 console.log(persion3);
-
 ```
 
-***`访问器属性`和`对象保护功能`都是针对对象属性，而不是变量。***
+**访问器属性** 和 **对象保护功能** 都是针对 **对象属性** ，而不是 **变量**
 
 
 ### 数据类型
 
-五种基本类型 `Undefined`，`Null`，`Boolean`，`Number`，`String`。
+#### 五种基本类型：
+`Undefined`、`Null`、`Boolean`、`Number`、`String`
 
-平时使用的时候都使用的是字面量形式，但是当需要的时候，它们也会被转换成对象，即基本类型的包装类型。
+* `Boolean`、`Number`、`String`。
+  
+  这三种基本类型平时使用的时候大都使用的是字面量形式，字面量并不是对象，但是当需要的时候，它们也会被转换成对象，也就是会被转换成**基本类型的包装类型**。
 
-没有`Undefined()`和`Null()`内建函数，而是有`Undefined`和`Null`类型的内建对象`undefined`和`null`。
+* `Undefined`、`Null`。
+  
+  并不存在`Undefined()`和`Null()`内建函数，只存在`Undefined`和`Null`类型的内建对象`undefined`和`null`，这两个中类型并无**基本类型的包装类型**。
+  ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的，相同的地方是都可以视为布尔值的false。
 
-ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的, 相同的地方是都可以视为布尔值的false。
+#### 引用类型：
+`Object`、`Function`、`Array`、`Error`、`Regexp`、`Map`、`Set`...
 
-引用类型：`Object`、`Function`、`Array`、`Error`、`Regexp`、`Map`、`Set`...
-
-> JavaScript中除了 `null` 和 `undefined` 之外的一切都被当做对象！
+JavaScript中除了 `null` 和 `undefined` 之外的一切都可以被当做对象！
 
 undefined与null的区别：
-null表示"没有对象"，即该处不应该有值。
-1. 作为函数的参数，表示该函数的参数不是对象。
-2. 作为对象原型链的终点。
-undefined表示"缺少值"，就是此处应该有一个值，但是还没有定义。
-1. 变量被声明了，但没有赋值时，就等于undefined。
-2. 调用函数时，应该提供的参数没有提供，该参数等于undefined。
-3. 对象没有赋值的属性，该属性的值为undefined。
-4. 函数没有返回值时，默认返回undefined。
+* null表示"没有对象"，即该处不应该有值。
+  1. 作为函数的参数，表示该函数的参数不是对象。
+  2. 作为对象原型链的终点。
+* undefined表示"缺少值"，即应该有一个值但是未定义。
+  1. 变量被声明了，但没有赋值时，该变量undefined。
+  2. 调用函数时，参数没有提供，该参数undefined。
+  3. 对象没有赋值的属性，该属性undefined。
+  4. 函数没有返回值时，返回undefined。
 
+* Undefined Null
+  
 ```js
 console.log(undefined instanceof Object);   // false
 console.log(typeof undefined);              // undefined
@@ -195,11 +205,14 @@ console.log(null instanceof Object);        // false
 console.log(typeof null);                   // object
 console.log(undefined === null);            // false
 console.log(undefined == null);             // true
-
 var undefined = 'foo';
 console.log(undefined, typeof undefined);   // foo 'string'
 console.log(void(0) === undefined);         // true
+```
 
+* Number
+  
+```js
 var num = 0;
 var numObj = new Number(0);
 console.log(num instanceof Object);         // false
@@ -211,7 +224,11 @@ console.log(typeof num);                    // number
 console.log(typeof numObj);                 // object
 console.log(numObj === new Number(0));      // false
 console.log(numObj === numObj);             // true
+```
 
+* String
+  
+```js
 var str = '';
 var strObj = new String('');
 console.log(str instanceof Object);         // false
@@ -221,7 +238,11 @@ console.log(strObj instanceof String);      // true
 console.log(str === strObj);                // false
 console.log(typeof str);                    // string
 console.log(typeof strObj);                 // object
+```
 
+* Boolean
+  
+```js
 var bool = true;
 var boolObj = new Boolean(true);
 console.log(bool instanceof Object);        // false
@@ -231,8 +252,11 @@ console.log(boolObj instanceof Boolean);    // true
 console.log(bool === boolObj);              // false
 console.log(typeof bool);                   // boolean
 console.log(typeof boolObj);                // object
+```
 
-// 引用类型Object
+* Object - 引用类型
+  
+```js
 var obj = {};
 var boolObj = new Object({});
 console.log(obj instanceof Object);         // true
@@ -246,7 +270,6 @@ console.log(typeof boolObj);                // object
 ### void
 
 `void UnaryExpression` 按如下流程解释:
-
 * 令`expr`为解释执行`UnaryExpression`的结果。
 * 调用 `GetValue(expr)`.
 * 返回 `undefined`.
@@ -259,7 +282,6 @@ console.log(typeof boolObj);                // object
 
 
 ### 对象
-
 ECMAScript做为一个高度抽象的面向对象语言，是通过对象来交互的。
 一个对象就是一个属性集合，并拥有一个独立的`原型对象`，这个`原型对象`可以是一个`对象`或者`null`。
 一个对象的`原型对象`是以对象内部的`[[Prototype]]`属性来引用的。
@@ -267,8 +289,8 @@ ECMAScript做为一个高度抽象的面向对象语言，是通过对象来交�
 在示意图里边我们将会使用`__<internal-property>__`下划线标记来替代两个括号，对于prototype对象来说是：`__proto__`。
 
 让我们看一个关于对象的基本例子。
-对于以下代码：
 
+对于以下代码：
 ```js
 var foo = {
   x: 10,
@@ -276,7 +298,7 @@ var foo = {
 };
 ```
 
-我们拥有一个这样的结构，两个明显的自身属性和一个隐藏的`__proto__`属性，这个属性是对`foo.prototype`的引用：
+我们拥有一个这样的结构，两个显式的自身属性和一个隐藏的`__proto__`属性，这个属性是对`Object.prototype`的引用。
 
 ![basic-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/basic-object.png)
 
@@ -285,21 +307,20 @@ var foo = {
 
 ### 原型链（prototype-chain）
 
-`原型对象`也是简单的对象并且可以拥有它们自己的原型，如果一个原型对象的`原型`是一个非`null`的引用，那么以此类推，原型对象连成的链，就叫作`原型链`。
-`原型链`是一个用来实现`继承`和`共享`属性的有限长度的`对象链`。
-`原型链`是为了实现代码重用而设计的，在基于类的系统中，这个代码重用风格叫作`类继承`。
+* `原型对象`也是简单的对象并且可以拥有它们自己的原型，如果一个原型对象的`原型`是一个非`null`的引用，以此类推，原型对象连成的链，就形成了`原型链`。
+* `原型链`是一个用来实现`继承`和`共享`属性的有限长度的`对象链`。
+* `原型链`是为了实现代码重用而设计的，在基于类的系统中，这个代码重用风格叫作`继承`。
 
-ECMAScript中没有类的概念，但是代码重用的风格并没有太多不同，且通过原型链来实现，这种继承方式叫作委托继承(delegation based inheritance)，或者，更贴近ECMAScript一些，叫作原型继承(prototype based inheritance)。
+ECMAScript中没有类的概念，但是代码重用的风格并没有太多不同，ECMAScript通过原型链来实现，即**原型继承(prototype based inheritance)**，这种继承方式叫作**委托继承(delegation based inheritance)**。
 
-ES5标准化了一个实现原型继承的可选方法，即使用`Object.create`函数：
-
+ES5标准化了一个实现原型继承的新的可选方法，使用`Object.create`函数：
 ```js
 var b = Object.create(a, {y: {value: 20}});
 var c = Object.create(a, {y: {value: 30}});
 ```
 
 ES6标准化了`__proto__`属性，并且可以在对象初始化的时候使用它，如下面的用法。
-
+`b`和`c`可以访问到`a`对象中定义的`calculate()`方法，是通过原型链`lookup`实现的。
 ```js
 var a = {
   x: 10,
@@ -307,222 +328,160 @@ var a = {
     return this.x + this.y + z
   }
 };
-
-var b = {
-  y: 20,
-  __proto__: a
-};
-// 或 var b = Object.create(a, {y: {value: 20}});
-
-var c = {
-  y: 30,
-  __proto__: a
-};
-// 或 var c = Object.create(a, {y: {value: 30}});
-
-// call the inherited method
+var b = {y: 20, __proto__: a}; 
+// 等价于 var b = Object.create(a, {y: {value: 20}});
+var c = {y: 30, __proto__: a}; 
+// 等价于 var c = Object.create(a, {y: {value: 30}});
 b.calculate(30); // 60
 c.calculate(40); // 80
 ```
 
-`b`和`c`可以访问到`a`对象中定义的`calculate()`方法，是通过原型链`lookup`实现的。
-
-原型链lookup规则：
-
+#### 原型链lookup规则：
 如果一个`属性`/`方法`在对象自身中无法找到，JS引擎会尝试遍历整个原型链，寻找这个`属性`/`方法`，第一个被查找到的同名`属性`/`方法`会被使用。如果在遍历了整个原型链之后还是没有查找到这个属性的话，返回undefined值。
 
-在类继承中也是类似的，当解析一个继承的方法的时候－遍历`class chain`。
-
 下一张图展示了对象`a`，`b`，`c`之间的继承关系：
-
 ![prototype-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/prototype-chain.png)
 
+#### `__proto__`
+* 如果没有明确为一个对象指定原型，那么它将会使用`__proto__`的默认值`Object.prototype`。
+* `Object.prototype`对象自身也有一个`__proto__`属性，值为`null`，这是原型链的终点。 即：`Object.prototype.__proto__ === null`
+* The `__proto__` property of `Object.prototype` is an `accessor property` (a getter function and a setter function) that exposes the internal `[[Prototype]]` (either an object or null) of the object through which it is accessed.
 
-### `__proto__`
-
-如果没有明确为一个对象指定原型，那么它将会使用`__proto__`的默认值`Object.prototype`。
-
-`Object.prototype`对象自身也有一个`__proto__`属性，这是原型链的终点并且值为`null`。 即：`Object.prototype.__proto__ === null`
-
-The `__proto__` property of `Object.prototype` is an `accessor property` (a getter function and a setter function) that exposes the internal `[[Prototype]]` (either an object or null) of the object through which it is accessed.
-
-> 项目中建议不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()``Object.create()`访问原型。
+项目中建议不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()、Object.create()`读写原型。
 
 ```js
 var Shape = function () { };
-
 var proto = {
     say: function () {
         console.log('hello world!');
     }
 };
-
 Shape.prototype = proto;
+```
+```js
 var circle = new Shape();
-console.log('circle:', circle.__proto__ === Shape.prototype);						// true
-console.log('circle:', Object.getPrototypeOf(circle) === Shape.prototype);			// true
-console.log('circle:', typeof circle); 												// object
-console.log('circle:', circle instanceof Shape); 									// true
-console.log('circle:', circle instanceof Object); 									// true
-circle.say(); 																		// hello world!
-
+console.log('circle:', circle.__proto__ === Shape.prototype);                      // true
+console.log('circle:', Object.getPrototypeOf(circle) === Shape.prototype);         // true
+console.log('circle:', typeof circle);                                             // object
+console.log('circle:', circle instanceof Shape);                                   // true
+console.log('circle:', circle instanceof Object);                                  // true
+circle.say();                                                                      // hello world!
+```
+```js
 var rectangle = Object.create(proto);
-console.log('ractangle:', rectangle.__proto__ === Shape.prototype);					// true
-console.log('ractangle:', Object.getPrototypeOf(rectangle) === Shape.prototype);	// true
-console.log('ractangle:', typeof rectangle); 										// object
-console.log('ractangle:', rectangle instanceof Shape); 								// true
-console.log('ractangle:', rectangle instanceof Object); 							// true
-circle.say(); 																		// hello world!
+console.log('ractangle:', rectangle.__proto__ === Shape.prototype);                // true
+console.log('ractangle:', Object.getPrototypeOf(rectangle) === Shape.prototype);   // true
+console.log('ractangle:', typeof rectangle);                                       // object
+console.log('ractangle:', rectangle instanceof Shape);                             // true
+console.log('ractangle:', rectangle instanceof Object);                            // true
+circle.say();                                                                      // hello world!
+```
 
+```js
 var objPrototype = Object.prototype;
 console.log(objPrototype);
 console.log(typeof objPrototype);
 console.log(objPrototype.__proto__);
 console.log(Object.prototype instanceof Object);
-
 console.log('__proto__:', 'xxx'.__proto__);
 console.log(String.prototype);
-
 console.log(Object instanceof Object);
 console.log([] instanceof Object);
 console.log({} instanceof Object);
 ```
 
-通常情况下需要对象拥有相同或者相似的状态结构（也就是相同的属性集合），赋以不同的状态值，在这个情况下我们可能需要使用`构造函数`(constructor function)，其以指定的模式来创造对象。
+`typeof`和`instanceof`的目的都是检测变量的类型，区别在于typeof一般是检测的是基本数据类型，instanceof主要检测的是引用类型。
 
-> 其实`typeof`和`instanceof`的目的都是检测变量的类型，两个的区别在于typeof一般是检测的是基本数据类型，instanceof主要检测的是引用类型!
+通常情况下对象拥有相同或者相似的状态结构（也就是相同的属性集合），赋以不同的状态值，在这个情况下我们可能需要使用`构造函数`，其以指定的模式来创造对象。
 
 
 ### 构造函数
-
-除了以指定模式创建对象之外，构造函数也做了另一个有用的事情－它自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
+* 以指定的模式来创造对象
+* 自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
 
 我们可以使用构造函数来重写上一个拥有对象`b`和对象`c`的例子。因此，对象`a`的角色由Foo.prototype来扮演：
-
 ```js
-// constructor function
-function Foo(y) {
-  // which may create objects by specified pattern: they have after creation own "y" property
-  this.y = y;
-}
-
-// also "Foo.prototype" stores reference to the prototype of newly created objects,
-// so we may use it to define shared/inherited properties or methods,
-// so the same as in previous example we have:
-
-// inherited property "x"
+function Foo(y) { this.y = y; }
 Foo.prototype.x = 10;
-
-// and inherited method "calculate"
 Foo.prototype.calculate = function (z) {
   return this.x + this.y + z;
 };
-
-// now create our "b" and "c"
-// objects using "pattern" Foo
 var b = new Foo(20);
 var c = new Foo(30);
-
-// call the inherited method
-b.calculate(30); // 60
-c.calculate(40); // 80
-
-// let's show that we reference
-// properties we expect
-
-console.log(
-
-  b.__proto__ === Foo.prototype, // true
-  c.__proto__ === Foo.prototype, // true
-
-  // also "Foo.prototype" automatically creates
-  // a special property "constructor", which is a
-  // reference to the constructor function itself;
-  // instances "b" and "c" may found it via
-  // delegation and use to check their constructor
-
-  b.constructor === Foo,                            // true
-  c.constructor === Foo,                            // true
-  Foo.prototype.constructor === Foo                 // true
-
-  b.calculate === b.__proto__.calculate,            // true
-  b.__proto__.calculate === Foo.prototype.calculate // true
-);
+b.calculate(30);
+c.calculate(40);
+console.log(b.__proto__ === Foo.prototype);
+console.log(c.__proto__ === Foo.prototype);
+console.log(b.constructor === Foo);
+console.log(c.constructor === Foo);
+console.log(Foo.prototype.constructor === Foo);
+console.log(b.calculate === b.__proto__.calculate);
+console.log(b.__proto__.calculate === Foo.prototype.calculate);
 ```
 
 这个代码可以表示为如下关系：
 
+可以看到，构造函数`Foo`也有自己的`__proto__`，即`Function.prototype`，`Function.prototype`通过其`__proto__`属性关联到`Object.prototype`。
 ![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/constructor-proto-chain.png)
 
-可以看到，构造函数`Foo`也有自己的`__proto__`，值为`Function.prototype`，`Function.prototype`也通过其`__proto__`属性关联到`Object.prototype`。
+思考一下类的概念，那么构造函数和原型对象合在一起可以当作一个「类」了。
 
-如果思考一下类的概念，那么构造函数和原型对象合在一起可以叫作「类」。例如：Python的`First-Class``Dynamic-Classes`显然是以同样的`属性`/`方法`处理方案来实现的。从这个角度来说，Python中的类就是ECMAScript使用的委托继承的一个语法糖。
+例如：Python的`First-Class、Dynamic-Classes`显然是以同样的`属性`/`方法`处理方案来实现的。从这个角度来说，Python中的类可以看作ECMAScript使用的委托继承的一个语法糖。
 
 在ES6中「类」的概念被标准化了，并且实际上以一种构建在构造函数上面的语法糖来实现，就像上面描述的一样。
 
 用类的方式实现如下：
-
 ```js
 // ES6
 class Foo {
   constructor(name) {
     this._name = name;
   }
-
   getName() {
     return this._name;
   }
 }
-
 class Bar extends Foo {
   getName() {
     return super.getName() + ' Doe';
   }
 }
-
 var bar = new Bar('John');
 console.log(bar.getName()); // John Doe
 ```
 
-### new 操作符 都做了什么？
+**new** 操作符 都做了什么？
 
 1. 创建一个新对象
 2. 将构造函数作用域赋给新对象，即this指向了新对象
 3. 执行构造函数中的代码
 4. 返回新对象的引用
 
-> 只要用`new`来调用函数，就是构造函数，否则，就是普通函数。
+只要用`new`操作符来调用函数就是构造函数，否则，就是普通函数。
 
 ```js
 var o = new NewObject(11, 22)
 var o;
 NewObject.apply(o, 11, 22);
 NewObject.call(o, [11, 22]);
-
-var obj1 = new NewObject(11, 22);   // 构造函数方式
-obj1.func();                        // this == obj1
-
-var obj2 = NewObject(33, 44);       //　普通函数方式
-obj2.func();                        // error
-global.func();                      // this == global
-console.log(obj2);                  // undefined  NewObject()作为函数并无返回值，所以undefined
-
-// 在另一个对象的作用域中调用，同样是当作普通函数调用
+var obj1 = new NewObject(11, 22); // 构造函数方式
+obj1.func();                      // this == obj1
+var obj2 = NewObject(33, 44);     // 普通函数方式
+obj2.func();                      // error
+global.func();                    // this == global
+console.log(obj2);                // NewObject()作为函数并无返回值，所以undefined
 var obj3 = new Object();
-NewObject.call(obj3, 55, 66);       //原this指针(global)被替换成obj3,　原属性同样转移到obj3上。
+NewObject.call(obj3, 55, 66);
 obj3.func();
-
-console.log(obj1.func === obj3.func); 		// false
-console.log(obj1.func() === obj3.func()); 	// true  ???
+console.log(obj1.func === obj3.func);
+console.log(obj1.func() === obj3.func());
 ```
 
 
 ### 对象构造
 
 #### 工厂模式
-
-解决了创建对象的问题，但是对象无法识别类型，只是一个Object.
-
+* 按指定模式创建对象的，但是对象类型无法标识。
 ```js
 function createObject(arg1, arg2) {
 	var o = new Object();
@@ -540,10 +499,8 @@ console.log(o1.property1);
 ```
 
 #### 构造函数模式
-
-构造函数名字用来标志一个`特定类型`
-问题在于：每个方法在每个对象上都要重新创建一次，把每个函数当作Function就明白了。
-
+* 构造函数名字用来标志一个`特定类型`。
+* 问题在于：每个方法在每个对象上都要重新创建一次。
 ```js
 function NewObject(arg1, arg2) {
 	this.property1 = arg1;
@@ -554,13 +511,11 @@ function NewObject(arg1, arg2) {
 }
 var no1 = new NewObject(1, 2);
 var no2 = new NewObject(3, 4);
-
 // 构造函数属性 constructor  标志对象类型
 console.log(no1.constructor == NewObject);
 console.log(no1.constructor == Object);
 console.log(no2.constructor == NewObject);
 console.log(no2.constructor == Object);
-
 // 检测对象　更可靠
 console.log(no1 instanceof Object);
 console.log(no1 instanceof NewObject);
@@ -569,12 +524,10 @@ console.log(no2 instanceof NewObject);
 ```
 
 #### 原型模式
-
-每个函数都有一个`prototype`属性，这是一个指针，指向一个对象，这个对象可以实现属性的共享。
-`prototype`是函数对象的一个属性，`prototype`指向的`原型对象`拥有一个`constructor`属性指向原型对象的拥有者。
-通过构造函数创建的`对象实例`的`原型对象`可以通过实例属性`__proto__`访问，但是不能重写，重名的属性将屏蔽原型中的同名属性。
-
-在原型中修改属性，会立刻在实例中反映出来。但是如果重写整个原型对象，那么实例对象将找不到原型中定义的属性。
+* 每个函数都有一个`prototype`属性，引用另一个对象，这个对象可以实现属性的共享。
+* `prototype`是构造函数的一个属性，`prototype`指向的`原型对象`拥有一个`constructor`属性指向构造函数，普通函数有此属性无意义。
+* 通过构造函数创建的`对象实例`可以通过`__proto__`访问`原型对象`，但是不能重写，重名的属性将屏蔽原型中的同名属性。
+* 在原型中修改属性，会立刻在`对象实例`中反映出来。但是如果重写整个原型对象，那么实例对象将找不到原型中定义的属性。
 
 ```js
 function PrototypeObject() { }
@@ -588,9 +541,7 @@ var po2 = new PrototypeObject();
 po2.sayName();
 console.log(po1.sayName === po2.sayName);       // true
 console.log(po1.sayName() === po2.sayName());   // true
-
 console.log(PrototypeObject.prototype.constructor === PrototypeObject); // true
-
 // 每个实例　拥有一个[[Prototype]]属性指向原型对象，但是无法访问此属性。
 console.log(PrototypeObject.prototype.isPrototypeOf(po1));  // true  // 判断po1.[[Prototype]] ===
 console.log(PrototypeObject.prototype.isPrototypeOf(po1));  // true  // 判断po2.[[Prototype]] ===
@@ -600,10 +551,8 @@ console.log(po1.hasOwnProperty('sayName'));                 // 判断是否是�
 function hasPrototypeProperty(object, name) {               // 判断是否是原型属性
 	return !object.hasOwnProperty(name) && (name in object);
 }
-
 // Object.keys();                    // 返回所有可枚举的实例属性
 // Object.getOwnPropertyNames();     // 返回所有实例属性
-
 // 原型同样可以这样定义：原型对象 = 字面量，prototype的constructor不再等于PrototypeObject，但是instanceof()仍能继续工作。
 PrototypeObject.prototype = {
     constructor:Person // 默认的constructor被覆盖掉了 [[Enumerable]]会变成true
@@ -614,28 +563,24 @@ Object.defineProperty(PrototypeObject.prototype, 'constructor', {
 })
 ```
 
-#### 组合使用构造函数和原型模式
-
+#### 组合构造函数和原型模式
 * 集两者之长默认模式
 * 实例属性在构造函数中定义　　
 * 共享属性在原型中定义
-
 ```js
 function ConstructPrototypeObject(name, desc) {
 	this.name = name;
 	this.desc = desc;
 }
-ConstructPrototypeObject.prototype.display = function () {
+ConstructPrototypeObject.prototype.display = 
+function () {
 	console.log(this.name);
 	console.log(this.desc);
 };
-
 ```
 
 #### 动态原型模式
-
-只在第一次调用构造函数时　实例化原型
-
+* 只在第一次调用构造函数时　实例化原型
 ```js
 function ConstructPrototypeObject(name, desc) {
 	this.name = name;
@@ -656,10 +601,8 @@ function ConstructPrototypeObject(name, desc) {
 }
 ```
 
-#### 寄生模式
-
-这种方式，可以用来扩展原生对象，在不修改原生对象的前提下，增加方法。
-
+#### 继承模式（寄生模式）
+* 这种方式，可以用来扩展原生对象，在不修改原生对象的前提下，增加方法。
 ```js
 function SpecialArray() {
 	var values = new Array();
@@ -674,9 +617,7 @@ console.log(colors.toPipedString());
 ```
 
 #### 稳妥构造函数模式
-
-适合用于一些安全环境，这些环境禁止使用this和new，防止数据被其他程序改动时使用。数据成员位于作用域链中，不在对象的属性中。
-
+* 数据成员位于作用域链中，不在对象的属性中，防止数据被其他程序改动时使用，适合用于一些安全环境，这些环境禁止使用this和new。
 ```js
 function Person(name, age, job) {
 	var o = new Object();
@@ -692,42 +633,34 @@ console.log(friend.name); //undefined
 ```
 
 
-### 对象继承
+### 继承
 
 #### 原型链
-
-存在的问题：
-1. 原型属性会被所有实例共享
-2. 无法向超类传递参数
-
+* 原型属性会被所有实例共享
+* 无法向超类传递参数
 ```js
 function SuperType() {
 	this.supProperty = true;
 }
-
 SuperType.prototype.getSuperValue = function () {
 	return this.supProperty;
 };
-
 function SubType() {
 	this.subProperty = false;
 }
-
 SubType.prototype = new SuperType();
-
 SubType.prototype.getSubValue = function () {
 	return this.subProperty;
 };
-
 var instance = new SubType();
 console.log(instance.getSuperValue());
-
 // 借用构造函数    在子类型的内部调用父类型的构造函数
 function SupType() {
 	this.colors = ['red', 'blue', 'green'];
 }
 function SubType() {
-	SupType.call(this); // this 指 SubType 普通函数调用 把函数当作一个模板 同时可以传递参数
+  // this 指 SubType 普通函数调用 把函数当作一个模板 同时可以传递参数
+	SupType.call(this);
 }
 var instance = new SubType();
 instance.colors.push('black');
@@ -735,10 +668,8 @@ console.log(instance);
 ```
 
 #### 组合继承
-
-原型链继承原型
-借用构造函数继承实例属性
-
+* 原型链继承原型
+* 借用构造函数继承实例属性
 ```js
 function SuperType(name) {
 	this.name = name;
@@ -747,9 +678,8 @@ function SuperType(name) {
 SuperType.prototype.sayName = function () {
 	console.log(this.name);
 };
-
 function SubType(name, age) {
-	SuperType.call(this, name);         // 普通函数
+	SuperType.call(this, name);           // 普通函数
 	this.age = age;
 }
 SubType.prototype = new SuperType();    // 构造函数
@@ -757,7 +687,6 @@ SubType.prototype.constructor = SubType;
 SubType.prototype.sayAge = function () {
 	console.log(this.age);
 };
-
 var instance = new SubType('liuyanjie', 22);
 instance.colors.push('black');
 instance.sayName();
@@ -765,9 +694,7 @@ instance.sayAge();
 ```
 
 #### 原型式继承
-
-此方式必须有一个对象作为基础  作为原型
-
+* 此方式必须有一个对象作为基础，作为原型。
 ```js
 function object(o) {
 	function F() { } // 临时性构造函数
@@ -778,10 +705,9 @@ Object.create();    //此方法即为原型式继承
 ```
 
 #### 寄生式继承
-
 ```js
 function createAnother(original) {          // 工厂
-	var clone = Object.create(original);    // 封装了原型式继承
+	var clone = Object.create(original);      // 封装了原型式继承
 	clone.sayHi = function () {
 		console.log('Hi');
 	};
@@ -790,59 +716,36 @@ function createAnother(original) {          // 工厂
 ```
 
 #### 寄生组合式继承
-
-借用构造函数继承属性
-原型链的混成形式继承方法
-
+* 借用构造函数继承属性
+* 原型链的混成形式继承方法
 ```js
 function inheritPrototype(subType, supType) {
 	var prototype = Object.create(supType.prototype);
 	prototype.constructor = subType;
 	subType.prototype = prototype;
 }
-//var prot = new Object.prototype;   // error
 ```
 
 Node.js原生实现的继承函数：
-
 ```js
 exports.inherits = function(ctor, superCtor) {
-
   if (ctor === undefined || ctor === null)
     throw new TypeError('The constructor to `inherits` must not be ' +
                         'null or undefined.');
-
   if (superCtor === undefined || superCtor === null)
     throw new TypeError('The super constructor to `inherits` must not ' +
                         'be null or undefined.');
-
   if (superCtor.prototype === undefined)
     throw new TypeError('The super constructor to `inherits` must ' +
                         'have a prototype.');
-
   ctor.super_ = superCtor;
   ctor.prototype = Object.create(superCtor.prototype, {
-    constructor: {
-      value: ctor,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
+    constructor: {value: ctor, enumerable: false, writable: true, configurable: true}
   });
 };
 ```
 
-下图是一个Javascript Prototype Chain关系图：
-
-![Javascript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
-
-
-现在，在我们知道了对象的基础之后，让我们看看运行时程序的执行（runtime program execution）在ECMAScript中是如何实现的。
-
-这叫作执行上下文栈（execution context stack），其中的每个元素也可以抽象成为一个对象。是的，ECMAScript几乎在任何地方都和对象的概念打交道;)
-
-
-### `bind`、`call`、`apply`三个函数是干嘛用的。
+### `bind`、`call`、`apply`是做什么的？
 
 TODO: 要改，举例说明使用方法。
 从设计者的角度去考虑各个点，call、apply、bind 存在的原因。
@@ -851,32 +754,36 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 这三个函数就可以用来完成绑定工作。任何一个函数也是在一个上下文对象上进行工作。上下文是一个this对象。
 这是一种松散的绑定关系，随时可以根据需要来绑定。因此就可以自由的将其他模块上的属性方法，绑定到自己身上，但是要避免名字冲突。
 
+下图是一个Javascript Prototype Chain关系图：
+
+[查看原图](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
+![Javascript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
+
+
+现在，在我们知道了对象的基础之后，让我们看看运行时程序的执行（runtime program execution）在ECMAScript中是如何实现的。
+
 
 ### 执行上下文堆栈
 
-> EC(执行环境或者执行上下文，Execution Context)
-> ECS(执行环境栈Execution Context Stack)
-> VO(变量对象，Variable Object)
-> AO(活动对象，Active Object)
-> Scope Chain(作用域链)和`[[scope]]`属性
+* EC(执行环境或者执行上下文，Execution Context)
+* ECS(执行环境栈Execution Context Stack)
+* VO(变量对象，Variable Object)
+* AO(活动对象，Active Object)
+* Scope Chain(作用域链)和`[[scope]]`属性
 
-这里有三种类型的ECMAScript代码：`全局代码`、`函数代码`和`eval代码`。
+有三种类型的ECMAScript代码：`全局代码`、`函数代码`和`eval代码`
 
-每个代码是在其执行上下文（EC）中被求值的。
-
-全局上下文只有一个，可能有多个函数执行上下文以及eval执行上下文。
-
-对一个函数的每次调用，会进入到函数执行上下文中，并对函数代码类型进行求值。
-
-每次对eval函数进行调用，会进入eval执行上下文并对其代码进行求值。
+* 每个代码是在其执行上下文（EC）中被求值的。
+* 全局上下文只有一个，可能有多个函数执行上下文以及eval执行上下文。
+* 对一个函数的每次调用，会进入到函数执行上下文中，并对函数代码类型进行求值。
+* 每次对eval函数进行调用，会进入eval执行上下文并对其代码进行求值。
 
 注意，一个函数可能会创建无数的上下文，因为对函数的每次调用（即使这个函数递归的调用自己）都会生成一个具有新状态的上下文：
-
 ```js
 function foo(bar) {}
-
-// call the same function, generate three different contexts in each call, with different context state (e.g. value of the "bar" argument)
-
+// call the same function, 
+// generate three different contexts in each call,
+// with different context state (e.g. value of the "bar" argument)
 foo(10);
 foo(20);
 foo(30);
@@ -906,8 +813,6 @@ foo(30);
 
 这就是ECMAScript的运行时系统如何真正地管理代码执行的。
 
-更多有关ECMAScript中执行上下文的信息可以在对应的第一章 执行上下文中获取。
-
 栈中的每个执行上下文都可以用一个对象来表示。
 
 让我们来看看它的结构以及一个上下文到底需要什么状态（什么属性）来执行它的代码。
@@ -923,7 +828,6 @@ foo(30);
 
 让我们详细看看上下文中的这些重要的属性。
 
-
 #### 变量对象（variable object）
 
 `变量对象`是与`执行上下文`相关的`数据作用域`。它是一个与上下文相关的特殊对象，其中存储了在上下文中定义的`变量`和`函数声明`。
@@ -936,15 +840,12 @@ foo(30);
 
 ```js
 var foo = 10;
-
 function bar() {}       // function declaration, FD
 (function baz() {});    // function expression, FE
-
 console.log(
   this.foo == foo,      // true
   window.bar == bar     // true
 );
-
 console.log(baz); // ReferenceError, "baz" is not defined
 ```
 
@@ -960,7 +861,6 @@ console.log(baz); // ReferenceError, "baz" is not defined
 
 那么函数和它的变量对象是怎么样的？在函数上下文中，变量对象是以`活动对象`来表示的。
 
-
 #### 活动对象（activation object）
 
 当一个函数被`caller`调用，一个特殊的对象，叫作`活动对象`（activation object）将会被创建。这个对象中包含形参和那个特殊的`arguments`对象（是对形参的一个映射，但是值是通过索引来获取）。活动对象之后会做为函数上下文的变量对象来使用。
@@ -975,7 +875,6 @@ function foo(x, y) {
   function bar() {}     // FD
   (function baz() {});  // FE
 }
-
 foo(10, 20);
 ```
 
@@ -991,7 +890,6 @@ foo(10, 20);
 
 众所周知，在ECMAScript中我们可以使用内部函数，然后在这些内部函数我们可以引用父函数的变量或者全局上下文中的变量。当我们把变量对象命名为上下文的作用域对象，与上面讨论的原型链相似，这里有一个叫作`作用域链`的东西。
 
-
 #### 作用域链(scope chain)
 
 作用域链是一个对象列表，上下文代码中出现的标识符在这个列表中进行查找。
@@ -1006,7 +904,6 @@ foo(10, 20);
 
 ```js
 var x = 10;
-
 (function foo() {
   var y = 20;
   (function bar() {
@@ -1036,44 +933,34 @@ var x = 10;
 
 ```js
 Object.prototype.x = 10;
-
 var w = 20;
 var y = 30;
-
 // in SpiderMonkey global object
 // i.e. variable object of the global
 // context inherits from "Object.prototype",
 // so we may refer "not defined global
 // variable x", which is found in
 // the prototype chain
-
 console.log(x); // 10
-
 (function foo() {
-
   // "foo" local variables
   var w = 40;
   var x = 100;
-
   // "x" is found in the
   // "Object.prototype", because
   // {z: 50} inherits from it
-
   with ({z: 50}) {
     console.log(w, x, y , z); // 40, 10, 30, 50
   }
-
   // after "with" object is removed
   // from the scope chain, "x" is
   // again found in the AO of "foo" context;
   // variable "w" is also local
   console.log(x, w); // 100, 40
-
   // and that's how we may refer
   // shadowed global "w" variable in
   // the browser host environment
   console.log(window.w); // 20
-
 })();
 ```
 
@@ -1089,160 +976,7 @@ console.log(x); // 10
 
 如果自由变量的上下文已经「消失」了，那么这样的调用将会发生什么？通常来说，有一个概念可以帮助我们解决这个问题，叫作（词法）闭包，其在ECMAScript中就是和作用域链的概念紧密相关的。
 
-
-### 闭包
-
-在ECMAScript中，函数是一级（first-class）对象。这个术语意味着函数可以做为参数传递给其他函数（「函数类型参数」（funargs，是"functional arguments"的简称））。接收「函数类型参数」的函数叫作`高阶函数`或者，贴近数学一些，叫作高阶操作符。
-
-同样函数也可以从其他函数中返回，返回其他函数的函数叫作以函数为值（function valued）的函数（或者叫作拥有函数类值的函数（functions with functional value））。
-
-这有两个在概念上与「函数类型参数（funargs）」和「函数类型值（functional　values）」相关的问题。
-
-并且这两个子问题在"Funarg problem"（或者叫作"functional argument"问题）中很普遍。
-
-为了解决整个"funarg problem"，闭包（closure）的概念被创造了出来。
-
-我们详细的描述一下这两个子问题（我们将会看到这两个问题在ECMAScript中都是使用图中所提到的函数的`[[Scope]]`属性来解决的）。
-
-「funarg问题」的第一个子问题是「向上funarg问题」（upward funarg problem）。它会在当一个函数从另一个函数向上返回（到外层）并且使用上面所提到的自由变量的时候出现。
-
-为了在即使父函数上下文结束的情况下也能访问其中的变量，内部函数在被创建的时候会在它的`[[Scope]]`属性中保存父函数的作用域链。
-
-所以当函数被调用的时候，它上下文的作用域链会被格式化成活动对象与`[[Scope]]`属性的和（实际上就是我们刚刚在上图中所看到的）：
-
-Scope chain = Activation object + `[[Scope]]`
-
-再次注意这个关键点－确切的说在创建时刻－函数会保存父函数的作用域链，因为确切的说这个保存下来的作用域链将会在未来的函数调用时用来查找变量。
-
-```js
-function foo() {
-  var x = 10;
-  return function bar() {
-    console.log(x);
-  };
-}
-
-// "foo" returns also a function
-// and this returned function uses
-// free variable "x"
-
-var returnedFunction = foo();
-
-// global variable "x"
-var x = 20;
-
-// execution of the returned function
-
-returnedFunction(); // 10, but not 20
-```
-
-这个类型的作用域叫作静态（或者词法）作用域。我们看到变量x在返回的bar函数的`[[Scope]]`属性中被找到。通常来说，也存在动态作用域，那么上面例子中的变量x将会被解析成20，而不是10。但是，动态作用域在ECMAScript中没有被使用。
-
-「funarg问题」的第二个部分是「向下funarg问题」。这种情况下可能会存在一个父上下文，但是在解析标识符的时候可能会模糊不清。
-
-问题是：标识符该使用哪个作用域的值－以静态的方式存储在函数创建时刻的还是在执行过程中以动态方式生成的，比如caller的作用域？为了避免这种模棱两可的情况并形成闭包，静态作用域被采用：
-
-```js
-// global "x"
-var x = 10;
-
-// global function
-function foo() {
-  console.log(x);
-}
-
-(function (funArg) {
-
-  // local "x"
-  var x = 20;
-
-  // there is no ambiguity,
-  // because we use global "x",
-  // which was statically saved in
-  // [[Scope]] of the "foo" function,
-  // but not the "x" of the caller's scope,
-  // which activates the "funArg"
-
-  funArg(); // 10, but not 20
-
-})(foo); // pass "down" foo as a "funarg"
-```
-
-我们可以断定静态作用域是一门语言拥有闭包的必需条件。
-
-但是，一些语言可能会同时提供动态和静态作用域，允许程序员做选择－什么应该包含（closure）在内和什么不应包含在内。
-
-由于在ECMAScript中只使用了静态作用域（比如我们对于funarg问题的两个子问题都有解决方案），所以结论是：ECMAScript完全支持闭包，技术上是通过函数的`[[Scope]]`属性实现的。
-
-现在我们可以给闭包下一个准确的定义：
-
-闭包是一个代码块（在ECMAScript是一个函数）和以`静态方式`/`词法方式`进行存储的所有父作用域的一个集合体。所以，通过这些存储的作用域，函数可以很容易的找到自由变量。
-
-注意，由于每个（标准的）函数都在创建的时候保存了`[[Scope]]`，所以理论上来讲，ECMAScript中的所有函数都是闭包。
-
-另一个需要注意的重要事情是，多个函数可能拥有相同的父作用域，比如当我们拥有两个内部/全局函数的时候。
-
-在这种情况下，`[[Scope]]`属性中存储的变量是在拥有相同父作用域链的所有函数之间共享的。一个闭包对变量进行的修改会体现在另一个闭包对这些变量的读取上：
-
-```js
-function baz() {
-  var x = 1;
-  return {
-    foo: function foo() { return ++x; },
-    bar: function bar() { return --x; }
-  };
-}
-
-var closures = baz();
-
-console.log(
-  closures.foo(), // 2
-  closures.bar()  // 1
-);
-```
-
-以上代码可以通过下图进行说明：
-
-![shared-scope](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/shared-scope.png)
-
-确切来说这个特性在循环中创建多个函数的时候会使人非常困惑。在创建的函数中使用循环计数器的时候，一些程序员经常会得到非预期的结果，所有函数中的计数器都是同样的值。
-
-现在是到了该揭开谜底的时候了－因为所有这些函数拥有同一个`[[Scope]]`，这个属性中的循环计数器的值是最后一次所赋的值。
-
-```js
-var data = [];
-
-for (var k = 0; k < 3; k++) {
-  data[k] = function () {
-    alert(k);
-  };
-}
-
-data[0](); // 3, but not 0
-data[1](); // 3, but not 1
-data[2](); // 3, but not 2
-这里有几种技术可以解决这个问题。其中一种是在作用域链中提供一个额外的对象－比如，使用额外函数：
-
-var data = [];
-
-for (var k = 0; k < 3; k++) {
-  data[k] = (function (x) {
-    return function () {
-      alert(x);
-    };
-  })(k); // pass "k" value
-}
-
-// now it is correct
-data[0](); // 0
-data[1](); // 1
-data[2](); // 2
-```
-
-对闭包理论和它们的实际应用感兴趣的同学可以在第六章 闭包中找到额外的信息。如果想获取更多关于作用域链的信息，可以看一下同名的第四章 作用域链。
-
 然后我们移动到下个部分，考虑一下执行上下文的最后一个属性。这就是关于this值的概念。
-
 
 ### This
 
@@ -1303,8 +1037,136 @@ otherFoo(); // again global object
 http://www.kancloud.cn/kancloud/deep-understand-javascript/43686
 
 
+### 闭包
 
-### 函数表达式
+在ECMAScript中，函数是一级（first-class）对象。这个术语意味着函数可以做为参数传递给其他函数（「函数类型参数」（funargs，是"functional arguments"的简称））。接收「函数类型参数」的函数叫作`高阶函数`或者，贴近数学一些，叫作高阶操作符。
+
+同样函数也可以从其他函数中返回，返回其他函数的函数叫作以函数为值（function valued）的函数（或者叫作拥有函数类值的函数（functions with functional value））。
+
+这有两个在概念上与「函数类型参数（funargs）」和「函数类型值（functional　values）」相关的问题。
+
+并且这两个子问题在"Funarg problem"（或者叫作"functional argument"问题）中很普遍。
+
+为了解决整个"funarg problem"，闭包（closure）的概念被创造了出来。
+
+我们详细的描述一下这两个子问题（我们将会看到这两个问题在ECMAScript中都是使用图中所提到的函数的`[[Scope]]`属性来解决的）。
+
+「funarg问题」的第一个子问题是「向上funarg问题」（upward funarg problem）。它会在当一个函数从另一个函数向上返回（到外层）并且使用上面所提到的自由变量的时候出现。
+
+为了在即使父函数上下文结束的情况下也能访问其中的变量，内部函数在被创建的时候会在它的`[[Scope]]`属性中保存父函数的作用域链。
+
+所以当函数被调用的时候，它上下文的作用域链会被格式化成活动对象与`[[Scope]]`属性的和（实际上就是我们刚刚在上图中所看到的）：
+
+Scope chain = Activation object + `[[Scope]]`
+
+再次注意这个关键点－确切的说在创建时刻－函数会保存父函数的作用域链，因为确切的说这个保存下来的作用域链将会在未来的函数调用时用来查找变量。
+
+```js
+function foo() {
+  var x = 10;
+  return function bar() {
+    console.log(x);
+  };
+}
+// "foo" returns also a function
+// and this returned function uses
+// free variable "x"
+var returnedFunction = foo();
+// global variable "x"
+var x = 20;
+// execution of the returned function
+returnedFunction(); // 10, but not 20
+```
+
+这个类型的作用域叫作静态（或者词法）作用域。我们看到变量x在返回的bar函数的`[[Scope]]`属性中被找到。通常来说，也存在动态作用域，那么上面例子中的变量x将会被解析成20，而不是10。但是，动态作用域在ECMAScript中没有被使用。
+
+「funarg问题」的第二个部分是「向下funarg问题」。这种情况下可能会存在一个父上下文，但是在解析标识符的时候可能会模糊不清。
+
+问题是：标识符该使用哪个作用域的值－以静态的方式存储在函数创建时刻的还是在执行过程中以动态方式生成的，比如caller的作用域？为了避免这种模棱两可的情况并形成闭包，静态作用域被采用：
+
+```js
+// global "x"
+var x = 10;
+// global function
+function foo() {
+  console.log(x);
+}
+(function (funArg) {
+  // local "x"
+  var x = 20;
+  // there is no ambiguity,
+  // because we use global "x",
+  // which was statically saved in
+  // [[Scope]] of the "foo" function,
+  // but not the "x" of the caller's scope,
+  // which activates the "funArg"
+  funArg(); // 10, but not 20
+})(foo); // pass "down" foo as a "funarg"
+```
+
+我们可以断定静态作用域是一门语言拥有闭包的必需条件。
+
+但是，一些语言可能会同时提供动态和静态作用域，允许程序员做选择－什么应该包含（closure）在内和什么不应包含在内。
+
+由于在ECMAScript中只使用了静态作用域（比如我们对于funarg问题的两个子问题都有解决方案），所以结论是：ECMAScript完全支持闭包，技术上是通过函数的`[[Scope]]`属性实现的。
+
+现在我们可以给闭包下一个准确的定义：
+
+闭包是一个代码块（在ECMAScript是一个函数）和以`静态方式`/`词法方式`进行存储的所有父作用域的一个集合体。所以，通过这些存储的作用域，函数可以很容易的找到自由变量。
+
+注意，由于每个（标准的）函数都在创建的时候保存了`[[Scope]]`，所以理论上来讲，ECMAScript中的所有函数都是闭包。
+
+另一个需要注意的重要事情是，多个函数可能拥有相同的父作用域，比如当我们拥有两个内部/全局函数的时候。
+
+在这种情况下，`[[Scope]]`属性中存储的变量是在拥有相同父作用域链的所有函数之间共享的。一个闭包对变量进行的修改会体现在另一个闭包对这些变量的读取上：
+
+```js
+function baz() {
+  var x = 1;
+  return {
+    foo: function foo() { return ++x; },
+    bar: function bar() { return --x; }
+  };
+}
+var closures = baz();
+console.log(
+  closures.foo(), // 2
+  closures.bar()  // 1
+);
+```
+
+以上代码可以通过下图进行说明：
+
+![shared-scope](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/shared-scope.png)
+
+确切来说这个特性在循环中创建多个函数的时候会使人非常困惑。在创建的函数中使用循环计数器的时候，一些程序员经常会得到非预期的结果，所有函数中的计数器都是同样的值。
+
+现在是到了该揭开谜底的时候了－因为所有这些函数拥有同一个`[[Scope]]`，这个属性中的循环计数器的值是最后一次所赋的值。
+
+```js
+var data = [];
+for (var k = 0; k < 3; k++) {
+  data[k] = function () {
+    alert(k);
+  };
+}
+data[0](); // 3, but not 0
+data[1](); // 3, but not 1
+data[2](); // 3, but not 2
+// 这里有几种技术可以解决这个问题。其中一种是在作用域链中提供一个额外的对象－比如，使用额外函数：
+var data = [];
+for (var k = 0; k < 3; k++) {
+  data[k] = (function (x) {
+    return function () {
+      alert(x);
+    };
+  })(k); // pass "k" value
+}
+// now it is correct
+data[0](); // 0
+data[1](); // 1
+data[2](); // 2
+```
 
 ### 闭包
 
@@ -1346,6 +1208,9 @@ objA.func1();
 词法作用域：变量的作用域是在定义时决定而不是执行时决定，也就是说词法作用域取决于源码，通过静态分析就能确定，因此词法作用域也叫做静态作用域。 with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）。
 
 
+### 函数表达式
+
+
 ### 执行过程
 
 #### 执行顺序
@@ -1354,84 +1219,83 @@ objA.func1();
 
  JavaScript执行过程，如果一个文档流中包含多个script代码段（用script标签分隔的js代码或引入的js文件），它们的运行顺序是：
 
- 阶段一：解析
- 步骤1. 载入第一个代码段（js执行引擎并非一行一行地执行程序，而是一段一段地分析执行的）。
- 步骤2. 做词法分析->[词法作用域] 和 语法分析->[语法分析树]，有错则报语法错误(Syntax Error)（解析时错误，比如括号不匹配等），并跳转到步骤5。
- 步骤3. 对[var]变量和[function]定义做`预解析`（永远不会报错的，因为只解析正确的声明）。
+ * 阶段一：解析
+  * 步骤1. 载入第一个代码段（js执行引擎并非一行一行地执行程序，而是一段一段地分析执行的）。
+  * 步骤2. 做词法分析->[词法作用域] 和 语法分析->[语法分析树]，有错则报语法错误(Syntax Error)（解析时错误，比如括号不匹配等），并跳转到步骤5。
+  * 步骤3. 对[var]变量和[function]定义做`预解析`（永远不会报错的，因为只解析正确的声明）。
+ * 阶段二：执行
+  * 步骤4. 执行代码段，有错则报错（运行时错误，比如变量未定义）。
+ * 步骤5. 如果还有下一个代码段，则读入下一个代码段，重复步骤2。
+  * 步骤6. 结束
 
- 阶段二：执行
- 步骤4. 执行代码段，有错则报错（运行时错误，比如变量未定义）。
-
- 步骤5. 如果还有下一个代码段，则读入下一个代码段，重复步骤2。
- 步骤6. 结束
-
- JS代码是一段段执行的。也就是以函数内部的活动代码为单位，一段段活动代码执行。
- 实例化就是调用对象（Call Object）的过程，上面我们一直说这个分析很像类结构。
- 这次就真的是把这个像类的词法分析出来的结果进行伪类的实例化了。
- 实例化的同时，这个调用对象的一个属性被初始化成一个名叫 arguments 的属性，
- 它引用了这个函数的 Arguments 对象，Arguments 对象是函数的实际参数。
+ * JS代码是一段段执行的。也就是以函数内部的活动代码为单位，一段段活动代码执行。
+ * 实例化就是调用对象（Call Object）的过程，上面我们一直说这个分析很像类结构。
+ * 这次就真的是把这个像类的词法分析出来的结果进行伪类的实例化了。
+ * 实例化的同时，这个调用对象的一个属性被初始化成一个名叫 arguments 的属性，
+ * 它引用了这个函数的 Arguments 对象，Arguments 对象是函数的实际参数。
 
 #### 关键步骤
  上面的过程，我们主要是分成两个阶段
- 解析：就是通过语法分析和预解析构造合法的语法分析树。
- 执行：执行具体的某个函数，JS引擎在执行每个函数实例时，都会创建一个执行环境（ExecutionContext）和活动对象（activeObject）（它们属于宿主对象，与函数实例的生命周期保持一致）
+ * 解析：通过语法分析和预解析构造合法的语法分析树。
+ * 执行：执行具体的某个函数，JS引擎在执行每个函数实例时，都会创建一个执行环境（ExecutionContext）和活动对象（ActiveObject）（它们属于宿主对象，与函数实例的生命周期保持一致）
 
 #### 关键概念
  * 语法分析树（SyntaxTree）
- 可以直观地表示出这段代码的相关信息，具体的实现就是JS引擎创建了一些表，
- 用来记录每个方法的 内部变量集（variables）、内嵌函数集（functions）和作用域（scope）等
+  * 可以直观地表示出这段代码的相关信息，具体的实现就是JS引擎创建了一些表，
+  * 用来记录每个方法的 内部变量集（variables）、内嵌函数集（functions）和作用域（scope）等
 
  * 执行环境（ExecutionContext）
- 可理解为一个记录当前执行的方法【外部描述信息】的对象,
- 记录所执行方法的类型，名称，参数和活动对象（activeObject）
+  * 可理解为一个记录当前执行的方法【外部描述信息】的对象,
+  * 记录所执行方法的类型，名称，参数和活动对象（activeObject）
 
  * 活动对象（activeObject）
- 可理解为一个记录当前执行的方法【内部执行信息】的对象,
- 记录 内部变量集（variables）、内嵌函数集（functions）、实参（arguments）、作用域链（scopeChain）等执行所需信息，
- 其中 内部变量集（variables）、内嵌函数集（functions）是直接从第一步建立的语法分析树复制过来的.
- 方法开始执行，活动对象里的内部变量集全部被重置为 undefined, 创建形参（parameters）和实参（arguments）对象，同名的实参，形参和变量之间是【引用】关系, 执行方法内的赋值语句，这才会对变量集中的变量进行赋值处理
- 变量查找规则是首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object
- 方法执行完成后，内部变量值不会被重置，至于变量什么时候被销毁, 方法内变量的生存周期取决于方法实例是否存在活动引用，如没有就销毁活动对象
+  * 可理解为一个记录当前执行的方法【内部执行信息】的对象,
+  * 记录 内部变量集（variables）、内嵌函数集（functions）、实参（arguments）、作用域链（scopeChain）等执行所需信息，
+  * 其中 内部变量集（variables）、内嵌函数集（functions）是直接从第一步建立的语法分析树复制过来的.
+  * 方法开始执行，活动对象里的内部变量集全部被重置为 undefined, 创建形参（parameters）和实参（arguments）对象，同名的实参，形参和变量之间是【引用】关系, 执行方法内的赋值语句，这才会对变量集中的变量进行赋值处理
+  * 变量查找规则是首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object
+  * 方法执行完成后，内部变量值不会被重置，至于变量什么时候被销毁, 方法内变量的生存周期取决于方法实例是否存在活动引用，如没有就销毁活动对象
 
  * 词法作用域
- 变量的作用域是在定义时决定而不是执行时决定，也就是说词法作用域取决于源码，通过静态分析就能确定，因此词法作用域也叫做静态作用域。
- with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）
+  * 变量的作用域是在定义时决定而不是执行时决定，也就是说词法作用域取决于源码，通过静态分析就能确定，因此词法作用域也叫做静态作用域。
+  * with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）
 
  * 作用域链
- 词法作用域的实现机制就是作用域链（scopeChain）。
- 作用域链是一套按名称查找（Name Lookup）的机制，
- 首先在当前执行环境的 ActiveObject 中寻找，没找到，
- 则顺着作用域链到父 ActiveObject 中寻找，一直找到全局调用对象（Global Object）
+  * 词法作用域的实现机制就是作用域链（scopeChain）。
+  * 作用域链是一套按名称查找（Name Lookup）的机制，
+  * 首先在当前执行环境的 ActiveObject 中寻找，没找到，
+  * 则顺着作用域链到父 ActiveObject 中寻找，一直找到全局调用对象（Global Object）
 
  * 闭包
-闭包是一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。
-1、保护函数内的变量安全。　通过保护变量的安全实现JS私有属性和 私有方法（不能被外部访问）.
-2、在内存中维持一个变量。
-3、闭包就是将函数内部和函数外部连接起来的一座桥梁。 让外部环境有接口访问内部变量
-4、闭包函数可以访问所保持的作用域链上的外部环境。
+  * 闭包是一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。
+  * 保护函数内的变量安全。通过保护变量的安全实现JS私有属性和 私有方法（不能被外部访问）.
+  * 在内存中维持一个变量。
+  * 闭包就是将函数内部和函数外部连接起来的一座桥梁。让外部环境有接口访问内部变量。
+  * 闭包函数可以访问所保持的作用域链上的外部环境。
 
 
-TODO 详细分析 上面描述的整个执行过程
-### javascript词法分析 lexical analyzer  Lexer  Tokenizer
+### javascript词法分析
 
- 词法分析主要分为3步：
- 第1步：分析形参
- 第2步：分析变量声明
- 第3步：分析函数声明
+lexical-analyzer  Lexer  Tokenizer
+
+词法分析主要分为3步：
+ * 第1步：分析形参
+ * 第2步：分析变量声明
+ * 第3步：分析函数声明
 
 http://blog.csdn.net/guixuecheng/article/details/43670323
 
+JavaScript的每个函数function都有自己的作用域，使用Active Object（简称AO）活动对象来保存，在相互嵌套的函数中形成了作用域链，如图：
+作用域链就是从里到外的AO链变量的寻找：
 
- JavaScript的每个函数function都有自己的作用域，使用Active Object（简称AO）活动对象来保存，在相互嵌套的函数中形成了作用域链，如图：
- 作用域链就是从里到外的AO链变量的寻找：
+函数fn3中使用的变量，如在fn3作用域内寻找不到，则往外层fn2作用域寻找，以此类推，直到全局对象window
 
- 函数fn3中使用的变量，如在fn3作用域内寻找不到，则往外层fn2作用域寻找，以此类推，直到全局对象window
+#### 1、解析模拟
+估计，看到这儿，大家还是很朦胧吧，什么是语法分析树，语法分析树到底长什么样子，作用域链又怎么实现的，活动对象又有什么内容等等，还是不是太清晰，
+下面我们就通过一段实际的代码来模拟整个解析过程，我们就把语法分析树，活动对象实实在在的创建出来，理解作用域，作用域链的到底是怎么实现的
 
- 解析模拟
- 估计，看到这儿，大家还是很朦胧吧，什么是语法分析树，语法分析树到底长什么样子，作用域链又怎么实现的，活动对象又有什么内容等等，还是不是太清晰，
- 下面我们就通过一段实际的代码来模拟整个解析过程，我们就把语法分析树，活动对象实实在在的创建出来，理解作用域，作用域链的到底是怎么实现的
-
-// 1、模拟代码
+模拟代码
+```js
 var i = 1, j = 2, k = 3;
 function a(o, p, x, q) {
   var x = 4;
@@ -1453,14 +1317,16 @@ function a(o, p, x, q) {
   b(40, 50);
 }
 a(10, 20, 30);
+```
 
-2、语法分析树
+#### 2、语法分析树
  上面的代码很简单，就是先定义了一些全局变量和全局方法，接着在方法内再定义局部变量和局部方法，现在JS解释器读入这段代码开始解析，
  前面提到 JS 引擎会先通过语法分析和预解析得到语法分析树，至于语法分析树长什么样儿，都有些什么信息，下面我们以一种简单的结构：
  一个 JS 对象(为了清晰表示个各种对象间的引用关系，这里的只是伪对象表示，可能无法运行)来描述语法分析树
 （这是我们比较熟悉的，实际结构我们不去深究，肯定复杂得多，这里是为了帮助理解解析过程而特意简化）
 
-//  模拟建立一棵语法分析树，存储function内的变量和方法
+模拟建立一棵语法分析树，存储function内的变量和方法
+```js
 var SyntaxTree = {
   // 全局对象在语法分析树中的表示
   window: {
@@ -1473,7 +1339,6 @@ var SyntaxTree = {
       a: this.a
     }
   },
-
   a: {
     variables: {
       x: 'undefined'
@@ -1483,7 +1348,6 @@ var SyntaxTree = {
     },
     scope    : this.window
   },
-
   b: {
     variables: {
       y: 'undefined'
@@ -1494,7 +1358,6 @@ var SyntaxTree = {
     },
     scope    : this.a
   },
-
   c: {
     variables: {
       z: 'undefined'
@@ -1502,7 +1365,6 @@ var SyntaxTree = {
     functions: {},
     scope    : this.b
   },
-
   d: {
     variables: {},
     functions: {},
@@ -1512,39 +1374,36 @@ var SyntaxTree = {
     }
   }
 };
+```
 
- 上面就是关于语法分析树的一个简单表示，正如我们前面分析的，语法分析树主要记录了每个 function 中的变量集（variables），方法集（functions）和作用域（scope）
+上面就是关于语法分析树的一个简单表示，正如我们前面分析的，语法分析树主要记录了每个 function 中的变量集（variables），方法集（functions）和作用域（scope）
 
- 执行环境
-// 执行环境:函数执行时创建的执行环境
+#### 3、执行环境
+```js
 var ExecutionContext = {
   window: {
     type: 'global',
     name: 'global',
     body: ActiveObject.window
   },
-
   a: {
     type      : 'function',
     name      : 'a',
     body      : ActiveObject.a,
     scopeChain: this.window.body
   },
-
   b: {
     type      : 'function',
     name      : 'b',
     body      : ActiveObject.b,
     scopeChain: this.a.body
   },
-
   c: {
     type      : 'function',
     name      : 'c',
     body      : ActiveObject.c,
     scopeChain: this.b.body
   },
-
   d: {
     type      : 'function',
     name      : 'd',
@@ -1552,14 +1411,16 @@ var ExecutionContext = {
     scopeChain: this.b.body
   }
 };
+```
 
-上面每一个方法的执行环境都存储了相应方法的类型（function）、方法名称（funcName）、活动对象（ActiveObject）、作用域链（scopeChain）等信息,
+上面每一个方法的执行环境都存储了相应方法的类型（function）、方法名称（funcName）、活动对象（ActiveObject）、作用域链（scopeChain）等信息。
+
 其关键点如下：
-body属性，直接指向当前方法的活动对象
-scopeChain属性，作用域链，它是一个链表结构，根据语法分析树中当前方法对应的scope属性，
-它指向scope对应的方法的活动对象（ActivceObject），变量查找就是跟着这条链条查找的活动对象
+* body属性，直接指向当前方法的活动对象
+* scopeChain属性，作用域链，它是一个链表结构，根据语法分析树中当前方法对应的scope属性，它指向scope对应的方法的活动对象（ActivceObject），变量查找就是跟着这条链条查找的活动对象
 
-//活动对象：函数执行时创建的活动对象列表
+#### 4、活动对象：函数执行时创建的活动对象列表
+```js
 var ActiveObject = {
   window: {
     variables: {
@@ -1571,7 +1432,6 @@ var ActiveObject = {
       a: this.a
     }
   },
-
   a: {
     variables : {
       x: {value: 4}
@@ -1587,7 +1447,6 @@ var ActiveObject = {
     },
     arguments : [this.parameters.o, this.parameters.p, this.parameters.x]
   },
-
   b: {
     variables : {
       y: {value: 5}
@@ -1602,7 +1461,6 @@ var ActiveObject = {
     },
     arguments : [this.parameters.r, this.parameters.s]
   },
-
   c: {
     variables : {
       z: {value: 6}
@@ -1613,7 +1471,6 @@ var ActiveObject = {
     },
     arguments : [this.parameters.u]
   },
-
   d: {
     variables : {},
     functions : {},
@@ -1621,27 +1478,7 @@ var ActiveObject = {
     arguments : []
   }
 };
-
- 上面每一个活动对象都存储了相应方法的内部变量集（variables）、内嵌函数集（functions）、形参（parameters）、实参（arguments）等执行所需信息，活动对象关键点
- 创建活动对象，从语法分析树复制方法的内部变量集（variables）和内嵌函数集（functions）
- 方法开始执行，活动对象里的内部变量集全部被重置为 undefined
- 创建形参（parameters）和实参（arguments）对象，同名的实参，形参和变量之间是【引用】关系
- 执行方法内的赋值语句，这才会对变量集中的变量进行赋值处理
- 变量查找规则是首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object（window）
- 方法执行完成后，内部变量值不会被重置，至于变量什么时候被销毁，请参考下面一条
- 方法内变量的生存周期取决于方法实例是否存在活动引用，如没有就销毁活动对象
- 6和7 是使闭包能访问到外部变量的根本原因
- 重释经典案例
- 案列一二三
- 根据【在一个方法中，同名的实参，形参和变量之间是引用关系，也就是JS引擎的处理是同名变量和形参都引用同一个内存地址】，所以才会有二中的修改arguments会影响到局部变量的情况出现
- 案例四
- 根据【JS引擎变量查找规则，首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object（window）】，所以在四中，因为在当前的ActiveObject中找到了有变量 i 的定义，只是值为 “undefined”，所以直接输出 “undefined” 了
- 总结
- 以上是我在学习和使用了JS一段时间后,为了更深入的了解它, 也为了更好的把握对它的应用, 从而在对闭包的学习过程中,自己对于词法作用域的一些理解和总结,中间可能有一些地方和真实的JS解释引擎有差异,因为我只是站在一个刚入门的前端开发人员而不是系统设计者的角度上去分析这个问题，希望能对JS开发者理解此法作用域带来一些帮助！
+```
 
 
 ### 总结
-
-我们只是没有涉及到两个大的主题：函数（和不同函数之间的区别，比如，函数声明和函数表达式）和ECMAScript中所使用的求值策略(evaluation strategy)。这两个主题是可以ES3系列的在对应章节找到：第五章 函数 和 第八章 求值策略。
-
-
