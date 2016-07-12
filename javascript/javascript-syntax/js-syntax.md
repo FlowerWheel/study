@@ -340,6 +340,7 @@ c.calculate(40); // 80
 如果一个`属性`/`方法`在对象自身中无法找到，JS引擎会尝试遍历整个原型链，寻找这个`属性`/`方法`，第一个被查找到的同名`属性`/`方法`会被使用。如果在遍历了整个原型链之后还是没有查找到这个属性的话，返回undefined值。
 
 下一张图展示了对象`a`，`b`，`c`之间的继承关系：
+
 ![prototype-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/prototype-chain.png)
 
 #### `__proto__`
@@ -1505,42 +1506,43 @@ setTimeout调用之后，这个定时任务已经交代出去了，也就是0s�
 原因很简单，因为这里我希望把这个弹框的逻辑放到事件队列中去。
 
 如图，JavaScript引擎在逐个执行各类事件的处理函数。
+
 ![thread.png](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/thread.png)
 
 
 #### 为什么要设计成单线程的?
+
 其实javascript核心语言没有包含任何线程机制的，还有客户端的javascript也是没有明确定义线程机制。
-大部分语言都没有在语言层面直接定义线程的，线程都是作为代码库提供给开发者调用，所以同样也并不是因为javascript无法实现多线程，Node.js就有可以支持线程的库。
+大部分语言都没有在语言层面直接定义线程的，线程都是作为代码库提供给开发者调用，所以也并不是因为javascript无法实现多线程，Node.js就有可以支持线程的库。
 但是javascript还是严格按照*单线程*的模型去执行代码。为什么？
 
 网上很多声音都说这和它的历史有关系，但是，其实有一个更重要的原因——死锁。多线程的GUI框架特别容易死锁。
-[《Multithreaded toolkits: A failed dream?》](https://community.oracle.com/blogs/kgh/2004/10/19/multithreaded-toolkits-failed-dream)描述了其中的缘由，大致是说GUI的行为大多都是从更抽象的顶部一层一层调用到操作系统级别，而事件则是反过来，从下向上冒泡，结果就是两个方向相反的行为在碰头，给资源加锁的时候一个正序，一个逆序，极其容易出现互相等待而饿死的情况，而这种情况下要解决这一问题无异于“fight back an oceanic tidal force”——推荐阅读。AWT最初其实就是想设计成多线程的，但是使用者非常容易引起死锁和竞争，最后Swing还是做成了单线程的。但凡这种event loop+单线程执行的模式，我们还可以找到很多，比如JDK的GUI线程模型，主线程就是一个“主事件循环”（再后来才引入了Event Dispatch Thread，但这并不改变整体的基本线程模型），还有Mac系统的Cocoa等等，都是这样的模式。
+[《Multithreaded toolkits: A failed dream?》](https://community.oracle.com/blogs/kgh/2004/10/19/multithreaded-toolkits-failed-dream)描述了其中的缘由，
+大致是说GUI的行为大多都是从更抽象的顶部一层一层调用到操作系统级别，而事件则是反过来，从下向上冒泡，
+结果就是两个方向相反的行为在碰头，给资源加锁的时候一个正序，一个逆序，极其容易出现互相等待而饿死的情况，而这种情况下要解决这一问题无异于“fight back an oceanic tidal force”——推荐阅读。
+AWT最初其实就是想设计成多线程的，但是使用者非常容易引起死锁和竞争，最后Swing还是做成了单线程的。
+但凡这种*EventLoop*+*单线程*执行的模式，我们还可以找到很多，比如JDK的GUI线程模型，主线程就是一个“主事件循环”，还有Mac系统的Cocoa等等，都是这样的模式。
 
 #### sleep?
-JavaScript是没有sleep方法的，正因为它是单线程执行的，sleep方法是没有意义的。如果非要sleep，我们只能实现一个没有意义的伪sleep： 
+
+JavaScript是没有sleep方法的，如果非要sleep，我们只能实现一个没有意义的伪sleep，因为这个循环会不断消耗CPU去比对时间，并不是真正的sleep，而是没有响应地工作： 
 ```js
 function sleep(time) {
-    var start = new Date().getTime();
-    while (true) {
-        if (new Date().getTime() - start > time) {
-            break;
-        }
-    }
+  var start = Date.now();
+  while (Date.now() - start < time) {
+  }
 }
 ```
-但是这个伪sleep是没有意义的，因为这个循环会不断消耗CPU去比对时间（要不消耗CPU去比对时间是需要系统调用的，这在JavaScript里面是不可能实现的），并不是真正的sleep，而是没有响应地工作。
-
 
 #### 拆分耗时逻辑
 
 很多时候我们需要把耗时的逻辑拆分，腾出时间来给其他逻辑的执行：下面的代码源自《Timed array processing in JavaScript》这篇文章，作者首先给出一个这样的拆分逻辑执行的框架代码：
 ```js
 function chunk(array, process, context){
-    var items = array.concat();   //clone the array
+    var items = array.concat();
     setTimeout(function(){
         var item = items.shift();
         process.call(context, item);
- 
         if (items.length > 0){
             setTimeout(arguments.callee, 100);
         }
@@ -1553,7 +1555,7 @@ function chunk(array, process, context){
 //Copyright 2009 Nicholas C. Zakas. All rights reserved.
 //MIT Licensed
 function timedChunk(items, process, context, callback){
-    var todo = items.concat();   //create a clone of the original
+    var todo = items.concat(); 
     setTimeout(function(){
         var start = +new Date();
         do {
@@ -1573,56 +1575,72 @@ function timedChunk(items, process, context, callback){
 
 本质上说，web worker 是运行在后台的 JavaScript，不会影响页面的性能。
 当在 HTML 页面中执行脚本时，页面的状态是不可响应的，直到脚本已完成。
-Web worker 是运行在后台的 JavaScript，独立于其他脚本，不会影响页面的性能。
-这可以看做是HTML5尝试为单线程JavaScript弊端做的改进（当前问题还有不少，譬如浏览器差异）。
+Web worker 是运行在后台的 JavaScript，也就是另外一个线程中，独立于其他脚本，不会影响页面的性能。
+这可以看做是HTML5尝试为单线程JavaScript弊端做的改进。
+
+以下是线程间通信：
 
 ```js
-var worker=new Worker('w.js');
+var worker = new Worker('w.js');
 worker.postMessage('hello world'); //发消息给工作线程
-w.onmessage = function (event) {
-    // ...
-}
+worker.onmessage = function (event) { }
 ```
 
 ```js
 onmessage =function (evt){
-  var data = evt.data;
-  postMessage(data); // 发消息给主线程
+  postMessage(evt.data); // 发消息给主线程
 }
 ```
 
 #### 链式调用
 
 ```js
-runner.push(function() {
-  // logic
-}, 100).push(function() {
-  // logic
-}, 200).push(function() {
-  // logic
-}, 200).run();
+runner.push(function() {}, 100)
+      .push(function() {}, 200)
+      .push(function() {}, 200)
+      .run();
 ```
 
 ### 细说JavaScript单线程的一些事
 
 #### 首先，说下为什么 JavaScript 是单线程？
 
-总所周知，JavaScript是以单线程的方式运行的。说到线程就自然联想到进程。那它们有什么联系呢？
+总所周知，JavaScript是以单线程的方式运行的，说到线程就自然联想到进程，那它们有什么联系呢？
 
-进程和线程都是操作系统的概念。进程是应用程序的执行实例，每一个进程都是由私有的虚拟地址空间、代码、数据和其它系统资源所组成；进程在运行过程中能够申请创建和使用系统资源（如独立的内存区域等），这些资源也会随着进程的终止而被销毁。而线程则是进程内的一个独立执行单元，在不同的线程之间是可以共享进程资源的，所以在多线程的情况下，需要特别注意对临界资源的访问控制。在系统创建进程之后就开始启动执行进程的主线程，而进程的生命周期和这个主线程的生命周期一致，主线程的退出也就意味着进程的终止和销毁。主线程是由系统进程所创建的，同时用户也可以自主创建其它线程，这一系列的线程都会并发地运行于同一个进程中。
-显然，在多线程操作下可以实现应用的并行处理，从而以更高的CPU利用率提高整个应用程序的性能和吞吐量。特别是现在很多语言都支持多核并行处理技术，然而JavaScript却以单线程执行，为什么呢？
+进程和线程都是操作系统的概念。
+进程是应用程序的执行实例，每一个进程都是由私有的虚拟地址空间、代码、数据和其它系统资源所组成；进程在运行过程中能够申请创建和使用系统资源（如独立的内存区域等），这些资源也会随着进程的终止而被销毁。
+而线程则是进程内的一个独立执行单元，在不同的线程之间是可以共享进程资源的，所以在多线程的情况下，需要特别注意对临界资源的访问控制。
+在系统创建进程之后就开始启动执行进程的主线程，而进程的生命周期和这个主线程的生命周期一致，主线程的退出也就意味着进程的终止和销毁。
+主线程是由系统进程所创建的，同时用户也可以自主创建其它线程，这一系列的线程都会并发地运行于同一个进程中。
+显然，在多线程操作下可以实现应用的并行处理，从而以更高的CPU利用率提高整个应用程序的性能和吞吐量。
+特别是现在很多语言都支持多核并行处理技术，然而JavaScript却以单线程执行，为什么呢？
 
-其实这与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。若以多线程的方式操作这些DOM，则可能出现操作的冲突。假设有两个线程同时操作一个DOM元素，线程1要求浏览器删除DOM，而线程2却要求修改DOM样式，这时浏览器就无法决定采用哪个线程的操作。当然，我们可以为浏览器引入“锁”的机制来解决这些冲突，但这会大大提高复杂性，所以 JavaScript 从诞生开始就选择了单线程执行。
+其实这与它的用途有关。
+作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。
+若以多线程的方式操作这些DOM，则可能出现操作的冲突。
+假设有两个线程同时操作一个DOM元素，线程1要求浏览器删除DOM，而线程2却要求修改DOM样式，这时浏览器就无法决定采用哪个线程的操作。
+当然，我们可以为浏览器引入“锁”的机制来解决这些冲突，但这会大大提高复杂性，所以 JavaScript 从诞生开始就选择了单线程执行。
 
-另外，因为 JavaScript 是单线程的，在某一时刻内只能执行特定的一个任务，并且会阻塞其它任务执行。那么对于类似I/O等耗时的任务，就没必要等待他们执行完后才继续后面的操作。在这些任务完成前，JavaScript完全可以往下执行其他操作，当这些耗时的任务完成后则以回调的方式执行相应处理。这些就是JavaScript与生俱来的特性：异步与回调。
+另外，因为 JavaScript 是单线程的，在某一时刻内只能执行特定的一个任务，并且会阻塞其它任务执行。
+那么对于类似I/O等耗时的任务，就没必要等待他们执行完后才继续后面的操作。
+在这些任务完成前，JavaScript完全可以往下执行其他操作，当这些耗时的任务完成后则以回调的方式执行相应处理。
+这些就是JavaScript与生俱来的特性：异步与回调。
 
-当然对于不可避免的耗时操作（如：繁重的运算，多重循环），HTML5提出了Web Worker，它会在当前JavaScript的执行主线程中利用Worker类新开辟一个额外的线程来加载和运行特定的JavaScript文件，这个新的线程和JavaScript的主线程之间并不会互相影响和阻塞执行，而且在Web Worker中提供了这个新线程和JavaScript主线程之间数据交换的接口：postMessage和onMessage事件。但在HTML5 Web Worker中是不能操作DOM的，任何需要操作DOM的任务都需要委托给JavaScript主线程来执行，所以虽然引入HTML5 Web Worker，但仍然没有改线JavaScript单线程的本质。
+当然对于不可避免的耗时操作（如：繁重的运算，多重循环），HTML5提出了Web Worker，它会在当前JavaScript的执行主线程中利用Worker类新开辟一个额外的线程来加载和运行特定的JavaScript文件，
+这个新的线程和JavaScript的主线程之间并不会互相影响和阻塞执行，而且在Web Worker中提供了这个新线程和JavaScript主线程之间数据交换的接口：postMessage和onMessage事件。
+但在HTML5 Web Worker中是不能操作DOM的，任何需要操作DOM的任务都需要委托给JavaScript主线程来执行，所以虽然引入HTML5 Web Worker，但仍然没有改线JavaScript单线程的本质。
 
 #### 并发模式与EventLoop
 
-JavaScript 有个基于“Event Loop”并发的模型。
+JavaScript 有个基于“EventLoop”并发的模型。
 
 啊，并发？不是说 JavaScript是单线程吗？ 没错，的确是单线程，但是并发与并行是有区别的。前者是逻辑上的同时发生，而后者是物理上的同时发生。所以，单核处理器也能实现并发。
+
+并发和并行的区别就是一个处理器同时处理多个任务和多个处理器或者是多核的处理器同时处理多个不同的任务。
+
+前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生．
+
+来个比喻：并发和并行的区别就是一个人同时吃三个馒头和三个人同时吃三个馒头。
 
 ![并发与并行](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/并发与并行.jpg)
 
@@ -1630,22 +1648,25 @@ JavaScript 有个基于“Event Loop”并发的模型。
 
 ![stack-heap-queue](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/stack-heap-queue.png)
 
-
 #### Stack（栈）
-这里放着JavaScript正在执行的任务。每个任务被称为帧（stack of frames）。
+这里放着JavaScript正在执行的任务，每个任务被称为帧（stack of frames）。
 
+```js
 function f(b){
   var a = 12;
-  return a+b+35;
+  return a + b + 35;
 }
-
 function g(x){
   var m = 4;
-  return f(m*x);
+  return f(m * x);
 }
-
 g(21);
-上述代码调用 g 时，创建栈的第一帧，该帧包含了 g 的参数和局部变量。当 g 调用 f 时，第二帧就会被创建，并且置于第一帧之上，当然，该帧也包含了 f 的参数和局部变量。当 f 返回时，其对应的帧就会出栈。同理，当 g 返回时，栈就为空了（栈的特定就是后进先出 Last-in first-out (LIFO)）。
+```
+
+上述代码调用 g 时，创建栈的第一帧，该帧包含了 g 的参数和局部变量。
+当 g 调用 f 时，第二帧就会被创建，并且置于第一帧之上，当然，该帧也包含了 f 的参数和局部变量。
+当 f 返回时，其对应的帧就会出栈。
+同理，当 g 返回时，栈就为空了（栈的特定就是后进先出 Last-in first-out (LIFO)）。
 
 #### Heap（堆）
 
@@ -1653,7 +1674,10 @@ g(21);
 
 #### Queue（队列）
 
-一个 JavaScript runtime 包含了一个任务队列，该队列是由一系列待处理的任务组成。而每个任务都有相对应的函数。当栈为空时，就会从任务队列中取出一个任务，并处理之。该处理会调用与该任务相关联的一系列函数（因此会创建一个初始栈帧）。当该任务处理完毕后，栈就会再次为空。（Queue的特点是先进先出 First-in First-out (FIFO)）。
+一个 JavaScript runtime 包含了一个任务队列，该队列是由一系列待处理的任务组成。
+而每个任务都有相对应的函数，当栈为空时，就会从任务队列中取出一个任务，并处理之。
+该处理会调用与该任务相关联的一系列函数（因此会创建一个初始栈帧）。
+当该任务处理完毕后，栈就会再次为空。（Queue的特点是先进先出 First-in First-out (FIFO)）。
 
 为了方便描述与理解，作出以下约定：
 
@@ -1672,26 +1696,31 @@ while(queue.waitForMessage()){
 }
 ```
 
-正如上述所说，“任务队列”是一个事件的队列，如果I/O设备完成任务或用户触发事件（该事件指定了回调函数），那么相关事件处理函数就会进入“任务队列”，当主线程空闲时，就会调度“任务队列”里第一个待处理任务，（FIFO）。当然，对于定时器，当到达其指定时间时，才会把相应任务插到“任务队列”尾部。
+正如上述所说，“任务队列”是一个事件的队列。
+如果I/O设备完成任务或用户触发事件，那么相关事件处理函数就会进入“任务队列”，当主线程空闲时，就会调度“任务队列”里第一个待处理任务。
+当然，对于定时器，当到达其指定时间时，才会把相应任务插到“任务队列”尾部。
 
-#### “执行至完成”
+#### 执行至完成
 
-每当某个任务执行完后，其它任务才会被执行。也就是说，当一个函数运行时，它不能被取代且会在其它代码运行前先完成。
-当然，这也是Event Loop的一个缺点：当一个任务完成时间过长，那么应用就不能及时处理用户的交互（如点击事件），甚至导致该应用奔溃。一个比较好解决方案是：将任务完成时间缩短，或者尽可能将一个任务分成多个任务执行。
+每当某个任务执行完后，其它任务才会被执行。
+也就是说，当一个函数运行时，它不能被取代且会在其它代码运行前先完成。
+当然，这也是EventLoop的一个缺点：当一个任务完成时间过长，那么应用就不能及时处理用户的交互（如点击事件），甚至导致该应用奔溃。
+这与操作系统的进程调度模式有根本的不同，操作系统不能允许一个进程长时间占有CPU，以保证其他程序能够有机会得到执行。
+一个比较好解决方案是：将任务完成时间缩短，或者尽可能将一个任务分成多个任务执行。
 
 #### 绝不阻塞
 
-JavaScript与其它语言不同，其Event Loop的一个特性是永不阻塞。I/O操作通常是通过事件和回调函数处理。所以，当应用等待 indexedDB 或 XHR 异步请求返回时，其仍能处理其它操作（如用户输入）。
-
-例外是存在的，如alert或者同步XHR，但避免它们被认为是最佳实践。注意的是，例外的例外也是存在的（但通常是实现错误而非其它原因)。
+JavaScript与其它语言不同，其EventLoop的一个特性是永不阻塞。I/O操作通常是通过事件和回调函数处理。
+所以，当应用等待 indexedDB 或 XHR 异步请求返回时，其仍能处理其它操作。
+例外是存在的，如alert或者同步XHR，但避免它们被认为是最佳实践。
 
 #### 定时器
 
 * 定时器的一些概念
 
-上面也提到，在到达指定时间时，定时器就会将相应回调函数插入“任务队列”尾部。这就是“定时器(timer)”功能。
+上面也提到，在到达指定时间时，定时器就会将相应回调函数插入“任务队列”尾部，这就是“定时器(timer)”功能。
 
-定时器包括setTimeout与setInterval两个方法。它们的第二个参数是指定其回调函数推迟\每隔多少毫秒数后执行。
+定时器包括setTimeout与setInterval两个方法，它们的第二个参数是指定其回调函数推迟\每隔多少毫秒数后执行。
 对于第二个参数有以下需要注意的地方：
 
 当第二个参数缺省时，默认为0；
@@ -1704,12 +1733,9 @@ setTimeout(function(){
     console.log(2);
 },10);
 console.log(3);
-// 输出：1 3 2
 ```
 
-* 深入了解定时器
-
-  * 零延迟 setTimeout(func, 0)
+* 零延迟 setTimeout(func, 0)
 
 零延迟并不是意味着回调函数立刻执行。它取决于主线程当前是否空闲与“任务队列”里其前面正在等待的任务。
 
@@ -1736,22 +1762,21 @@ this is a msg from callback
 this is a msg from a callback1
 ```
 
-    * setTimeout(func, 0)的作用
+* setTimeout(func, 0)的作用，其他异步事件函数同样。
+      
       改变执行顺序
 
-#### 正版与翻版setInterval的区别
+#### 用setTimeout实现setInterval
 
 大家都可能知道通过setTimeout可以模仿setInterval的效果，下面我们看看以下代码的区别：
 ```js
-// 利用setTimeout模仿setInterval
 setTimeout(function(){
-    /* 执行一些操作. */
     setTimeout(arguments.callee, 10);
 }, 1000);
 setInterval(function(){
-    /* 执行一些操作 */
 }, 1000);
 ```
+
 可能你认为这没什么区别。的确，当回调函数里的操作耗时很短时，并不能看出它们有什么区别。
 
 其实：上面案例中的 setTimeout 总是会在其回调函数执行后延迟 10ms（或者更多，但不可能少）再次执行回调函数，从而实现setInterval的效果，而 setInterval 总是 10ms 执行一次，而不管它的回调函数执行多久。
@@ -1789,22 +1814,26 @@ var timer = setInterval(function(){
 
 浏览器的内核是多线程的，它们在内核制控下相互配合以保持同步，一个浏览器至少实现三个常驻线程：
 
-* javascript引擎线程 
+* javascript引擎线程
 javascript引擎是基于事件驱动单线程执行的，JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序。
-* GUI渲染线程 
+* GUI渲染线程
 GUI渲染线程负责渲染浏览器界面，当界面需要重绘（Repaint）或由于某种操作引发回流(reflow)时,该线程就会执行。但需要注意GUI渲染线程与JS引擎是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。
-* 浏览器事件触发线程 
+* 浏览器事件触发线程
 事件触发线程，当一个事件被触发时该线程会把事件添加到“任务队列”的队尾，等待JS引擎的处理。这些事件可来自JavaScript引擎当前执行的代码块如setTimeOut、也可来自浏览器内核的其他线程如鼠标点击、AJAX异步请求等，但由于JS是单线程执行的，所有这些事件都得排队等待JS引擎处理。
 在Chrome浏览器中，为了防止因一个标签页奔溃而影响整个浏览器，其每个标签页都是一个进程。当然，对于同一域名下的标签页是能够相互通讯的，具体可看 浏览器跨标签通讯。在Chrome设计中存在很多的进程，并利用进程间通讯来完成它们之间的同步，因此这也是Chrome快速的法宝之一。对于Ajax的请求也需要特殊线程来执行，当需要发送一个Ajax请求时，浏览器会开辟一个新的线程来执行HTTP的请求，它并不会阻塞JavaScript线程的执行，当HTTP请求状态变更时，相应事件会被作为回调放入到“任务队列”中等待被执行。
 
 看看以下代码：
 
+```js
 document.onclick = function(){
     console.log("click")
 }
-
 for(var i = 0; i< 100000000; i++);
-解释一下代码：首先向document注册了一个click事件，然后就执行了一段耗时的for循环，在这段for循环结束前，你可以尝试点击页面。当耗时操作结束后，console控制台就会输出之前点击事件的”click”语句。这视乎证明了点击事件（也包括其它各种事件）是由额外单独的线程触发的，事件触发后就会将回调函数放进了“任务队列”的末尾，等待着JavaScript主线程的执行。
+```
+
+解释一下代码：首先向document注册了一个click事件，然后就执行了一段耗时的for循环，在这段for循环结束前，你可以尝试点击页面。
+当耗时操作结束后，console控制台就会输出之前点击事件的”click”语句。
+这视乎证明了点击事件（也包括其它各种事件）是由额外单独的线程触发的，事件触发后就会将回调函数放进了“任务队列”的末尾，等待着JavaScript主线程的执行。
 
 ### 总结
 
