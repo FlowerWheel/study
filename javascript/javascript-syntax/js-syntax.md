@@ -1514,7 +1514,9 @@ setTimeout调用之后，这个定时任务已经交代出去了，也就是0s�
 但是javascript还是严格按照*单线程*的模型去执行代码。为什么？
 
 网上很多声音都说这和它的历史有关系，但是，其实有一个更重要的原因——死锁。多线程的GUI框架特别容易死锁。
-[《Multithreaded toolkits: A failed dream?》](https://community.oracle.com/blogs/kgh/2004/10/19/multithreaded-toolkits-failed-dream)描述了其中的缘由，大致是说GUI的行为大多都是从更抽象的顶部一层一层调用到操作系统级别，而事件则是反过来，从下向上冒泡，结果就是两个方向相反的行为在碰头，给资源加锁的时候一个正序，一个逆序，极其容易出现互相等待而饿死的情况，而这种情况下要解决这一问题无异于“fight back an oceanic tidal force”——推荐阅读。AWT最初其实就是想设计成多线程的，但是使用者非常容易引起死锁和竞争，最后Swing还是做成了单线程的。但凡这种event loop+单线程执行的模式，我们还可以找到很多，比如JDK的GUI线程模型，主线程就是一个“主事件循环”（再后来才引入了Event Dispatch Thread，但这并不改变整体的基本线程模型），还有Mac系统的Cocoa等等，都是这样的模式。
+[《Multithreaded toolkits: A failed dream?》](https://community.oracle.com/blogs/kgh/2004/10/19/multithreaded-toolkits-failed-dream)描述了其中的缘由，大致是说GUI的行为大多都是从更抽象的顶部一层一层调用到操作系统级别，而事件则是反过来，从下向上冒泡，结果就是两个方向相反的行为在碰头，给资源加锁的时候一个正序，一个逆序，极其容易出现互相等待而饿死的情况，而这种情况下要解决这一问题无异于“fight back an oceanic tidal force”——推荐阅读。
+AWT最初其实就是想设计成多线程的，但是使用者非常容易引起死锁和竞争，最后Swing还是做成了单线程的。
+但凡这种event loop+单线程执行的模式，我们还可以找到很多，比如JDK的GUI线程模型，主线程就是一个“主事件循环”（再后来才引入了Event Dispatch Thread，但这并不改变整体的基本线程模型），还有Mac系统的Cocoa等等，都是这样的模式。
 
 #### sleep?
 JavaScript是没有sleep方法的，正因为它是单线程执行的，sleep方法是没有意义的。如果非要sleep，我们只能实现一个没有意义的伪sleep： 
