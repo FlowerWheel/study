@@ -1563,11 +1563,11 @@ Javascript的**EventLoop**的**并发模型**，其原理和操作系统进程�
 
 "EventLoop是一个程序结构，用于等待和发送消息和事件。a programming construct that waits for and dispatches events or messages in a program."
 
-两个线程是有问题的。
+两个线程或许是有问题的。
 简单的说，就是在程序中跑两个线程，一个负责程序本身的运行，作为主线程；另一个负责主线程与其他线程的的通信，被称为“EventLoop线程"。
 每当遇到异步的 setTimeOut，setInterval 这些异步任务，交给 EventLoop 线程，然后自己往后运行，等到主线程运行完后，再去 EventLoop 线程拿结果。
 
-这种"并发模型" 通常称为 "asynchronous" 或 "non-blocking" 模行。 
+这种 "并发模型" 通常称为 "asynchronous" 或 "non-blocking" 模行。 
 
 我简单的画了一个 javascript 的执行图，我们通过图，逐步分析.
 
@@ -1606,6 +1606,7 @@ Javascript与其它语言不同，其EventLoop的一个特性是永不阻塞。I
 #### Runtime
 
 * Stack
+
 这里放着JavaScript正在执行的任务，每个任务被称为帧（stack of frames）。
 
 ```js
