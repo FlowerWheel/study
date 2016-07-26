@@ -1573,7 +1573,7 @@ Javascript的**EventLoop**的**并发模型**，其原理和操作系统进程�
 
 ![runtime.jpg](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/runtime.jpg)
 
-* EventLoop
+* 为什么叫EventLoop？
 
 之所以被称为EventLoop，是因为它以以下类似方式实现：
 
@@ -1586,6 +1586,10 @@ while(queue.waitForMessage()){
 正如上述所说，“任务队列”是一个事件的队列。
 如果I/O设备完成任务或用户触发事件，那么相关事件处理函数就会进入“任务队列”，当主线程空闲时，就会调度“任务队列”里第一个待处理任务。
 当然，对于定时器，当到达其指定时间时，才会把相应任务插到“任务队列”尾部。
+
+* 是谁在执行EventLoop？
+
+并不是V8引擎。
 
 * 执行至完成
 
