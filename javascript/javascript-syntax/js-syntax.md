@@ -1511,7 +1511,7 @@ var ActiveObject = {
 网上很多声音都说这和它的历史有关系，其实这与它的用途有关，这个用途容易带来死锁，所以有一个更重要的原因——避免死锁。
 作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM，若以多线程的方式操作这些DOM，则可能出现操作的冲突。
 假设有两个线程同时操作一个DOM元素，线程1要求浏览器删除DOM，而线程2却要求修改DOM样式，这时浏览器就无法决定采用哪个线程的操作。
-当然，我们可以为浏览器引入**锁**的机制来解决这些冲突，但这会大大提高复杂性，所以 JavaScript 从诞生开始就选择了单线程执行。
+当然，我们可以为浏览器引入**锁** 的机制来解决这些冲突，但这会大大提高复杂性，所以 JavaScript 从诞生开始就选择了单线程执行。
 
 多线程的GUI框架特别容易死锁。[《Multithreaded toolkits: A failed dream?》](https://community.oracle.com/blogs/kgh/2004/10/19/multithreaded-toolkits-failed-dream)描述了其中的缘由，
 大致是说GUI的行为大多都是从更抽象的顶部一层一层调用到操作系统级别，而事件则是反过来，从下向上冒泡，结果就是两个方向相反的行为在碰头，给资源加锁的时候一个正序，一个逆序，极其容易出现互相等待而饿死的情况。
@@ -1593,56 +1593,25 @@ while(queue.waitForMessage()){
 也就是说，当一个函数运行时，它不能被取代且会在其它代码运行前先完成。
 当然，这也是EventLoop的一个缺点：当一个任务完成时间过长，那么应用就不能及时处理用户的交互（如点击事件），甚至导致该应用奔溃。
 这与操作系统的进程调度模式有根本的不同，操作系统不能允许一个进程长时间占有CPU，以保证其他程序能够有机会得到执行。
-一个比较好解决方案是：将任务完成时间缩短，或者尽可能将一个任务分成多个任务执行。
+一个比较好解决方案是：将任务完成时间缩短，或者尽可能将一个任务分成多个任务执行，但是这需要开发人员来保证。
 
 * 绝不阻塞
 
-Javascript与其它语言不同，其EventLoop的一个特性是永不阻塞。I/O操作通常是通过事件和回调函数处理。
+Javascript与其它语言不同，其EventLoop的一个特性是永不阻塞。
 所以，当应用等待 indexedDB 或 XHR 异步请求返回时，其仍能处理其它操作。
 例外是存在的，如alert或者同步XHR，但避免它们被认为是最佳实践。
 
-通过上面的分析,javascript是不存在并发的,单线程何谈并发? 这只是说说了非阻塞。并发只是看起来像并发而已。
+一个错误的结论：**javascript是不存在并发的，并发只是看起来像并发而已**。
 
 #### Runtime
 
-* Stack
+* Stack 这里放着JavaScript正在执行的任务，每个任务被称为帧（frame）。
+* Heap 一个用来表示内存中一大片非结构化区域的名字，对象都被分配在这。
+* Queue 一个 JavaScript runtime 包含了一个任务队列，该队列是由一系列待处理的任务组成。
 
-这里放着JavaScript正在执行的任务，每个任务被称为帧（stack of frames）。
-
-```js
-function f(b){
-  var a = 12;
-  return a + b + 35;
-}
-function g(x){
-  var m = 4;
-  return f(m * x);
-}
-g(21);
-```
-
-上述代码调用 g 时，创建栈的第一帧，该帧包含了 g 的参数和局部变量。
-当 g 调用 f 时，第二帧就会被创建，并且置于第一帧之上，当然，该帧也包含了 f 的参数和局部变量。
-当 f 返回时，其对应的帧就会出栈。
-同理，当 g 返回时，栈就为空了（栈的特定就是后进先出 Last-in first-out (LIFO)）。
-
-* Heap
-
-一个用来表示内存中一大片非结构化区域的名字，对象都被分配在这。
-
-* Queue
-
-一个 JavaScript runtime 包含了一个任务队列，该队列是由一系列待处理的任务组成。
 而每个任务都有相对应的函数，当栈为空时，就会从任务队列中取出一个任务，并处理之。
 该处理会调用与该任务相关联的一系列函数（因此会创建一个初始栈帧）。
-当该任务处理完毕后，栈就会再次为空。（Queue的特点是先进先出 First-in First-out (FIFO)）。
-
-为了方便描述与理解，作出以下约定：
-
-  * Stack栈为主线程
-  * Queue队列为任务队列（等待调度到主线程执行）
-
-OK，上述知识点帮助我们理清了一个 JavaScript runtime 的相关概念，这有助于接下来的分析。
+当该任务处理完毕后，栈就会再次为空。
 
 #### 下面这段代码执行后会有什么效果？
 
@@ -1723,117 +1692,24 @@ function timedChunk(items, process, context, callback){
 
 可以看见，这可以更充分地利用时间，执行的任务放到一个数组中，只要每次chunk内执行的时间不足50毫秒，就继续执行；一旦超过50毫秒，就留给外部事件25毫秒去处理。
 
-#### 定时器
+#### Timer
 
-* 定时器的一些概念
-
-上面也提到，在到达指定时间时，定时器就会将相应回调函数插入“任务队列”尾部，这就是“定时器(timer)”功能。
-
-定时器包括setTimeout与setInterval两个方法，它们的第二个参数是指定其回调函数推迟\每隔多少毫秒数后执行。
-对于第二个参数有以下需要注意的地方：
-
-当第二个参数缺省时，默认为0；
-当指定的值小于4毫秒，则增加到4ms（4ms是HTML5标准指定的，对于2010年及之前的浏览器则是10ms）；
-如果你理解上述知识，那么以下代码就应该对你没什么问题了：
-
-```js
-console.log(1);
-setTimeout(function(){
-    console.log(2);
-},10);
-console.log(3);
-```
-
-* 零延迟 setTimeout(func, 0)
-
-零延迟并不是意味着回调函数立刻执行。它取决于主线程当前是否空闲与“任务队列”里其前面正在等待的任务。
-
-看看以下代码：
-
-```js
-(function () {
-  console.log('this is the start');
-  setTimeout(function cb() {
-    console.log('this is a msg from call back');
-  });
-  console.log('this is just a message');
-  setTimeout(function cb1() {
-    console.log('this is a msg from call back1');
-  }, 0);
-  console.log('this is the  end');
-})();
-// 输出如下：
-// this is the start
-// this is just a message
-// this is the end
-// undefined // 立即调用函数的返回值
-// this is a msg from callback
-// this is a msg from a callback1
-```
-
-* setTimeout(func, 0)的作用，其他异步事件函数同样。
-      
-      改变执行顺序
-
-* 用setTimeout实现setInterval
-
-大家都可能知道通过setTimeout可以模仿setInterval的效果，下面我们看看以下代码的区别：
-
-```js
-setTimeout(function(){
-    setTimeout(arguments.callee, 10);
-}, 1000);
-setInterval(function(){
-}, 1000);
-```
-
-可能你认为这没什么区别。的确，当回调函数里的操作耗时很短时，并不能看出它们有什么区别。
-
-其实：上面案例中的 setTimeout 总是会在其回调函数执行后延迟 10ms（或者更多，但不可能少）再次执行回调函数，从而实现setInterval的效果，而 setInterval 总是 10ms 执行一次，而不管它的回调函数执行多久。
-
-所以，如果 setInterval 的回调函数执行时间比你指定的间隔时间相等或者更长，那么其回调函数会连在一起执行。
-
-你可以试试运行以下代码：
-
-```js
-var counter = 0;
-var initTime = new Date().getTime();
-var timer = setInterval(function(){
-    if(counter===2){
-        clearInterval(timer);
-    }
-    if(counter === 0){
-        for(var i = 0; i < 1990000000; i++){
-            ;
-        }
-    }
-    console.log("第"+counter+"次：" + (new Date().getTime() - initTime) + " ms");
-    counter++;
-},1000);
-```
-
-我电脑Chrome浏览器的输入如下：
-
-第0次：2007 ms
-第1次：2013 ms
-第2次：3008 ms
-
-### How JavaScript Timers Work
+* How JavaScript Timers Work
  
 从基础的层面来讲，理解JavaScript的定时器是如何工作的是非常重要的。
 计时器的执行常常和我们的直观想象不同，那是因为JavaScript引擎是单线程的。
 我们先来认识一下下面三个函数是如何控制计时器的。
 
-  * var id = setTimeout(fn, delay); - 初始化一个计时器，然后在指定的时间间隔后执行。该函数返回一个唯一的标志ID（Number类型），我们可以使用它来取消计时器。
-  * var id = setInterval(fn, delay); - 和setTimeout有些类似，但它是连续调用一个函数（时间间隔是delay参数）直到它被取消。
-  * clearInterval(id);, clearTimeout(id); - 使用计时器ID（setTimeout 和 setInterval的返回值）来取消计时器回调的发生
+  * `var id = setTimeout(fn, delay);`       - 初始化一个计时器，然后在指定的时间间隔后执行。该函数返回一个唯一的标志ID（Number类型），我们可以使用它来取消计时器。
+  * `var id = setInterval(fn, delay);`      - 和setTimeout有些类似，但它是连续调用一个函数（时间间隔是delay参数）直到它被取消。
+  * `clearInterval(id);, clearTimeout(id);` - 使用计时器ID（setTimeout 和 setInterval的返回值）来取消计时器回调的发生
 
 为了理解计时器的内在执行原理，有一个重要的概念需要加以探讨：计时器的延迟(delay)是无法得到保障的。
 由于所有JavaScript代码是在一个线程里执行的，所有异步事件（例如，鼠标点击和计时器）只有拥有执行机会时才会执行。
 
 用一个很好的图表加以说明：
 
-![Timers.jpg](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/Timers.jpg)
+![Timers.png](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/Timers.png)
 
 在这个图表中有许多信息需要理解，如果完全理解了它们，你会对JavaScript引擎如何实现异步事件有一个很好的认识。
 
@@ -1892,7 +1768,85 @@ setTimeout 和 setInterval 在执行异步代码的时候有着根本的不同
 如果setInterval回调函数的执行时间将足够长（比指定的时间间隔长），它们将连续执行并且彼此之间没有时间间隔。
 上述这些知识点都是非常重要的。了解了JavaScript引擎是如何工作的，尤其是大量的异步事件（连续）发生时，才能为构建高级应用程序打好基础。
 
-### 浏览器
+* 零延迟 `setTimeout(func, 0)`
+
+零延迟并不是意味着回调函数立刻执行，它取决于主线程当前是否空闲与“任务队列”里其前面正在等待的任务。
+
+用途：改变执行顺序
+
+```js
+(function () {
+  console.log('this is the start');
+  setTimeout(function cb() {
+    console.log('this is a msg from call back');
+  });
+  console.log('this is just a message');
+  setTimeout(function cb1() {
+    console.log('this is a msg from call back1');
+  }, 0);
+  console.log('this is the  end');
+})();
+// 输出如下：
+// this is the start
+// this is just a message
+// this is the end
+// undefined // 立即调用函数的返回值
+// this is a msg from callback
+// this is a msg from a callback1
+```
+
+* 用 setTimeout 模仿 setInterval
+
+```js
+function setIntervalSimulation(cb, m) {
+  setTimeout(function(){
+    cb();
+    setTimeout(cb, m);
+  }, m);
+}
+
+setIntervalSimulation(function(){
+}, 1000);
+
+setInterval(function(){
+}, 1000);
+```
+
+上面案例中的 `setIntervalSimulation` 总是会在其回调函数执行后延迟 1000ms（至少）再次执行回调函数，从而 模拟 `setInterval` 的效果，
+而 `setInterval` 总是 1000ms 执行一次，而不管它的回调函数执行多久。
+
+所以，如果 `setInterval` 的回调函数执行时间比你指定的间隔时间相等或者更长，那么其回调函数会连在一起执行。
+
+请看代码：
+```js
+var counter = 1;
+var initTime = new Date().getTime();
+var timer = SimulationSimulation(function () {
+  if (counter === 3) {
+    clearInterval(timer);
+  }
+  if (counter === 1) {
+    for (var i = 0; i < 1990000000; i++) {
+      // 此循环大约需要 2374 ms > 1000 ms
+    }
+  }
+  console.log("第" + counter++ + "次：" + (new Date().getTime() - initTime) + " ms");
+}, 1000);
+```
+
+Chrome浏览器的输入如下：
+第1次：2007 ms
+第2次：2013 ms
+第3次：3008 ms
+
+Node.js的输入如下：
+第1次：2331 ms
+第2次：4664 ms
+第3次：5668 ms
+
+可见，Node.js的`setInterval`很可能是用`setTimeout`模拟实现的。
+
+### Node.js & Browser
 
 浏览器不是单线程的，浏览器的内核是多线程的，它们在内核制控下相互配合以保持同步，一个浏览器至少实现三个常驻线程：
 
@@ -1914,7 +1868,7 @@ setTimeout 和 setInterval 在执行异步代码的时候有着根本的不同
 document.onclick = function(){
     console.log("click")
 }
-for(var i = 0; i< 100000000; i++);
+for(var i = 0; i< 100000000; i++){};
 ```
 
 解释一下代码：首先向document注册了一个click事件，然后就执行了一段耗时的for循环，在这段for循环结束前，你可以尝试点击页面。
