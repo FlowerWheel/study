@@ -1498,7 +1498,7 @@ var ActiveObject = {
 
 #### 为什么Javascript是单线程的？
 
-总所周知，JavaScript是以单线程的方式运行的，说到线程就自然联想到进程。
+众所周知，JavaScript是以单线程的方式运行的，说到线程就自然联想到进程。
 
 进程和线程都是操作系统的概念。
 进程是应用程序的执行实例，每一个进程都是由私有的虚拟地址空间、代码、数据和其它系统资源所组成；进程在运行过程中能够申请创建和使用系统资源，这些资源也会随着进程的终止而被销毁。
@@ -1511,58 +1511,65 @@ var ActiveObject = {
 网上很多声音都说这和它的历史有关系，其实这与它的用途有关，这个用途容易带来死锁，所以有一个更重要的原因——避免死锁。
 作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM，若以多线程的方式操作这些DOM，则可能出现操作的冲突。
 假设有两个线程同时操作一个DOM元素，线程1要求浏览器删除DOM，而线程2却要求修改DOM样式，这时浏览器就无法决定采用哪个线程的操作。
-当然，我们可以为浏览器引入“锁”的机制来解决这些冲突，但这会大大提高复杂性，所以 JavaScript 从诞生开始就选择了单线程执行。
+当然，我们可以为浏览器引入**锁**的机制来解决这些冲突，但这会大大提高复杂性，所以 JavaScript 从诞生开始就选择了单线程执行。
 
 多线程的GUI框架特别容易死锁。[《Multithreaded toolkits: A failed dream?》](https://community.oracle.com/blogs/kgh/2004/10/19/multithreaded-toolkits-failed-dream)描述了其中的缘由，
 大致是说GUI的行为大多都是从更抽象的顶部一层一层调用到操作系统级别，而事件则是反过来，从下向上冒泡，结果就是两个方向相反的行为在碰头，给资源加锁的时候一个正序，一个逆序，极其容易出现互相等待而饿死的情况。
 AWT最初其实就是想设计成多线程的，但是使用者非常容易引起死锁和竞争，最后Swing还是做成了单线程的。
-但凡这种*EventLoop+单线程*执行的模式，我们还可以找到很多，比如JDK的GUI线程模型，主线程就是一个“主事件循环”，还有Mac系统的Cocoa等等，都是这样的模式。
+但凡这种*EventLoop+单线程*执行的模式，我们还可以找到很多，比如JDK的GUI线程模型，主线程就是一个**主事件循环**，还有Mac系统的Cocoa等等，都是这样的模式。
 
 因为 JavaScript 是单线程的，在某一时刻内只能执行特定的一个任务，并且会阻塞其它任务执行。
-那么对于类似I/O等耗时的任务，就没必要等待他们执行完后才继续后面的操作。
+那么对于**I/O**等耗时的任务，就没必要等待他们执行完后才继续后面的操作。
 在这些任务完成前，JavaScript完全可以往下执行其他操作，当这些耗时的任务完成后则以回调的方式执行相应处理。
-这些就是JavaScript与生俱来的特性：异步与回调。
+这些就是JavaScript与生俱来的特性：异步与回调？
 
 对于不可避免的耗时操作（如：繁重的运算，多重循环），HTML5提出了WebWorker，它会在当前JavaScript的执行主线程中利用Worker开辟一个额外的线程来加载和运行特定的JavaScript脚本。
 这个新的线程和JavaScript的主线程之间并不会互相影响和阻塞执行，而且在WebWorker中提供了这个新线程和JavaScript主线程之间数据交换的接口：postMessage和onMessage事件。
 但WebWorker不能操作DOM的，任何需要操作DOM的任务都需要委托给JavaScript主线程来执行，所以虽然HTML5引入WebWorker，但是他受限的。（并没有改线JavaScript单线程的本质？）
 
-其实 JavaScript 语法核心没有包含任何线程机制，大部分语言都没有在语言层面直接定义线程的，线程都是作为核心库或者第三方库提供给开发者调用，所以也并不是因为javascript无法实现多线程，Node.js就有可以支持线程的库，HTML5也引入了WebWorker。
+事实上，JavaScript语法核心没有描述任何线程机制，大部分语言都没有在语言层面直接定义线程的。
+线程都是作为核心库或者第三方库提供给开发者调用，所以也并不是因为javascript无法实现多线程。
+如Node.js就有可以支持线程的库，HTML5也引入了WebWorker。
 
+既然Javascript是单线程的，那么Javascript是如何实现并发的？
 
 #### Javascript为什么可以并发？
 
-并发模式与EventLoop
+因为JavaScript有个基于**EventLoop**的**并发模型**。
 
-JavaScript 有个基于“EventLoop”并发的模型。
+Javascript 的 “并发模型” 是基于 EventLoop 来实现，能把单线程的 JavaScript 使出 多线程 的 感觉。
 
-啊，并发？不是说 JavaScript是单线程吗？ 没错，的确是单线程，但是并发与并行是有区别的。前者是逻辑上的同时发生，而后者是物理上的同时发生。所以，单核处理器也能实现并发。
-
+首先区分一个概念：并发(Concurency)和并行(Parallelism)。
+前者是逻辑上的同时发生，而后者是物理上的同时发生。所以，单核处理器也能实现并发。
 并发和并行的区别就是一个处理器同时处理多个任务和多个处理器或者是多核的处理器同时处理多个不同的任务。
-
-前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生．
-
 来个比喻：并发和并行的区别就是一个人同时吃三个馒头和三个人同时吃三个馒头。
+并行大家都好理解，而所谓“并发”是指两个或两个以上的事件在同一时间间隔中发生。
+
+在操作系统中:
+并行是指，一组程序按独立异步的速度执行，不等于时间上的重叠（同一个时刻发生)。
+并发是指：在同一个时间段内，两个或多个程序执行，有时间上的重叠（宏观上是同时，微观上仍是顺序执行）。
+并行也指8位数据同时通过并行线进行传送，这样数据传送速度大大提高，但并行传送的线路长度受到限制，因为长度增加，干扰就会增加，数据也就容易出错。
 
 ![并发与并行](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/并发与并行.jpg)
 
-并行大家都好理解，而所谓“并发”是指两个或两个以上的事件在同一时间间隔中发生。如上图的第一个表，由于计算机系统只有一个CPU，故ABC三个程序从“微观”上是交替使用CPU，但交替时间很短，用户察觉不到，形成了“宏观”意义上的并发操作。
+如上图的第一个表，由于计算机系统只有一个CPU，故ABC三个程序从“微观”上是交替使用CPU，但交替时间很短，用户察觉不到，形成了“宏观”意义上的并发操作。
 
 ![stack-heap-queue](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/stack-heap-queue.png)
 
-Javascript并发模型和事件循环
+Javascript的**EventLoop**的**并发模型**，其原理和操作系统进程调度很相似，但是比操作系统的调度策略简单的多。
 
-Javascript"并发模型" 是基于 EventLoop 来实现，能把单线程的 JavaScript 使出 多线程的感觉。
-其原理和操作系统进程调度很相似，但是比操作系统的调度策略简单的多。
+[什么是 Event Loop？](http://www.ruanyifeng.com/blog/2013/10/event_loop.html)
+[JavaScript 运行机制详解：再谈Event Loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
 
 "EventLoop是一个程序结构，用于等待和发送消息和事件。a programming construct that waits for and dispatches events or messages in a program."
- 
+
+两个线程或许是有问题的。
 简单的说，就是在程序中跑两个线程，一个负责程序本身的运行，作为主线程；另一个负责主线程与其他线程的的通信，被称为“EventLoop线程"。
 每当遇到异步的 setTimeOut，setInterval 这些异步任务，交给 EventLoop 线程，然后自己往后运行，等到主线程运行完后，再去 EventLoop 线程拿结果。
 
-这种"并发模型" 通常称为 "asynchronous" 或 "non-blocking" 模行。 
+这种 "并发模型" 通常称为 "asynchronous" 或 "non-blocking" 模行。 
 
-我简单的画了一个 javascript 的执行图,我们通过图,逐步分析.
+我简单的画了一个 javascript 的执行图，我们通过图，逐步分析.
 
 ![runtime.jpg](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/runtime.jpg)
 
@@ -1599,6 +1606,7 @@ Javascript与其它语言不同，其EventLoop的一个特性是永不阻塞。I
 #### Runtime
 
 * Stack
+
 这里放着JavaScript正在执行的任务，每个任务被称为帧（stack of frames）。
 
 ```js
