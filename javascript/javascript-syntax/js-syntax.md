@@ -278,7 +278,7 @@ console.log(typeof boolObj);                // object
 
 为什么要用void？undefined不是保留字，可以重新赋值。采用void方式获取undefined便成了通用准则。
 
-[谈谈Javascript中的void操作符](https://segmentfault.com/a/1190000000474941)
+[谈谈JavaScript中的void操作符](https://segmentfault.com/a/1190000000474941)
 
 
 ### 对象
@@ -763,10 +763,10 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 这三个函数就可以用来完成绑定工作。任何一个函数也是在一个上下文对象上进行工作。上下文是一个this对象。
 这是一种松散的绑定关系，随时可以根据需要来绑定。因此就可以自由的将其他模块上的属性方法，绑定到自己身上，但是要避免名字冲突。
 
-下图是一个Javascript Prototype Chain关系图：
+下图是一个JavaScript Prototype Chain关系图：
 
 [查看原图](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
-![Javascript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
+![JavaScript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
 
 
 现在，在我们知道了对象的基础之后，让我们看看运行时程序的执行（runtime program execution）在ECMAScript中是如何实现的。
@@ -1494,21 +1494,26 @@ var ActiveObject = {
 ```
 
 
-### Javascript线程模型
+### JavaScript线程模型
 
-#### 为什么Javascript是单线程的？
+#### 为什么JavaScript是单线程的？
+
+单线程是相对多线程而言的，假如系统从来就没有过多线程这个概念，那么为什么JavaScript是单线程的这个问题就不存在了。
+那为什么会存在这个问题呢？因为JavaScript可以实现并发，达到类似多线程的效果但是却没有用多线程来实现。
+所以更合适的问题应该是JavaScript如何用实现并发？为什么要用单线程而不是多线程实现呢？
 
 众所周知，JavaScript是以单线程的方式运行的，说到线程就自然联想到进程。
 
 进程和线程都是操作系统的概念。
-进程是应用程序的执行实例，每一个进程都是由私有的虚拟地址空间、代码、数据和其它系统资源所组成；进程在运行过程中能够申请创建和使用系统资源，这些资源也会随着进程的终止而被销毁。
+进程是应用程序的执行实例，每一个进程都是由私有的虚拟地址空间、代码、数据和其它系统资源所组成；
+进程在运行过程中能够申请创建和使用系统资源，这些资源也会随着进程的终止而被销毁。
 而线程则是进程内的一个独立执行单元，在不同的线程之间是可以共享进程资源的，所以在多线程的情况下，需要特别注意对临界资源的访问控制。
 在系统创建进程之后就开始启动执行进程的主线程，而进程的生命周期和这个主线程的生命周期一致，主线程的退出也就意味着进程的终止和销毁。
 主线程是由系统进程所创建的，同时用户也可以自主创建其它线程，这一系列的线程都会并发地运行于同一个进程中。
 显然，在多线程操作下可以实现应用的并行处理，从而以更高的CPU利用率提高整个应用程序的性能和吞吐量。
 特别是现在很多语言都支持多核并行处理技术，然而JavaScript却以单线程执行，为什么呢？
 
-网上很多声音都说这和它的历史有关系，其实这与它的用途有关，这个用途容易带来死锁，所以有一个更重要的原因——避免死锁。
+网上很多声音都说这和它的历史有关系，其实这与它的用途有关，因为这个**用途**容易带来死锁，所以有一个更重要的原因——避免死锁。
 作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM，若以多线程的方式操作这些DOM，则可能出现操作的冲突。
 假设有两个线程同时操作一个DOM元素，线程1要求浏览器删除DOM，而线程2却要求修改DOM样式，这时浏览器就无法决定采用哪个线程的操作。
 当然，我们可以为浏览器引入**锁** 的机制来解决这些冲突，但这会大大提高复杂性，所以 JavaScript 从诞生开始就选择了单线程执行。
@@ -1516,7 +1521,7 @@ var ActiveObject = {
 多线程的GUI框架特别容易死锁。[《Multithreaded toolkits: A failed dream?》](https://community.oracle.com/blogs/kgh/2004/10/19/multithreaded-toolkits-failed-dream)描述了其中的缘由，
 大致是说GUI的行为大多都是从更抽象的顶部一层一层调用到操作系统级别，而事件则是反过来，从下向上冒泡，结果就是两个方向相反的行为在碰头，给资源加锁的时候一个正序，一个逆序，极其容易出现互相等待而饿死的情况。
 AWT最初其实就是想设计成多线程的，但是使用者非常容易引起死锁和竞争，最后Swing还是做成了单线程的。
-但凡这种*EventLoop+单线程*执行的模式，我们还可以找到很多，比如JDK的GUI线程模型，主线程就是一个**主事件循环**，还有Mac系统的Cocoa等等，都是这样的模式。
+但凡这种**EventLoop+单线程**执行的模式，我们还可以找到很多，比如JDK的GUI线程模型，主线程就是一个**主事件循环**，还有Mac系统的Cocoa等等，都是这样的模式。
 
 因为 JavaScript 是单线程的，在某一时刻内只能执行特定的一个任务，并且会阻塞其它任务执行。
 那么对于**I/O**等耗时的任务，就没必要等待他们执行完后才继续后面的操作。
@@ -1531,24 +1536,22 @@ AWT最初其实就是想设计成多线程的，但是使用者非常容易引�
 线程都是作为核心库或者第三方库提供给开发者调用，所以也并不是因为javascript无法实现多线程。
 如Node.js就有可以支持线程的库，HTML5也引入了WebWorker。
 
-既然Javascript是单线程的，那么Javascript是如何实现并发的？
+既然JavaScript是单线程的，那么JavaScript是如何实现并发的？
 
-#### Javascript为什么可以并发？
+#### JavaScript如何并发？
 
-因为JavaScript有个基于**EventLoop**的**并发模型**。
+JavaScript有个基于 **EventLoop** 的 **并发模型**，能把单线程的 JavaScript 使出 **多线程** 的 感觉。
 
-Javascript 的 “并发模型” 是基于 EventLoop 来实现，能把单线程的 JavaScript 使出 多线程 的 感觉。
-
-首先区分一个概念：并发(Concurency)和并行(Parallelism)。
-前者是逻辑上的同时发生，而后者是物理上的同时发生。所以，单核处理器也能实现并发。
-并发和并行的区别就是一个处理器同时处理多个任务和多个处理器或者是多核的处理器同时处理多个不同的任务。
-来个比喻：并发和并行的区别就是一个人同时吃三个馒头和三个人同时吃三个馒头。
-并行大家都好理解，而所谓“并发”是指两个或两个以上的事件在同一时间间隔中发生。
-
+首先区分一个概念：*并发(Concurency)*和*并行(Parallelism)*。
 在操作系统中:
 并行是指，一组程序按独立异步的速度执行，不等于时间上的重叠（同一个时刻发生)。
 并发是指：在同一个时间段内，两个或多个程序执行，有时间上的重叠（宏观上是同时，微观上仍是顺序执行）。
 并行也指8位数据同时通过并行线进行传送，这样数据传送速度大大提高，但并行传送的线路长度受到限制，因为长度增加，干扰就会增加，数据也就容易出错。
+前者是逻辑上的同时发生，而后者是物理上的同时发生。所以，单核处理器也能实现并发。
+并发和并行的区别就是 *一个处理器同时处理多个任务* 和 *多个处理器或者是多核的处理器同时处理多个不同的任务*。
+打个比喻：并发和并行的区别就是一个人同时吃三个馒头和三个人同时吃三个馒头。
+
+一个错误的结论：**javascript是不存在并发的，并发只是看起来像并发而已**。
 
 ![并发与并行](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/并发与并行.jpg)
 
@@ -1556,18 +1559,17 @@ Javascript 的 “并发模型” 是基于 EventLoop 来实现，能把单线�
 
 ![stack-heap-queue](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/stack-heap-queue.png)
 
-Javascript的**EventLoop**的**并发模型**，其原理和操作系统进程调度很相似，但是比操作系统的调度策略简单的多。
+JavaScript的**EventLoop**的**并发模型**，其原理和操作系统进程调度很相似（只是模型相似），但是比操作系统的调度策略简单的多。
 
 [什么是 Event Loop？](http://www.ruanyifeng.com/blog/2013/10/event_loop.html)
 [JavaScript 运行机制详解：再谈Event Loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
 
 "EventLoop是一个程序结构，用于等待和发送消息和事件。a programming construct that waits for and dispatches events or messages in a program."
 
-两个线程或许是有问题的。
-简单的说，就是在程序中跑两个线程，一个负责程序本身的运行，作为主线程；另一个负责主线程与其他线程的的通信，被称为“EventLoop线程"。
-每当遇到异步的 setTimeOut，setInterval 这些异步任务，交给 EventLoop 线程，然后自己往后运行，等到主线程运行完后，再去 EventLoop 线程拿结果。
+简单的说，就是在程序中跑两个线程，一个负责程序本身的运行，作为主线程；另一个负责主线程与其他线程的的通信，被称为**EventLoop**。
+每当遇到异步的setTimeOut，setInterval这些异步任务，交给 **EventLoop** 线程，然后自己往后运行，等到主线程运行完后，再去拿结果。
 
-这种 "并发模型" 通常称为 "asynchronous" 或 "non-blocking" 模行。 
+这种 **并发模型** 通常称为 **asynchronous** 或 **non-blocking** 模行。
 
 我简单的画了一个 javascript 的执行图，我们通过图，逐步分析.
 
@@ -1578,40 +1580,38 @@ Javascript的**EventLoop**的**并发模型**，其原理和操作系统进程�
 之所以被称为EventLoop，是因为它以以下类似方式实现：
 
 ```js
-while(queue.waitForMessage()){
-  queue.processNextMessage();
+while(waitForEvent()){
+  processEvent();
 }
 ```
 
-正如上述所说，“任务队列”是一个事件的队列。
+“任务队列”是一个包含事件处理函数的队列。
 如果I/O设备完成任务或用户触发事件，那么相关事件处理函数就会进入“任务队列”，当主线程空闲时，就会调度“任务队列”里第一个待处理任务。
 当然，对于定时器，当到达其指定时间时，才会把相应任务插到“任务队列”尾部。
+所以所谓的任务既是 事件处理函数。
 
-* 执行至完成
+* 任务不能被中断
 
-每当某个任务执行完后，其它任务才会被执行。
-也就是说，当一个函数运行时，它不能被取代且会在其它代码运行前先完成。
-当然，这也是EventLoop的一个缺点：当一个任务完成时间过长，那么应用就不能及时处理用户的交互（如点击事件），甚至导致该应用奔溃。
+每当某个任务执行完后，其它任务才会被执行。也就是说，当一个函数运行时，它不能被取代且会在其它代码运行前先完成。不会像多线程那样，多个任务交替执行。
+当然，这也带来一个缺点：当一个任务完成时间过长，那么应用就不能及时处理用户的交互（如点击事件），甚至导致该应用奔溃。
 这与操作系统的进程调度模式有根本的不同，操作系统不能允许一个进程长时间占有CPU，以保证其他程序能够有机会得到执行。
 一个比较好解决方案是：将任务完成时间缩短，或者尽可能将一个任务分成多个任务执行，但是这需要开发人员来保证。
 
-* 绝不阻塞
+* 绝不能阻塞
 
-Javascript与其它语言不同，其EventLoop的一个特性是永不阻塞。
-所以，当应用等待 indexedDB 或 XHR 异步请求返回时，其仍能处理其它操作。
-例外是存在的，如alert或者同步XHR，但避免它们被认为是最佳实践。
-
-一个错误的结论：**javascript是不存在并发的，并发只是看起来像并发而已**。
+EventLoop绝不能阻塞，阻不阻塞不是JavaScript决定的。保证当应用等待异步请求返回时，其仍能处理其它操作。
 
 #### Runtime
 
 * Stack 这里放着JavaScript正在执行的任务，每个任务被称为帧（frame）。
 * Heap 一个用来表示内存中一大片非结构化区域的名字，对象都被分配在这。
-* Queue 一个 JavaScript runtime 包含了一个任务队列，该队列是由一系列待处理的任务组成。
+* Queue 一个 JavaScript Runtime 包含了一个任务队列，该队列是由一系列待处理的任务（包含事件处理函数）组成。
 
-而每个任务都有相对应的函数，当栈为空时，就会从任务队列中取出一个任务，并处理之。
+每个任务都有相对应的函数，当栈为空时，就会从任务队列中取出一个任务，并处理之。
 该处理会调用与该任务相关联的一系列函数（因此会创建一个初始栈帧）。
 当该任务处理完毕后，栈就会再次为空。
+
+！！！！！！！！！！！图
 
 #### 下面这段代码执行后会有什么效果？
 
