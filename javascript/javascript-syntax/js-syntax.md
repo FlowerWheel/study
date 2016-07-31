@@ -1818,10 +1818,11 @@ setInterval(function(){
 所以，如果 `setInterval` 的回调函数执行时间比你指定的间隔时间相等或者更长，那么其回调函数会连在一起执行。
 
 请看代码：
+
 ```js
 var counter = 1;
 var initTime = new Date().getTime();
-var timer = SimulationSimulation(function () {
+var timer = setIntervalSimulation(function () {
   if (counter === 3) {
     clearInterval(timer);
   }
@@ -1834,7 +1835,7 @@ var timer = SimulationSimulation(function () {
 }, 1000);
 ```
 
-Chrome浏览器的输入如下：
+Chrome的输入如下：
 第1次：2007 ms
 第2次：2013 ms
 第3次：3008 ms
