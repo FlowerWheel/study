@@ -1,0 +1,14 @@
+{
+  "name": "base-proj",
+  "version": "1.0.0",
+  "description": "example",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "liuyanjie",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^1.21.0"
+  }
+}

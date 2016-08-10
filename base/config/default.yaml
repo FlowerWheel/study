@@ -1,0 +1,40 @@
+# 标准配置示范
+
+admin:
+    ip: 127.0.0.1
+    port: 12345
+    host: http://127.0.0.1:12345/
+    favicon: www/admin/favicon.ico
+    public:
+        dir: www/admin
+        maxAge: 24
+    view:
+        dir: www/admin/views
+
+web:
+    ip: 127.0.0.1
+    port: 12346
+    host: http://127.0.0.1:12346/
+    favicon: www/web/favicon.ico
+    public:
+        dir: www/web
+        maxAge: 24
+    view:
+        dir: www/web/views
+
+log:
+    console: false
+
+data: /raid/project
+
+session:
+    cookie: {maxAge: 1000}
+
+mysql: 
+    url: mysql://user:pass@127.0.0.1:3306,user:pass@127.0.0.1:3306/database?username=username&password=password
+    logging: true
+
+redis:
+    url: redis://user:password@127.0.0.1:6379/0
+    logging: true
+
