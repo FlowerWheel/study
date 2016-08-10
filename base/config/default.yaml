@@ -30,9 +30,15 @@ data: /raid/project
 session:
     cookie: {maxAge: 1000}
 
+### 其他服务接口
+
+### 数据库配置区
 mysql: 
     url: mysql://user:pass@127.0.0.1:3306,user:pass@127.0.0.1:3306/database?username=username&password=password
     logging: true
+
+mongodb:
+    url: mongodb://
 
 redis:
     url: redis://user:password@127.0.0.1:6379/0
