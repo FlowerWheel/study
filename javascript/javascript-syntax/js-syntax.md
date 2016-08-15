@@ -6,6 +6,7 @@ javascript-syntax
 
 ### 属性类型
 
+
 #### 数据属性
 属性|说明
 ---|---
@@ -34,6 +35,7 @@ console.log(person);            // { name: 'liuyanjie' }
 console.log(person.sax);        // M
 ```
 
+
 #### 访问器属性: `getter` `setter`
 属性|说明
 ---|---
@@ -42,10 +44,12 @@ console.log(person.sax);        // M
 `[[Getter]]`		|取值函数。undefined
 `[[Setter]]`		|赋值函数。undefined
 
+
 * `getter`和`setter`不一定要成对出现;
 * 只有`getter`函数证明该属性只读，尝试写入在非严格模式下会被忽略，严格模式会抛出错误;
 * 只有`setter`函数证明该属性只写，尝试读取在非严格模式下返回undefined，严格模式则抛出错误;
 * 对象的``数据属性``、``访问器属性``都包含`[[configurable]]`和`[[enumerable]]`，但不能同时有`[[writeable]]`/`[[value]]`和`[[get]]`/`[[set]]`，数据属性也可以函数。
+
 
 ```js
 var book1 = { _year: 2014, edition: 1 };
@@ -67,6 +71,7 @@ console.log(book1.year);	// 2014
 book.year = 2016;
 console.log(book1);			// { _year: 2016, edition: 3, year: [Getter/Setter] }
 ```
+
 
 ```js
 // 给 对象 设置 多个 `数据属性` 和 `访问器属性`
@@ -92,6 +97,7 @@ Object.defineProperties(book2, {
 });
 ```
 
+
 ```js
 // 获取 属性 信息
 var desc1 = Object.getOwnPropertyDescriptor(book2, 'year');
@@ -112,17 +118,21 @@ console.log(desc2);
 // }
 ```
 
+
 应用：
 * 观察者模式
   - 例子[JavaScript实现MVVM监测一个普通对象的变化](http://hcysun.me/2016/04/28/JavaScript%E5%AE%9E%E7%8E%B0MVVM%E4%B9%8B%E6%88%91%E5%B0%B1%E6%98%AF%E6%83%B3%E7%9B%91%E6%B5%8B%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96/)
 
 
+
 ### ECMAScript5对象保护功能
+
 
 在JavaScript里，默认情况下，你可修改任何你可以访问到的对象，你可以自由的删除对象的属性或覆盖对象的方法。
 这在多人协作开发的项目中，会造成很大问题，因为你不知道你的修改会对别人造成什么样的影响。
 如果你是一个模块或代码库的作者，你可能想锁定一些核心库的某些部分，保证任何人不能有意或无意的修改它们。
 严格模式下抛出异常，普通模式下安静的失败；
+
 
 * 禁止添加属性：禁止扩展。即：禁止为对象添加属性和方法，但已存在的属性和方法是可以被修改和删除的。
 
@@ -137,6 +147,7 @@ console.log(person1);
 console.log(person1.sex);
 ```
 
+
 * 禁止删除属性：密封。即：禁止删除对象已存在的属性和方法。
 
 ```js
@@ -149,6 +160,7 @@ delete person2.name;
 person2.age = 10;
 console.log(person2);
 ```
+
 
 * 禁止添加或删除属性：冻结。即：禁止修改对象已存在的属性和方法，所有字段都是只读的。
 
@@ -164,27 +176,33 @@ persion3.name = 'new name';
 console.log(persion3);
 ```
 
+
 **访问器属性** 和 **对象保护功能** 都是针对 **对象属性** ，而不是 **变量**
 
 
 ### 数据类型
 
+
 #### 五种基本类型：
 `Undefined`、`Null`、`Boolean`、`Number`、`String`
+
 
 * `Boolean`、`Number`、`String`。
   
   这三种基本类型平时使用的时候大都使用的是字面量形式，字面量并不是对象，但是当需要的时候，它们也会被转换成对象，也就是会被转换成**基本类型的包装类型**。
+
 
 * `Undefined`、`Null`。
   
   并不存在`Undefined()`和`Null()`内建函数，只存在`Undefined`和`Null`类型的内建对象`undefined`和`null`，这两个中类型并无**基本类型的包装类型**。
   ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的，相同的地方是都可以视为布尔值的false。
 
+
 #### 引用类型：
 `Object`、`Function`、`Array`、`Error`、`Regexp`、`Map`、`Set`...
 
 JavaScript中除了 `null` 和 `undefined` 之外的一切都可以被当做对象！
+
 
 undefined与null的区别：
 * null表示"没有对象"，即该处不应该有值。
@@ -195,6 +213,7 @@ undefined与null的区别：
   2. 调用函数时，参数没有提供，该参数undefined。
   3. 对象没有赋值的属性，该属性undefined。
   4. 函数没有返回值时，返回undefined。
+
 
 * Undefined Null
   
@@ -209,6 +228,7 @@ var undefined = 'foo';
 console.log(undefined, typeof undefined);   // foo 'string'
 console.log(void(0) === undefined);         // true
 ```
+
 
 * Number
   
@@ -226,6 +246,7 @@ console.log(numObj === new Number(0));      // false
 console.log(numObj === numObj);             // true
 ```
 
+
 * String
   
 ```js
@@ -239,6 +260,7 @@ console.log(str === strObj);                // false
 console.log(typeof str);                    // string
 console.log(typeof strObj);                 // object
 ```
+
 
 * Boolean
   
@@ -254,6 +276,7 @@ console.log(typeof bool);                   // boolean
 console.log(typeof boolObj);                // object
 ```
 
+
 * Object - 引用类型
   
 ```js
@@ -267,28 +290,41 @@ console.log(typeof boolObj);                // object
 ```
 
 
+#### 类型转换
+
+
+
 ### void
 
-`void UnaryExpression` 按如下流程解释:
-* 令`expr`为解释执行`UnaryExpression`的结果。
-* 调用 `GetValue(expr)`.
-* 返回 `undefined`.
 
-注意：GetValue一定会被调用，即使它的值不会被用到，但是这个表达式可能会有副作用(side-effects)。
+* void UnaryExpression 按如下流程解释:
 
-为什么要用void？undefined不是保留字，可以重新赋值。采用void方式获取undefined便成了通用准则。
+  * 令`expr`为解释执行`UnaryExpression`的结果。
+  * 调用 `GetValue(expr)`.
+  * 返回 `undefined`.
+
+* 注意：GetValue一定会被调用，即使它的值不会被用到，但是这个表达式可能会有副作用(side-effects)。
+
+*  为什么要用void？`undefined`不是保留字，可以重新赋值。采用void方式获取undefined便成了通用准则。
+
 
 [谈谈JavaScript中的void操作符](https://segmentfault.com/a/1190000000474941)
 
 
+
 ### 对象
+
+
 ECMAScript做为一个高度抽象的面向对象语言，是通过对象来交互的。
 一个对象就是一个属性集合，并拥有一个独立的`原型对象`，这个`原型对象`可以是一个`对象`或者`null`。
 一个对象的`原型对象`是以对象内部的`[[Prototype]]`属性来引用的。
 
+
 在示意图里边我们将会使用`__<internal-property>__`下划线标记来替代两个括号，对于prototype对象来说是：`__proto__`。
 
+
 让我们看一个关于对象的基本例子。
+
 
 对于以下代码：
 ```js
@@ -298,26 +334,31 @@ var foo = {
 };
 ```
 
-我们拥有一个这样的结构，两个显式的自身属性和一个隐藏的`__proto__`属性，这个属性是对`Object.prototype`的引用。
+我们拥有一个这样的结构，两个显式的属性和一个隐藏的`__proto__`属性，这个属性是对`Object.prototype`的引用。
 
 ![basic-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/basic-object.png)
+
 
 这些`prototype`有什么用？让我们以`原型链`的概念来回答这个问题。
 
 
 ### 原型链（prototype-chain）
 
+
 * `原型对象`也是简单的对象并且可以拥有它们自己的原型，如果一个原型对象的`原型`是一个非`null`的引用，以此类推，原型对象连成的链，就形成了`原型链`。
 * `原型链`是一个用来实现`继承`和`共享`属性的有限长度的`对象链`。
 * `原型链`是为了实现代码重用而设计的，在基于类的系统中，这个代码重用风格叫作`继承`。
 
+
 ECMAScript中没有类的概念，但是代码重用的风格并没有太多不同，ECMAScript通过原型链来实现，即**原型继承(prototype based inheritance)**，这种继承方式叫作**委托继承(delegation based inheritance)**。
+
 
 ES5标准化了一个实现原型继承的新的可选方法，使用`Object.create`函数：
 ```js
 var b = Object.create(a, {y: {value: 20}});
 var c = Object.create(a, {y: {value: 30}});
 ```
+
 
 ES6标准化了`__proto__`属性，并且可以在对象初始化的时候使用它，如下面的用法。
 `b`和`c`可以访问到`a`对象中定义的`calculate()`方法，是通过原型链`lookup`实现的。
@@ -336,19 +377,28 @@ b.calculate(30); // 60
 c.calculate(40); // 80
 ```
 
+
 #### 原型链lookup规则：
+
 如果一个`属性`/`方法`在对象自身中无法找到，JS引擎会尝试遍历整个原型链，寻找这个`属性`/`方法`，第一个被查找到的同名`属性`/`方法`会被使用。如果在遍历了整个原型链之后还是没有查找到这个属性的话，返回undefined值。
 
 下一张图展示了对象`a`，`b`，`c`之间的继承关系：
 
 ![prototype-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/prototype-chain.png)
 
+
+所以`__proto__`是给JS引擎用的，但是暴露给了我们，并且可以对其修改。
+
+
 #### `__proto__`
-* 如果没有明确为一个对象指定原型，那么它将会使用`__proto__`的默认值`Object.prototype`。
+
+* 如果没有明确为一个对象指定原型，那么它将会使用 `__proto__` 的默认值 `Object.prototype`。
 * `Object.prototype`对象自身也有一个`__proto__`属性，值为`null`，这是原型链的终点。 即：`Object.prototype.__proto__ === null`
 * The `__proto__` property of `Object.prototype` is an `accessor property` (a getter function and a setter function) that exposes the internal `[[Prototype]]` (either an object or null) of the object through which it is accessed.
 
+
 项目中建议不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()、Object.create()`读写原型。
+
 
 ```js
 var Shape = function () { };
@@ -359,23 +409,24 @@ var proto = {
 };
 Shape.prototype = proto;
 ```
+
+
 ```js
 var circle = new Shape();
-console.log('circle:', circle.__proto__ === Shape.prototype);                      // true
-console.log('circle:', Object.getPrototypeOf(circle) === Shape.prototype);         // true
-console.log('circle:', typeof circle);                                             // object
-console.log('circle:', circle instanceof Shape);                                   // true
-console.log('circle:', circle instanceof Object);                                  // true
-circle.say();                                                                      // hello world!
+console.log('circle:', circle.__proto__ === Shape.prototype);
+console.log('circle:', Object.getPrototypeOf(circle) === Shape.prototype);
+console.log('circle:', typeof circle);
+console.log('circle:', circle instanceof Shape);
+console.log('circle:', circle instanceof Object);
 ```
+
 ```js
 var rectangle = Object.create(proto);
-console.log('ractangle:', rectangle.__proto__ === Shape.prototype);                // true
-console.log('ractangle:', Object.getPrototypeOf(rectangle) === Shape.prototype);   // true
-console.log('ractangle:', typeof rectangle);                                       // object
-console.log('ractangle:', rectangle instanceof Shape);                             // true
-console.log('ractangle:', rectangle instanceof Object);                            // true
-circle.say();                                                                      // hello world!
+console.log('ractangle:', rectangle.__proto__ === Shape.prototype);
+console.log('ractangle:', Object.getPrototypeOf(rectangle) === Shape.prototype);
+console.log('ractangle:', typeof rectangle);
+console.log('ractangle:', rectangle instanceof Shape);
+console.log('ractangle:', rectangle instanceof Object);
 ```
 
 ```js
@@ -391,14 +442,19 @@ console.log([] instanceof Object);
 console.log({} instanceof Object);
 ```
 
-`typeof`和`instanceof`的目的都是检测变量的类型，区别在于typeof一般是检测的是基本数据类型，instanceof主要检测的是引用类型。
+
+`typeof`和`instanceof`的目的都是检测变量的类型，区别在于typeof一般（只能）检测的是基本数据类型，instanceof主要检测的是引用类型。
+
 
 通常情况下对象拥有相同或者相似的状态结构（也就是相同的属性集合），赋以不同的状态值，在这个情况下我们可能需要使用`构造函数`，其以指定的模式来创造对象。
 
 
 ### 构造函数
+
+
 * 以指定的模式来创造对象
 * 自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
+
 
 我们可以使用构造函数来重写上一个拥有对象`b`和对象`c`的例子。因此，对象`a`的角色由Foo.prototype来扮演：
 ```js
@@ -420,16 +476,19 @@ console.log(b.calculate === b.__proto__.calculate);
 console.log(b.__proto__.calculate === Foo.prototype.calculate);
 ```
 
+
 这个代码可以表示为如下关系：
 
 可以看到，构造函数`Foo`也有自己的`__proto__`，即`Function.prototype`，`Function.prototype`通过其`__proto__`属性关联到`Object.prototype`。
 ![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/constructor-proto-chain.png)
+
 
 思考一下类的概念，那么构造函数和原型对象合在一起可以当作一个「类」了。
 
 例如：Python的`First-Class、Dynamic-Classes`显然是以同样的`属性`/`方法`处理方案来实现的。从这个角度来说，Python中的类可以看作ECMAScript使用的委托继承的一个语法糖。
 
 在ES6中「类」的概念被标准化了，并且实际上以一种构建在构造函数上面的语法糖来实现，就像上面描述的一样。
+
 
 用类的方式实现如下：
 ```js
@@ -451,6 +510,7 @@ var bar = new Bar('John');
 console.log(bar.getName()); // John Doe
 ```
 
+
 **new** 操作符 都做了什么？
 
 1. 创建一个新对象
@@ -459,6 +519,7 @@ console.log(bar.getName()); // John Doe
 4. 返回新对象的引用
 
 只要用`new`操作符来调用函数就是构造函数，否则，就是普通函数。
+
 
 ```js
 var o = new NewObject(11, 22)
@@ -479,7 +540,9 @@ console.log(obj1.func() === obj3.func());
 ```
 
 
+
 ### 对象构造
+
 
 #### 工厂模式
 * 按指定模式创建对象的，但是对象类型无法标识。
@@ -498,6 +561,7 @@ var o1 = createObject(1, 2);
 var o2 = createObject(3, 4);
 console.log(o1.property1);
 ```
+
 
 #### 构造函数模式
 * 构造函数名字用来标志一个`特定类型`。
@@ -523,6 +587,7 @@ console.log(no1 instanceof NewObject);
 console.log(no2 instanceof Object);
 console.log(no2 instanceof NewObject);
 ```
+
 
 #### 原型模式
 * 每个函数都有一个`prototype`属性，引用另一个对象，这个对象可以实现属性的共享。
@@ -564,6 +629,7 @@ Object.defineProperty(PrototypeObject.prototype, 'constructor', {
 })
 ```
 
+
 #### 组合构造函数和原型模式
 * 集两者之长默认模式
 * 实例属性在构造函数中定义　　
@@ -580,6 +646,7 @@ function () {
 	console.log(this.desc);
 };
 ```
+
 
 #### 动态原型模式
 * 只在第一次调用构造函数时　实例化原型
@@ -604,6 +671,7 @@ function ConstructPrototypeObject(name, desc) {
 }
 ```
 
+
 #### 继承模式（寄生模式）
 * 这种方式，可以用来扩展原生对象，在不修改原生对象的前提下，增加方法。
 
@@ -619,6 +687,7 @@ function SpecialArray() {
 var colors = new SpecialArray('red', 'blue', 'green');
 console.log(colors.toPipedString());
 ```
+
 
 #### 稳妥构造函数模式
 * 数据成员位于作用域链中，不在对象的属性中，防止数据被其他程序改动时使用，适合用于一些安全环境，这些环境禁止使用this和new。
@@ -636,6 +705,7 @@ var friend = Person('liuyanjie', 22, 'Software Engineer');
 friend.sayName();
 console.log(friend.name); //undefined
 ```
+
 
 
 ### 继承
@@ -1932,4 +2002,3 @@ JavaScript为了避免复杂性，而实现单线程执行。而今JavaScript却
 * http://blog.thomasbelin.fr/p/javascript-single-threaded-et-asynchrone/
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop
 * http://www.ruanyifeng.com/blog/2014/10/event-loop.html
-
