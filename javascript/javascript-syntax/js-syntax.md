@@ -8,12 +8,13 @@ javascript-syntax
 
 
 #### 数据属性
+
 属性|说明
 ---|---
-`[[Configurable]]` |表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true|
-`[[Enumerable]]`   |表示能否通过for-in循环返回属性。true|
-`[[Writable]]`	    |表示能否修改属性值。ture|
-`[[Value]]`		    |包含实际值。undefined|
+`[[Configurable]]` | 表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true|
+`[[Enumerable]]`   | 表示能否通过for-in循环返回属性。true|
+`[[Writable]]`     | 表示能否修改属性值。ture|
+`[[Value]]`        | 包含实际值。undefined|
 
 严格模式下不合法的操作会抛出异常，非严格模式会忽略相关操作。
 
@@ -37,12 +38,13 @@ console.log(person.sax);        // M
 
 
 #### 访问器属性: `getter` `setter`
+
 属性|说明
 ---|---
-`[[Configurable]]`	|表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true
-`[[Enumerable]]`	|表示能否通过for-in循环返回属性。true
-`[[Getter]]`		|取值函数。undefined
-`[[Setter]]`		|赋值函数。undefined
+`[[Configurable]]`    | 表示能否通过delete删除属性从而重新定义属性，能否改变属性的特性，或者能否改变把属性改为访问器属性。true
+`[[Enumerable]]`      | 表示能否通过for-in循环返回属性。true
+`[[Getter]]`          | 取值函数。undefined
+`[[Setter]]`          | 赋值函数。undefined
 
 
 * `getter`和`setter`不一定要成对出现;
@@ -119,7 +121,8 @@ console.log(desc2);
 ```
 
 
-应用：
+#### 应用：
+
 * 观察者模式
   - 例子[JavaScript实现MVVM监测一个普通对象的变化](http://hcysun.me/2016/04/28/JavaScript%E5%AE%9E%E7%8E%B0MVVM%E4%B9%8B%E6%88%91%E5%B0%B1%E6%98%AF%E6%83%B3%E7%9B%91%E6%B5%8B%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96/)
 
@@ -184,6 +187,7 @@ console.log(persion3);
 
 
 #### 五种基本类型：
+
 `Undefined`、`Null`、`Boolean`、`Number`、`String`
 
 
@@ -199,12 +203,14 @@ console.log(persion3);
 
 
 #### 引用类型：
+
 `Object`、`Function`、`Array`、`Error`、`Regexp`、`Map`、`Set`...
 
 JavaScript中除了 `null` 和 `undefined` 之外的一切都可以被当做对象！
 
 
 undefined与null的区别：
+
 * null表示"没有对象"，即该处不应该有值。
   1. 作为函数的参数，表示该函数的参数不是对象。
   2. 作为对象原型链的终点。
@@ -289,8 +295,15 @@ console.log(typeof obj);                    // object
 console.log(typeof boolObj);                // object
 ```
 
+* 复合类型 - Array （引用，指针）
+
 
 #### 类型转换
+
+
+#### 类型识别
+
+toString 等方法
 
 
 
@@ -312,7 +325,7 @@ console.log(typeof boolObj);                // object
 
 
 
-### 对象
+### Object
 
 
 ECMAScript做为一个高度抽象的面向对象语言，是通过对象来交互的。
@@ -327,6 +340,7 @@ ECMAScript做为一个高度抽象的面向对象语言，是通过对象来交�
 
 
 对于以下代码：
+
 ```js
 var foo = {
   x: 10,
@@ -354,6 +368,7 @@ ECMAScript中没有类的概念，但是代码重用的风格并没有太多不�
 
 
 ES5标准化了一个实现原型继承的新的可选方法，使用`Object.create`函数：
+
 ```js
 var b = Object.create(a, {y: {value: 20}});
 var c = Object.create(a, {y: {value: 30}});
@@ -449,14 +464,15 @@ console.log({} instanceof Object);
 通常情况下对象拥有相同或者相似的状态结构（也就是相同的属性集合），赋以不同的状态值，在这个情况下我们可能需要使用`构造函数`，其以指定的模式来创造对象。
 
 
-### 构造函数
 
+### 构造函数
 
 * 以指定的模式来创造对象
 * 自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
 
 
 我们可以使用构造函数来重写上一个拥有对象`b`和对象`c`的例子。因此，对象`a`的角色由Foo.prototype来扮演：
+
 ```js
 function Foo(y) { this.y = y; }
 Foo.prototype.x = 10;
@@ -491,6 +507,7 @@ console.log(b.__proto__.calculate === Foo.prototype.calculate);
 
 
 用类的方式实现如下：
+
 ```js
 // ES6
 class Foo {
@@ -545,7 +562,9 @@ console.log(obj1.func() === obj3.func());
 
 
 #### 工厂模式
+
 * 按指定模式创建对象的，但是对象类型无法标识。
+
 ```js
 function createObject(arg1, arg2) {
 	var o = new Object();
@@ -564,8 +583,10 @@ console.log(o1.property1);
 
 
 #### 构造函数模式
+
 * 构造函数名字用来标志一个`特定类型`。
 * 问题在于：每个方法在每个对象上都要重新创建一次。
+
 ```js
 function NewObject(arg1, arg2) {
 	this.property1 = arg1;
@@ -590,6 +611,7 @@ console.log(no2 instanceof NewObject);
 
 
 #### 原型模式
+
 * 每个函数都有一个`prototype`属性，引用另一个对象，这个对象可以实现属性的共享。
 * `prototype`是构造函数的一个属性，`prototype`指向的`原型对象`拥有一个`constructor`属性指向构造函数，普通函数有此属性无意义。
 * 通过构造函数创建的`对象实例`可以通过`__proto__`访问`原型对象`，但是不能重写，重名的属性将屏蔽原型中的同名属性。
@@ -631,6 +653,7 @@ Object.defineProperty(PrototypeObject.prototype, 'constructor', {
 
 
 #### 组合构造函数和原型模式
+
 * 集两者之长默认模式
 * 实例属性在构造函数中定义　　
 * 共享属性在原型中定义
@@ -649,6 +672,7 @@ function () {
 
 
 #### 动态原型模式
+
 * 只在第一次调用构造函数时　实例化原型
 
 ```js
@@ -673,6 +697,7 @@ function ConstructPrototypeObject(name, desc) {
 
 
 #### 继承模式（寄生模式）
+
 * 这种方式，可以用来扩展原生对象，在不修改原生对象的前提下，增加方法。
 
 ```js
@@ -690,6 +715,7 @@ console.log(colors.toPipedString());
 
 
 #### 稳妥构造函数模式
+
 * 数据成员位于作用域链中，不在对象的属性中，防止数据被其他程序改动时使用，适合用于一些安全环境，这些环境禁止使用this和new。
 
 ```js
@@ -711,6 +737,7 @@ console.log(friend.name); //undefined
 ### 继承
 
 #### 原型链
+
 * 原型属性会被所有实例共享
 * 无法向超类传递参数
 
@@ -744,6 +771,7 @@ console.log(instance);
 ```
 
 #### 组合继承
+
 * 原型链继承原型
 * 借用构造函数继承实例属性
 
@@ -771,6 +799,7 @@ instance.sayAge();
 ```
 
 #### 原型式继承
+
 * 此方式必须有一个对象作为基础，作为原型。
 
 ```js
@@ -783,6 +812,7 @@ Object.create();    //此方法即为原型式继承
 ```
 
 #### 寄生式继承
+
 ```js
 function createAnother(original) {          // 工厂
 	var clone = Object.create(original);      // 封装了原型式继承
@@ -794,6 +824,7 @@ function createAnother(original) {          // 工厂
 ```
 
 #### 寄生组合式继承
+
 * 借用构造函数继承属性
 * 原型链的混成形式继承方法
 
@@ -806,6 +837,7 @@ function inheritPrototype(subType, supType) {
 ```
 
 Node.js原生实现的继承函数：
+
 ```js
 exports.inherits = function(ctor, superCtor) {
   if (ctor === undefined || ctor === null)
@@ -836,6 +868,7 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 下图是一个JavaScript Prototype Chain关系图：
 
 [查看原图](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
+
 ![JavaScript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
 
 
@@ -858,6 +891,7 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 * 每次对eval函数进行调用，会进入eval执行上下文并对其代码进行求值。
 
 注意，一个函数可能会创建无数的上下文，因为对函数的每次调用（即使这个函数递归的调用自己）都会生成一个具有新状态的上下文：
+
 ```js
 function foo(bar) {}
 // call the same function, 
