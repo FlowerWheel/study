@@ -1,3 +1,4 @@
+
 javascript-syntax
 =================
 参考：
@@ -8,6 +9,7 @@ javascript-syntax
 
 
 #### 数据属性
+
 
 属性|说明
 ---|---
@@ -38,6 +40,7 @@ console.log(person.sax);        // M
 
 
 #### 访问器属性: `getter` `setter`
+
 
 属性|说明
 ---|---
@@ -467,6 +470,7 @@ console.log({} instanceof Object);
 
 ### 构造函数
 
+
 * 以指定的模式来创造对象
 * 自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
 
@@ -617,6 +621,7 @@ console.log(no2 instanceof NewObject);
 * 通过构造函数创建的`对象实例`可以通过`__proto__`访问`原型对象`，但是不能重写，重名的属性将屏蔽原型中的同名属性。
 * 在原型中修改属性，会立刻在`对象实例`中反映出来。但是如果重写整个原型对象，那么实例对象将找不到原型中定义的属性。
 
+
 ```js
 function PrototypeObject() { }
 PrototypeObject.prototype.name = 'PrototypeObject';
@@ -736,6 +741,7 @@ console.log(friend.name); //undefined
 
 ### 继承
 
+
 #### 原型链
 
 * 原型属性会被所有实例共享
@@ -770,6 +776,7 @@ instance.colors.push('black');
 console.log(instance);
 ```
 
+
 #### 组合继承
 
 * 原型链继承原型
@@ -798,6 +805,7 @@ instance.sayName();
 instance.sayAge();
 ```
 
+
 #### 原型式继承
 
 * 此方式必须有一个对象作为基础，作为原型。
@@ -811,6 +819,7 @@ function object(o) {
 Object.create();    //此方法即为原型式继承
 ```
 
+
 #### 寄生式继承
 
 ```js
@@ -822,6 +831,7 @@ function createAnother(original) {          // 工厂
 	return clone;
 }
 ```
+
 
 #### 寄生组合式继承
 
@@ -835,6 +845,7 @@ function inheritPrototype(subType, supType) {
 	subType.prototype = prototype;
 }
 ```
+
 
 Node.js原生实现的继承函数：
 
@@ -856,6 +867,8 @@ exports.inherits = function(ctor, superCtor) {
 };
 ```
 
+
+
 ### `bind`、`call`、`apply`是做什么的？
 
 TODO: 要改，举例说明使用方法。
@@ -865,9 +878,9 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 这三个函数就可以用来完成绑定工作。任何一个函数也是在一个上下文对象上进行工作。上下文是一个this对象。
 这是一种松散的绑定关系，随时可以根据需要来绑定。因此就可以自由的将其他模块上的属性方法，绑定到自己身上，但是要避免名字冲突。
 
-下图是一个JavaScript Prototype Chain关系图：
 
-[查看原图](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
+下图是一个JavaScript Prototype Chain关系图：[查看原图](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
+
 
 ![JavaScript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
 
@@ -875,7 +888,9 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 现在，在我们知道了对象的基础之后，让我们看看运行时程序的执行（runtime program execution）在ECMAScript中是如何实现的。
 
 
+
 ### 执行上下文堆栈
+
 
 * EC(执行环境或者执行上下文，Execution Context)
 * ECS(执行环境栈Execution Context Stack)
@@ -883,12 +898,15 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 * AO(活动对象，Active Object)
 * Scope Chain(作用域链)和`[[scope]]`属性
 
+
 有三种类型的ECMAScript代码：`全局代码`、`函数代码`和`eval代码`
+
 
 * 每个代码是在其执行上下文（EC）中被求值的。
 * 全局上下文只有一个，可能有多个函数执行上下文以及eval执行上下文。
 * 对一个函数的每次调用，会进入到函数执行上下文中，并对函数代码类型进行求值。
 * 每次对eval函数进行调用，会进入eval执行上下文并对其代码进行求值。
+
 
 注意，一个函数可能会创建无数的上下文，因为对函数的每次调用（即使这个函数递归的调用自己）都会生成一个具有新状态的上下文：
 
@@ -902,36 +920,49 @@ foo(20);
 foo(30);
 ```
 
+
 一个执行上下文(EC)可能会触发另一个上下文(EC)，如，一个函数调用另一个函数。从逻辑上来说，这是以栈的形式实现的，它叫作执行上下文栈(ECS)。
+
 
 一个触发其他上下文的上下文叫作`caller`，被触发的上下文叫作`callee`，`callee`在同一时间可能是一些其他`callee`的`caller`。
 
+
 当一个`caller`触发（调用）了一个`callee`，这个`caller`会暂缓自身的执行，然后把控制权传递给`callee`，控制权转移。
 
+
 这个`callee`被push到栈中，并成为一个`活动的`执行上下文，在`callee`的上下文结束后（`callee`可能简单的返回或者由于异常而退出，一个抛出的但没有被捕获的异常可能退出一个或者多个上下文），它会把控制权返回给`caller`，然后`caller`的上下文继续执行直到它结束，以此类推。
+
 
 所有ECMAScript程序的运行时可以用执行上下文栈（ECS）来表示，栈顶是当前活动的上下文：
 
 ![ec-stack](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/ec-stack.png)
 
+
 当程序开始的时候它会进入全局执行上下文，此上下文位于栈顶并且是栈中的第一个元素。然后全局代码进行一些初始化，创建需要的对象和函数。
+
 
 在全局上下文的执行过程中，它的代码会触发其他函数，进入它们自己的执行上下文，向栈中push新的元素，以此类推。
 
+
 当初始化完成之后，运行时系统（runtime system）就会等待一些事件，这些事件将会触发一些函数，从而进入新的执行上下文中。
+
 
 在下个图中，拥有一些函数上下文EC1和全局上下文Global EC，当EC1进入和退出全局上下文的时候下面的栈将会发生变化：
 
 ![ec-stack-changes](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/ec-stack-changes.png)
 
+
 这就是ECMAScript的运行时系统如何真正地管理代码执行的。
 
+
 栈中的每个执行上下文都可以用一个对象来表示。
+
 
 让我们来看看它的结构以及一个上下文到底需要什么状态（什么属性）来执行它的代码。
 
 
-### 执行上下文
+#### 执行上下文
+
 
 一个执行上下文可以抽象的表示为一个简单的对象。每一个执行上下文拥有一些属性（可以叫作上下文状态）用来跟踪和它相关的代码的执行过程。在下图中展示了一个上下文的结构：
 
@@ -941,7 +972,9 @@ foo(30);
 
 让我们详细看看上下文中的这些重要的属性。
 
+
 #### 变量对象（variable object）
+
 
 `变量对象`是与`执行上下文`相关的`数据作用域`。它是一个与上下文相关的特殊对象，其中存储了在上下文中定义的`变量`和`函数声明`。
 
@@ -974,7 +1007,9 @@ console.log(baz); // ReferenceError, "baz" is not defined
 
 那么函数和它的变量对象是怎么样的？在函数上下文中，变量对象是以`活动对象`来表示的。
 
+
 #### 活动对象（activation object）
+
 
 当一个函数被`caller`调用，一个特殊的对象，叫作`活动对象`（activation object）将会被创建。这个对象中包含形参和那个特殊的`arguments`对象（是对形参的一个映射，但是值是通过索引来获取）。活动对象之后会做为函数上下文的变量对象来使用。
 
@@ -1003,7 +1038,9 @@ foo(10, 20);
 
 众所周知，在ECMAScript中我们可以使用内部函数，然后在这些内部函数我们可以引用父函数的变量或者全局上下文中的变量。当我们把变量对象命名为上下文的作用域对象，与上面讨论的原型链相似，这里有一个叫作`作用域链`的东西。
 
+
 #### 作用域链(scope chain)
+
 
 作用域链是一个对象列表，上下文代码中出现的标识符在这个列表中进行查找。
 
@@ -1091,7 +1128,10 @@ console.log(x); // 10
 
 然后我们移动到下个部分，考虑一下执行上下文的最后一个属性。这就是关于this值的概念。
 
+
+
 ### This
+
 
 this是一个与执行上下文相关的特殊对象。因此，它可以叫作上下文对象（也就是用来指明执行上下文是在哪个上下文中被触发的对象）。
 任何对象都可以做为上下文中的this的值。我想再一次澄清，在一些对ECMAScript执行上下文和部分this的描述中的所产生误解。this经常被错误的描述成是变量对象的一个属性。这类错误存在于比如像这本书中（即使如此，这本书的相关章节还是十分不错的）。再重复一次：
@@ -1148,6 +1188,7 @@ otherFoo(); // again global object
 为了深入理解this为什么（并且更本质一些－如何）在每个函数调用中可能会发生变化，你可以阅读第三章 This。在那里，上面所提到的情况都会有详细的讨论。
 
 http://www.kancloud.cn/kancloud/deep-understand-javascript/43686
+
 
 
 ### 闭包
@@ -1281,6 +1322,8 @@ data[1](); // 1
 data[2](); // 2
 ```
 
+
+
 ### 闭包
 
 有权访问另一个函数作用域中的变量的函数
@@ -1321,12 +1364,15 @@ objA.func1();
 词法作用域：变量的作用域是在定义时决定而不是执行时决定，也就是说词法作用域取决于源码，通过静态分析就能确定，因此词法作用域也叫做静态作用域。 with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）。
 
 
+
 ### 函数表达式
 
 
 ### 执行过程
 
+
 #### 执行顺序
+
  * 编译型语言，编译步骤分为：词法分析、语法分析、语义检查、代码优化和字节生成。
  * 解释型语言，通过词法分析和语法分析得到语法分析树后，就可以开始解释执行了。这里是一个简单原始的关于解析过程的原理，仅作为参考，详细的解析过程（各种JS引擎还有不同）还需要更深一步的研究
 
@@ -1347,12 +1393,16 @@ objA.func1();
  * 实例化的同时，这个调用对象的一个属性被初始化成一个名叫 arguments 的属性，
  * 它引用了这个函数的 Arguments 对象，Arguments 对象是函数的实际参数。
 
+
 #### 关键步骤
+
  上面的过程，我们主要是分成两个阶段
  * 解析：通过语法分析和预解析构造合法的语法分析树。
  * 执行：执行具体的某个函数，JS引擎在执行每个函数实例时，都会创建一个执行环境（ExecutionContext）和活动对象（ActiveObject）（它们属于宿主对象，与函数实例的生命周期保持一致）
 
+
 #### 关键概念
+
  * 语法分析树（SyntaxTree）
   * 可以直观地表示出这段代码的相关信息，具体的实现就是JS引擎创建了一些表，
   * 用来记录每个方法的 内部变量集（variables）、内嵌函数集（functions）和作用域（scope）等
@@ -1387,11 +1437,13 @@ objA.func1();
   * 闭包函数可以访问所保持的作用域链上的外部环境。
 
 
+
 ### javascript词法分析
 
 lexical-analyzer  Lexer  Tokenizer
 
 词法分析主要分为3步：
+
  * 第1步：分析形参
  * 第2步：分析变量声明
  * 第3步：分析函数声明
@@ -1403,7 +1455,10 @@ JavaScript的每个函数function都有自己的作用域，使用Active Object�
 
 函数fn3中使用的变量，如在fn3作用域内寻找不到，则往外层fn2作用域寻找，以此类推，直到全局对象window
 
+
 #### 1、解析模拟
+
+
 估计，看到这儿，大家还是很朦胧吧，什么是语法分析树，语法分析树到底长什么样子，作用域链又怎么实现的，活动对象又有什么内容等等，还是不是太清晰，
 下面我们就通过一段实际的代码来模拟整个解析过程，我们就把语法分析树，活动对象实实在在的创建出来，理解作用域，作用域链的到底是怎么实现的
 
@@ -1434,6 +1489,8 @@ a(10, 20, 30);
 ```
 
 #### 2、语法分析树
+
+
  上面的代码很简单，就是先定义了一些全局变量和全局方法，接着在方法内再定义局部变量和局部方法，现在JS解释器读入这段代码开始解析，
  前面提到 JS 引擎会先通过语法分析和预解析得到语法分析树，至于语法分析树长什么样儿，都有些什么信息，下面我们以一种简单的结构：
  一个 JS 对象(为了清晰表示个各种对象间的引用关系，这里的只是伪对象表示，可能无法运行)来描述语法分析树
@@ -1493,7 +1550,9 @@ var SyntaxTree = {
 
 上面就是关于语法分析树的一个简单表示，正如我们前面分析的，语法分析树主要记录了每个 function 中的变量集（variables），方法集（functions）和作用域（scope）
 
+
 #### 3、执行环境
+
 
 ```js
 var ExecutionContext = {
@@ -1535,7 +1594,9 @@ var ExecutionContext = {
 * body属性，直接指向当前方法的活动对象
 * scopeChain属性，作用域链，它是一个链表结构，根据语法分析树中当前方法对应的scope属性，它指向scope对应的方法的活动对象（ActivceObject），变量查找就是跟着这条链条查找的活动对象
 
+
 #### 4、活动对象：函数执行时创建的活动对象列表
+
 
 ```js
 var ActiveObject = {
@@ -1598,9 +1659,12 @@ var ActiveObject = {
 ```
 
 
+
 ### JavaScript线程模型
 
+
 #### 为什么JavaScript是单线程的？
+
 
 单线程是相对多线程而言的，假如系统从来就没有过多线程这个概念，那么为什么JavaScript是单线程的这个问题就不存在了。
 那为什么会存在这个问题呢？因为JavaScript可以实现并发，达到类似多线程的效果但是却没有用多线程来实现。
@@ -1705,7 +1769,9 @@ while(waitForEvent()){
 
 EventLoop绝不能阻塞，阻不阻塞不是JavaScript决定的。保证当应用等待异步请求返回时，其仍能处理其它操作。
 
+
 #### Runtime
+
 
 * Stack 这里放着JavaScript正在执行的任务，每个任务被称为帧（frame）。
 * Heap 一个用来表示内存中一大片非结构化区域的名字，对象都被分配在这。
@@ -1717,7 +1783,9 @@ EventLoop绝不能阻塞，阻不阻塞不是JavaScript决定的。保证当应�
 
 ！！！！！！！！！！！图
 
+
 #### 下面这段代码执行后会有什么效果？
+
 
 ```js
 setTimeout(function alertA(){
@@ -1742,7 +1810,9 @@ alert('B');
 
 *B*所在的那段脚本被终止了，为什么*alertA*还能被执行？
 
+
 #### sleep
+
 
 JavaScript是没有*sleep*方法的，如果非要*sleep*，我们只能实现一个伪sleep，因为这个循环会不断消耗CPU去比对时间，并不是真正的sleep，而是没有响应地工作： 
 
@@ -1754,7 +1824,9 @@ function sleep(time) {
 }
 ```
 
+
 #### 拆分耗时逻辑
+
 
 很多时候我们需要把耗时的逻辑拆分，腾出时间来给其他逻辑的执行。
 下面的代码源自《Timed array processing in JavaScript》这篇文章，作者首先给出一个这样的拆分逻辑执行的框架代码：
@@ -1796,7 +1868,9 @@ function timedChunk(items, process, context, callback){
 
 可以看见，这可以更充分地利用时间，执行的任务放到一个数组中，只要每次chunk内执行的时间不足50毫秒，就继续执行；一旦超过50毫秒，就留给外部事件25毫秒去处理。
 
+
 #### Timer
+
 
 * How JavaScript Timers Work
  
@@ -2036,3 +2110,4 @@ JavaScript为了避免复杂性，而实现单线程执行。而今JavaScript却
 * http://blog.thomasbelin.fr/p/javascript-single-threaded-et-asynchrone/
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop
 * http://www.ruanyifeng.com/blog/2014/10/event-loop.html
+
