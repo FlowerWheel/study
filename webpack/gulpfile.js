@@ -1,47 +1,154 @@
 'use strict';
-let gulp = require('gulp');
-let gUtil = require('gulp-util');
-let gConcat = require('gulp-concat');
-let gUglify = require('gulp-uglify');
-let gMd5 = require('gulp-md5-plus');
-let gCssSpriter = require('gulp-css-spriter');
-let gCoffee = require('gulp-coffee');
-let gImageMin = require('gulp-imagemin');
-let gSourcemaps = require('gulp-sourcemaps');
-let gCached = require('gulp-cached');
-let gChanged = require('gulp-changed');
-let gNewer = require('gulp-newer');
-let del = require('del');
+const gulp = require('gulp');
+const gUtil = require('gulp-util');
+const gConcat = require('gulp-concat');
+const gUglify = require('gulp-uglify');
+const gMd5 = require('gulp-md5-plus');
+const gCssSpriter = require('gulp-css-spriter');
+const gCoffee = require('gulp-coffee');
+const gImageMin = require('gulp-imagemin');
+const gSourcemaps = require('gulp-sourcemaps');
+const gCached = require('gulp-cached');
+const gChanged = require('gulp-changed');
+const gNewer = require('gulp-newer');
+const del = require('del');
+const vinylPaths = require('vinyl-paths');
 
-let webpack = require('webpack');
-let webpackConfig = require('./webpack.config.js');
+const gulpClean = require('gulp-clean');
+const gMinifyCSS = require('gulp-minify-css');
 
-let paths = {
-  scripts: ['src/.js'],
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js');
+
+const webpackComplier = webpack(webpackConfig);
+
+const env = process.env.NODE_ENV || 'develpment';
+
+const paths = {
+  scripts: ['./app/src/*.js'],
   images: ['images/*']
-}
+};
 
-let buildPath = ['build'];
+const buildPath = ['build'];
+const src = './src';
+const dst = './dist';
 
-let dist = 'dist';
+const isProduction = env === 'production';
 
 gulp.task('clean', () => {
-  return del(buildPath);
+  del(['tmp/*.js', '!tmp/unicorn.js']).then((paths) => {
+    gUtil.log('[clean] Deleted files and folders:\n', paths.join('\n'));
+  });
 });
 
-gulp.task('scripts', ['clean'], () => {
-  // Minify and copy all JavaScript (except vendor scripts)
-   // with sourcemaps all the way down
+gulp.task('clean:tmp', function () {
+  return gulp.src('tmp/*').pipe(vinylPaths(del)).pipe(gulp.dest('dist'));
+});
+
+gulp.task('webpack', ['clean'], (callback) => {
+  webpackComplier.run((err, stats) => {
+    if (err) {
+      throw new gUtil.PluginError('[ERROR] webpack', err);
+    }
+    gUtil.log('[webpack]', stats.toString());
+    callback();
+  });
+});
+
+function f(src, dst, filters) {
+    let stream = gulp.src(src, {'base': dst});
+    if (isProduction) {
+        if (!Array.isArray(filters)) {
+            filters = [filters];
+        }
+        for (let filter of filters) {
+            stream.pipe(filter());
+        }
+    }
+    stream.pipe(gulp.dest(dst));
+}
+
+gulp.task('minifyJS', () => {
+    f([src + '*.js'], dst, gUglify);
+});
+
+// Minify and copy all JavaScript (except vendor scripts)
+// with sourcemaps all the way down
+gulp.task('scripts', () => {
   return gulp.src(paths.scripts)
-    .pipe(gChanged(dist))
+    .pipe(gChanged(dst))
     .pipe(gCached('scripts'))
     .pipe(gSourcemaps.init())
-    .pipe(gCoffee())
-    .pipe(gUglify())
-    .pipe(gConcat('all.min.js'))
+        // .pipe(gCoffee())
+        .pipe(gUglify())
+        .pipe(gConcat('all.min.js'))
     .pipe(gSourcemaps.write())
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest('app/dist'));
 });
+
+gulp.task('minifyCSS', ['clean'], () => {
+    let src = [target + '/css/*.css'];
+    f(src, target, gMinifyCSS);
+});
+
+gulp.task('revision', ['minifyJS', 'minifyCSS'], () => {
+    let src = [target + '/css/*.css'];
+    f(src, target, [rev, () => {return gulp.dist(target)}, () => {return rev.manifest({merge: true})}]);
+});
+
+gulp.task('inlineSource', ['revision'], () => {
+    let src = [target + '/html/*.html'];
+    // f(src, target, [rev, () => {return gulp.dist(target)}, () => {return rev.manifest({merge: true})}]);
+    return gulp.src(src, {'base': dst}).pipe(inlineSource({compress: true, rootpath: './src/'})).pipe(gulp.dist(dst));
+});
+
+gulp.task('replace', ['inlineSource'], () => {
+ var _src = './' + directory + '/html/*.html', _dest = './views';
+    if (environment) {
+        return gulp.src(_src)
+            .pipe(replace('js/', publicPath + directory + '/js/'))
+            .pipe(replace('css/', publicPath + directory + '/css/'))
+            .pipe(gulp.dest(_dest));
+    } else {
+        var manifest = gulp.src(directory + '/rev/rev-manifest.json');
+        return gulp.src(_src)
+            .pipe(revReplace({
+                'prefix': publicPath + directory + '/',
+                'manifest': manifest,
+                'modifyReved': function (filename) {
+                    return filename;
+                }
+            }))
+            .pipe(gulp.dest(_dest));
+    }
+});
+
+gulp.task('minifyHTML', ['replace'], () => {
+if (environment) {
+        return gulp.src('views/*.html')
+            .pipe(gulp.dest('views'))
+            .pipe(livereload());
+    } else {
+        return gulp.src('views/*.html')
+            .pipe(htmlmin({
+                collapseWhitespace: true,
+                minifyCSS: true
+            }))
+            .pipe(gulp.dest('views'))
+    }
+
+});
+
+gulp.task('watch', ['inlineSource'], () => {
+    if (environment) {
+        stopClean = true;
+        //livereload.listen();
+        gulp.watch('src/**/*', ['clean', 'webpack', 'minifyJS', 'minifyCSS', 'rev', 'replace', 'inlineSource', 'minifyHTML']);
+    }
+
+});
+
+gulp.task('default', ['clean', 'webpack', 'minifyJS', 'minifyCSS', 'rev', 'replace', 'inlineSource', 'minifyHTML', 'watch']);
 
 gulp.task('images', ['clean'], function() {
   return gulp.src(paths.images)
