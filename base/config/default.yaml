@@ -1,75 +1,81 @@
 # 标准配置示范
 
-# 1.配置输出：在项目启动时，输出必要的配置信息。
-# 2.路径格式：与Linux系统路径一致，并且不出现盘符。
-# 3.在开发环境开启，生产环境关闭的设置，不放在配置文件中。
-# 4.明确概念，统一命名，如host表示主机，包含端口号，hostname表示主机，他们的值不应该是个url。
-# 5.把固定键值对，可以看作是枚举值的部分从配置文件中移除。
+# 运行环境定义为 生产环境 和 非生产环境（开发环境和测试环境），生产环境 和 非生产环境 不同的配置，即只有两种可能的，在程序中判断。
+# 明确什么算配置，什么不算配置，什么该放到配置文件中。
+# 配置输出：在项目启动时，输出必要的配置信息。
+# 路径格式：windows与Linux系统路径一致，并且不出现盘符。
+# 在开发环境开启，生产环境关闭的设置，不放在配置文件中。
+# 明确概念，统一命名，如host表示主机，包含端口号，hostname表示主机，他们的值不应该是个url。
+# 把固定键值对，可以看作是枚举值的部分从配置文件中移除。
+# 项目中非运行时使用的动态路径，在代码中定义。如：view目录。
 
-# http服务配置区，开发环境和生产环境不同的配置，如模板和静态文件路径，在代码中进行控制。
-http:
-    # 后台设置区
-    admin:
-        ip: 127.0.0.1
-        port: 12345
-        host: www.domain.com
-        security:
-            authorization: disabled
-    # 前台设置区
-    web:
-        ip: 127.0.0.1
-        port: 12346
-        host: www.domain.com
-        security:
-            authorization: disabled
-        staticize: 3600s
-
-# 以下部分如在前后台不同，则可分别在前台设置。
-
-# cookie session 配置，其他配置参数如无必要，直接在项目中写好。
-session:
-    name: proj_sessID
-    secret: 'this is a secret string.'
-    cookie: {maxAge: 1000, httpOnly: false, secure: true, domain: '', path: '/'}
-
-# 数据目录，项目中需要的其他路径，全部以此路径为基础，项目启动时自动创建。
-data: /raid/project
+# 数据目录，项目中需要的其他路径，全部以此路径为基础，项目启动时自动创建。自动创建的目录需要打印日志。
+# 根据目前项目，可能有如下目录：（所有项目下统一功能的目录需统一）
+# /raid/project_name/tmp/
+# /raid/project_name/uploads/
+# /raid/project_name/staticize/
+# /raid/project_name/ueditor/
+# /raid/project_name/logs/
+# /raid/project_name/images/
+data: /raid/project_name/
 
 # 日志配置
 log:
-    # 缺省条件下放在data目录下的log目录中
-    dir     : /raid/project/log/
-    # 以下是某项日志开关，与后边的数据库配置无关
-    console : false
-    mysql   : true
-    redis   : true
-    mongodb : true
+  enable: true
+  level : DEBUG
+  # 缺省条件下放在data目录下的log目录中
+  # dir     : /raid/project/logs/
+  # console: false # 开发环境开启：true，生产环境关闭：false，不做配置。
 
-blacklist:
+# http服务配置区，开发环境和生产环境不同的配置，如模板和静态文件路径，在代码中进行控制。
+http:
+  firewall:
+    blacklist:
     - 192.0.0/30
-whitelist:
+    whitelist:
     - 127.0.0/30
+  session:
+    name: proj_sessID
+    secret: 'This is a session secret string.'
+    cookie: {maxAge: 1000, httpOnly: false, secure: true, domain: '', path: '/'}
+  ssl:
+  servers:
+    admin:
+      ip: 127.0.0.1
+      port: 12345
+      host: admin.domain.com
+    web:
+      ip: 127.0.0.1
+      port: 12346
+      host: www.domain.com
+    api:
+      ip: 127.0.0.1
+      port: 12346
+      host: api.domain.com
+    static:
+      ip: 127.0.0.1
+      port: 12346
+      host: api.domain.com
 
 # 数据库配置区 配置都采用如下格式，其他数据库同样如此。
 # 格式 database:地址，集群等情况都包含在一个url中，其他配置参数可以在项目中写死
-mysql       : mysql://user:pass@127.0.0.1:3306,user:pass@127.0.0.1:3306/database?username=username&password=password
-mysql_cms   : mysql://user:pass@127.0.0.1:3306,user:pass@127.0.0.1:3306/cms?username=username&password=password
-mysql_admin : mysql://user:pass@127.0.0.1:3306,user:pass@127.0.0.1:3306/admin?username=username&password=password
-redis       : redis://user:password@127.0.0.1:6379/0
-mongodb     : 'mongodb://127.0.0.1:27027:,127.0.0.1:27037,127.0.0.1:27037/myrepl'
+db:
+  mysql       : mysql://user:pass@127.0.0.1:3306,user:pass@127.0.0.1:3306/db?username=username&password=password
+  mysql_cms   : mysql://user:pass@127.0.0.1:3306,user:pass@127.0.0.1:3306/cms?username=username&password=password
+  mysql_admin : mysql://user:pass@127.0.0.1:3306,user:pass@127.0.0.1:3306/admin?username=username&password=password
+  redis       : redis://user:password@127.0.0.1:6379/0
+  mongodb     : 'mongodb://127.0.0.1:27027:,127.0.0.1:27037,127.0.0.1:27037/myrepl'
 
 # 以下配置 其他 第三方服务接口地址，一律和正式环境保持一致。
 # 格式 http: 协议地址，其他配置参数可以在项目中写死
 # 正式环境有域名，开发环境没有配置域名的，修改本机hosts。
 # 正式环境没有域名，可以使用IP地址，也可以同时修改开发环境和生产环境下的hosts文件，但是需要注明。
 # 以下配置名称可以统一规范，单路径路由，写到路径，多路径路由，只写到根。
-
-# 内部服务
-oa      : 'http://www.oa.com:80/func/p/pdc2.aspx?pasport=xxxxx'
-oamail  : 'http://mail.oa.com:10086/user/infobyemail.json'
-
-# 外部服务
-cdn : 'http://cdn.domain.com'
-img : 'http://img.domain.com'
-mail: 'http://youxin:passport@domain.com:25?subject=游信邮箱验证&nick=游信<youxin@357.com>'
-sms : 'http://183.61.80.206:10801/func/p/other.aspx?action=sendsms&gate=wjwx&passport=&pname=&smsgame=&type=&apm_t='
+# 配置可以采用模板字符串形式，如：'http://youxin:passport@domain.com:25?subject=<%= subject %>&nick=<%= nick %>'
+tpSrvs:
+  oa      : 'http://www.oa.com:80/func/p/pdc2.aspx?pasport=xxxxx'
+  oamail  : 'http://mail.oa.com:10086/user/infobyemail.json'
+  cdn     : 'http://cdn.domain.com'
+  img     : 'http://img.domain.com'
+  mail    : 'http://youxin:passport@domain.com:25?subject=<%= subject %>&nick=<%= nick %>'
+  sms     : 'http://sms.domain.com?action=sendsms&gate=wjwx&passport=&pname=&smsgame=&type=&apm_t='
