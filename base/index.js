@@ -1,4 +1,4 @@
 'use strict';
 require('./global-extend.js');
 
-console.log(config);
+console.dir(config, {depth: null});
