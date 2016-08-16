@@ -1,8 +1,598 @@
 
 javascript-syntax
 =================
+
 参考：
 * javascript-the-core [翻译](http://weizhifeng.net/javascript-the-core.html) [原文](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/)
+
+
+
+### 数据类型
+
+
+#### 五种基本类型：
+
+`Undefined`、`Null`、`Boolean`、`Number`、`String`
+
+
+* `Boolean`、`Number`、`String`。
+  
+  这三种基本类型平时使用的时候大都使用的是字面量形式，字面量并不是对象，但是当需要的时候，它们也会被转换成对象，也就是会被转换成 **基本类型的包装类型**。
+
+
+* `Undefined`、`Null`。
+  
+  并不存在`Undefined()`和`Null()`内建函数，只存在`Undefined`和`Null`类型的内建对象`undefined`和`null`，这两个类型无**包装类型**。
+  ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的，相同的地方是都可以视为布尔值的false。
+
+
+#### 引用类型：
+
+`Object`、`Function`、`Array`、`Error`、`Regexp`、`Map`、`Set`...
+
+JavaScript中一切都可以被当做对象！但是只有引用类型才是真正的对象，基本类型除了null和undefined之外，都可以像对象一样使用，因为他们有包装类型。
+
+基本类型是不可变的，我们无法给它们添加属性。
+
+```js
+var str = '~~~~~';
+str.s = '!!!!!';
+str.s; // undefined
+ 
+var num = 10;
+num.prop = 11;
+num.prop; // undefined
+
+var bool = true;
+bool.t = '';
+bool.t // undefined
+```
+
+```js
+'this is a string'.charAt === String.prototype.charAt
+12345.toString() // Uncaught SyntaxError: Invalid or unexpected token 因为此处的 . 有歧义，会被当作小数点儿。
+```
+
+undefined与null的区别：
+
+* null表示"没有对象"，即该处不应该有值。
+  1. 作为函数的参数，表示该函数的参数不是对象。
+  2. 作为对象原型链的终点。
+* undefined表示"缺少值"，即应该有一个值但是未定义。
+  1. 变量被声明了，但没有赋值时，该变量undefined。
+  2. 调用函数时，参数没有提供，该参数undefined。
+  3. 对象没有赋值的属性，该属性undefined。
+  4. 函数没有返回值时，返回undefined。
+
+
+* Undefined Null
+  
+```js
+console.log(undefined instanceof Object);   // false
+console.log(typeof undefined);              // undefined
+console.log(null instanceof Object);        // false
+console.log(typeof null);                   // object
+console.log(undefined === null);            // false
+console.log(undefined == null);             // true
+var undefined = 'foo';
+console.log(undefined, typeof undefined);   // foo 'string'
+console.log(void(0) === undefined);         // true
+```
+
+
+* Number
+  
+```js
+var num = 0;
+var numObj = new Number(0);
+console.log(num instanceof Object);         // false
+console.log(num instanceof Number);         // false
+console.log(numObj instanceof Object);      // true
+console.log(numObj instanceof Number);      // true
+console.log(num === numObj);                // false
+console.log(typeof num);                    // number
+console.log(typeof numObj);                 // object
+console.log(numObj === new Number(0));      // false
+console.log(numObj === numObj);             // true
+```
+
+
+* String
+  
+```js
+var str = '';
+var strObj = new String('');
+console.log(str instanceof Object);         // false
+console.log(str instanceof String);         // false
+console.log(strObj instanceof Object);      // true
+console.log(strObj instanceof String);      // true
+console.log(str === strObj);                // false
+console.log(typeof str);                    // string
+console.log(typeof strObj);                 // object
+```
+
+
+* Boolean
+  
+```js
+var bool = true;
+var boolObj = new Boolean(true);
+console.log(bool instanceof Object);        // false
+console.log(bool instanceof Boolean);       // false
+console.log(boolObj instanceof Object);     // true
+console.log(boolObj instanceof Boolean);    // true
+console.log(bool === boolObj);              // false
+console.log(typeof bool);                   // boolean
+console.log(typeof boolObj);                // object
+```
+
+
+* Object - 引用类型
+  
+```js
+var obj = {};
+var boolObj = new Object({});
+console.log(obj instanceof Object);         // true
+console.log(boolObj instanceof Object);     // true
+console.log(obj === boolObj);               // false
+console.log(typeof obj);                    // object
+console.log(typeof boolObj);                // object
+```
+
+* 复合类型 - Array （引用，指针）
+
+
+#### 类型转换
+
+
+##### 显式转换
+
+通过手动进行类型转换，Javascript提供了以下转型函数：
+
+* 转换为数值类型：Number(mix)、parseInt(string,radix)、parseFloat(string)
+* 转换为字符串类型：toString(radix)、String(mix)
+* 转换为布尔类型：Boolean(mix)
+
+* 1. Number(mix)函数，可以将任意类型的参数mix转换为数值类型。其规则为：
+
+  如果是布尔值，true和false分别被转换为1和0
+  如果是数字值，返回本身。
+  如果是null，返回0.
+  如果是undefined，返回NaN。
+  如果是字符串，遵循以下规则：
+    如果字符串中只包含数字，则将其转换为十进制（忽略前导0）
+    如果字符串中包含有效的浮点格式，将其转换为浮点数值（忽略前导0）
+    如果是空字符串，将其转换为0
+    如果字符串中包含非以上格式，则将其转换为NaN
+  如果是对象，则调用对象的valueOf()方法，然后依据前面的规则转换返回的值。如果转换的结果是NaN，则调用对象的toString()方法，再次依照前面的规则转换返回的字符串值。
+
+  下表列出了对象的valueOf()的返回值：
+
+  对象	返回值
+  Array	数组的元素被转换为字符串，这些字符串由逗号分隔，连接在一起。其操作与 Array.toString 和 Array.join 方法相同。
+  Boolean	Boolean 值。
+  Date	存储的时间是从 1970 年 1 月 1 日午夜开始计的毫秒数 UTC。
+  Function	函数本身。
+  Number	数字值。
+  Object	对象本身。这是默认情况。
+  String	字符串值。
+
+* 2. parseInt(string, radix)函数，将字符串转换为整数类型的数值。它也有一定的规则：
+
+  忽略字符串前面的空格，直至找到第一个非空字符
+  如果第一个字符不是数字符号或者负号，返回NaN
+  如果第一个字符是数字，则继续解析直至字符串解析完毕或者遇到一个非数字符号为止
+  如果上步解析的结果以0开头，则将其当作八进制来解析；如果以0x开头，则将其当作十六进制来解析
+  如果指定radix参数，则以radix为基数进行解析
+  小测验：
+
+  parseInt(“hello CSSer!”);
+  Number(“0×8″);
+  parseInt(“”);
+  parseInt(“020dd”);
+  parseInt(“070″);
+  parseInt(“22.5″);
+
+* 3. parseFloat(string)函数，将字符串转换为浮点数类型的数值。
+
+  它的规则与parseInt基本相同，但也有点区别：字符串中第一个小数点符号是有效的，另外parseFloat会忽略所有前导0，如果字符串包含一个可解析为整数的数，则返回整数值而不是浮点数值。
+
+* 4. toString(radix)方法。除undefined和null之外的所有类型的值都具有toString()方法，其作用是返回对象的字符串表示。
+
+  对象	操作
+  Array	将 Array 的元素转换为字符串。结果字符串由逗号分隔，且连接起来。
+  Boolean	如果 Boolean 值是 true，则返回 “true”。否则，返回 “false”。
+  Date	返回日期的文字表示法。
+  Error	返回一个包含相关错误信息的字符串。
+  Function	返回如下格式的字符串，其中 functionname 是被调用 toString 方法函数的名称：
+  function functionname( ) { [native code] }
+
+  Number	返回数字的文字表示。
+  String	返回 String 对象的值。
+  默认	返回 “[object objectname]”，其中 objectname 是对象类型的名称。
+
+* 5. String(mix)函数，将任何类型的值转换为字符串，其规则为：
+
+如果有toString()方法，则调用该方法（不传递radix参数）并返回结果
+如果是null，返回”null”
+如果是undefined，返回”undefined”
+
+* 6. Boolean(mix)函数，将任何类型的值转换为布尔值。
+
+以下值会被转换为false：false、”"、0、NaN、null、undefined，其余任何值都会被转换为true。
+
+
+##### 隐式转换
+
+在某些情况下，即使我们不提供显示转换，Javascript也会进行自动类型转换，主要情况有：
+
+* 1. 用于检测是否为非数值的函数：isNaN(mix)
+
+isNaN()函数，经测试发现，该函数会尝试将参数值用Number()进行转换，如果结果为“非数值”则返回true，否则返回false。
+
+* 2. 递增递减操作符（包括前置和后置）、一元正负符号操作符
+
+这些操作符适用于任何数据类型的值，针对不同类型的值，该操作符遵循以下规则（经过对比发现，其规则与Number()规则基本相同）：
+
+如果是包含有效数字字符的字符串，先将其转换为数字值（转换规则同Number()），在执行加减1的操作，字符串变量变为数值变量。
+如果是不包含有效数字字符的字符串，将变量的值设置为NaN，字符串变量变成数值变量。
+如果是布尔值false，先将其转换为0再执行加减1的操作，布尔值变量编程数值变量。
+如果是布尔值true，先将其转换为1再执行加减1的操作，布尔值变量变成数值变量。
+如果是浮点数值，执行加减1的操作。
+如果是对象，先调用对象的valueOf()方法，然后对该返回值应用前面的规则。如果结果是NaN，则调用toString()方法后再应用前面的规则。对象变量变成数值变量。
+小测验：
+
+分别对以下类型的值执行后置递增操作，结果是什么？
+
+“2″, ”02dd”, ”", false, 22.5, +”", -false, +new Date()
+
+* 3. 加法运算操作符
+
+加号运算操作符在Javascript也用于字符串连接符，所以加号操作符的规则分两种情况：
+
+如果两个操作值都是数值，其规则为：
+如果一个操作数为NaN，则结果为NaN
+如果是Infinity+Infinity，结果是Infinity
+如果是-Infinity+(-Infinity)，结果是-Infinity
+如果是Infinity+(-Infinity)，结果是NaN
+如果是+0+(+0)，结果为+0
+如果是(-0)+(-0)，结果为-0
+如果是(+0)+(-0)，结果为+0
+如果有一个操作值为字符串，则：
+如果两个操作值都是字符串，则将它们拼接起来
+如果只有一个操作值为字符串，则将另外操作值转换为字符串，然后拼接起来
+如果一个操作数是对象、数值或者布尔值，则调用toString()方法取得字符串值，然后再应用前面的字符串规则。对于undefined和null，分别调用String()显式转换为字符串。
+可以看出，加法运算中，如果有一个操作值为字符串类型，则将另一个操作值转换为字符串，最后连接起来。
+
+* 4. 乘除、减号运算符、取模运算符
+
+这些操作符针对的是运算，所以他们具有共同性：如果操作值之一不是数值，则被隐式调用Number()函数进行转换。具体每一种运算的详细规则请参考ECMAScript中的定义。
+
+* 5. 逻辑操作符（!、&&、||）
+
+逻辑非（！）操作符首先通过Boolean()函数将它的操作值转换为布尔值，然后求反。
+
+逻辑与（&&）操作符，如果一个操作值不是布尔值时，遵循以下规则进行转换：
+
+如果第一个操作数经Boolean()转换后为true，则返回第二个操作值，否则返回第一个值（不是Boolean()转换后的值）
+如果有一个操作值为null，返回null
+如果有一个操作值为NaN，返回NaN
+如果有一个操作值为undefined，返回undefined
+逻辑或（||）操作符，如果一个操作值不是布尔值，遵循以下规则：
+
+如果第一个操作值经Boolean()转换后为false，则返回第二个操作值，否则返回第一个操作值（不是Boolean()转换后的值）
+对于undefined、null和NaN的处理规则与逻辑与（&&）相同
+
+* 6. 关系操作符（<, >, <=, >=）
+
+与上述操作符一样，关系操作符的操作值也可以是任意类型的，所以使用非数值类型参与比较时也需要系统进行隐式类型转换：
+
+如果两个操作值都是数值，则进行数值比较
+如果两个操作值都是字符串，则比较字符串对应的字符编码值
+如果只有一个操作值是数值，则将另一个操作值转换为数值，进行数值比较
+如果一个操作数是对象，则调用valueOf()方法（如果对象没有valueOf()方法则调用toString()方法），得到的结果按照前面的规则执行比较
+如果一个操作值是布尔值，则将其转换为数值，再进行比较
+注：NaN是非常特殊的值，它不和任何类型的值相等，包括它自己，同时它与任何类型的值比较大小时都返回false。
+
+* 7. 相等操作符（==）
+
+相等操作符会对操作值进行隐式转换后进行比较：
+
+如果一个操作值为布尔值，则在比较之前先将其转换为数值
+如果一个操作值为字符串，另一个操作值为数值，则通过Number()函数将字符串转换为数值
+如果一个操作值是对象，另一个不是，则调用对象的valueOf()方法，得到的结果按照前面的规则进行比较
+null与undefined是相等的
+如果一个操作值为NaN，则相等比较返回false
+如果两个操作值都是对象，则比较它们是不是指向同一个对象
+
+
+#### 类型识别
+
+http://www.jb51.net/article/72202.htm
+
+* typeof
+　　【输出】首字母小写的字符串形式
+　　【功能】
+　　　　[a]可以识别标准类型(将Null识别为object)
+　　　　[b]不能识别具体的对象类型(Function除外)
+
+* instanceof
+　　【输出】true或false
+　　【功能】
+　　　　[a]可以识别内置对象类型、自定义类型及其父类型
+　　　　[b]不能识别标准类型,会返回false
+　　　　[c]不能识别undefined、null，会报错
+
+* Object.prototype.toString
+　　【输出】[object 数据类型]的字符串形式
+　　【功能】
+　　　　[a]可以识别标准类型及内置对象类型
+　　　　[b]不能识别自定义类型
+
+* constructor
+　　【输出】function 数据类型(){[native code]}或者function 自定义类型(){}
+　　【功能】
+　　　　[a]可以识别标准类型、内置对象类型及自定义类型
+　　　　[b]不能识别undefined、null，会报错
+
+
+
+### void
+
+
+* void UnaryExpression 按如下流程解释:
+
+  * 令`expr`为解释执行`UnaryExpression`的结果。
+  * 调用 `GetValue(expr)`.
+  * 返回 `undefined`.
+
+* 注意：GetValue一定会被调用，即使它的值不会被用到，但是这个表达式可能会有副作用(side-effects)。
+
+*  为什么要用void？`undefined`不是保留字，可以重新赋值。采用void方式获取undefined便成了通用准则。
+
+
+[谈谈JavaScript中的void操作符](https://segmentfault.com/a/1190000000474941)
+
+
+
+### Object
+
+
+ECMAScript做为一个高度抽象的面向对象语言，是通过对象来交互的。
+一个对象就是一个属性集合，并拥有一个独立的`原型对象`，这个`原型对象`可以是一个`对象`或者`null`。
+一个对象的`原型对象`是以对象内部的`[[Prototype]]`属性来引用的。
+
+
+在示意图里边我们将会使用`__<internal-property>__`下划线标记来替代两个括号，对于prototype对象来说是：`__proto__`。
+
+
+让我们看一个关于对象的基本例子。
+
+
+对于以下代码：
+
+```js
+var foo = {
+  x: 10,
+  y: 20
+};
+```
+
+我们拥有一个这样的结构，两个显式的属性和一个隐藏的`__proto__`属性，这个属性是对`Object.prototype`的引用。
+
+![basic-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/basic-object.png)
+
+
+这些`prototype`有什么用？让我们以`原型链`的概念来回答这个问题。
+
+
+
+### 原型链（prototype-chain）
+
+
+* `原型对象`也是简单的对象并且可以拥有它们自己的原型，如果一个原型对象的`原型`是一个非`null`的引用，以此类推，原型对象连成的链，就形成了`原型链`。
+* `原型链`是一个用来实现`继承`和`共享`属性的有限长度的`对象链`。
+* `原型链`是为了实现代码重用而设计的，在基于类的系统中，这个代码重用风格叫作`继承`。
+
+
+ECMAScript中没有类的概念，但是代码重用的风格并没有太多不同，ECMAScript通过原型链来实现，即**原型继承(prototype based inheritance)**，这种继承方式叫作**委托继承(delegation based inheritance)**。
+
+
+ES5标准化了一个实现原型继承的新的可选方法，使用`Object.create`函数：
+
+```js
+var b = Object.create(a, {y: {value: 20}});
+var c = Object.create(a, {y: {value: 30}});
+```
+
+
+ES6标准化了`__proto__`属性，并且可以在对象初始化的时候使用它，如下面的用法。
+`b`和`c`可以访问到`a`对象中定义的`calculate()`方法，是通过原型链`lookup`实现的。
+```js
+var a = {
+  x: 10,
+  calculate: function (z) {
+    return this.x + this.y + z
+  }
+};
+var b = {y: 20, __proto__: a}; 
+// 等价于 var b = Object.create(a, {y: {value: 20}});
+var c = {y: 30, __proto__: a}; 
+// 等价于 var c = Object.create(a, {y: {value: 30}});
+b.calculate(30); // 60
+c.calculate(40); // 80
+```
+
+
+#### 原型链lookup规则：
+
+如果一个`属性`/`方法`在对象自身中无法找到，JS引擎会尝试遍历整个原型链，寻找这个`属性`/`方法`，第一个被查找到的同名`属性`/`方法`会被使用。如果在遍历了整个原型链之后还是没有查找到这个属性的话，返回undefined值。
+
+下一张图展示了对象`a`，`b`，`c`之间的继承关系：
+
+![prototype-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/prototype-chain.png)
+
+
+所以`__proto__`是给JS引擎用的，但是暴露给了我们，并且可以对其修改。
+
+
+#### `__proto__`
+
+* 如果没有明确为一个对象指定原型，那么它将会使用 `__proto__` 的默认值 `Object.prototype`。
+* `Object.prototype`对象自身也有一个`__proto__`属性，值为`null`，这是原型链的终点。 即：`Object.prototype.__proto__ === null`
+* The `__proto__` property of `Object.prototype` is an `accessor property` (a getter function and a setter function) that exposes the internal `[[Prototype]]` (either an object or null) of the object through which it is accessed.
+
+
+项目中建议不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()、Object.create()`读写原型。
+
+
+```js
+var Shape = function () { };
+var proto = {
+    say: function () {
+        console.log('hello world!');
+    }
+};
+Shape.prototype = proto;
+```
+
+
+```js
+var circle = new Shape();
+console.log('circle:', circle.__proto__ === Shape.prototype);
+console.log('circle:', Object.getPrototypeOf(circle) === Shape.prototype);
+console.log('circle:', typeof circle);
+console.log('circle:', circle instanceof Shape);
+console.log('circle:', circle instanceof Object);
+```
+
+```js
+var rectangle = Object.create(proto);
+console.log('ractangle:', rectangle.__proto__ === Shape.prototype);
+console.log('ractangle:', Object.getPrototypeOf(rectangle) === Shape.prototype);
+console.log('ractangle:', typeof rectangle);
+console.log('ractangle:', rectangle instanceof Shape);
+console.log('ractangle:', rectangle instanceof Object);
+```
+
+```js
+var objPrototype = Object.prototype;
+console.log(objPrototype);
+console.log(typeof objPrototype);
+console.log(objPrototype.__proto__);
+console.log(Object.prototype instanceof Object);
+console.log('__proto__:', 'xxx'.__proto__);
+console.log(String.prototype);
+console.log(Object instanceof Object);
+console.log([] instanceof Object);
+console.log({} instanceof Object);
+```
+
+
+`typeof`和`instanceof`的目的都是检测变量的类型，区别在于:
+
+`typeof`    : 可以用来区分原始值和对象。
+`instanceof`: instanceof 可以用来区分对象，而且，instanceof 对于所有的原始值都返回 false。
+
+typeof 在操作 null 时会返回 "object"，这是 JavaScript 语言本身的 bug。不幸的是，这个 bug 永远不可能被修复了，因为太多已有的代码已经依赖了这样的表现。这并不意味着，null 实际上就是一个对象[4] 。
+typeof 还可以让检查一个变量是否已声明，而不会抛出异常。 没有任何一个函数可以实现此功能，因为你不能把一个未声明的变量传递给函数的参数。
+
+通常情况下对象拥有相同或者相似的状态结构（也就是相同的属性集合），赋以不同的状态值，在这个情况下我们可能需要使用`构造函数`，其以指定的模式来创造对象。
+
+
+
+### 构造函数
+
+
+* 以指定的模式来创造对象
+* 自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
+
+
+我们可以使用构造函数来重写上一个拥有对象`b`和对象`c`的例子。因此，对象`a`的角色由Foo.prototype来扮演：
+
+```js
+function Foo(y) { this.y = y; }
+Foo.prototype.x = 10;
+Foo.prototype.calculate = function (z) {
+  return this.x + this.y + z;
+};
+var b = new Foo(20);
+var c = new Foo(30);
+b.calculate(30);
+c.calculate(40);
+console.log(b.__proto__ === Foo.prototype);
+console.log(c.__proto__ === Foo.prototype);
+console.log(b.constructor === Foo);
+console.log(c.constructor === Foo);
+console.log(Foo.prototype.constructor === Foo);
+console.log(b.calculate === b.__proto__.calculate);
+console.log(b.__proto__.calculate === Foo.prototype.calculate);
+```
+
+
+这个代码可以表示为如下关系：
+
+可以看到，构造函数`Foo`也有自己的`__proto__`，即`Function.prototype`，`Function.prototype`通过其`__proto__`属性关联到`Object.prototype`。
+![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/constructor-proto-chain.png)
+
+
+思考一下类的概念，那么构造函数和原型对象合在一起可以当作一个「类」了。
+
+例如：Python的`First-Class、Dynamic-Classes`显然是以同样的`属性`/`方法`处理方案来实现的。从这个角度来说，Python中的类可以看作ECMAScript使用的委托继承的一个语法糖。
+
+在ES6中「类」的概念被标准化了，并且实际上以一种构建在构造函数上面的语法糖来实现，就像上面描述的一样。
+
+
+用类的方式实现如下：
+
+```js
+// ES6
+class Foo {
+  constructor(name) {
+    this._name = name;
+  }
+  getName() {
+    return this._name;
+  }
+}
+class Bar extends Foo {
+  getName() {
+    return super.getName() + ' Doe';
+  }
+}
+var bar = new Bar('John');
+console.log(bar.getName()); // John Doe
+```
+
+
+**new** 操作符 都做了什么？
+
+1. 创建一个新对象
+2. 将构造函数作用域赋给新对象，即this指向了新对象
+3. 执行构造函数中的代码
+4. 返回新对象的引用
+
+只要用`new`操作符来调用函数就是构造函数，否则，就是普通函数。
+
+
+```js
+var o = new NewObject(11, 22)
+var o;
+NewObject.apply(o, 11, 22);
+NewObject.call(o, [11, 22]);
+var obj1 = new NewObject(11, 22); // 构造函数方式
+obj1.func();                      // this == obj1
+var obj2 = NewObject(33, 44);     // 普通函数方式
+obj2.func();                      // error
+global.func();                    // this == global
+console.log(obj2);                // NewObject()作为函数并无返回值，所以undefined
+var obj3 = new Object();
+NewObject.call(obj3, 55, 66);
+obj3.func();
+console.log(obj1.func === obj3.func);
+console.log(obj1.func() === obj3.func());
+```
+
 
 
 ### 属性类型
@@ -184,381 +774,6 @@ console.log(persion3);
 
 
 **访问器属性** 和 **对象保护功能** 都是针对 **对象属性** ，而不是 **变量**
-
-
-### 数据类型
-
-
-#### 五种基本类型：
-
-`Undefined`、`Null`、`Boolean`、`Number`、`String`
-
-
-* `Boolean`、`Number`、`String`。
-  
-  这三种基本类型平时使用的时候大都使用的是字面量形式，字面量并不是对象，但是当需要的时候，它们也会被转换成对象，也就是会被转换成**基本类型的包装类型**。
-
-
-* `Undefined`、`Null`。
-  
-  并不存在`Undefined()`和`Null()`内建函数，只存在`Undefined`和`Null`类型的内建对象`undefined`和`null`，这两个中类型并无**基本类型的包装类型**。
-  ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的，相同的地方是都可以视为布尔值的false。
-
-
-#### 引用类型：
-
-`Object`、`Function`、`Array`、`Error`、`Regexp`、`Map`、`Set`...
-
-JavaScript中除了 `null` 和 `undefined` 之外的一切都可以被当做对象！
-
-
-undefined与null的区别：
-
-* null表示"没有对象"，即该处不应该有值。
-  1. 作为函数的参数，表示该函数的参数不是对象。
-  2. 作为对象原型链的终点。
-* undefined表示"缺少值"，即应该有一个值但是未定义。
-  1. 变量被声明了，但没有赋值时，该变量undefined。
-  2. 调用函数时，参数没有提供，该参数undefined。
-  3. 对象没有赋值的属性，该属性undefined。
-  4. 函数没有返回值时，返回undefined。
-
-
-* Undefined Null
-  
-```js
-console.log(undefined instanceof Object);   // false
-console.log(typeof undefined);              // undefined
-console.log(null instanceof Object);        // false
-console.log(typeof null);                   // object
-console.log(undefined === null);            // false
-console.log(undefined == null);             // true
-var undefined = 'foo';
-console.log(undefined, typeof undefined);   // foo 'string'
-console.log(void(0) === undefined);         // true
-```
-
-
-* Number
-  
-```js
-var num = 0;
-var numObj = new Number(0);
-console.log(num instanceof Object);         // false
-console.log(num instanceof Number);         // false
-console.log(numObj instanceof Object);      // true
-console.log(numObj instanceof Number);      // true
-console.log(num === numObj);                // false
-console.log(typeof num);                    // number
-console.log(typeof numObj);                 // object
-console.log(numObj === new Number(0));      // false
-console.log(numObj === numObj);             // true
-```
-
-
-* String
-  
-```js
-var str = '';
-var strObj = new String('');
-console.log(str instanceof Object);         // false
-console.log(str instanceof String);         // false
-console.log(strObj instanceof Object);      // true
-console.log(strObj instanceof String);      // true
-console.log(str === strObj);                // false
-console.log(typeof str);                    // string
-console.log(typeof strObj);                 // object
-```
-
-
-* Boolean
-  
-```js
-var bool = true;
-var boolObj = new Boolean(true);
-console.log(bool instanceof Object);        // false
-console.log(bool instanceof Boolean);       // false
-console.log(boolObj instanceof Object);     // true
-console.log(boolObj instanceof Boolean);    // true
-console.log(bool === boolObj);              // false
-console.log(typeof bool);                   // boolean
-console.log(typeof boolObj);                // object
-```
-
-
-* Object - 引用类型
-  
-```js
-var obj = {};
-var boolObj = new Object({});
-console.log(obj instanceof Object);         // true
-console.log(boolObj instanceof Object);     // true
-console.log(obj === boolObj);               // false
-console.log(typeof obj);                    // object
-console.log(typeof boolObj);                // object
-```
-
-* 复合类型 - Array （引用，指针）
-
-
-#### 类型转换
-
-
-#### 类型识别
-
-toString 等方法
-
-
-
-### void
-
-
-* void UnaryExpression 按如下流程解释:
-
-  * 令`expr`为解释执行`UnaryExpression`的结果。
-  * 调用 `GetValue(expr)`.
-  * 返回 `undefined`.
-
-* 注意：GetValue一定会被调用，即使它的值不会被用到，但是这个表达式可能会有副作用(side-effects)。
-
-*  为什么要用void？`undefined`不是保留字，可以重新赋值。采用void方式获取undefined便成了通用准则。
-
-
-[谈谈JavaScript中的void操作符](https://segmentfault.com/a/1190000000474941)
-
-
-
-### Object
-
-
-ECMAScript做为一个高度抽象的面向对象语言，是通过对象来交互的。
-一个对象就是一个属性集合，并拥有一个独立的`原型对象`，这个`原型对象`可以是一个`对象`或者`null`。
-一个对象的`原型对象`是以对象内部的`[[Prototype]]`属性来引用的。
-
-
-在示意图里边我们将会使用`__<internal-property>__`下划线标记来替代两个括号，对于prototype对象来说是：`__proto__`。
-
-
-让我们看一个关于对象的基本例子。
-
-
-对于以下代码：
-
-```js
-var foo = {
-  x: 10,
-  y: 20
-};
-```
-
-我们拥有一个这样的结构，两个显式的属性和一个隐藏的`__proto__`属性，这个属性是对`Object.prototype`的引用。
-
-![basic-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/basic-object.png)
-
-
-这些`prototype`有什么用？让我们以`原型链`的概念来回答这个问题。
-
-
-### 原型链（prototype-chain）
-
-
-* `原型对象`也是简单的对象并且可以拥有它们自己的原型，如果一个原型对象的`原型`是一个非`null`的引用，以此类推，原型对象连成的链，就形成了`原型链`。
-* `原型链`是一个用来实现`继承`和`共享`属性的有限长度的`对象链`。
-* `原型链`是为了实现代码重用而设计的，在基于类的系统中，这个代码重用风格叫作`继承`。
-
-
-ECMAScript中没有类的概念，但是代码重用的风格并没有太多不同，ECMAScript通过原型链来实现，即**原型继承(prototype based inheritance)**，这种继承方式叫作**委托继承(delegation based inheritance)**。
-
-
-ES5标准化了一个实现原型继承的新的可选方法，使用`Object.create`函数：
-
-```js
-var b = Object.create(a, {y: {value: 20}});
-var c = Object.create(a, {y: {value: 30}});
-```
-
-
-ES6标准化了`__proto__`属性，并且可以在对象初始化的时候使用它，如下面的用法。
-`b`和`c`可以访问到`a`对象中定义的`calculate()`方法，是通过原型链`lookup`实现的。
-```js
-var a = {
-  x: 10,
-  calculate: function (z) {
-    return this.x + this.y + z
-  }
-};
-var b = {y: 20, __proto__: a}; 
-// 等价于 var b = Object.create(a, {y: {value: 20}});
-var c = {y: 30, __proto__: a}; 
-// 等价于 var c = Object.create(a, {y: {value: 30}});
-b.calculate(30); // 60
-c.calculate(40); // 80
-```
-
-
-#### 原型链lookup规则：
-
-如果一个`属性`/`方法`在对象自身中无法找到，JS引擎会尝试遍历整个原型链，寻找这个`属性`/`方法`，第一个被查找到的同名`属性`/`方法`会被使用。如果在遍历了整个原型链之后还是没有查找到这个属性的话，返回undefined值。
-
-下一张图展示了对象`a`，`b`，`c`之间的继承关系：
-
-![prototype-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/prototype-chain.png)
-
-
-所以`__proto__`是给JS引擎用的，但是暴露给了我们，并且可以对其修改。
-
-
-#### `__proto__`
-
-* 如果没有明确为一个对象指定原型，那么它将会使用 `__proto__` 的默认值 `Object.prototype`。
-* `Object.prototype`对象自身也有一个`__proto__`属性，值为`null`，这是原型链的终点。 即：`Object.prototype.__proto__ === null`
-* The `__proto__` property of `Object.prototype` is an `accessor property` (a getter function and a setter function) that exposes the internal `[[Prototype]]` (either an object or null) of the object through which it is accessed.
-
-
-项目中建议不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()、Object.create()`读写原型。
-
-
-```js
-var Shape = function () { };
-var proto = {
-    say: function () {
-        console.log('hello world!');
-    }
-};
-Shape.prototype = proto;
-```
-
-
-```js
-var circle = new Shape();
-console.log('circle:', circle.__proto__ === Shape.prototype);
-console.log('circle:', Object.getPrototypeOf(circle) === Shape.prototype);
-console.log('circle:', typeof circle);
-console.log('circle:', circle instanceof Shape);
-console.log('circle:', circle instanceof Object);
-```
-
-```js
-var rectangle = Object.create(proto);
-console.log('ractangle:', rectangle.__proto__ === Shape.prototype);
-console.log('ractangle:', Object.getPrototypeOf(rectangle) === Shape.prototype);
-console.log('ractangle:', typeof rectangle);
-console.log('ractangle:', rectangle instanceof Shape);
-console.log('ractangle:', rectangle instanceof Object);
-```
-
-```js
-var objPrototype = Object.prototype;
-console.log(objPrototype);
-console.log(typeof objPrototype);
-console.log(objPrototype.__proto__);
-console.log(Object.prototype instanceof Object);
-console.log('__proto__:', 'xxx'.__proto__);
-console.log(String.prototype);
-console.log(Object instanceof Object);
-console.log([] instanceof Object);
-console.log({} instanceof Object);
-```
-
-
-`typeof`和`instanceof`的目的都是检测变量的类型，区别在于typeof一般（只能）检测的是基本数据类型，instanceof主要检测的是引用类型。
-
-
-通常情况下对象拥有相同或者相似的状态结构（也就是相同的属性集合），赋以不同的状态值，在这个情况下我们可能需要使用`构造函数`，其以指定的模式来创造对象。
-
-
-
-### 构造函数
-
-
-* 以指定的模式来创造对象
-* 自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
-
-
-我们可以使用构造函数来重写上一个拥有对象`b`和对象`c`的例子。因此，对象`a`的角色由Foo.prototype来扮演：
-
-```js
-function Foo(y) { this.y = y; }
-Foo.prototype.x = 10;
-Foo.prototype.calculate = function (z) {
-  return this.x + this.y + z;
-};
-var b = new Foo(20);
-var c = new Foo(30);
-b.calculate(30);
-c.calculate(40);
-console.log(b.__proto__ === Foo.prototype);
-console.log(c.__proto__ === Foo.prototype);
-console.log(b.constructor === Foo);
-console.log(c.constructor === Foo);
-console.log(Foo.prototype.constructor === Foo);
-console.log(b.calculate === b.__proto__.calculate);
-console.log(b.__proto__.calculate === Foo.prototype.calculate);
-```
-
-
-这个代码可以表示为如下关系：
-
-可以看到，构造函数`Foo`也有自己的`__proto__`，即`Function.prototype`，`Function.prototype`通过其`__proto__`属性关联到`Object.prototype`。
-![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/constructor-proto-chain.png)
-
-
-思考一下类的概念，那么构造函数和原型对象合在一起可以当作一个「类」了。
-
-例如：Python的`First-Class、Dynamic-Classes`显然是以同样的`属性`/`方法`处理方案来实现的。从这个角度来说，Python中的类可以看作ECMAScript使用的委托继承的一个语法糖。
-
-在ES6中「类」的概念被标准化了，并且实际上以一种构建在构造函数上面的语法糖来实现，就像上面描述的一样。
-
-
-用类的方式实现如下：
-
-```js
-// ES6
-class Foo {
-  constructor(name) {
-    this._name = name;
-  }
-  getName() {
-    return this._name;
-  }
-}
-class Bar extends Foo {
-  getName() {
-    return super.getName() + ' Doe';
-  }
-}
-var bar = new Bar('John');
-console.log(bar.getName()); // John Doe
-```
-
-
-**new** 操作符 都做了什么？
-
-1. 创建一个新对象
-2. 将构造函数作用域赋给新对象，即this指向了新对象
-3. 执行构造函数中的代码
-4. 返回新对象的引用
-
-只要用`new`操作符来调用函数就是构造函数，否则，就是普通函数。
-
-
-```js
-var o = new NewObject(11, 22)
-var o;
-NewObject.apply(o, 11, 22);
-NewObject.call(o, [11, 22]);
-var obj1 = new NewObject(11, 22); // 构造函数方式
-obj1.func();                      // this == obj1
-var obj2 = NewObject(33, 44);     // 普通函数方式
-obj2.func();                      // error
-global.func();                    // this == global
-console.log(obj2);                // NewObject()作为函数并无返回值，所以undefined
-var obj3 = new Object();
-NewObject.call(obj3, 55, 66);
-obj3.func();
-console.log(obj1.func === obj3.func);
-console.log(obj1.func() === obj3.func());
-```
 
 
 
