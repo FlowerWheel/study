@@ -1,0 +1,1 @@
+"use strict";const core=require("./core");core.toString(),console.log("============="),console.log("this is a app"),console.log("=============");
