@@ -10,7 +10,7 @@ const gImageMin = require('gulp-imagemin');
 const gSourcemaps = require('gulp-sourcemaps');
 const gCached = require('gulp-cached');
 const gChanged = require('gulp-changed');
-const gNewer = require('gulp-newer');
+const newer = require('gulp-newer');
 const del = require('del');
 const vinylPaths = require('vinyl-paths');
 
@@ -152,8 +152,8 @@ gulp.task('default', ['clean', 'webpack', 'minifyJS', 'minifyCSS', 'rev', 'repla
 
 gulp.task('images', ['clean'], function() {
   return gulp.src(paths.images)
-    .pipe(gNewer(paths.images))
-    .pipe(gImageMin({optimizationLevel: 5}))
+    .pipe(newer(paths.images))
+    .pipe(imageMin({optimizationLevel: 5}))
     .pipe(gulp.dest('build/img'));
 });
 

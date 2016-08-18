@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# 内核参考文档：http://www.cyberciti.biz/files/linux-kernel/Documentation/networking/ip-sysctl.txt
+
 # 修改用户进程可打开文件数限制
 echo "ulimit -SHn 1024000" >> /etc/profile
 source "/etc/profile"
@@ -11,7 +13,7 @@ echo "fs.file-max = 10485760" >> /etc/sysctl.conf
 echo "vm.swappiness = 10" >> /etc/sysctl.conf
 
 # 设置系统中每一个端口最大的监听队列的长度
-echo "net.core.somaxconn = 262144" >> /etc/sysctl.conf
+echo "net.core.somaxconn = 32768" >> /etc/sysctl.conf
 
 # 已经完成三次握手、已经成功建立连接的套接字将要进入队列的长度
 # 若设置的backlog值大于net.core.somaxconn值，将被置为net.core.somaxconn值大小
@@ -24,8 +26,17 @@ echo "net.ipv4.ip_conntrack_max = 655360" >> /etc/sysctl.conf
 # 本地端口范围
 echo "net.ipv4.ip_local_port_range = 1024 65535" >> /etc/sysctl.conf
 
-# TCP读写缓冲区设置 4k=4096 768k=786432 500k=512000 1000k=1024000
+# 警告！
+#   在大多数的 Linux 中 rmem_max 和 wmem_max 被分配的值为 128 k，在一个低延迟的网络环境中，或者是 apps 比如 DNS、Web Server，这或许是足够的。
+#   尽管如此，如果延迟太大，默认的值可能就太小了，所以请记录以下在你的服务器上用来提高内存使用方法的设置。
+# TCP读写缓冲区设置,单位是Page，1 Page = 4096Bytes, 4k=4096 768k=786432 500k=512000 1000k=1024000
+# 第一个数字表示，当 tcp 使用的 page 少于 196608 时，kernel 不对其进行任何的干预
+# 第二个数字表示，当 tcp 使用了超过 262144 的 pages 时，kernel 会进入 “memory pressure” 压力模式
+# 第三个数字表示，当 tcp 使用的 pages 超过 393216 时（相当于1.6GB内存），就会报：Out of socket memory
 echo "net.ipv4.tcp_mem = 786432 512000 1024000" >> /etc/sysctl.conf
+# 第一个数字表示，为TCP连接分配的最小内存
+# 第二个数字表示，为TCP连接分配的缺省内存
+# 第三个数字表示，为TCP连接分配的最大内存
 echo "net.ipv4.tcp_rmem = 4096 4096 16456252" >> /etc/sysctl.conf
 echo "net.ipv4.tcp_wmem = 4096 4096 16456252" >> /etc/sysctl.conf
 
