@@ -1,32 +1,32 @@
 'use strict';
 const webpack = require('webpack');
 
-let uglifyJsPlugin =  new webpack.optimize.UglifyJsPlugin({
-  compress: {
-    warnings: false,
-  },
-  output: {
-    comments: false,
-  },
-})
+let uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
+  compress: {warnings: false,},
+  output: {comments: false,},
+});
+
+const baseDir = './app';
 
 module.exports = {
+  baseDir: baseDir,
+  srcDir: `${baseDir}/src/`,
+  distDir : `${baseDir}/dist/`,
   // entry: './src/index.js',
   target: 'web',
   devtool: 'source-map',
   devServer: {
-    contentBase: './build',
+    contentBase: './build'
   },
   entry: [
     // './app.vue/vue.app.js',
-    './app.react/react.app.js'
+    `${baseDir}/src/app.js`
   ],
   output: {
-    path: './bin',
+    path: `${baseDir}/dist`,
     filename: '[name].bundle.js'
   },
-  external: {
-  },
+  external: {},
   resolve: {
     alias: [],
     root: [],
@@ -34,33 +34,31 @@ module.exports = {
     fallback: [],
     extensions: ['', '.webpack.js', '.web.js', '.js'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main'],
-    // packageAlias: {}
+    packageAlias: {},
     unsafeCache: []
   },
-  resolveLoader:{
-  },
+  resolveLoader: {},
   module: {
-    preLoaders:[],
-    postLoaders:[],
+    preLoaders: [],
+    postLoaders: [],
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader'
     },
-    {
-      test: /\.css$/,
-      exclude: /node_modules/,
-      loader: 'style-loader!css-loader'
-    },
-    {
-      test: /\.vue$/,
-      exclude: /node_modules/,
-      loader:'vue'
-    }
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.vue$/,
+        exclude: /node_modules/,
+        loader: 'vue'
+      }
     ]
   },
   plugins: [
     // uglifyJsPlugin
   ]
 };
-

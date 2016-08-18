@@ -7,7 +7,7 @@ const gMd5 = require('gulp-md5-plus');
 const gCssSpriter = require('gulp-css-spriter');
 const gCoffee = require('gulp-coffee');
 const gImageMin = require('gulp-imagemin');
-const gSourcemaps = require('gulp-sourcemaps');
+const sourcemaps = require('gulp-sourcemaps');
 const gCached = require('gulp-cached');
 const gChanged = require('gulp-changed');
 const newer = require('gulp-newer');
@@ -15,23 +15,35 @@ const del = require('del');
 const vinylPaths = require('vinyl-paths');
 
 const gulpClean = require('gulp-clean');
-const gMinifyCSS = require('gulp-minify-css');
+const cleanCSS = require('gulp-clean-css');
+
+const rev = require('gulp-rev');
+const base64 = require('gulp-css-base64');
+const imageMin = require('gulp-imagemin');
 
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.js');
 
 const webpackComplier = webpack(webpackConfig);
 
-const env = process.env.NODE_ENV || 'develpment';
+// const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 
 const paths = {
-  scripts: ['./app/src/*.js'],
+  js: ['./app/src/*.js'],
   images: ['images/*']
 };
 
 const buildPath = ['build'];
-const src = './src';
-const dst = './dist';
+const srcDir = webpackConfig.srcDir;
+const distDir = webpackConfig.distDir;
+
+const jsSrcDirs = [`${srcDir}js/*.js`];
+const jsDistDir = `${distDir}js/`;
+const cssSrcDirs = [`${srcDir}css/*.css`];
+const cssDistDir = `${distDir}css/`;
+const htmlSrcDirs = [`${srcDir}html/*.html`, `${srcDir}html/*.ejs`];
+const htmlDistDir = `${srcDir}html/`;
 
 const isProduction = env === 'production';
 
@@ -45,133 +57,83 @@ gulp.task('clean:tmp', function () {
   return gulp.src('tmp/*').pipe(vinylPaths(del)).pipe(gulp.dest('dist'));
 });
 
-gulp.task('webpack', ['clean'], (callback) => {
+gulp.task('webpack', (done) => {
   webpackComplier.run((err, stats) => {
     if (err) {
       throw new gUtil.PluginError('[ERROR] webpack', err);
     }
     gUtil.log('[webpack]', stats.toString());
-    callback();
+    done();
   });
 });
 
-function f(src, dst, filters) {
-    let stream = gulp.src(src, {'base': dst});
-    if (isProduction) {
-        if (!Array.isArray(filters)) {
-            filters = [filters];
-        }
-        for (let filter of filters) {
-            stream.pipe(filter());
-        }
-    }
-    stream.pipe(gulp.dest(dst));
-}
-
-gulp.task('minifyJS', () => {
-    f([src + '*.js'], dst, gUglify);
-});
-
-// Minify and copy all JavaScript (except vendor scripts)
-// with sourcemaps all the way down
-gulp.task('scripts', () => {
-  return gulp.src(paths.scripts)
-    .pipe(gChanged(dst))
+gulp.task('minify:js', () => {
+  return gulp.src(jsSrcDirs)
+    .pipe(gChanged(distDir))
     .pipe(gCached('scripts'))
-    .pipe(gSourcemaps.init())
-        // .pipe(gCoffee())
-        .pipe(gUglify())
-        .pipe(gConcat('all.min.js'))
-    .pipe(gSourcemaps.write())
-    .pipe(gulp.dest('app/dist'));
+    .pipe(sourcemaps.init())
+    .pipe(gUglify())
+    .pipe(gConcat('all.min.js'))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(jsDistDir));
 });
 
-gulp.task('minifyCSS', ['clean'], () => {
-    let src = [target + '/css/*.css'];
-    f(src, target, gMinifyCSS);
+gulp.task('minify:css', () => {
+  return gulp.src(cssSrcDirs)
+    .pipe(sourcemaps.init())
+    .pipe(cleanCSS({debug: true}, function cleanCSSLog(details) {
+      let stats = details.stats;
+      console.log(`${details.name} | ${details.path} | ${stats.originalSize} -> ${stats.minifiedSize} | ${stats.timeSpent}`);
+    }))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(cssDistDir));
 });
 
-gulp.task('revision', ['minifyJS', 'minifyCSS'], () => {
-    let src = [target + '/css/*.css'];
-    f(src, target, [rev, () => {return gulp.dist(target)}, () => {return rev.manifest({merge: true})}]);
+gulp.task('minify', ['minify:js', 'minify:css']);
+
+gulp.task('revision', ['minify'], () => {
+  return gulp.src([].concat(cssSrcDirs, jsSrcDirs), {base: 'assets'})
+    .pipe(gulp.dest(distDir + 'build/assets'))
+    .pipe(rev())
+    .pipe(gulp.dest(distDir + 'build/assets'))
+    .pipe(rev.manifest({
+      base: 'build/assets',
+      merge: true // merge with the existing manifest (if one exists)
+    }))
+    .pipe(gulp.dest('build/assets'));
 });
 
 gulp.task('inlineSource', ['revision'], () => {
-    let src = [target + '/html/*.html'];
-    // f(src, target, [rev, () => {return gulp.dist(target)}, () => {return rev.manifest({merge: true})}]);
-    return gulp.src(src, {'base': dst}).pipe(inlineSource({compress: true, rootpath: './src/'})).pipe(gulp.dist(dst));
+  return gulp.src(htmlSrcDirs, {'base': htmlDistDir})
+    .pipe(inlineSource({compress: true, rootpath: './src/'}))
+    .pipe(gulp.dest(htmlDistDir));
 });
 
 gulp.task('replace', ['inlineSource'], () => {
- var _src = './' + directory + '/html/*.html', _dest = './views';
-    if (environment) {
-        return gulp.src(_src)
-            .pipe(replace('js/', publicPath + directory + '/js/'))
-            .pipe(replace('css/', publicPath + directory + '/css/'))
-            .pipe(gulp.dest(_dest));
-    } else {
-        var manifest = gulp.src(directory + '/rev/rev-manifest.json');
-        return gulp.src(_src)
-            .pipe(revReplace({
-                'prefix': publicPath + directory + '/',
-                'manifest': manifest,
-                'modifyReved': function (filename) {
-                    return filename;
-                }
-            }))
-            .pipe(gulp.dest(_dest));
-    }
+  var manifest = gulp.src(htmlSrcDirs + '/rev/rev-manifest.json');
+  return gulp.src(htmlSrcDirs)
+    .pipe(revReplace({
+      'prefix': publicPath + htmlSrcDirs + '/',
+      'manifest': manifest,
+      'modifyReved': (filename) -> filename
+    }))
+    .pipe(gulp.dest(htmlDistDir));
 });
 
 gulp.task('minifyHTML', ['replace'], () => {
-if (environment) {
-        return gulp.src('views/*.html')
-            .pipe(gulp.dest('views'))
-            .pipe(livereload());
-    } else {
-        return gulp.src('views/*.html')
-            .pipe(htmlmin({
-                collapseWhitespace: true,
-                minifyCSS: true
-            }))
-            .pipe(gulp.dest('views'))
-    }
-
+  return gulp.src('views/*.html')
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+      minifyCSS: true
+    }))
+    .pipe(gulp.dest('views'))
 });
 
-gulp.task('watch', ['inlineSource'], () => {
-    if (environment) {
-        stopClean = true;
-        //livereload.listen();
-        gulp.watch('src/**/*', ['clean', 'webpack', 'minifyJS', 'minifyCSS', 'rev', 'replace', 'inlineSource', 'minifyHTML']);
-    }
-
-});
-
-gulp.task('default', ['clean', 'webpack', 'minifyJS', 'minifyCSS', 'rev', 'replace', 'inlineSource', 'minifyHTML', 'watch']);
-
-gulp.task('images', ['clean'], function() {
+gulp.task('images', ['clean'], function () {
   return gulp.src(paths.images)
     .pipe(newer(paths.images))
     .pipe(imageMin({optimizationLevel: 5}))
     .pipe(gulp.dest('build/img'));
-});
-
-// Rerun the task when a file changes
-gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['scripts']);
-  gulp.watch(paths.images, ['images']);
-});
-
-gulp.task('webpack', function(callback) {
-  let webpackConfig = Object.create(webpackConfig);
-  webpack(webpackConfig, function(err, stats) {
-    if(err){
-      throw new gutil.PluginError('webpack', err);
-    }
-    gutil.log('[webpack]', stats.toString({}));
-    callback();
-    });
 });
 
 gulp.task('sprite', function (done) {
@@ -197,3 +159,17 @@ gulp.task('md5:js', function (done) {
     .on('end', done);
 });
 
+gulp.task('watch', ['inlineSource'], () => {
+  gulp.watch('src/**/*', [
+    'clean', 'webpack',
+    'minifyJS', 'minifyCSS',
+    'rev', 'replace', 'inlineSource', 'minifyHTML'
+  ]);
+});
+
+gulp.task('default', [
+  'clean', 'webpack',
+  'minifyJS', 'minifyCSS',
+  'rev', 'replace', 'inlineSource', 'minifyHTML',
+  'watch'
+]);
