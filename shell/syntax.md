@@ -316,6 +316,58 @@ Variable is not set1 - Value of var isVariable is not set2 - Value of var is Var
 4 - Value of var is PrefixPrefix5 - Value of var is Prefix
 ```
 
+shell变量是一种很“弱”的变量，默认情况下，一个变量保存一个串，shell不关心这个串是什么含义。所以若要进行数学运算，必须使用一些命令例如let、declare、expr、双括号等。shell变量可分为两类：局部变量和环境变量。局部变量只在创建它们的shell中可用。而环境变量则可以在创建它们的shell及其派生出来的任意子进程中使用。有些变量是用户创建的，其他的则是专用shell变量。变量名必须以字母或下划线字符开头。其余的字符可以是字母、数字(0~9)或下划线字符。任何其他的字符都标志着变量名的终止。名字是大小写敏感的。给变量赋值时，等号周围不能有任何空白符。为了给变量赋空值，可以在等号后跟一个换行符。用set命令可以查看所有的变量，unset var命令可以清除变量var，var相当于没有定义过。readonly var可以把var变为只读变量，定义之后不能对var进行任何更改。对shell变量的引用方式很多，用这些方式可以方便的获取shell变量的值，变量值的长度，变量的一个字串，变量被部分替换后的值等等。
+
+shell变量常见引用方式如下：
+
+
+
+
+### 2 环境变量
+环境变量的定义方法如下：
+var=value
+export var
+shell在初始化的时候会在执行profile等初始化脚本，脚本中定义了一些环境变量，这些变量会在创建子进程时传递给子进程。
+用env命令可以查看当前的环境变量。常用的系统环境变量如下：
+_(下划线) 上一条命令的最后一个参数
+BASH 展开为调用bash实例时使用的全路径名
+CDPATH cd命令的搜索路径。它是以冒号分隔的目录列表，shell通过它来搜索cd命令指定的目标目录。例如.:~:/usr
+EDITOR 内置编辑器emacs、gmacs或vi的路径名
+ENV 每一个新的bash shell(包括脚本)启动时执行的环境文件。通常赋予这个变量的文件名是.bashrc。
+EUID 展开为在shell启动时被初始化的当前用户的有效ID
+GROUPS 当前用户所属的组
+HISTFILE 指定保存命令行历史的文件。默认值是~/.bash_history。如果被复位，交互式shell退出时将不保存命令行历史
+HISTSIZE 记录在命令行历史文件中的命令数。默认是500
+HOME 主目录。未指定目录时，cd命令将转向该目录
+IFS 内部字段分隔符，一般是空格符、制表符和换行符，用于由命令替换，循环结构中的表和读取的输入产生的词的字段划分
+LANG 用来为没有以LC_开头的变量明确选取的种类确定locale类
+OLDPWD 前一个工作目录
+PATH 命令搜索路径。一个由冒号分隔的目录列表，shell用它来搜索命令，一个普通值为 /usr/gnu/bin:/usr/local/bin:/usr/ucb:/usr/bin
+PPID 父进程的进程ID
+PS1 主提示符串，默认值是$
+PS2 次提示符串，默认值是>
+PS3 与select命令一起使用的选择提示符串，默认值是#?
+PS4 当开启追踪时使用的调试提示符串，默认值是+。追踪可以用set –x开启
+PWD 当前工作目录。由cd设置
+RANDOM 每次引用该变量，就产生一个随机整数。随机数序列可以通过给RANDOM赋值来初始化。如果RANDOM被复位，即使随后再设置，它也将失去特定的属性
+REPLY 当没有给read提供参数时设置
+SHELL 当调用shell时，它扫描环境变量以寻找该名字。shell给PATH、PS1、PS2、MAILCHECK和IFS设置默认值。HOME和MAIL由login(1)设置
+SHELLOPTS 包含一列开启的shell选项，比如braceexpand、hashall、monitor等
+UID 展开为当前用户的用户ID，在shell启动时初始化
+
+### 5 特殊变量
+$0：当前脚本的文件名
+$num：num为从1开始的数字，$1是第一个参数，$2是第二个参数，${10}是第十个参数
+$#：传入脚本的参数的个数
+$*：所有的位置参数(作为单个字符串) 
+$@：所有的位置参数(每个都作为独立的字符串)。
+$?：当前shell进程中，上一个命令的返回值，如果上一个命令成功执行则$?的值为0，否则为其他非零值，常用做if语句条件
+$$：当前shell进程的pid
+$!：后台运行的最后一个进程的pid
+$-：显示shell使用的当前选项
+$_：之前命令的最后一个参数
+
+
 # Shell注释
 
 以 `#` 开头的行就是注释，会被解释器忽略。sh里没有多行注释，只能每一行加一个#号。只能像这样：
@@ -366,6 +418,40 @@ echo ${string:1:4} #输出liba
 查找子字符串
 string="alibaba is a great company"
 echo `expr index "$string" is`
+
+一、判断读取字符串值
+
+表达式 | 含义
+------|--------
+${var}	        | 变量var的值, 与$var相同
+${var-DEFAULT}	| 如果var没有被声明, 那么就以$DEFAULT作为其值 *
+${var:-DEFAULT}	| 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *
+${var=DEFAULT}	| 如果var没有被声明, 那么就以$DEFAULT作为其值 *
+${var:=DEFAULT}	| 如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *
+${var+OTHER}	| 如果var声明了, 那么其值就是$OTHER, 否则就为null字符串
+${var:+OTHER}	| 如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串
+${var?ERR_MSG}	| 如果var没被声明, 那么就打印$ERR_MSG *
+${var:?ERR_MSG}	| 如果var没被设置, 那么就打印$ERR_MSG *
+${!varprefix*}	| 匹配之前所有以varprefix开头进行声明的变量
+${!varprefix@}	| 匹配之前所有以varprefix开头进行声明的变量
+
+二、字符串操作（长度，读取，替换）
+
+表达式 | 含义
+------|--------
+${#string}	                        | $string的长度
+${string:position}	                | 在$string中, 从位置$position开始提取子串
+${string:position:length}	        | 在$string中, 从位置$position开始提取长度为$length的子串
+${string#substring}	                | 从变量$string的开头, 删除最短匹配$substring的子串
+${string##substring}	            | 从变量$string的开头, 删除最长匹配$substring的子串
+${string%substring}	                | 从变量$string的结尾, 删除最短匹配$substring的子串
+${string%%substring}	            | 从变量$string的结尾, 删除最长匹配$substring的子串
+${string/substring/replacement}	    | 使用$replacement, 来代替第一个匹配的$substring
+${string//substring/replacement}	| 使用$replacement, 代替所有匹配的$substring
+${string/#substring/replacement}	| 如果$string的前缀匹配$substring, 那么就用$replacement来代替匹配到的$substring
+${string/%substring/replacement}	| 如果$string的后缀匹配$substring, 那么就用$replacement来代替匹配到的$substring
+
+	在shell中，通过awk,sed,expr 等都可以实现，字符串上述操作。下面我们进行性能比较。
 
 
 # Shell数组：shell数组的定义、数组长度
