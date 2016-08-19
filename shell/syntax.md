@@ -1,7 +1,9 @@
 Shell Syntax
 ============
 
-# Shell简介：什么是Shell，Shell命令的两种执行方式
+
+
+## Shell简介：什么是Shell，Shell命令的两种执行方式
 
 Shell本身是一个用C语言编写的程序，它是用户使用Unix/Linux的桥梁，用户的大部分工作都是通过Shell完成的。
 
@@ -24,7 +26,8 @@ Shell脚本和编程语言很相似，也有变量和流程控制语句，但She
 
 Shell初学者请注意，在平常应用中，建议不要用 root 帐号运行 Shell 。作为普通用户，不管您有意还是无意，都无法破坏系统；但如果是 root，那就不同了，只要敲几个字母，就可能导致灾难性后果。
 
-#### 几种常见的Shell
+
+### 几种常见的Shell
 
 上面提到过，Shell是一种脚本语言，那么，就必须有解释器来执行这些脚本。
 
@@ -77,7 +80,8 @@ ksh 是Korn shell的缩写，由Eric Gisin编写，共有42条内部命令。该
 
 使用脚本编程语言的好处是，它们多半运行在比编译型语言还高的层级，能够轻易处理文件与目录之类的对象；缺点是它们的效率通常不如编译型语言。不过权衡之下，通常使用脚本编程还是值得的：花一个小时写成的简单脚本，同样的功能用C或C++来编写实现，可能需要两天，而且一般来说，脚本执行的速度已经够快了，快到足以让人忽略它性能上的问题。脚本编程语言的例子有awk、Perl、Python、Ruby与Shell。
 
-#### 什么时候使用Shell
+
+### 什么时候使用Shell
 
 因为Shell似乎是各UNIX系统之间通用的功能，并且经过了POSIX的标准化。因此，Shell脚本只要“用心写”一次，即可应用到很多系统上。
 
@@ -107,83 +111,77 @@ ksh 是Korn shell的缩写，由Eric Gisin编写，共有42条内部命令。该
 
 如果你的应用符合上边的任意一条，那么就考虑一下更强大的语言吧——或许是Perl、Tcl、Python、Ruby——或者是更高层次的编译语言比如C/C++，或者是Java。即使如此，你会发现，使用shell来原型开发你的应用，在开发步骤中也是非常有用的。
 
-# 第一个Shell脚本
 
-打开文本编辑器，新建一个文件，扩展名为sh（sh代表shell），扩展名并不影响脚本执行，见名知意就好，如果你用php写shell 脚本，扩展名就用php好了。
 
-输入一些代码：
+## 第一个Shell脚本
+
 
 ```sh
+# hello.sh
 #!/bin/bash 
-echo "Hello World !"
+echo "Hello World!"
 ```
 
+增加可执行权限执行
 
-运行Shell脚本有两种方法。
-作为可执行程序
-将上面的代码保存为test.sh，并 cd 到相应目录：
-chmod +x ./test.sh  #使脚本具有执行权限./test.sh  #执行脚本
-注意，一定要写成./test.sh，而不是test.sh。
-运行其它二进制的程序也一样，直接写test.sh，linux系统会去PATH里寻找有没有叫test.sh的，而只有/bin, /sbin, /usr/bin，/usr/sbin等在PATH里，你的当前目录通常不在PATH里，所以写成test.sh是会找不到命令的，要用./test.sh告诉系统说，就在当前目录找。
+```sh
+chmod +x ./test.sh
+./test.sh
+```
 
-通过这种方式运行bash脚本，第一行一定要写对，好让系统查找到正确的解释器。
+注意，一定要写成./test.sh，而不是test.sh，./ 表示当前目录，否则找不到命令。
 
-这里的"系统"，其实就是shell这个应用程序，但我故意写成系统，是方便理解，既然这个系统就是指shell，那么一个使用/bin/sh作为解释器的脚本是不是可以省去第一行呢？是的。
+
 作为解释器参数
-这种运行方式是，直接运行解释器，其参数就是shell脚本的文件名，如：
+
+```sh
 /bin/sh test.sh
-/bin/php test.php
+```
+
 这种方式运行的脚本，不需要在第一行指定解释器信息，写了也没用。
 
-再看一个例子。下面的脚本使用 read 命令从 stdin 获取输入并赋值给 PERSON 变量，最后在 stdout 上输出：
+
+
+## Shell变量：Shell变量的定义、删除变量、只读变量、变量类型
+
+### 定义变量
 
 ```sh
-#!/bin/bash
-# Author : mozhiyan# Copyright (c) http://OutOfMemory.CN/cpp/linux/# Script follows here:
-echo "What is your name?"
-read PERSON
-echo "Hello, $PERSON"
+variableName="value"
 ```
 
-运行脚本：
-chmod +x ./test.sh
-$./test.sh
-What is your name?
-mozhiyan
-Hello, mozhiyan
-$
+注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。同时，变量名的命名须遵循如下规则：
 
-# Shell变量：Shell变量的定义、删除变量、只读变量、变量类型
+  * 首个字符必须为字母（a-z，A-Z）。
+  * 中间不能有空格，可以使用下划线（_）。
+  * 不能使用标点符号。
+  * 不能使用bash里的关键字（可用help命令查看保留关键字）。
+    
+### 使用变量
 
-Shell支持自定义变量。 
-定义变量
-定义变量时，变量名不加美元符号（$），如： 
-variableName="value"
-注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。同时，变量名的命名须遵循如下规则： 
-	• 首个字符必须为字母（a-z，A-Z）。
-	• 中间不能有空格，可以使用下划线（_）。
-	• 不能使用标点符号。
-	• 不能使用bash里的关键字（可用help命令查看保留关键字）。
-变量定义举例： 
-myUrl="http://OutOfMemory.CN/cpp/linux/"
-myNum=100
-使用变量
-使用一个定义过的变量，只要在变量名前面加美元符号（$）即可，如： 
+使用一个定义过的变量，只要在变量名前面加美元符号（$）即可，如：
+
+```sh
 your_name="mozhiyan"
 echo $your_name
 echo ${your_name}
+```
+
 变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：
 
 ```sh
 for skill in Ada Coffe Action Java 
 do
-    echo "I am good at ${skill}Script"done
+    echo "I am good at ${skill}Script"
+done
 ```
 
 如果不给skill变量加花括号，写成echo "I am good at $skillScript"，解释器就会把$skillScript当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。
 
 推荐给所有变量加上花括号，这是个好的编程习惯。
-重新定义变量
+
+### 重新定义变量
+
 已定义的变量，可以被重新定义，如： 
 
 ```sh
@@ -195,22 +193,28 @@ echo ${myUrl}
 
 这样写是合法的，但注意，第二次赋值的时候不能写 $myUrl="http://OutOfMemory.CN/cpp/shell/"，使用变量的时候才加美元符（$）。
 
-只读变量
+### 只读变量
 使用 readonly 命令可以将变量定义为只读变量，只读变量的值不能被改变。
 下面的例子尝试更改只读变量，结果报错： 
 
-
-```
+```sh
 #!/bin/bash
-myUrl="http://OutOfMemory.CN/cpp/shell/"readonly myUrl
+myUrl="http://OutOfMemory.CN/cpp/shell/"
+readonly myUrl
 myUrl="http://OutOfMemory.CN/cpp/danpianji/"
 ```
 
-运行脚本，结果如下： 
+运行脚本，结果如下：
 /bin/sh: NAME: This variable is read only.
-删除变量
-使用 unset 命令可以删除变量。语法： 
+
+### 删除变量
+
+使用 unset 命令可以删除变量。语法：
+
+```sh
 unset variable_name
+```
+
 变量被删除后不能再次使用；unset 命令不能删除只读变量。
 
 举个例子： 
@@ -224,22 +228,20 @@ echo $myUrl
 
 上面的脚本没有任何输出。 
 
-变量类型
+### 变量类型
+
 运行shell时，会同时存在三种变量：
-1) 局部变量
-局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。 
-2) 环境变量
-所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。 
-3) shell变量
-shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行
-Shell替换：Shell变量替换，命令替换，转义字符
-如果表达式中包含特殊字符，Shell将会进行替换。例如，在双引号中使用变量就是一种替换，转义字符也是一种替换。举个例子：#!/bin/basha=10echo-e"Valueofais$a\
-shell 教程
+* 局部变量 局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。 
+* 环境变量 所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。 
+* shell变量 shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行
+
+### 变量替换，命令替换，转义字符
+
 如果表达式中包含特殊字符，Shell 将会进行替换。例如，在双引号中使用变量就是一种替换，转义字符也是一种替换。
 
-举个例子： 
+举个例子：
 
-```
+```sh
 #!/bin/bash
 a=10
 echo -e "Value of a is $a \n"
@@ -251,21 +253,29 @@ Value of a is 10
 Value of a is 10\n
 下面的转义字符都可以用在 echo 中：
 
-转义字符	含义
-\\	反斜杠
-\a	警报，响铃
-\b	退格（删除键）
-\f	换页(FF)，将当前位置移到下页开头
-\n	换行
-\r	回车
-\t	水平制表符（tab键） 
-\v	垂直制表符
+转义字符 | 含义
+--------|-----
+\\ | 反斜杠
+\a | 警报，响铃
+\b | 退格（删除键）
+\f | 换页(FF)，将当前位置移到下页开头
+\n | 换行
+\r | 回车
+\t | 水平制表符（tab键） 
+\v | 垂直制表符
+
 可以使用 echo 命令的 -E 选项禁止转义，默认也是不转义的；使用 -n 选项可以禁止插入换行符。 
-命令替换
+
+### 命令替换
+
 命令替换是指Shell可以先执行命令，将输出结果暂时保存，在适当的地方输出。
 
-命令替换的语法： 
+命令替换的语法：
+
+```sh
 `command`
+```
+
 注意是反引号，不是单引号，这个键位于 Esc 键下方。
 
 下面的例子中，将命令执行结果保存在变量中： 
@@ -287,16 +297,18 @@ Date is Thu Jul  2 03:59:57 MST 2009Logged in user are 1Uptime is Thu Jul  2 03:
 
 可以使用的变量替换形式：
 
-形式	说明
-${var}	变量本来的值
-${var:-word}	如果变量 var 为空或已被删除(unset)，那么返回 word，但不改变 var 的值。
-${var:=word}	如果变量 var 为空或已被删除(unset)，那么返回 word，并将 var 的值设置为 word。
-${var:?message}	如果变量 var 为空或已被删除(unset)，那么将消息 message 送到标准错误输出，可以用来检测变量 var 是否可以被正常赋值。
-	若此替换出现在Shell脚本中，那么脚本将停止运行。
-${var:+word}	如果变量 var 被定义，那么返回 word，但不改变 var 的值。
+形式 | 说明
+-----|-----
+${var}	        | 变量本来的值
+${var:-word}	| 如果变量 var 为空或已被删除(unset)，那么返回 word，但不改变 var 的值。
+${var:=word}	| 如果变量 var 为空或已被删除(unset)，那么返回 word，并将 var 的值设置为 word。
+${var:?message}	| 如果变量 var 为空或已被删除(unset)，那么将消息 message 送到标准错误输出，可以用来检测变量 var 是否可以被正常赋值。 若此替换出现在Shell脚本中，那么脚本将停止运行。
+${var:+word}	| 如果变量 var 被定义，那么返回 word，但不改变 var 的值。
+
+
 请看下面的例子： 
 
-```
+```sh
 #!/bin/bash
 echo ${var:-"Variable is not set"}
 echo "1 - Value of var is ${var}"
@@ -318,54 +330,61 @@ Variable is not set1 - Value of var isVariable is not set2 - Value of var is Var
 
 shell变量是一种很“弱”的变量，默认情况下，一个变量保存一个串，shell不关心这个串是什么含义。所以若要进行数学运算，必须使用一些命令例如let、declare、expr、双括号等。shell变量可分为两类：局部变量和环境变量。局部变量只在创建它们的shell中可用。而环境变量则可以在创建它们的shell及其派生出来的任意子进程中使用。有些变量是用户创建的，其他的则是专用shell变量。变量名必须以字母或下划线字符开头。其余的字符可以是字母、数字(0~9)或下划线字符。任何其他的字符都标志着变量名的终止。名字是大小写敏感的。给变量赋值时，等号周围不能有任何空白符。为了给变量赋空值，可以在等号后跟一个换行符。用set命令可以查看所有的变量，unset var命令可以清除变量var，var相当于没有定义过。readonly var可以把var变为只读变量，定义之后不能对var进行任何更改。对shell变量的引用方式很多，用这些方式可以方便的获取shell变量的值，变量值的长度，变量的一个字串，变量被部分替换后的值等等。
 
-shell变量常见引用方式如下：
-
-
-
-
 ### 2 环境变量
 环境变量的定义方法如下：
+
+```sh
 var=value
 export var
+```
+
 shell在初始化的时候会在执行profile等初始化脚本，脚本中定义了一些环境变量，这些变量会在创建子进程时传递给子进程。
+
 用env命令可以查看当前的环境变量。常用的系统环境变量如下：
-_(下划线) 上一条命令的最后一个参数
-BASH 展开为调用bash实例时使用的全路径名
-CDPATH cd命令的搜索路径。它是以冒号分隔的目录列表，shell通过它来搜索cd命令指定的目标目录。例如.:~:/usr
-EDITOR 内置编辑器emacs、gmacs或vi的路径名
-ENV 每一个新的bash shell(包括脚本)启动时执行的环境文件。通常赋予这个变量的文件名是.bashrc。
-EUID 展开为在shell启动时被初始化的当前用户的有效ID
-GROUPS 当前用户所属的组
-HISTFILE 指定保存命令行历史的文件。默认值是~/.bash_history。如果被复位，交互式shell退出时将不保存命令行历史
-HISTSIZE 记录在命令行历史文件中的命令数。默认是500
-HOME 主目录。未指定目录时，cd命令将转向该目录
-IFS 内部字段分隔符，一般是空格符、制表符和换行符，用于由命令替换，循环结构中的表和读取的输入产生的词的字段划分
-LANG 用来为没有以LC_开头的变量明确选取的种类确定locale类
-OLDPWD 前一个工作目录
-PATH 命令搜索路径。一个由冒号分隔的目录列表，shell用它来搜索命令，一个普通值为 /usr/gnu/bin:/usr/local/bin:/usr/ucb:/usr/bin
-PPID 父进程的进程ID
-PS1 主提示符串，默认值是$
-PS2 次提示符串，默认值是>
-PS3 与select命令一起使用的选择提示符串，默认值是#?
-PS4 当开启追踪时使用的调试提示符串，默认值是+。追踪可以用set –x开启
-PWD 当前工作目录。由cd设置
-RANDOM 每次引用该变量，就产生一个随机整数。随机数序列可以通过给RANDOM赋值来初始化。如果RANDOM被复位，即使随后再设置，它也将失去特定的属性
-REPLY 当没有给read提供参数时设置
-SHELL 当调用shell时，它扫描环境变量以寻找该名字。shell给PATH、PS1、PS2、MAILCHECK和IFS设置默认值。HOME和MAIL由login(1)设置
-SHELLOPTS 包含一列开启的shell选项，比如braceexpand、hashall、monitor等
-UID 展开为当前用户的用户ID，在shell启动时初始化
+
+变量名 | 解释
+----------|----------------------
+_(下划线)  |上一条命令的最后一个参数
+BASH      | 展开为调用bash实例时使用的全路径名
+CDPATH    | cd命令的搜索路径。它是以冒号分隔的目录列表，shell通过它来搜索cd命令指定的目标目录。例如.:~:/usr
+EDITOR    | 内置编辑器emacs、gmacs或vi的路径名
+ENV       | 每一个新的bash shell(包括脚本)启动时执行的环境文件。通常赋予这个变量的文件名是.bashrc。
+EUID      | 展开为在shell启动时被初始化的当前用户的有效ID
+GROUPS    | 当前用户所属的组
+HISTFILE  | 指定保存命令行历史的文件。默认值是~/.bash_history。如果被复位，交互式shell退出时将不保存命令行历史
+HISTSIZE  | 记录在命令行历史文件中的命令数。默认是500
+HOME      | 主目录。未指定目录时，cd命令将转向该目录
+IFS       | 内部字段分隔符，一般是空格符、制表符和换行符，用于由命令替换，循环结构中的表和读取的输入产生的词的字段划分
+LANG      | 用来为没有以LC_开头的变量明确选取的种类确定locale类
+OLDPWD    | 前一个工作目录
+PATH      | 命令搜索路径。一个由冒号分隔的目录列表，shell用它来搜索命令，一个普通值为 /usr/gnu/bin:/usr/local/bin:/usr/ucb:/usr/bin
+PPID      | 父进程的进程ID
+PS1       | 主提示符串，默认值是$
+PS2       | 次提示符串，默认值是>
+PS3       | 与select命令一起使用的选择提示符串，默认值是#?
+PS4       | 当开启追踪时使用的调试提示符串，默认值是+。追踪可以用set –x开启
+PWD       | 当前工作目录。由cd设置
+RANDOM    | 每次引用该变量，就产生一个随机整数。随机数序列可以通过给RANDOM赋值来初始化。如果RANDOM被复位，即使随后再设置，它也将失去特定的属性
+REPLY     | 当没有给read提供参数时设置
+SHELL     | 当调用shell时，它扫描环境变量以寻找该名字。shell给PATH、PS1、PS2、MAILCHECK和IFS设置默认值。HOME和MAIL由login(1)设置
+SHELLOPTS | 包含一列开启的shell选项，比如braceexpand、hashall、monitor等
+UID       | 展开为当前用户的用户ID，在shell启动时初始化
+
 
 ### 5 特殊变量
-$0：当前脚本的文件名
-$num：num为从1开始的数字，$1是第一个参数，$2是第二个参数，${10}是第十个参数
-$#：传入脚本的参数的个数
-$*：所有的位置参数(作为单个字符串) 
-$@：所有的位置参数(每个都作为独立的字符串)。
-$?：当前shell进程中，上一个命令的返回值，如果上一个命令成功执行则$?的值为0，否则为其他非零值，常用做if语句条件
-$$：当前shell进程的pid
-$!：后台运行的最后一个进程的pid
-$-：显示shell使用的当前选项
-$_：之前命令的最后一个参数
+
+变量名 | 解释
+---------| -------------------
+$0：     | 当前脚本的文件名
+$num：   | num为从1开始的数字，$1是第一个参数，$2是第二个参数，${10}是第十个参数
+$#：     | 传入脚本的参数的个数
+$*：     | 所有的位置参数(作为单个字符串) 
+$@：     | 所有的位置参数(每个都作为独立的字符串)。
+$?：     | 当前shell进程中，上一个命令的返回值，如果上一个命令成功执行则$?的值为0，否则为其他非零值，常用做if语句条件
+$$：     | 当前shell进程的pid
+$!：     | 后台运行的最后一个进程的pid
+$-：     | 显示shell使用的当前选项
+$_：     | 之前命令的最后一个参数
 
 
 # Shell注释
