@@ -170,6 +170,32 @@ join,concat,indexOf,lastIndexOf,slice,toString  不会改变原数组
 map,filter,some,every,reduce,forEach            这些迭代方法不会改变原数组
 
 
+* Function - 函数对象
+
+Function 是一个构造函数，用于创建一个函数对象：
+
+```js
+var foo = new Function ([arg1[, arg2[, ...argN]],] functionBody)
+
+var foo = new Function () {}
+```
+
+function 是一个关键字可以声明一个函数对象，有两种创建的方式：
+
+```js
+// 函数声明
+function foo() {}
+
+// 函数表达式
+var foo = function () {}
+
+// 每一个函数对象都继承 Function 构造函数的原型对象。
+Function.prototype.foo = 1
+
+var bar = function () {}
+bar.foo // 1
+```
+
 #### 类数组对象
 
 
