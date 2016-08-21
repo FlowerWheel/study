@@ -126,7 +126,7 @@ console.log(typeof boolObj);                // object
 ```
 
 
-* Object - 引用类型
+* Object{} - 引用类型
   
 ```js
 var obj = {};
@@ -138,7 +138,7 @@ console.log(typeof obj);                    // object
 console.log(typeof boolObj);                // object
 ```
 
-* Array -  复合类型 （引用，指针）
+* Array[] -  复合类型 （引用，指针）
 
 数组是对象，能够添加属性。
 
@@ -169,8 +169,42 @@ pop,push,reverse,shift,sort,splice,unshift      会改变原数组
 join,concat,indexOf,lastIndexOf,slice,toString  不会改变原数组
 map,filter,some,every,reduce,forEach            这些迭代方法不会改变原数组
 
-类数组对象arguments
 
+#### 类数组对象
+
+
+一个JS数组是特殊的, 因为：
+1. 它的length属性有些特殊行为:
+    1. 当新的元素添加到列表中,其值自动更新;
+    2. 设置这一属性可以扩展或截断数组.
+2. JS数组也是Array的实例，可以调用不同的Array方法。
+
+1、2都是JS数组的独特特性，但它们不是一个数组的最基本的特性。
+
+把任何具有一个`length`属性及相应的 *非负整数属性* 的 *对象* 作为一种数组, 称之为"类似数组"。
+
+这种类似数组的对象出现频率不高, 而且也不能在它们之上调用数组方法或者通过`length`属性期待特殊的行为1)2), 但仍然可以用遍历一个真正数组的代码来遍历它们。
+
+事实上很多数组算法对于类似数组的对象和真正的数组对象都是适用的, 只要不尝试对数组添加元素或者改变length属性, 就可以把类似数组的对象当作真正的数组来对待.
+
+如下创建一个类似数组，然后遍历该类似数组:
+
+```js
+var a = {};
+var i = 0;
+// 不小心就引进了一个小bug
+while(i++ < 10) { a[i] = i * i; }
+while(i < 10) { a[i] = i * i; i++; }
+
+a.length = i;
+
+var total = 0;
+for(var j = 0, len = a.length; j < len; j++) {
+  total += a[j];
+}
+```
+
+特别地，函数中的Arguments对象就是一个类似数组的对象; 而getElementsByTagName()返回的DOM结点列表也是类似数组的对象。
 
 
 #### 类型转换
@@ -180,12 +214,12 @@ map,filter,some,every,reduce,forEach            这些迭代方法不会改变�
 
 通过手动进行类型转换，Javascript提供了以下转型函数：
 
-* 转换为数值类型：Number(mix)、parseInt(string,radix)、parseFloat(string)
-* 转换为字符串类型：toString(radix)、String(mix)
-* 转换为布尔类型：Boolean(mix)
+* 转换为数值类型：`Number(mix)`、`parseInt(string,radix)`、`parseFloat(string)`
+* 转换为字符串类型：`toString(radix)`、`String(mix)`
+* 转换为布尔类型：`Boolean(mix)`
 
 
-1. Number(mix)函数，可以将任意类型的参数mix转换为数值类型。其规则为：
+1. `Number(mix)`函数，可以将任意类型的参数mix转换为数值类型。其规则为：
 
 类型|示例
 ---|---
@@ -196,7 +230,8 @@ Undefined   | Number(undefined)->NaN
 String      | Number('012345')->12345 Number('012345.6789')->12345.6789 Number('')->0 Number('A-Z')->NaN
 Object      | 调用对象的valueOf()方法，依据前面的规则转换返回的值。如果转换的结果是NaN，则调用对象的toString()方法，再依据前面的规则转换返回的值。
 
-下表列出了对象的valueOf()的返回值：
+下表列出了对象的`valueOf()`的返回值：
+
 类型|valueOf()
 ---|---
 `Array`     | 数组的元素被转换为字符串，这些字符串由逗号分隔，连接在一起，其操作与 Array.toString 和 Array.join 方法相同。
@@ -231,7 +266,7 @@ Number(func);
 ```
 
 
-2. parseInt(string, radix)函数，将字符串转换为整数类型的数值。它也有一定的规则：
+2. `parseInt(string, radix)`函数，将字符串转换为整数类型的数值。它也有一定的规则：
 
     * 忽略字符串前面的空格，直至找到第一个非空字符
     * 如果第一个字符不是数字符号或者负号，返回NaN
@@ -240,12 +275,12 @@ Number(func);
     * 如果指定radix参数，则以radix为基数进行解析
 
 
-3. parseFloat(string)函数，将字符串转换为浮点数类型的数值。
+3. `parseFloat(string)`函数，将字符串转换为浮点数类型的数值。
 
     * 它的规则与parseInt基本相同，但也有点区别：字符串中第一个小数点符号是有效的，另外parseFloat会忽略所有前导0，如果字符串包含一个可解析为整数的数，则返回整数值而不是浮点数值。
 
 
-4. toString(radix)方法。除undefined和null之外的所有类型的值都具有toString()方法，转换成字符串表示。
+4. `toString(radix)`方法。除`undefined`和`null`之外的所有类型的值都具有`toString()`方法，转换成字符串表示。
 
 ```js
 console.log([1, 2, 3].toString())       // 1, 2, 3
@@ -255,17 +290,17 @@ console.log({}.toString())              // [object Object]
 ```
 
 
-5. String(mix)函数，将任何类型的值转换为字符串，其规则为：
+5. `String(mix)`函数，将任何类型的值转换为字符串，其规则为：
 
     * `null` -> "null"
     * `undefined` -> "undefined"
     * 调用`toString()`方法，返回结果，如果没有`toString()`，则报异常，无法转换。
 
 
-6. Boolean(mix)函数，将任何类型的值转换为布尔值。
+6. `Boolean(mix)`函数，将任何类型的值转换为布尔值。
 
-    * false：false、''、0、NaN、null、undefined
-    * true : 除了以上转换问false的
+    * `false`：false、''、0、NaN、null、undefined
+    * `true` : 除了以上转换问false的
 
 
 ##### 隐式转换
@@ -273,9 +308,9 @@ console.log({}.toString())              // [object Object]
 在某些情况下，即使我们不提供显示转换，Javascript也会进行自动类型转换，主要情况有：
 
 
-* 1. 用于检测是否为非数值的函数：isNaN(mix)
+* 1. 用于检测是否为非数值的函数：`isNaN(mix)`
 
-    isNaN()函数，经测试发现，该函数会尝试将参数值用Number()进行转换，如果结果为“非数值”则返回true，否则返回false。
+    `isNaN()`函数，经测试发现，该函数会尝试将参数值用`Number()`进行转换，如果结果为“非数值”则返回true，否则返回false。
 
 
 * 2. 递增递减操作符（包括前置和后置）、一元正负符号操作符
@@ -294,17 +329,17 @@ console.log({}.toString())              // [object Object]
 
 * 3. 加减乘除运算符、取模运算符
 
-    这些操作符针对的是运算，所以他们具有共同性：如果操作值之一不是数值，则被隐式调用Number()函数进行转换。具体每一种运算的详细规则请参考ECMAScript中的定义。
+    这些操作符针对的是运算，所以他们具有共同性：如果操作值之一不是数值，则被隐式调用`Number()`函数进行转换。具体每一种运算的详细规则请参考ECMAScript中的定义。
 
     如果两个操作值都是数值，其规则为：
 
     * 如果一个操作数为NaN，则结果为NaN
-    * 如果是Infinity+Infinity，结果是Infinity
-    * 如果是-Infinity+(-Infinity)，结果是-Infinity
-    * 如果是Infinity+(-Infinity)，结果是NaN
-    * 如果是+0+(+0)，结果为+0
-    * 如果是(-0)+(-0)，结果为-0
-    * 如果是(+0)+(-0)，结果为+0
+    * 如果是`Infinity+Infinity -> Infinity`
+    * 如果是`-Infinity+(-Infinity) -> -Infinity`
+    * 如果是`Infinity+(-Infinity) -> NaN`
+    * 如果是`+0+(+0) -> +0`
+    * 如果是`(-0)+(-0) -> -0`
+    * 如果是`(+0)+(-0) -> +0`
 
     加号运算操作符在Javascript也用于字符串连接符，所以加号操作符处理字符串是有所不同：
 
@@ -316,14 +351,14 @@ console.log({}.toString())              // [object Object]
 
 * 4. 逻辑操作符（!、&&、||）
 
-    * 逻辑非 ! 操作符首先通过Boolean()函数将它的操作值转换为布尔值，然后求反。
+    * 逻辑非 `!` 操作符首先通过`Boolean()`函数将它的操作值转换为布尔值，然后求反。
 
-    * 逻辑与 && 操作符，如果一个操作值不是布尔值时，遵循以下规则进行转换：
+    * 逻辑与 `&&` 操作符，如果一个操作值不是布尔值时，遵循以下规则进行转换：
 
-        * 如果第一个操作数经Boolean()转换后为true，则返回第二个操作值，否则返回第一个值（不是Boolean()转换后的值）
-        * 如果有一个操作值为null，返回null
-        * 如果有一个操作值为NaN，返回NaN
-        * 如果有一个操作值为undefined，返回undefined
+        * 如果第一个操作数经`Boolean()`转换后为`true`，则返回第二个操作值，否则返回第一个值（不是Boolean()转换后的值）
+        * 如果有一个操作值为`null`，返回`null`
+        * 如果有一个操作值为`NaN`，返回`NaN`
+        * 如果有一个操作值为`undefined`，返回`undefined`
 
     * 逻辑或（||）操作符，如果一个操作值不是布尔值，遵循以下规则：
 
@@ -358,20 +393,20 @@ console.log({}.toString())              // [object Object]
 #### 类型识别
 
 
-* typeof
+* `typeof`
 
   * 返回值：首字母小写的字符串形式
   * 可以识别基本类型(将Null识别为object)
   * 不能识别具体的对象类型(Function除外)
 
-* instanceof
+* `instanceof`
 
   * 返回值：true或false
 　* 可以识别内置对象类型、自定义类型及其父类型
   * 不能识别标准类型,会返回false。 (true instanceof Boolean) -> false
   * 不能识别undefined、null，会报错
 
-* Object.prototype.toString
+* `Object.prototype.toString`
 
   * 返回值：[object 数据类型] 的字符串形式
   * 可以识别标准类型及内置对象类型
@@ -384,7 +419,7 @@ function type(obj){
 }
 ```
 
-* .constructor eq: Object.prototype.constructor
+* `.constructor` eq. Object.prototype.constructor
 
   * 返回值：function 数据类型(){[native code]}或者function 自定义类型(){}
   * 可以识别标准类型、内置对象类型及自定义类型
