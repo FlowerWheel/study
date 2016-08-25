@@ -138,7 +138,6 @@ chmod +x ./test.sh
 这种方式运行的脚本，不需要在第一行指定解释器信息，写了也没用。
 
 
-
 ## Shell变量：Shell变量的定义、删除变量、只读变量、变量类型
 
 ### 定义变量
@@ -188,9 +187,10 @@ myUrl="http://OutOfMemory.CN/cpp/shell/"
 echo ${myUrl}
 ```
 
-这样写是合法的，但注意，第二次赋值的时候不能写 $myUrl="http://OutOfMemory.CN/cpp/shell/"，使用变量的时候才加美元符（$）。
+这样写是合法的，但注意，第二次赋值的时候不能写 $myUrl=`http://OutOfMemory.CN/cpp/shell/`，使用变量的时候才加美元符（$）。
 
 ### 只读变量
+
 使用 readonly 命令可以将变量定义为只读变量，只读变量的值不能被改变。
 下面的例子尝试更改只读变量，结果报错：
 
@@ -216,7 +216,7 @@ unset variable_name
 
 举个例子：
 
-```
+```sh
 #!/bin/sh
 myUrl="http://OutOfMemory.CN/cpp/u/xitong/"
 unset myUrl
@@ -228,6 +228,7 @@ echo $myUrl
 ### 变量类型
 
 运行shell时，会同时存在三种变量：
+
 * 局部变量 局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。
 * 环境变量 所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。
 * shell变量 shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行
@@ -277,7 +278,7 @@ Value of a is 10\n
 
 下面的例子中，将命令执行结果保存在变量中：
 
-```
+```sh
 #!/bin/bash
 DATE=`date`
 echo "Date is $DATE"
@@ -376,7 +377,7 @@ UID       | 展开为当前用户的用户ID，在shell启动时初始化
 $0：     | 当前脚本的文件名
 $num：   | num为从1开始的数字，$1是第一个参数，$2是第二个参数，${10}是第十个参数
 $#：     | 传入脚本的参数的个数
-$*：     | 所有的位置参数(作为单个字符串) 
+$*：     | 所有的位置参数(作为单个字符串)
 $@：     | 所有的位置参数(每个都作为独立的字符串)。
 $?：     | 当前shell进程中，上一个命令的返回值，如果上一个命令成功执行则$?的值为0，否则为其他非零值，常用做if语句条件
 $$：     | 当前shell进程的pid
@@ -385,17 +386,15 @@ $-：     | 显示shell使用的当前选项
 $_：     | 之前命令的最后一个参数
 
 
-# Shell注释
+## Shell注释
 
 以 `#` 开头的行就是注释，会被解释器忽略。sh里没有多行注释，只能每一行加一个#号。只能像这样：
 
-```
+```sh
 #---------------------------------------
-shell 教程
-以`#`开头的行就是注释，会被解释器忽略。
-
-sh里没有多行注释，只能每一行加一个#号。只能像这样：
-
+# shell 教程
+# 以`#`开头的行就是注释，会被解释器忽略。
+# sh里没有多行注释，只能每一行加一个#号。只能像这样：
 #--------------------------------------------
 # 这是一个自动打ipa的脚本，基于webfrogs的ipa-build书写：
 # https://github.com/webfrogs/xcode_shell/blob/master/ipa-build
@@ -718,9 +717,9 @@ Input a number between 1 to 4
 Your number is:3
 You select 3
 
-# Shell 循环控制
+## Shell 循环控制
 
-# for
+## for
 
 ```sh
 for 变量 in 列表 do
@@ -804,13 +803,13 @@ done
 
 运行脚本，输出：
 12345
-while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按<Ctrl-D>结束循环。
-echo 'type <CTRL-D> to terminate'
+while循环可用于读取键盘信息。下面的例子中，输入信息被设置为变量FILM，按`<Ctrl-D>`结束循环。
+echo 'type `<CTRL-D>` to terminate'
 echo -n 'enter your most liked film: 'while read FILM
 do
     echo "Yeah! great film the $FILM"done
 运行脚本，输出类似下面：
-type <CTRL-D> to terminate
+type `<CTRL-D>` to terminate
 enter your most liked film: Sound of MusicYeah! great film the Sound of Music
 
 
