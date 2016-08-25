@@ -1,8 +1,0 @@
-CC = gcc
-CFLAGS = -I../libc -g -Wall
-
-all : ptr
-
-
-ptr : ptr.o
-	$(CC) $(CFLAGS) -o $@ $^
