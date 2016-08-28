@@ -1,133 +1,67 @@
+# javascript-syntax
 
-javascript-syntax
-=================
-
-参考：
-* javascript-the-core [翻译](http://weizhifeng.net/javascript-the-core.html) [原文](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/)
+## 数据类型
 
 
+### 基本类型
 
-### 数据类型
+`Undefined、Null、Boolean、Number、String`
 
-
-#### 五种基本类型：
-
-`Undefined`、`Null`、`Boolean`、`Number`、`String`
-
-
-* `Boolean`、`Number`、`String`。
-  
-  这三种基本类型平时使用的时候大都使用的是字面量形式，字面量并不是对象，但是当需要的时候，它们也会被转换成对象，也就是会被转换成 **基本类型的包装类型**。
-
-
-* `Undefined`、`Null`。
-  
-  并不存在`Undefined()`和`Null()`内建函数，只存在`Undefined`和`Null`类型的内建对象`undefined`和`null`，这两个类型无**包装类型**。
-  ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的，相同的地方是都可以视为布尔值的false。
-
-
-#### 引用类型：
-
-`Object`、`Function`、`Array`、`Error`、`Regexp`、`Map`、`Set`...
-
-JavaScript中一切都可以被当做对象！但是只有引用类型才是真正的对象，基本类型除了null和undefined之外，都可以像对象一样使用，因为他们有包装类型。
 
 基本类型是不可变的，我们无法给它们添加属性。
 
 ```js
 var str = '~~~~~';
-str.s = '!!!!!';
-str.s; // undefined
- 
+str.prop = '!!!!!';
+str.prop; // undefined
+
 var num = 10;
 num.prop = 11;
 num.prop; // undefined
 
 var bool = true;
-bool.t = '';
-bool.t // undefined
+bool.prop = '';
+bool.prop // undefined
 
-'this is a string'.charAt === String.prototype.charAt
-(12345).toString();
+'---'.charAt === String.prototype.charAt
+(12345).toString(); // 使用数字调用方法时需要用用括号括起来
 ```
 
 
-undefined与null的区别：
+#### `Boolean`、`Number`、`String`。
 
-* null表示"没有对象"，即该处不应该有值。
-  1. 作为函数的参数，表示该函数的参数不是对象。
-  2. 作为对象原型链的终点。
-* undefined表示"缺少值"，即应该有一个值但是未定义。
-  1. 变量被声明了，但没有赋值时，该变量undefined。
-  2. 调用函数时，参数没有提供，该参数undefined。
-  3. 对象没有赋值的属性，该属性undefined。
-  4. 函数没有返回值时，返回undefined。
+  这三种基本类型分别存在`Boolean()`、`Number()`、`String()`内建函数。
+  平时使用的时候大都使用的是字面量形式，字面量并不是对象。
+  当需要的时候，它们也会被转换成对象，也就是会被转换成 **基本类型的包装类型**。
 
 
-* Undefined Null
-  
-```js
-console.log(undefined instanceof Object);   // false
-console.log(typeof undefined);              // undefined
-console.log(null instanceof Object);        // false
-console.log(typeof null);                   // object
-console.log(undefined === null);            // false
-console.log(undefined == null);             // true
-var undefined = 'foo';
-console.log(undefined, typeof undefined);   // foo 'string'
-console.log(void(0) === undefined);         // true
-```
+#### `Undefined`、`Null`。
+
+  并不存在`Undefined()`和`Null()`内建函数，只存在`Undefined`和`Null`类型的内建对象`undefined`和`null`。
+  ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的，相同的地方是都可以视为布尔值的false。
+  这两个类型无**包装类型**。
+
+  `undefined`与`null`的区别：
+
+   * `null`表示 **没有对象**，即该处不应该有值。
+     1. 作为函数的参数，表示该函数的参数不是对象。
+     2. 作为对象原型链的终点。
+   * `undefined`表示 **缺少值**，即应该有一个值但是**未定义**。
+     1. 变量被声明了，但没有赋值时，该变量`undefined`。
+     2. 调用函数时，参数没有提供，该参数`undefined`。
+     3. 对象没有赋值的属性，该属性`undefined`。
+     4. 函数没有返回值时，返回`undefined`。
 
 
-* Number
-  
-```js
-var num = 0;
-var numObj = new Number(0);
-console.log(num instanceof Object);         // false
-console.log(num instanceof Number);         // false
-console.log(numObj instanceof Object);      // true
-console.log(numObj instanceof Number);      // true
-console.log(num === numObj);                // false
-console.log(typeof num);                    // number
-console.log(typeof numObj);                 // object
-console.log(numObj === new Number(0));      // false
-console.log(numObj === numObj);             // true
-```
+### 引用类型
+
+`Object、Function、Array、Error、Regexp、Map、Set`...
+
+JavaScript中一切都可以被当做对象！但是只有引用类型才是真正的对象，基本类型除了`null`和`undefined`之外，都可以像对象一样使用，因为他们有包装类型。
 
 
-* String
-  
-```js
-var str = '';
-var strObj = new String('');
-console.log(str instanceof Object);         // false
-console.log(str instanceof String);         // false
-console.log(strObj instanceof Object);      // true
-console.log(strObj instanceof String);      // true
-console.log(str === strObj);                // false
-console.log(typeof str);                    // string
-console.log(typeof strObj);                 // object
-```
+#### Object{} - 对象
 
-
-* Boolean
-  
-```js
-var bool = true;
-var boolObj = new Boolean(true);
-console.log(bool instanceof Object);        // false
-console.log(bool instanceof Boolean);       // false
-console.log(boolObj instanceof Object);     // true
-console.log(boolObj instanceof Boolean);    // true
-console.log(bool === boolObj);              // false
-console.log(typeof bool);                   // boolean
-console.log(typeof boolObj);                // object
-```
-
-
-* Object{} - 引用类型
-  
 ```js
 var obj = {};
 var boolObj = new Object({});
@@ -138,7 +72,35 @@ console.log(typeof obj);                    // object
 console.log(typeof boolObj);                // object
 ```
 
-* Array[] -  复合类型 （引用，指针）
+
+#### Function - 函数对象
+
+Function 是一个构造函数，用于创建一个函数对象：
+
+```js
+var foo = new Function ([arg1[, arg2[, ...argN]],] functionBody)
+
+var foo = new Function () {}
+```
+
+function 是一个关键字可以声明一个函数对象，有两种创建的方式：
+
+```js
+// 函数声明
+function foo() {}
+
+// 函数表达式
+var foo = function () {}
+
+// 每一个函数对象都继承 Function 构造函数的原型对象。
+Function.prototype.foo = 1
+
+var bar = function () {}
+bar.foo // 1
+```
+
+
+#### Array[] -  复合类型 （引用，指针）
 
 数组是对象，能够添加属性。
 
@@ -169,32 +131,6 @@ pop,push,reverse,shift,sort,splice,unshift      会改变原数组
 join,concat,indexOf,lastIndexOf,slice,toString  不会改变原数组
 map,filter,some,every,reduce,forEach            这些迭代方法不会改变原数组
 
-
-* Function - 函数对象
-
-Function 是一个构造函数，用于创建一个函数对象：
-
-```js
-var foo = new Function ([arg1[, arg2[, ...argN]],] functionBody)
-
-var foo = new Function () {}
-```
-
-function 是一个关键字可以声明一个函数对象，有两种创建的方式：
-
-```js
-// 函数声明
-function foo() {}
-
-// 函数表达式
-var foo = function () {}
-
-// 每一个函数对象都继承 Function 构造函数的原型对象。
-Function.prototype.foo = 1
-
-var bar = function () {}
-bar.foo // 1
-```
 
 #### 类数组对象
 
@@ -233,10 +169,120 @@ for(var j = 0, len = a.length; j < len; j++) {
 特别地，函数中的Arguments对象就是一个类似数组的对象; 而getElementsByTagName()返回的DOM结点列表也是类似数组的对象。
 
 
-#### 类型转换
+### 类型识别
 
 
-##### 显式转换
+#### 识别方法
+
+* `typeof`
+
+  * 返回值：首字母小写的字符串形式
+  * 可以识别基本类型(将Null识别为object)
+  * 不能识别具体的对象类型(Function除外)
+
+* `instanceof`
+
+  * 返回值：true或false
+  * 可以识别内置对象类型、自定义类型及其父类型
+  * 不能识别标准类型,会返回false。 (true instanceof Boolean) -> false
+  * 不能识别undefined、null，会报错
+
+* `Object.prototype.toString`
+
+  * 返回值：[object 数据类型] 的字符串形式
+  * 可以识别标准类型及内置对象类型
+  * 不能识别自定义类型
+
+```js
+// 使用toString实现type函数
+function type(obj){
+  return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase();
+}
+```
+
+* `.constructor` eq. Object.prototype.constructor
+
+  * 返回值：function 数据类型(){[native code]}或者function 自定义类型(){}
+  * 可以识别标准类型、内置对象类型及自定义类型
+  * 不能识别undefined、null，会报错
+
+```js
+// 使用constructor实现type函数
+function type(obj){
+  return obj.constructor.toString().replace(/^function (\w+)\(\).+$/,'$1');
+}
+```
+
+
+#### Example
+
+
+* Number
+
+```js
+var num = 0;
+var numObj = new Number(0);
+console.log(num instanceof Object);         // false
+console.log(num instanceof Number);         // false
+console.log(numObj instanceof Object);      // true
+console.log(numObj instanceof Number);      // true
+console.log(typeof num);                    // number
+console.log(typeof numObj);                 // object
+console.log(numObj === new Number(0));      // false
+console.log(numObj === numObj);             // true
+console.log(num === numObj);                // false
+```
+
+
+* String
+
+```js
+var str = '';
+var strObj = new String('');
+console.log(str instanceof Object);         // false
+console.log(str instanceof String);         // false
+console.log(strObj instanceof Object);      // true
+console.log(strObj instanceof String);      // true
+console.log(typeof str);                    // string
+console.log(typeof strObj);                 // object
+console.log(str === strObj);                // false
+```
+
+
+* Boolean
+
+```js
+var bool = true;
+var boolObj = new Boolean(true);
+console.log(bool instanceof Object);        // false
+console.log(bool instanceof Boolean);       // false
+console.log(boolObj instanceof Object);     // true
+console.log(boolObj instanceof Boolean);    // true
+console.log(typeof bool);                   // boolean
+console.log(typeof boolObj);                // object
+console.log(bool === boolObj);              // false
+```
+
+
+* Undefined Null
+
+```js
+console.log(undefined instanceof Object);   // false
+console.log(typeof undefined);              // undefined
+console.log(null instanceof Object);        // false
+console.log(typeof null);                   // object
+console.log(undefined === null);            // false
+console.log(undefined == null);             // true
+var undefined = 'foo';
+console.log(undefined, typeof undefined);   // foo 'string'
+console.log(void(0) === undefined);         // true
+```
+
+
+### 类型转换
+
+
+#### 显式转换
 
 通过手动进行类型转换，Javascript提供了以下转型函数：
 
@@ -247,8 +293,8 @@ for(var j = 0, len = a.length; j < len; j++) {
 
 1. `Number(mix)`函数，可以将任意类型的参数mix转换为数值类型。其规则为：
 
-类型|示例
----|---
+Type        |Example
+------------|---------------------------------------
 Boolean     | Number(true)->1 Number(false)->0
 Number      | Number(num)->num
 Null        | Number(null)->0
@@ -258,8 +304,8 @@ Object      | 调用对象的valueOf()方法，依据前面的规则转换返回
 
 下表列出了对象的`valueOf()`的返回值：
 
-类型|valueOf()
----|---
+Type        |valueOf()
+------------|---------------------------------------
 `Array`     | 数组的元素被转换为字符串，这些字符串由逗号分隔，连接在一起，其操作与 Array.toString 和 Array.join 方法相同。
 `Boolean`   | Boolean 值是
 `Date`      | 存储的时间是从 1970 年 1 月 1 日午夜开始计的毫秒数 UTC
@@ -271,11 +317,11 @@ Object      | 调用对象的valueOf()方法，依据前面的规则转换返回
 
 Example：
 ```js
-var arr1 = new Array(); 
+var arr1 = new Array();
 Number(arr1.valueOf());
 Number(arr1.toString());
 Number(arr2);
-var arr2 = new Array([1, 2, 3]); 
+var arr2 = new Array([1, 2, 3]);
 Number(arr2.valueOf());
 Number(arr2.toString());
 Number(arr2);
@@ -329,7 +375,7 @@ console.log({}.toString())              // [object Object]
     * `true` : 除了以上转换问false的
 
 
-##### 隐式转换
+#### 隐式转换
 
 在某些情况下，即使我们不提供显示转换，Javascript也会进行自动类型转换，主要情况有：
 
@@ -416,50 +462,8 @@ console.log({}.toString())              // [object Object]
     * 如果两个操作值都是对象，则比较它们是不是指向同一个对象
 
 
-#### 类型识别
 
-
-* `typeof`
-
-  * 返回值：首字母小写的字符串形式
-  * 可以识别基本类型(将Null识别为object)
-  * 不能识别具体的对象类型(Function除外)
-
-* `instanceof`
-
-  * 返回值：true或false
-　* 可以识别内置对象类型、自定义类型及其父类型
-  * 不能识别标准类型,会返回false。 (true instanceof Boolean) -> false
-  * 不能识别undefined、null，会报错
-
-* `Object.prototype.toString`
-
-  * 返回值：[object 数据类型] 的字符串形式
-  * 可以识别标准类型及内置对象类型
-  * 不能识别自定义类型
-
-```js
-// 使用toString实现type函数
-function type(obj){
-  return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase();
-}
-```
-
-* `.constructor` eq. Object.prototype.constructor
-
-  * 返回值：function 数据类型(){[native code]}或者function 自定义类型(){}
-  * 可以识别标准类型、内置对象类型及自定义类型
-  * 不能识别undefined、null，会报错
-
-```js
-// 使用constructor实现type函数
-function type(obj){
-  return obj.constructor.toString().replace(/^function (\w+)\(\).+$/,'$1');
-}
-```
-
-
-### void
+## void
 
 
 * void UnaryExpression 按如下流程解释:
@@ -477,7 +481,7 @@ function type(obj){
 
 
 
-### Object
+## Object
 
 
 ECMAScript做为一个高度抽象的面向对象语言，是通过对象来交互的。
@@ -509,7 +513,7 @@ var foo = {
 
 
 
-### 原型链（prototype-chain）
+## 原型链（prototype-chain）
 
 
 * `原型对象`也是简单的对象并且可以拥有它们自己的原型，如果一个原型对象的`原型`是一个非`null`的引用，以此类推，原型对象连成的链，就形成了`原型链`。
@@ -537,16 +541,16 @@ var a = {
     return this.x + this.y + z
   }
 };
-var b = {y: 20, __proto__: a}; 
+var b = {y: 20, __proto__: a};
 // 等价于 var b = Object.create(a, {y: {value: 20}});
-var c = {y: 30, __proto__: a}; 
+var c = {y: 30, __proto__: a};
 // 等价于 var c = Object.create(a, {y: {value: 30}});
 b.calculate(30); // 60
 c.calculate(40); // 80
 ```
 
 
-#### 原型链lookup规则：
+### 原型链lookup规则：
 
 如果一个`属性`/`方法`在对象自身中无法找到，JS引擎会尝试遍历整个原型链，寻找这个`属性`/`方法`，第一个被查找到的同名`属性`/`方法`会被使用。如果在遍历了整个原型链之后还是没有查找到这个属性的话，返回undefined值。
 
@@ -558,7 +562,7 @@ c.calculate(40); // 80
 所以`__proto__`是给JS引擎用的，但是暴露给了我们，并且可以对其修改。
 
 
-#### `__proto__`
+### `__proto__`
 
 * 如果没有明确为一个对象指定原型，那么它将会使用 `__proto__` 的默认值 `Object.prototype`。
 * `Object.prototype`对象自身也有一个`__proto__`属性，值为`null`，这是原型链的终点。 即：`Object.prototype.__proto__ === null`
@@ -623,7 +627,7 @@ typeof 还可以让检查一个变量是否已声明，而不会抛出异常。 
 
 
 
-### 构造函数
+## 构造函数
 
 
 * 以指定的模式来创造对象
@@ -717,10 +721,10 @@ console.log(obj1.func() === obj3.func());
 
 
 
-### 属性类型
+## 属性类型
 
 
-#### 数据属性
+### 数据属性
 
 
 属性|说明
@@ -751,7 +755,7 @@ console.log(person.sax);        // M
 ```
 
 
-#### 访问器属性: `getter` `setter`
+### 访问器属性: `getter` `setter`
 
 
 属性|说明
@@ -836,14 +840,14 @@ console.log(desc2);
 ```
 
 
-#### 应用：
+### 应用：
 
 * 观察者模式
   - 例子[JavaScript实现MVVM监测一个普通对象的变化](http://hcysun.me/2016/04/28/JavaScript%E5%AE%9E%E7%8E%B0MVVM%E4%B9%8B%E6%88%91%E5%B0%B1%E6%98%AF%E6%83%B3%E7%9B%91%E6%B5%8B%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96/)
 
 
 
-### ECMAScript5对象保护功能
+## ECMAScript5对象保护功能
 
 
 在JavaScript里，默认情况下，你可修改任何你可以访问到的对象，你可以自由的删除对象的属性或覆盖对象的方法。
@@ -899,10 +903,10 @@ console.log(persion3);
 
 
 
-### 对象构造
+## 对象构造
 
 
-#### 工厂模式
+### 工厂模式
 
 * 按指定模式创建对象的，但是对象类型无法标识。
 
@@ -923,7 +927,7 @@ console.log(o1.property1);
 ```
 
 
-#### 构造函数模式
+### 构造函数模式
 
 * 构造函数名字用来标志一个`特定类型`。
 * 问题在于：每个方法在每个对象上都要重新创建一次。
@@ -951,7 +955,7 @@ console.log(no2 instanceof NewObject);
 ```
 
 
-#### 原型模式
+### 原型模式
 
 * 每个函数都有一个`prototype`属性，引用另一个对象，这个对象可以实现属性的共享。
 * `prototype`是构造函数的一个属性，`prototype`指向的`原型对象`拥有一个`constructor`属性指向构造函数，普通函数有此属性无意义。
@@ -994,7 +998,7 @@ Object.defineProperty(PrototypeObject.prototype, 'constructor', {
 ```
 
 
-#### 组合构造函数和原型模式
+### 组合构造函数和原型模式
 
 * 集两者之长默认模式
 * 实例属性在构造函数中定义　　
@@ -1005,7 +1009,7 @@ function ConstructPrototypeObject(name, desc) {
 	this.name = name;
 	this.desc = desc;
 }
-ConstructPrototypeObject.prototype.display = 
+ConstructPrototypeObject.prototype.display =
 function () {
 	console.log(this.name);
 	console.log(this.desc);
@@ -1013,7 +1017,7 @@ function () {
 ```
 
 
-#### 动态原型模式
+### 动态原型模式
 
 * 只在第一次调用构造函数时　实例化原型
 
@@ -1038,7 +1042,7 @@ function ConstructPrototypeObject(name, desc) {
 ```
 
 
-#### 继承模式（寄生模式）
+### 继承模式（寄生模式）
 
 * 这种方式，可以用来扩展原生对象，在不修改原生对象的前提下，增加方法。
 
@@ -1056,7 +1060,7 @@ console.log(colors.toPipedString());
 ```
 
 
-#### 稳妥构造函数模式
+### 稳妥构造函数模式
 
 * 数据成员位于作用域链中，不在对象的属性中，防止数据被其他程序改动时使用，适合用于一些安全环境，这些环境禁止使用this和new。
 
@@ -1076,10 +1080,10 @@ console.log(friend.name); //undefined
 
 
 
-### 继承
+## 继承
 
 
-#### 原型链
+### 原型链
 
 * 原型属性会被所有实例共享
 * 无法向超类传递参数
@@ -1114,7 +1118,7 @@ console.log(instance);
 ```
 
 
-#### 组合继承
+### 组合继承
 
 * 原型链继承原型
 * 借用构造函数继承实例属性
@@ -1143,7 +1147,7 @@ instance.sayAge();
 ```
 
 
-#### 原型式继承
+### 原型式继承
 
 * 此方式必须有一个对象作为基础，作为原型。
 
@@ -1157,7 +1161,7 @@ Object.create();    //此方法即为原型式继承
 ```
 
 
-#### 寄生式继承
+### 寄生式继承
 
 ```js
 function createAnother(original) {          // 工厂
@@ -1170,7 +1174,7 @@ function createAnother(original) {          // 工厂
 ```
 
 
-#### 寄生组合式继承
+### 寄生组合式继承
 
 * 借用构造函数继承属性
 * 原型链的混成形式继承方法
@@ -1206,7 +1210,9 @@ exports.inherits = function(ctor, superCtor) {
 
 
 
-### `bind`、`call`、`apply`是做什么的？
+## `bind`、`call`、`apply`
+
+他们使用来做什么的？
 
 TODO: 要改，举例说明使用方法。
 从设计者的角度去考虑各个点，call、apply、bind 存在的原因。
@@ -1226,7 +1232,7 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 
 
 
-### 执行上下文堆栈
+## 执行上下文堆栈
 
 
 * EC(执行环境或者执行上下文，Execution Context)
@@ -1249,7 +1255,7 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 
 ```js
 function foo(bar) {}
-// call the same function, 
+// call the same function,
 // generate three different contexts in each call,
 // with different context state (e.g. value of the "bar" argument)
 foo(10);
@@ -1298,7 +1304,7 @@ foo(30);
 让我们来看看它的结构以及一个上下文到底需要什么状态（什么属性）来执行它的代码。
 
 
-#### 执行上下文
+### 执行上下文
 
 
 一个执行上下文可以抽象的表示为一个简单的对象。每一个执行上下文拥有一些属性（可以叫作上下文状态）用来跟踪和它相关的代码的执行过程。在下图中展示了一个上下文的结构：
@@ -1310,7 +1316,7 @@ foo(30);
 让我们详细看看上下文中的这些重要的属性。
 
 
-#### 变量对象（variable object）
+### 变量对象（variable object）
 
 
 `变量对象`是与`执行上下文`相关的`数据作用域`。它是一个与上下文相关的特殊对象，其中存储了在上下文中定义的`变量`和`函数声明`。
@@ -1345,7 +1351,7 @@ console.log(baz); // ReferenceError, "baz" is not defined
 那么函数和它的变量对象是怎么样的？在函数上下文中，变量对象是以`活动对象`来表示的。
 
 
-#### 活动对象（activation object）
+### 活动对象（activation object）
 
 
 当一个函数被`caller`调用，一个特殊的对象，叫作`活动对象`（activation object）将会被创建。这个对象中包含形参和那个特殊的`arguments`对象（是对形参的一个映射，但是值是通过索引来获取）。活动对象之后会做为函数上下文的变量对象来使用。
@@ -1376,7 +1382,7 @@ foo(10, 20);
 众所周知，在ECMAScript中我们可以使用内部函数，然后在这些内部函数我们可以引用父函数的变量或者全局上下文中的变量。当我们把变量对象命名为上下文的作用域对象，与上面讨论的原型链相似，这里有一个叫作`作用域链`的东西。
 
 
-#### 作用域链(scope chain)
+### 作用域链(scope chain)
 
 
 作用域链是一个对象列表，上下文代码中出现的标识符在这个列表中进行查找。
@@ -1467,7 +1473,7 @@ console.log(x); // 10
 
 
 
-### This
+## This
 
 
 this是一个与执行上下文相关的特殊对象。因此，它可以叫作上下文对象（也就是用来指明执行上下文是在哪个上下文中被触发的对象）。
@@ -1528,7 +1534,7 @@ http://www.kancloud.cn/kancloud/deep-understand-javascript/43686
 
 
 
-### 闭包
+## 闭包
 
 在ECMAScript中，函数是一级（first-class）对象。这个术语意味着函数可以做为参数传递给其他函数（「函数类型参数」（funargs，是"functional arguments"的简称））。接收「函数类型参数」的函数叫作`高阶函数`或者，贴近数学一些，叫作高阶操作符。
 
@@ -1661,7 +1667,7 @@ data[2](); // 2
 
 
 
-### 闭包
+## 闭包
 
 有权访问另一个函数作用域中的变量的函数
 
@@ -1702,13 +1708,13 @@ objA.func1();
 
 
 
-### 函数表达式
+## 函数表达式
 
 
-### 执行过程
+## 执行过程
 
 
-#### 执行顺序
+### 执行顺序
 
  * 编译型语言，编译步骤分为：词法分析、语法分析、语义检查、代码优化和字节生成。
  * 解释型语言，通过词法分析和语法分析得到语法分析树后，就可以开始解释执行了。这里是一个简单原始的关于解析过程的原理，仅作为参考，详细的解析过程（各种JS引擎还有不同）还需要更深一步的研究
@@ -1731,14 +1737,14 @@ objA.func1();
  * 它引用了这个函数的 Arguments 对象，Arguments 对象是函数的实际参数。
 
 
-#### 关键步骤
+### 关键步骤
 
  上面的过程，我们主要是分成两个阶段
  * 解析：通过语法分析和预解析构造合法的语法分析树。
  * 执行：执行具体的某个函数，JS引擎在执行每个函数实例时，都会创建一个执行环境（ExecutionContext）和活动对象（ActiveObject）（它们属于宿主对象，与函数实例的生命周期保持一致）
 
 
-#### 关键概念
+### 关键概念
 
  * 语法分析树（SyntaxTree）
   * 可以直观地表示出这段代码的相关信息，具体的实现就是JS引擎创建了一些表，
@@ -1775,7 +1781,7 @@ objA.func1();
 
 
 
-### javascript词法分析
+## javascript词法分析
 
 lexical-analyzer  Lexer  Tokenizer
 
@@ -1793,7 +1799,7 @@ JavaScript的每个函数function都有自己的作用域，使用Active Object�
 函数fn3中使用的变量，如在fn3作用域内寻找不到，则往外层fn2作用域寻找，以此类推，直到全局对象window
 
 
-#### 1、解析模拟
+### 1、解析模拟
 
 
 估计，看到这儿，大家还是很朦胧吧，什么是语法分析树，语法分析树到底长什么样子，作用域链又怎么实现的，活动对象又有什么内容等等，还是不是太清晰，
@@ -1825,7 +1831,7 @@ function a(o, p, x, q) {
 a(10, 20, 30);
 ```
 
-#### 2、语法分析树
+### 2、语法分析树
 
 
  上面的代码很简单，就是先定义了一些全局变量和全局方法，接着在方法内再定义局部变量和局部方法，现在JS解释器读入这段代码开始解析，
@@ -1888,7 +1894,7 @@ var SyntaxTree = {
 上面就是关于语法分析树的一个简单表示，正如我们前面分析的，语法分析树主要记录了每个 function 中的变量集（variables），方法集（functions）和作用域（scope）
 
 
-#### 3、执行环境
+### 3、执行环境
 
 
 ```js
@@ -1932,7 +1938,7 @@ var ExecutionContext = {
 * scopeChain属性，作用域链，它是一个链表结构，根据语法分析树中当前方法对应的scope属性，它指向scope对应的方法的活动对象（ActivceObject），变量查找就是跟着这条链条查找的活动对象
 
 
-#### 4、活动对象：函数执行时创建的活动对象列表
+### 4、活动对象：函数执行时创建的活动对象列表
 
 
 ```js
@@ -1997,10 +2003,10 @@ var ActiveObject = {
 
 
 
-### JavaScript线程模型
+## JavaScript线程模型
 
 
-#### 为什么JavaScript是单线程的？
+### 为什么JavaScript是单线程的？
 
 
 单线程是相对多线程而言的，假如系统从来就没有过多线程这个概念，那么为什么JavaScript是单线程的这个问题就不存在了。
@@ -2043,7 +2049,7 @@ AWT最初其实就是想设计成多线程的，但是使用者非常容易引�
 
 既然JavaScript是单线程的，那么JavaScript是如何实现并发的？
 
-#### JavaScript如何并发？
+### JavaScript如何并发？
 
 JavaScript有个基于 **EventLoop** 的 **并发模型**，能把单线程的 JavaScript 使出 **多线程** 的 感觉。
 
@@ -2107,7 +2113,7 @@ while(waitForEvent()){
 EventLoop绝不能阻塞，阻不阻塞不是JavaScript决定的。保证当应用等待异步请求返回时，其仍能处理其它操作。
 
 
-#### Runtime
+### Runtime
 
 
 * Stack 这里放着JavaScript正在执行的任务，每个任务被称为帧（frame）。
@@ -2121,7 +2127,7 @@ EventLoop绝不能阻塞，阻不阻塞不是JavaScript决定的。保证当应�
 ！！！！！！！！！！！图
 
 
-#### 下面这段代码执行后会有什么效果？
+### 下面这段代码执行后会有什么效果？
 
 
 ```js
@@ -2148,10 +2154,10 @@ alert('B');
 *B*所在的那段脚本被终止了，为什么*alertA*还能被执行？
 
 
-#### sleep
+### sleep
 
 
-JavaScript是没有*sleep*方法的，如果非要*sleep*，我们只能实现一个伪sleep，因为这个循环会不断消耗CPU去比对时间，并不是真正的sleep，而是没有响应地工作： 
+JavaScript是没有*sleep*方法的，如果非要*sleep*，我们只能实现一个伪sleep，因为这个循环会不断消耗CPU去比对时间，并不是真正的sleep，而是没有响应地工作：
 
 ```js
 function sleep(time) {
@@ -2162,7 +2168,7 @@ function sleep(time) {
 ```
 
 
-#### 拆分耗时逻辑
+### 拆分耗时逻辑
 
 
 很多时候我们需要把耗时的逻辑拆分，腾出时间来给其他逻辑的执行。
@@ -2206,11 +2212,11 @@ function timedChunk(items, process, context, callback){
 可以看见，这可以更充分地利用时间，执行的任务放到一个数组中，只要每次chunk内执行的时间不足50毫秒，就继续执行；一旦超过50毫秒，就留给外部事件25毫秒去处理。
 
 
-#### Timer
+### Timer
 
 
 * How JavaScript Timers Work
- 
+
 从基础的层面来讲，理解JavaScript的定时器是如何工作的是非常重要的。
 计时器的执行常常和我们的直观想象不同，那是因为JavaScript引擎是单线程的。
 我们先来认识一下下面三个函数是如何控制计时器的。
@@ -2267,7 +2273,7 @@ function timedChunk(items, process, context, callback){
     /* Some long block of code... */
     setTimeout(arguments.callee, 10);
   }, 10);
-  
+
   setInterval(function(){
     /* Some long block of code... */
   }, 10);
@@ -2362,7 +2368,7 @@ Node.js的输入如下：
 
 可见，Node.js的`setInterval`很可能是用`setTimeout`模拟实现的。
 
-### Node.js & Browser
+## Node.js & Browser
 
 浏览器不是单线程的，浏览器的内核是多线程的，它们在内核制控下相互配合以保持同步，一个浏览器至少实现三个常驻线程：
 
@@ -2392,7 +2398,7 @@ for(var i = 0; i< 100000000; i++){};
 这视乎证明了点击事件（也包括其它各种事件）是由额外单独的线程触发的，事件触发后就会将回调函数放进了“任务队列”的末尾，等待着JavaScript主线程的执行。
 
 
-### 图图图？
+## 图图图？
 
 代码一段一段入栈执行，因为栈的一个单元是一个函数，所以这里一段代码即指一个函数。
 
@@ -2429,14 +2435,15 @@ for(var i = 0; i< 100000000; i++){};
 
   异步函数是JS引擎的在运行环境中的扩展。
 
-### 总结
+## 总结
 
 JavaScript是单线程的，同一时刻只能执行特定的任务。而浏览器是多线程的。
 异步任务（各种浏览器事件、定时器等）都是先添加到“任务队列”（定时器则到达其指定参数时）。
 当Stack栈（JS主线程）为空时，就会读取Queue队列（任务队列）的第一个任务（队首），然后执行。
 JavaScript为了避免复杂性，而实现单线程执行。而今JavaScript却变得越来越不简单了，当然这也是JavaScript迷人的地方。
 
-### 参考
+## 参考
+* javascript-the-core [翻译](http://weizhifeng.net/javascript-the-core.html) [原文](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/)
 * http://www.raychase.net/1968?replytocom=51795
 * http://www.codeceo.com/article/javascript-threaded.html
 * http://www.cnblogs.com/yakun/p/3802725.html
@@ -2447,4 +2454,3 @@ JavaScript为了避免复杂性，而实现单线程执行。而今JavaScript却
 * http://blog.thomasbelin.fr/p/javascript-single-threaded-et-asynchrone/
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop
 * http://www.ruanyifeng.com/blog/2014/10/event-loop.html
-
