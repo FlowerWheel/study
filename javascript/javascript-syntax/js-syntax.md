@@ -1,5 +1,10 @@
 # javascript-syntax
 
+http://blog.csdn.net/z742182637/article/details/51536140
+http://www.cnblogs.com/wilber2013/p/4909430.html#_nav_0
+
+
+
 ## 数据类型
 
 
