@@ -1,5 +1,4 @@
-函数声明和函数表达式
-==========
+# 函数声明和函数表达式
 
 计算机语言发展到 C 就已经不区分函数和子过程了。
 
@@ -16,11 +15,11 @@ http://kangax.github.io/nfe/
 http://www.cnblogs.com/yuzhongwusan/archive/2012/01/30/2331693.html
 http://javascript.info/tutorial/functions-declarations-and-expressions
 
-### 函数声明和函数表达式
+## 函数声明和函数表达式s
 
 函数声明:
 `function 函数名称 (参数：可选){ 函数体 }`
-　
+
 函数表达式：
 `function 函数名称（可选）(参数：可选){ 函数体 }`
 
@@ -44,7 +43,7 @@ ECMAScript是通过上下文来区分的，如果function foo(){}是作为赋值
 ```js
   function foo(){}      // 函数声明
   (function foo(){});   // 函数表达式：包含在分组操作符内
-  
+
   try {
     (var x = 5);        // 分组操作符，只能包含表达式而不能包含语句：这里的var就是语句
   } catch(err) {
@@ -60,7 +59,7 @@ ECMAScript是通过上下文来区分的，如果function foo(){}是作为赋值
   } catch(err) {
     // SyntaxError
   }
-  
+
   ({ "x": 5 }); // 分组操作符强制将"{" 和 "}"作为对象字面量来解析
 ```
 
@@ -122,7 +121,7 @@ ECMAScript是通过上下文来区分的，如果function foo(){}是作为赋值
 而这实际上就是说，函数表达式同样也不能出现在Statement语句或Block（块）中（因为Block（块）就是由Statement语句构成的）。 
 
 
-### 命名函数表达式
+## 命名函数表达式
 
 函数表达式在实际应用中还是很常见的，在web开发中友个常用的模式是基于对某种特性的测试来伪装函数定义，从而达到性能优化的目的，但由于这种方式都是在同一作用域内，所以基本上一定要用函数表达式：
 

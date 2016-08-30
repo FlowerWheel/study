@@ -2,8 +2,8 @@
 
 http://blog.csdn.net/z742182637/article/details/51536140
 http://www.cnblogs.com/wilber2013/p/4909430.html#_nav_0
-
-
+https://www.nczonline.net/blog/2013/06/25/eval-isnt-evil-just-misunderstood/
+http://www.cnblogs.com/dolphinX/p/3524977.html
 
 ## 数据类型
 
@@ -48,14 +48,14 @@ bool.prop // undefined
 
   `undefined`与`null`的区别：
 
-   * `null`表示 **没有对象**，即该处不应该有值。
-     1. 作为函数的参数，表示该函数的参数不是对象。
-     2. 作为对象原型链的终点。
-   * `undefined`表示 **缺少值**，即应该有一个值但是**未定义**。
-     1. 变量被声明了，但没有赋值时，该变量`undefined`。
-     2. 调用函数时，参数没有提供，该参数`undefined`。
-     3. 对象没有赋值的属性，该属性`undefined`。
-     4. 函数没有返回值时，返回`undefined`。
+* `null`表示 **没有对象**，即该处不应该有值。
+  1. 作为函数的参数，表示该函数的参数不是对象。
+  2. 作为对象原型链的终点。
+* `undefined`表示 **缺少值**，即应该有一个值但是**未定义**。
+  1. 变量被声明了，但没有赋值时，该变量`undefined`。
+  2. 调用函数时，参数没有提供，该参数`undefined`。
+  3. 对象没有赋值的属性，该属性`undefined`。
+  4. 函数没有返回值时，返回`undefined`。
 
 
 ### 引用类型
@@ -375,21 +375,25 @@ Number(func);
 ```
 
 
-2. `parseInt(string, radix)`函数，将字符串转换为整数类型的数值。它也有一定的规则：
+2. `parseInt(string, radix)`函数，将字符串转换为整数类型的数值。
 
-    * 忽略字符串前面的空格，直至找到第一个非空字符
-    * 如果第一个字符不是数字符号或者负号，返回NaN
-    * 如果第一个字符是数字，则继续解析直至字符串解析完毕或者遇到一个非数字符号为止
-    * 如果上步解析的结果以0开头，则将其当作八进制来解析；如果以0x开头，则将其当作十六进制来解析
-    * 如果指定radix参数，则以radix为基数进行解析
+它也有一定的规则：
+
+* 忽略字符串前面的空格，直至找到第一个非空字符。
+* 如果第一个字符不是数字符号或者负号，返回NaN。
+* 如果第一个字符是数字，则继续解析直至字符串解析完毕或者遇到一个非数字符号为止。
+* 如果上步解析的结果以0开头，则将其当作八进制来解析；如果以0x开头，则将其当作十六进制来解析。
+* 如果指定radix参数，则以radix为基数进行解析。
 
 
 3. `parseFloat(string)`函数，将字符串转换为浮点数类型的数值。
 
-    * 它的规则与parseInt基本相同，但也有点区别：字符串中第一个小数点符号是有效的，另外parseFloat会忽略所有前导0，如果字符串包含一个可解析为整数的数，则返回整数值而不是浮点数值。
+它的规则与parseInt基本相同，但也有点区别：字符串中第一个小数点符号是有效的，另外parseFloat会忽略所有前导0，如果字符串包含一个可解析为整数的数，则返回整数值而不是浮点数值。
 
 
-4. `toString(radix)`方法。除`undefined`和`null`之外的所有类型的值都具有`toString()`方法，转换成字符串表示。
+4. `toString(radix)`方法。
+
+除`undefined`和`null`之外的所有类型的值都具有`toString()`方法，转换成字符串表示。
 
 ```js
 console.log([1, 2, 3].toString())       // 1, 2, 3
@@ -401,15 +405,15 @@ console.log({}.toString())              // [object Object]
 
 5. `String(mix)`函数，将任何类型的值转换为字符串，其规则为：
 
-    * `null` -> "null"
-    * `undefined` -> "undefined"
-    * 调用`toString()`方法，返回结果，如果没有`toString()`，则报异常，无法转换。
+* `null` -> "null"
+* `undefined` -> "undefined"
+* 调用`toString()`方法，返回结果，如果没有`toString()`，则报异常，无法转换。
 
 
 6. `Boolean(mix)`函数，将任何类型的值转换为布尔值。
 
-    * `false`：false、''、0、NaN、null、undefined
-    * `true` : 除了以上转换问false的
+* `false`：false、''、0、NaN、null、undefined
+* `true` : 除了以上转换问false的
 
 
 #### 隐式转换
@@ -417,86 +421,82 @@ console.log({}.toString())              // [object Object]
 在某些情况下，即使我们不提供显示转换，Javascript也会进行自动类型转换，主要情况有：
 
 
-* 1. 用于检测是否为非数值的函数：`isNaN(mix)`
+1. 用于检测是否为非数值的函数：`isNaN(mix)`
 
-    `isNaN()`函数，经测试发现，该函数会尝试将参数值用`Number()`进行转换，如果结果为“非数值”则返回true，否则返回false。
-
-
-* 2. 递增递减操作符（包括前置和后置）、一元正负符号操作符
-
-    这些操作符适用于任何数据类型的值，针对不同类型的值，该操作符遵循以下规则（经过对比发现，其规则与Number()规则基本相同）：
-
-    * 如果是包含有效数字字符的字符串，先将其转换为数字值（转换规则同Number()），在执行加减1的操作，字符串变量变为数值变量。
-    * 如果是不包含有效数字字符的字符串，将变量的值设置为NaN，字符串变量变成数值变量。
-    * 如果是布尔值false，先将其转换为0再执行加减1的操作，布尔值变量编程数值变量。
-    * 如果是布尔值true，先将其转换为1再执行加减1的操作，布尔值变量变成数值变量。
-    * 如果是浮点数值，执行加减1的操作。
-    * 如果是对象，先调用对象的valueOf()方法，然后对该返回值应用前面的规则。如果结果是NaN，则调用toString()方法后再应用前面的规则。对象变量变成数值变量。
-
-    “2″, ”02dd”, ”", false, 22.5, +”", -false, +new Date() 分别对以下类型的值执行后置递增操作，结果是什么？
+`isNaN()`函数，经测试发现，该函数会尝试将参数值用`Number()`进行转换，如果结果为“非数值”则返回true，否则返回false。
 
 
-* 3. 加减乘除运算符、取模运算符
+2. 递增递减操作符（包括前置和后置）、一元正负符号操作符
 
-    这些操作符针对的是运算，所以他们具有共同性：如果操作值之一不是数值，则被隐式调用`Number()`函数进行转换。具体每一种运算的详细规则请参考ECMAScript中的定义。
+这些操作符适用于任何数据类型的值，针对不同类型的值，该操作符遵循以下规则（经过对比发现，其规则与Number()规则基本相同）：
 
-    如果两个操作值都是数值，其规则为：
+* 如果是包含有效数字字符的字符串，先将其转换为数字值（转换规则同Number()），在执行加减1的操作，字符串变量变为数值变量。
+* 如果是不包含有效数字字符的字符串，将变量的值设置为NaN，字符串变量变成数值变量。
+* 如果是布尔值false，先将其转换为0再执行加减1的操作，布尔值变量编程数值变量。
+* 如果是布尔值true，先将其转换为1再执行加减1的操作，布尔值变量变成数值变量。
+* 如果是浮点数值，执行加减1的操作。
+* 如果是对象，先调用对象的valueOf()方法，然后对该返回值应用前面的规则。如果结果是NaN，则调用toString()方法后再应用前面的规则。对象变量变成数值变量。
 
-    * 如果一个操作数为NaN，则结果为NaN
-    * 如果是`Infinity+Infinity -> Infinity`
-    * 如果是`-Infinity+(-Infinity) -> -Infinity`
-    * 如果是`Infinity+(-Infinity) -> NaN`
-    * 如果是`+0+(+0) -> +0`
-    * 如果是`(-0)+(-0) -> -0`
-    * 如果是`(+0)+(-0) -> +0`
-
-    加号运算操作符在Javascript也用于字符串连接符，所以加号操作符处理字符串是有所不同：
-
-    * 如果两个操作值都是字符串，则将它们拼接起来
-    * 如果只有一个操作值为字符串，则将另外操作值转换为字符串，然后拼接起来
-    * 如果一个操作数是对象、数值或者布尔值，则调用toString()方法取得字符串值，然后再应用前面的字符串规则。对于undefined和null，分别调用String()显式转换为字符串。
-    * 可以看出，加法运算中，如果有一个操作值为字符串类型，则将另一个操作值转换为字符串，最后连接起来。
+“2″, ”02dd”, ”", false, 22.5, +”", -false, +new Date() 分别对以下类型的值执行后置递增操作，结果是什么？
 
 
-* 4. 逻辑操作符（!、&&、||）
+3. 加减乘除运算符、取模运算符
 
-    * 逻辑非 `!` 操作符首先通过`Boolean()`函数将它的操作值转换为布尔值，然后求反。
+这些操作符针对的是运算，所以他们具有共同性：如果操作值之一不是数值，则被隐式调用`Number()`函数进行转换。具体每一种运算的详细规则请参考ECMAScript中的定义。
 
-    * 逻辑与 `&&` 操作符，如果一个操作值不是布尔值时，遵循以下规则进行转换：
+如果两个操作值都是数值，其规则为：
 
-        * 如果第一个操作数经`Boolean()`转换后为`true`，则返回第二个操作值，否则返回第一个值（不是Boolean()转换后的值）
-        * 如果有一个操作值为`null`，返回`null`
-        * 如果有一个操作值为`NaN`，返回`NaN`
-        * 如果有一个操作值为`undefined`，返回`undefined`
+* 如果一个操作数为NaN，则结果为NaN
+* 如果是`Infinity+Infinity -> Infinity`
+* 如果是`-Infinity+(-Infinity) -> -Infinity`
+* 如果是`Infinity+(-Infinity) -> NaN`
+* 如果是`+0+(+0) -> +0`
+* 如果是`(-0)+(-0) -> -0`
+* 如果是`(+0)+(-0) -> +0`
 
-    * 逻辑或（||）操作符，如果一个操作值不是布尔值，遵循以下规则：
+加号运算操作符在Javascript也用于字符串连接符，所以加号操作符处理字符串是有所不同：
 
-        * 如果第一个操作值经Boolean()转换后为false，则返回第二个操作值，否则返回第一个操作值（不是Boolean()转换后的值）
-        * 对于undefined、null和NaN的处理规则与逻辑与（&&）相同
-
-
-* 6. 关系操作符（<, >, <=, >=）
-
-    与上述操作符一样，关系操作符的操作值也可以是任意类型的，所以使用非数值类型参与比较时也需要系统进行隐式类型转换：
-
-    * 如果两个操作值都是数值，则进行数值比较
-    * 如果两个操作值都是字符串，则比较字符串对应的字符编码值
-    * 如果只有一个操作值是数值，则将另一个操作值转换为数值，进行数值比较
-    * 如果一个操作数是对象，则调用valueOf()方法（如果对象没有valueOf()方法则调用toString()方法），得到的结果按照前面的规则执行比较
-    * 如果一个操作值是布尔值，则将其转换为数值，再进行比较
-    * 注：NaN是非常特殊的值，它不和任何类型的值相等，包括它自己，同时它与任何类型的值比较大小时都返回false。
+* 如果两个操作值都是字符串，则将它们拼接起来
+* 如果只有一个操作值为字符串，则将另外操作值转换为字符串，然后拼接起来
+* 如果一个操作数是对象、数值或者布尔值，则调用toString()方法取得字符串值，然后再应用前面的字符串规则。对于undefined和null，分别调用String()显式转换为字符串。
+* 可以看出，加法运算中，如果有一个操作值为字符串类型，则将另一个操作值转换为字符串，最后连接起来。
 
 
-* 7. 相等操作符（==）
+4. 逻辑操作符（!、&&、||）
 
-    相等操作符会对操作值进行隐式转换后进行比较：
+* 逻辑非 `!` 操作符首先通过`Boolean()`函数将它的操作值转换为布尔值，然后求反。
+* 逻辑与 `&&` 操作符，如果一个操作值不是布尔值时，遵循以下规则进行转换：
+  * 如果第一个操作数经`Boolean()`转换后为`true`，则返回第二个操作值，否则返回第一个值（不是Boolean()转换后的值）
+  * 如果有一个操作值为`null`，返回`null`
+  * 如果有一个操作值为`NaN`，返回`NaN`
+  * 如果有一个操作值为`undefined`，返回`undefined`
+* 逻辑或（||）操作符，如果一个操作值不是布尔值，遵循以下规则：
+  * 如果第一个操作值经Boolean()转换后为false，则返回第二个操作值，否则返回第一个操作值（不是Boolean()转换后的值）
+  * 对于undefined、null和NaN的处理规则与逻辑与（&&）相同
 
-    * 如果一个操作值为布尔值，则在比较之前先将其转换为数值
-    * 如果一个操作值为字符串，另一个操作值为数值，则通过Number()函数将字符串转换为数值
-    * 如果一个操作值是对象，另一个不是，则调用对象的valueOf()方法，得到的结果按照前面的规则进行比较
-    * null与undefined是相等的
-    * 如果一个操作值为NaN，则相等比较返回false
-    * 如果两个操作值都是对象，则比较它们是不是指向同一个对象
+
+5. 关系操作符（<, >, <=, >=）
+
+与上述操作符一样，关系操作符的操作值也可以是任意类型的，所以使用非数值类型参与比较时也需要系统进行隐式类型转换：
+
+* 如果两个操作值都是数值，则进行数值比较
+* 如果两个操作值都是字符串，则比较字符串对应的字符编码值
+* 如果只有一个操作值是数值，则将另一个操作值转换为数值，进行数值比较
+* 如果一个操作数是对象，则调用valueOf()方法（如果对象没有valueOf()方法则调用toString()方法），得到的结果按照前面的规则执行比较
+* 如果一个操作值是布尔值，则将其转换为数值，再进行比较
+* 注：NaN是非常特殊的值，它不和任何类型的值相等，包括它自己，同时它与任何类型的值比较大小时都返回false。
+
+
+7. 相等操作符（==）
+
+相等操作符会对操作值进行隐式转换后进行比较：
+
+* 如果一个操作值为布尔值，则在比较之前先将其转换为数值
+* 如果一个操作值为字符串，另一个操作值为数值，则通过Number()函数将字符串转换为数值
+* 如果一个操作值是对象，另一个不是，则调用对象的valueOf()方法，得到的结果按照前面的规则进行比较
+* null与undefined是相等的
+* 如果一个操作值为NaN，则相等比较返回false
+* 如果两个操作值都是对象，则比较它们是不是指向同一个对象
 
 
 
@@ -543,7 +543,7 @@ var foo = {
 
 我们拥有一个这样的结构，两个显式的属性和一个隐藏的`__proto__`属性，这个属性是对`Object.prototype`的引用。
 
-![basic-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/basic-object.png)
+![basic-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/basic-object.png)
 
 
 这些`prototype`有什么用？让我们以`原型链`的概念来回答这个问题。
@@ -564,6 +564,7 @@ ECMAScript中没有类的概念，但是代码重用的风格并没有太多不�
 ES5标准化了一个实现原型继承的新的可选方法，使用`Object.create`函数：
 
 ```js
+var a = {k: 'v'};
 var b = Object.create(a, {y: {value: 20}});
 var c = Object.create(a, {y: {value: 30}});
 ```
@@ -571,6 +572,7 @@ var c = Object.create(a, {y: {value: 30}});
 
 ES6标准化了`__proto__`属性，并且可以在对象初始化的时候使用它，如下面的用法。
 `b`和`c`可以访问到`a`对象中定义的`calculate()`方法，是通过原型链`lookup`实现的。
+
 ```js
 var a = {
   x: 10,
@@ -593,10 +595,14 @@ c.calculate(40); // 80
 
 下一张图展示了对象`a`，`b`，`c`之间的继承关系：
 
-![prototype-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/prototype-chain.png)
+![prototype-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/prototype-chain.png)
 
 
 所以`__proto__`是给JS引擎用的，但是暴露给了我们，并且可以对其修改。
+
+
+与此类似的还有`作用域链`及其`lookup规则`，原型链和作用域链的用途都是用来名字查找，给解释器用的。
+区别是：原型链是属性上的名字查找，这条链可以运行时被修改，作用域链是作用域上（空间上）的名字查找，这条链由代码决定。
 
 
 ### `__proto__`
@@ -606,7 +612,7 @@ c.calculate(40); // 80
 * The `__proto__` property of `Object.prototype` is an `accessor property` (a getter function and a setter function) that exposes the internal `[[Prototype]]` (either an object or null) of the object through which it is accessed.
 
 
-项目中建议不要直接使用`__proto__`访问原型，而是使用`Object.getPrototypeOf()、Object.create()`读写原型。
+项目中建议不要直接使用`__proto__`读写原型，而是使用`Object.getPrototypeOf()、Object.create()`读写原型。
 
 
 ```js
@@ -617,6 +623,7 @@ var proto = {
     }
 };
 Shape.prototype = proto;
+// Object.prototype.getPrototype = function () { return Object.getPrototypeOf(this) };
 ```
 
 
@@ -655,106 +662,15 @@ console.log({} instanceof Object);
 `typeof`和`instanceof`的目的都是检测变量的类型，区别在于:
 
 `typeof`    : 可以用来区分原始值和对象。
-`instanceof`: instanceof 可以用来区分对象，而且，instanceof 对于所有的原始值都返回 false。
+`instanceof`: 可以用来区分对象，instanceof 对于所有的原始值都返回 false。
 
-typeof 在操作 null 时会返回 "object"，这是 JavaScript 语言本身的 bug。不幸的是，这个 bug 永远不可能被修复了，因为太多已有的代码已经依赖了这样的表现。这并不意味着，null 实际上就是一个对象[4] 。
-typeof 还可以让检查一个变量是否已声明，而不会抛出异常。 没有任何一个函数可以实现此功能，因为你不能把一个未声明的变量传递给函数的参数。
+typeof 在操作 null 时会返回 "object"，这是 JavaScript 语言本身的 bug。
+不幸的是，这个 bug 永远不可能被修复了，因为太多已有的代码已经依赖了这样的表现。
+这并不意味着，null 实际上就是一个对象。
+typeof 还可以让检查一个变量是否已声明，而不会抛出异常。
+没有任何一个函数可以实现此功能，因为你不能把一个未声明的变量传递给函数的参数。
 
 通常情况下对象拥有相同或者相似的状态结构（也就是相同的属性集合），赋以不同的状态值，在这个情况下我们可能需要使用`构造函数`，其以指定的模式来创造对象。
-
-
-
-## 构造函数
-
-
-* 以指定的模式来创造对象
-* 自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
-
-
-我们可以使用构造函数来重写上一个拥有对象`b`和对象`c`的例子。因此，对象`a`的角色由Foo.prototype来扮演：
-
-```js
-function Foo(y) { this.y = y; }
-Foo.prototype.x = 10;
-Foo.prototype.calculate = function (z) {
-  return this.x + this.y + z;
-};
-var b = new Foo(20);
-var c = new Foo(30);
-b.calculate(30);
-c.calculate(40);
-console.log(b.__proto__ === Foo.prototype);
-console.log(c.__proto__ === Foo.prototype);
-console.log(b.constructor === Foo);
-console.log(c.constructor === Foo);
-console.log(Foo.prototype.constructor === Foo);
-console.log(b.calculate === b.__proto__.calculate);
-console.log(b.__proto__.calculate === Foo.prototype.calculate);
-```
-
-
-这个代码可以表示为如下关系：
-
-可以看到，构造函数`Foo`也有自己的`__proto__`，即`Function.prototype`，`Function.prototype`通过其`__proto__`属性关联到`Object.prototype`。
-![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/constructor-proto-chain.png)
-
-
-思考一下类的概念，那么构造函数和原型对象合在一起可以当作一个「类」了。
-
-例如：Python的`First-Class、Dynamic-Classes`显然是以同样的`属性`/`方法`处理方案来实现的。从这个角度来说，Python中的类可以看作ECMAScript使用的委托继承的一个语法糖。
-
-在ES6中「类」的概念被标准化了，并且实际上以一种构建在构造函数上面的语法糖来实现，就像上面描述的一样。
-
-
-用类的方式实现如下：
-
-```js
-// ES6
-class Foo {
-  constructor(name) {
-    this._name = name;
-  }
-  getName() {
-    return this._name;
-  }
-}
-class Bar extends Foo {
-  getName() {
-    return super.getName() + ' Doe';
-  }
-}
-var bar = new Bar('John');
-console.log(bar.getName()); // John Doe
-```
-
-
-**new** 操作符 都做了什么？
-
-1. 创建一个新对象
-2. 将构造函数作用域赋给新对象，即this指向了新对象
-3. 执行构造函数中的代码
-4. 返回新对象的引用
-
-只要用`new`操作符来调用函数就是构造函数，否则，就是普通函数。
-
-
-```js
-var o = new NewObject(11, 22)
-var o;
-NewObject.apply(o, 11, 22);
-NewObject.call(o, [11, 22]);
-var obj1 = new NewObject(11, 22); // 构造函数方式
-obj1.func();                      // this == obj1
-var obj2 = NewObject(33, 44);     // 普通函数方式
-obj2.func();                      // error
-global.func();                    // this == global
-console.log(obj2);                // NewObject()作为函数并无返回值，所以undefined
-var obj3 = new Object();
-NewObject.call(obj3, 55, 66);
-obj3.func();
-console.log(obj1.func === obj3.func);
-console.log(obj1.func() === obj3.func());
-```
 
 
 
@@ -776,16 +692,16 @@ console.log(obj1.func() === obj3.func());
 ```js
 var person = {};
 Object.defineProperty(person, 'name', {
-	configurable: false,
-	enumerable: true,
-	writable: false,
-	value: 'liuyanjie'
+  configurable: false,
+  enumerable: true,
+  writable: false,
+  value: 'liuyanjie'
 });
 Object.defineProperty(person, 'sax', {
-	configurable: false,
-	enumerable: false,
-	writable: false,
-	value: 'M'
+  configurable: false,
+  enumerable: false,
+  writable: false,
+  value: 'M'
 });
 console.log(person);            // { name: 'liuyanjie' }
 console.log(person.sax);        // M
@@ -812,22 +728,22 @@ console.log(person.sax);        // M
 ```js
 var book1 = { _year: 2014, edition: 1 };
 Object.defineProperty(book1, 'year', {
-	configurable: false,
-	enumerable: true,
-	get: function () {
-		return this._year;
-	},
-	set: function (year) {
-		if (year > 2014) {
-			this._year = year;
-			this.edition += year - 2014;
-		}
-	}
+  configurable: false,
+  enumerable: true,
+  get: function () {
+    return this._year;
+  },
+  set: function (year) {
+    if (year > 2014) {
+      this._year = year;
+      this.edition += year - 2014;
+    }
+  }
 });
-console.log(book1);			// { _year: 2014, edition: 1, year: [Getter/Setter] }
-console.log(book1.year);	// 2014
+console.log(book1);      // { _year: 2014, edition: 1, year: [Getter/Setter] }
+console.log(book1.year);  // 2014
 book.year = 2016;
-console.log(book1);			// { _year: 2016, edition: 3, year: [Getter/Setter] }
+console.log(book1);      // { _year: 2016, edition: 3, year: [Getter/Setter] }
 ```
 
 
@@ -835,23 +751,23 @@ console.log(book1);			// { _year: 2016, edition: 3, year: [Getter/Setter] }
 // 给 对象 设置 多个 `数据属性` 和 `访问器属性`
 var book2 = { _year: 2014, edition: 1 };
 Object.defineProperties(book2, {
-	_year: {
-		value: 2014
-	},
-	edition: {
-		value: 1
-	},
-	year: {
-		configurable: false,
-		enumerable: false,
-		get: function () { },
-		set: function () { }
-	},
-	getContents: {
-		value: function () {
-			return 'contents';
-		}
-	}
+  _year: {
+    value: 2014
+  },
+  edition: {
+    value: 1
+  },
+  year: {
+    configurable: false,
+    enumerable: false,
+    get: function () { },
+    set: function () { }
+  },
+  getContents: {
+    value: function () {
+      return 'contents';
+    }
+  }
 });
 ```
 
@@ -879,8 +795,7 @@ console.log(desc2);
 
 ### 应用：
 
-* 观察者模式
-  - 例子[JavaScript实现MVVM监测一个普通对象的变化](http://hcysun.me/2016/04/28/JavaScript%E5%AE%9E%E7%8E%B0MVVM%E4%B9%8B%E6%88%91%E5%B0%B1%E6%98%AF%E6%83%B3%E7%9B%91%E6%B5%8B%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96/)
+* [观察者模式]例子[JavaScript实现MVVM监测一个普通对象的变化](http://hcysun.me/2016/04/28/JavaScript%E5%AE%9E%E7%8E%B0MVVM%E4%B9%8B%E6%88%91%E5%B0%B1%E6%98%AF%E6%83%B3%E7%9B%91%E6%B5%8B%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96/)
 
 
 
@@ -940,24 +855,128 @@ console.log(persion3);
 
 
 
+## 构造函数
+
+
+* 以指定的模式来创造对象
+* 自动地为新创建的对象设置一个原型对象，这个原型对象存储在`ConstructorFunction.prototype`属性中。
+
+
+我们可以使用构造函数来重写上一个拥有对象`b`和对象`c`的例子。因此，对象`a`的角色由Foo.prototype来扮演：
+
+```js
+function Foo(y) { this.y = y; }
+Foo.prototype.x = 10;
+Foo.prototype.calculate = function (z) {
+  return this.x + this.y + z;
+};
+var b = new Foo(20);
+var c = new Foo(30);
+b.calculate(30);
+c.calculate(40);
+console.log(b.__proto__ === Foo.prototype);
+console.log(c.__proto__ === Foo.prototype);
+console.log(b.constructor === Foo);
+console.log(c.constructor === Foo);
+console.log(Foo.prototype.constructor === Foo);
+console.log(b.calculate === b.__proto__.calculate);
+console.log(b.__proto__.calculate === Foo.prototype.calculate);
+```
+
+
+这个代码可以表示为如下关系：
+
+可以看到，构造函数`Foo`也有自己的`__proto__`，即`Function.prototype`，`Function.prototype`通过其`__proto__`属性关联到`Object.prototype`。
+![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/constructor-proto-chain.png)
+
+
+思考一下类的概念，那么构造函数和原型对象合在一起可以当作一个「类」了。
+
+例如：Python的`First-Class、Dynamic-Classes`显然是以同样的`属性/方法`处理方案来实现的。从这个角度来说，Python中的类可以看作ECMAScript使用的委托继承的一个语法糖。
+
+在ES6中「类」的概念被标准化了，并且实际上以一种构建在构造函数上面的语法糖来实现，就像上面描述的一样。
+
+
+用类的方式实现如下：
+
+```js
+// ES6
+class Foo {
+  constructor(name) {
+    this._name = name;
+  }
+  getName() {
+    return this._name;
+  }
+}
+class Bar extends Foo {
+  getName() {
+    return super.getName() + ' Doe';
+  }
+}
+var bar = new Bar('John');
+console.log(bar.getName()); // John Doe
+```
+
+
+**new** 操作符 都做了什么？
+
+1. 创建一个新对象
+1. 将构造函数作用域赋给新对象，即this指向了新对象
+1. 执行构造函数中的代码
+1. 返回新对象的引用
+
+只要用`new`操作符来调用函数就是构造函数，否则，就是普通函数。
+
+
+```js
+var o = new NewObject(11, 22)
+var o;
+NewObject.apply(o, 11, 22);
+NewObject.call(o, [11, 22]);
+var obj1 = new NewObject(11, 22); // 构造函数方式
+obj1.func();                      // this == obj1
+var obj2 = NewObject(33, 44);     // 普通函数方式
+obj2.func();                      // error
+global.func();                    // this == global
+console.log(obj2);                // NewObject()作为函数并无返回值，所以undefined
+var obj3 = new Object();
+NewObject.call(obj3, 55, 66);
+obj3.func();
+console.log(obj1.func === obj3.func);
+console.log(obj1.func() === obj3.func());
+```
+
+```js
+function NewDate() {
+  return new Date();
+}
+var date = new NewDate();
+console.log(date instanceof NewDate); // ?
+console.log(date instanceof Date);    // ?
+```
+
+
+
 ## 对象构造
 
 
 ### 工厂模式
 
-* 按指定模式创建对象的，但是对象类型无法标识。
+* 按指定模式创建对象的，但是对象类型无法标识，且每个方法在每个对象上都要重新创建一次。
 
 ```js
 function createObject(arg1, arg2) {
-	var o = new Object();
-	o.property1 = arg1;
-	o.property2 = arg2;
-	o.func = function () {
-		console.log(this.property1);
-		console.log(this.property2);
-	};
-	return o;
+  var o = new Object();
+  o.property1 = arg1;
+  o.property2 = arg2;
+  o.func = function () {
+    console.log(this.property1);
+    console.log(this.property2);
+  };
+  return o;
 }
+
 var o1 = createObject(1, 2);
 var o2 = createObject(3, 4);
 console.log(o1.property1);
@@ -966,17 +985,17 @@ console.log(o1.property1);
 
 ### 构造函数模式
 
-* 构造函数名字用来标志一个`特定类型`。
-* 问题在于：每个方法在每个对象上都要重新创建一次。
+* 构造函数名字用来标志一个`特定类型`，同样每个方法在每个对象上都要重新创建一次。
 
 ```js
 function NewObject(arg1, arg2) {
-	this.property1 = arg1;
-	this.property2 = arg2;
-	this.func = function () {
-		console.log(this.property1);
-	}
+  this.property1 = arg1;
+  this.property2 = arg2;
+  this.func = function () {
+    console.log(this.property1);
+  }
 }
+
 var no1 = new NewObject(1, 2);
 var no2 = new NewObject(3, 4);
 // 构造函数属性 constructor  标志对象类型
@@ -998,14 +1017,15 @@ console.log(no2 instanceof NewObject);
 * `prototype`是构造函数的一个属性，`prototype`指向的`原型对象`拥有一个`constructor`属性指向构造函数，普通函数有此属性无意义。
 * 通过构造函数创建的`对象实例`可以通过`__proto__`访问`原型对象`，但是不能重写，重名的属性将屏蔽原型中的同名属性。
 * 在原型中修改属性，会立刻在`对象实例`中反映出来。但是如果重写整个原型对象，那么实例对象将找不到原型中定义的属性。
-
+* `prototype` 和 `constructor` 构成了双向链表。
 
 ```js
 function PrototypeObject() { }
-PrototypeObject.prototype.name = 'PrototypeObject';
+PrototypeObject.prototype.name = 'PrototypeObject'; // name 是多实例共享的
 PrototypeObject.prototype.sayName = function () {
-	console.log(this.name);
+  console.log(this.name);
 };
+
 var po1 = new PrototypeObject();
 po1.sayName();
 var po2 = new PrototypeObject();
@@ -1020,7 +1040,7 @@ console.log(Object.getPrototypeOf(po1));                    // 返回原型对�
 console.log(PrototypeObject.prototype);                     // 同样是原型对象
 console.log(po1.hasOwnProperty('sayName'));                 // 判断是否是对象属性  检测属性存在于对象中还是原型对象中
 function hasPrototypeProperty(object, name) {               // 判断是否是原型属性
-	return !object.hasOwnProperty(name) && (name in object);
+  return !object.hasOwnProperty(name) && (name in object);
 }
 // Object.keys();                    // 返回所有可枚举的实例属性
 // Object.getOwnPropertyNames();     // 返回所有实例属性
@@ -1029,71 +1049,70 @@ PrototypeObject.prototype = {
     constructor:Person // 默认的constructor被覆盖掉了 [[Enumerable]]会变成true
 }
 Object.defineProperty(PrototypeObject.prototype, 'constructor', {
-	enumerable: false,
-	value: Persion
+  enumerable: false,
+  value: Persion
 })
 ```
 
 
-### 组合构造函数和原型模式
+### 组合构造函数和原型模式 - [默认模式]
 
-* 集两者之长默认模式
-* 实例属性在构造函数中定义　　
-* 共享属性在原型中定义
+* 实例属性在构造函数中定义 共享属性在原型中定义
 
 ```js
 function ConstructPrototypeObject(name, desc) {
-	this.name = name;
-	this.desc = desc;
+  this.name = name;
+  this.desc = desc;
 }
-ConstructPrototypeObject.prototype.display =
-function () {
-	console.log(this.name);
-	console.log(this.desc);
+ConstructPrototypeObject.prototype.display = function () {
+  console.log(this.name);
+  console.log(this.desc);
 };
 ```
 
 
 ### 动态原型模式
 
-* 只在第一次调用构造函数时　实例化原型
+* 只在第一次调用构造函数时 实例化原型
 
 ```js
 function ConstructPrototypeObject(name, desc) {
-	this.name = name;
-	this.desc = desc;
-	if (!ConstructPrototypeObject.prototypeInstantiated) {
-	    //只在第一次调用构造函数时　实例化原型
-		ConstructPrototypeObject.prototype.prototypeInstantiated = true;
-		ConstructPrototypeObject.prototype.display = function () {
-			console.log(this.name);
-			console.log(this.desc);
-		};
-		ConstructPrototypeObject.prototype.sayName = function () {
-			console.log(this.name);
-		};
-		// ... ...
-		ConstructPrototypeObject.prototypeInstantiated = true;
-	}
+  this.name = name;
+  this.desc = desc;
+  if (!ConstructPrototypeObject.prototypeInstantiated) {
+      //只在第一次调用构造函数时 实例化原型
+    ConstructPrototypeObject.prototype.prototypeInstantiated = true;
+    ConstructPrototypeObject.prototype.display = function () {
+      console.log(this.name);
+      console.log(this.desc);
+    };
+    ConstructPrototypeObject.prototype.sayName = function () {
+      console.log(this.name);
+    };
+    // ... ...
+    ConstructPrototypeObject.prototypeInstantiated = true;
+  }
 }
 ```
 
 
-### 继承模式（寄生模式）
+### 继承模式 寄生模式
 
-* 这种方式，可以用来扩展原生对象，在不修改原生对象的前提下，增加方法。
+* 这种方式，可以用来扩展原生对象，在不修改原生对象的前提下，扩展方法。
 
 ```js
 function SpecialArray() {
-	var values = new Array();
-	values.push.apply(values, arguments);
-	values.toPipedString = function () {
-		return this.join('|');
-	};
-	return values;
+  var values = new Array();
+  values.push.apply(values, arguments);
+  values.toPipedString = function () {
+    return this.join('|');
+  };
+  return values;
 }
 var colors = new SpecialArray('red', 'blue', 'green');
 console.log(colors.toPipedString());
+console.log(colors instanceof SpecialArray);  // false
+console.log(colors instanceof Array);         // true
 ```
 
 
@@ -1103,14 +1122,45 @@ console.log(colors.toPipedString());
 
 ```js
 function Person(name, age, job) {
-	var o = new Object();
-	var name = name;
-	o.sayName = function () {
-		console.log(name);
-	};
-	return o;
+  var o = new Object();
+  var name = name;
+  o.sayName = function () {
+    console.log(name);
+  };
+  return o;
 }
 var friend = Person('liuyanjie', 22, 'Software Engineer');
+friend.sayName();
+console.log(friend.name); //undefined
+```
+
+
+```js
+function Person(name, age, job) {
+  var name = name;
+  this.sayName = function () {
+    console.log(name);
+  };
+}
+
+var friend = new Person('liuyanjie', 22, 'Software Engineer');
+friend.sayName();
+console.log(friend.name); //undefined
+```
+
+
+```js
+var Person = (function () {
+  // 这里可以定义闭包变量
+  return function Person(name, age, job) {
+    var name = name;
+    this.sayName = function () {
+      console.log(name);
+    };
+  }
+})();
+
+var friend = new Person('liuyanjie', 22, 'Software Engineer');
 friend.sayName();
 console.log(friend.name); //undefined
 ```
@@ -1127,27 +1177,27 @@ console.log(friend.name); //undefined
 
 ```js
 function SuperType() {
-	this.supProperty = true;
+  this.supProperty = true;
 }
 SuperType.prototype.getSuperValue = function () {
-	return this.supProperty;
+  return this.supProperty;
 };
 function SubType() {
-	this.subProperty = false;
+  this.subProperty = false;
 }
 SubType.prototype = new SuperType();
 SubType.prototype.getSubValue = function () {
-	return this.subProperty;
+  return this.subProperty;
 };
 var instance = new SubType();
 console.log(instance.getSuperValue());
 // 借用构造函数    在子类型的内部调用父类型的构造函数
 function SupType() {
-	this.colors = ['red', 'blue', 'green'];
+  this.colors = ['red', 'blue', 'green'];
 }
 function SubType() {
   // this 指 SubType 普通函数调用 把函数当作一个模板 同时可以传递参数
-	SupType.call(this);
+  SupType.call(this);
 }
 var instance = new SubType();
 instance.colors.push('black');
@@ -1162,20 +1212,20 @@ console.log(instance);
 
 ```js
 function SuperType(name) {
-	this.name = name;
-	this.colors = ['red', 'blue', 'green'];
+  this.name = name;
+  this.colors = ['red', 'blue', 'green'];
 }
 SuperType.prototype.sayName = function () {
-	console.log(this.name);
+  console.log(this.name);
 };
 function SubType(name, age) {
-	SuperType.call(this, name);           // 普通函数
-	this.age = age;
+  SuperType.call(this, name);           // 普通函数
+  this.age = age;
 }
 SubType.prototype = new SuperType();    // 构造函数
 SubType.prototype.constructor = SubType;
 SubType.prototype.sayAge = function () {
-	console.log(this.age);
+  console.log(this.age);
 };
 var instance = new SubType('liuyanjie', 22);
 instance.colors.push('black');
@@ -1190,9 +1240,9 @@ instance.sayAge();
 
 ```js
 function object(o) {
-	function F() { } // 临时性构造函数
-	F.prototype = o;
-	return new F();
+  function F() { } // 临时性构造函数
+  F.prototype = o;
+  return new F();
 }
 Object.create();    //此方法即为原型式继承
 ```
@@ -1202,11 +1252,11 @@ Object.create();    //此方法即为原型式继承
 
 ```js
 function createAnother(original) {          // 工厂
-	var clone = Object.create(original);      // 封装了原型式继承
-	clone.sayHi = function () {
-		console.log('Hi');
-	};
-	return clone;
+  var clone = Object.create(original);      // 封装了原型式继承
+  clone.sayHi = function () {
+    console.log('Hi');
+  };
+  return clone;
 }
 ```
 
@@ -1218,9 +1268,9 @@ function createAnother(original) {          // 工厂
 
 ```js
 function inheritPrototype(subType, supType) {
-	var prototype = Object.create(supType.prototype);
-	prototype.constructor = subType;
-	subType.prototype = prototype;
+  var prototype = Object.create(supType.prototype);
+  prototype.constructor = subType;
+  subType.prototype = prototype;
 }
 ```
 
@@ -1259,11 +1309,19 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 这是一种松散的绑定关系，随时可以根据需要来绑定。因此就可以自由的将其他模块上的属性方法，绑定到自己身上，但是要避免名字冲突。
 
 
-下图是一个JavaScript Prototype Chain关系图：[查看原图](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
+## 对象构造和原型链总结
+
+上面不论是有多少对象构造模式和原型继承模式，只要理解其本质，就容易根据自己的需要实现想要的效果，上面的各种方式都是套路。
+
+构造函数为了构造对象，实现不同功能，第一要先有一个对象（不论怎么来的），然后控制 `原型链` 和 `作用域链`。
+
+下图是一个JavaScript Prototype Chain关系图：[查看原图](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/javascript-prototype.png)
 
 
-![JavaScript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/javascript-prototype.png)
+![JavaScript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/javascript-prototype.png)
 
+
+上面的内容都是静态的内容，主要是想把 原型链 讲清楚。
 
 现在，在我们知道了对象的基础之后，让我们看看运行时程序的执行（runtime program execution）在ECMAScript中是如何实现的。
 
@@ -1315,7 +1373,7 @@ foo(30);
 
 所有ECMAScript程序的运行时可以用执行上下文栈（ECS）来表示，栈顶是当前活动的上下文：
 
-![ec-stack](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/ec-stack.png)
+![ec-stack](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/ec-stack.png)
 
 
 当程序开始的时候它会进入全局执行上下文，此上下文位于栈顶并且是栈中的第一个元素。然后全局代码进行一些初始化，创建需要的对象和函数。
@@ -1329,7 +1387,7 @@ foo(30);
 
 在下个图中，拥有一些函数上下文EC1和全局上下文Global EC，当EC1进入和退出全局上下文的时候下面的栈将会发生变化：
 
-![ec-stack-changes](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/ec-stack-changes.png)
+![ec-stack-changes](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/ec-stack-changes.png)
 
 
 这就是ECMAScript的运行时系统如何真正地管理代码执行的。
@@ -1346,7 +1404,7 @@ foo(30);
 
 一个执行上下文可以抽象的表示为一个简单的对象。每一个执行上下文拥有一些属性（可以叫作上下文状态）用来跟踪和它相关的代码的执行过程。在下图中展示了一个上下文的结构：
 
-![execution-context](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/execution-context.png)
+![execution-context](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/execution-context.png)
 
 除了这三个必需的属性`变量对象`、`this`、`作用域链`之外，执行上下文可以拥有其他附加的状态，这取决于实现。
 
@@ -1377,7 +1435,7 @@ console.log(baz); // ReferenceError, "baz" is not defined
 
 之后，全局上下文的`变量对象`将会拥有如下属性：
 
-![variable-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/variable-object.png)
+![variable-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/variable-object.png)
 
 函数baz是一个函数表达式，没有被包含在变量对象之中。这就是为什么当我们想要在函数自身之外访问它的时候会出现ReferenceError。
 
@@ -1408,7 +1466,7 @@ foo(10, 20);
 
 我们看下函数foo的上下文中的活动对象（activation object，简称AO）：
 
-![activation-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/activation-object.png)
+![activation-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/activation-object.png)
 
 并且函数表达式baz还是没有被包含在`变量/活动对象`中。
 
@@ -1453,7 +1511,7 @@ var x = 10;
 
 作用域链的另一个表现方式可以是一个简单的数组。利用`__parent__`概念，我们可以用下面的图来表现上面的例子（并且父变量对象存储在函数的`[[Scope]]`属性中）：
 
-![scope-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/scope-chain.png)
+![scope-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/scope-chain.png)
 
 在代码执行过程中，作用域链可以通过使用with语句和catch从句对象来增强。并且由于这些对象是简单的对象，它们可以拥有原型（和原型链）。
 
@@ -1496,7 +1554,7 @@ console.log(x); // 10
 
 我们可以给出如下的结构（确切的说，在我们查找`__parent__`连接之前，首先查找`__proto__`链）：
 
-![scope-chain-with](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/scope-chain-with.png)
+![scope-chain-with](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/scope-chain-with.png)
 
 注意，不是在所有的实现中全局对象都是继承自Object.prototype。上图中描述的行为（从全局上下文中引用「未定义」的变量x）可以在诸如SpiderMonkey引擎中进行测试。
 
@@ -1671,7 +1729,7 @@ console.log(
 
 以上代码可以通过下图进行说明：
 
-![shared-scope](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/shared-scope.png)
+![shared-scope](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/shared-scope.png)
 
 确切来说这个特性在循环中创建多个函数的时候会使人非常困惑。在创建的函数中使用循环计数器的时候，一些程序员经常会得到非预期的结果，所有函数中的计数器都是同样的值。
 
@@ -2101,11 +2159,11 @@ JavaScript有个基于 **EventLoop** 的 **并发模型**，能把单线程的 J
 
 一个错误的结论：**javascript是不存在并发的，并发只是看起来像并发而已**。
 
-![并发与并行](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/并发与并行.jpg)
+![并发与并行](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/并发与并行.jpg)
 
 如上图的第一个表，由于计算机系统只有一个CPU，故ABC三个程序从“微观”上是交替使用CPU，但交替时间很短，用户察觉不到，形成了“宏观”意义上的并发操作。
 
-![stack-heap-queue](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/stack-heap-queue.png)
+![stack-heap-queue](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/stack-heap-queue.png)
 
 JavaScript的**EventLoop**的**并发模型**，其原理和操作系统进程调度很相似（只是模型相似），但是比操作系统的调度策略简单的多。
 
@@ -2121,7 +2179,7 @@ JavaScript的**EventLoop**的**并发模型**，其原理和操作系统进程�
 
 我简单的画了一个 javascript 的执行图，我们通过图，逐步分析.
 
-![runtime.jpg](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/runtime.jpg)
+![runtime.jpg](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/runtime.jpg)
 
 * EventLoop
 
@@ -2186,7 +2244,7 @@ alert('B');
 
 如图，JavaScript引擎在逐个执行各类事件的处理函数。
 
-![thread.png](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/thread.png)
+![thread.png](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/thread.png)
 
 *B*所在的那段脚本被终止了，为什么*alertA*还能被执行？
 
@@ -2267,7 +2325,7 @@ function timedChunk(items, process, context, callback){
 
 用一个很好的图表加以说明：
 
-![Timers.png](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/javascript-syntax/images/Timers.png)
+![Timers.png](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/Timers.png)
 
 在这个图表中有许多信息需要理解，如果完全理解了它们，你会对JavaScript引擎如何实现异步事件有一个很好的认识。
 
