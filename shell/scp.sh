@@ -1,4 +1,6 @@
+# scp
 
+```sh
 #命令基本格式：scp [可选参数] file_source file_target
 
 #从本地到远程 	复制文件
@@ -26,5 +28,5 @@ usage: scp [-12346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
            [ [user@]host1: ]file1 ... [ [user@]host2: ]file2
 
 scp -P 3166 -i key_name -vrp /path/to/file.tar.gz  root@ip:/path/to/dir
-
+```
 
