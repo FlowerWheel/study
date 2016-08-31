@@ -887,6 +887,7 @@ console.log(b.__proto__.calculate === Foo.prototype.calculate);
 这个代码可以表示为如下关系：
 
 可以看到，构造函数`Foo`也有自己的`__proto__`，即`Function.prototype`，`Function.prototype`通过其`__proto__`属性关联到`Object.prototype`。
+
 ![constructor-proto-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/constructor-proto-chain.png)
 
 
@@ -1442,21 +1443,50 @@ f(2);
 // f(2) -> g(1) -> f(1) -> g(0) -> stop()
 
 // stop.caller === g && f.caller === g && g.caller === f
-
 ```
+
+Example:
+```js
+function trace() {
+  var f = trace;
+  var stack = 'Stack trace:';
+  while (f) {
+    stack += '\n' + f.name;
+    f = f.caller;
+  }
+  return stack;  
+}
+
+function myFunc() {
+   return trace();
+}
+var stacks = myFunc();
+console.log(stacks);
+function f() {
+  return myFunc();
+}
+var stacks = f();
+console.log(stacks);
+```
+
+
+下图是上面代码的函数调用链，对应于执行上下文(EC)，在引擎层面，函数只是执行上下文的一个属性。
+
+![caller-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/caller-chain.png)
+
 
 所有ECMAScript程序的运行时可以用执行上下文栈（ECS）来表示，栈顶是当前活动的上下文：
 
 ![ec-stack](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/ec-stack.png)
 
 
-当程序开始的时候它会进入全局执行上下文，此上下文位于栈顶并且是栈中的第一个元素。然后全局代码进行一些初始化，创建需要的对象和函数。
+当程序开始的时候它会进入**全局执行上下文**，此上下文位于栈顶并且是栈中的第一个元素。然后全局代码进行一些**初始化**，创建需要的对象和函数。
 
 
 在全局上下文的执行过程中，它的代码会触发其他函数，进入它们自己的执行上下文，向栈中push新的元素，以此类推。
 
 
-当初始化完成之后，运行时系统（runtime system）就会等待一些事件，这些事件将会触发一些函数，从而进入新的执行上下文中。
+当初始化完成之后，运行时系统就会等待一些事件，这些事件将会触发一些函数，从而进入新的执行上下文中。
 
 
 在下个图中，拥有一些函数上下文EC1和全局上下文Global EC，当EC1进入和退出全局上下文的时候下面的栈将会发生变化：
@@ -1470,13 +1500,16 @@ f(2);
 栈中的每个执行上下文都可以用一个对象来表示。
 
 
-让我们来看看它的结构以及一个上下文到底需要什么状态（什么属性）来执行它的代码。
+让我们来看看它的结构以及一个上下文到底需要什么状态（属性）来执行它的代码。
 
 
 ### 执行上下文
 
 
-一个执行上下文可以抽象的表示为一个简单的对象。每一个执行上下文拥有一些属性（可以叫作上下文状态）用来跟踪和它相关的代码的执行过程。在下图中展示了一个上下文的结构：
+一个执行上下文可以抽象的表示为一个简单的对象。每一个执行上下文拥有一些属性（可以叫作上下文状态）用来跟踪和它相关的代码的执行过程。
+
+
+在下图中展示了一个上下文的结构：
 
 ![execution-context](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/execution-context.png)
 
@@ -1488,11 +1521,26 @@ f(2);
 ### 变量对象（variable object）
 
 
-`变量对象`是与`执行上下文`相关的`数据作用域`。它是一个与上下文相关的特殊对象，其中存储了在上下文中定义的`变量`和`函数声明`。
+`变量对象`是与`执行上下文`相关的`数据作用域`。它是一个与上下文相关的特殊对象，其中存储了在上下文中定义的`变量`和`函数`。
 
 > 函数表达式（与函数声明相对）不包含在变量对象之中。
 
-变量对象是一个抽象概念。对于不同的上下文类型，在物理上，是使用不同的对象。在全局上下文中变量对象就是全局对象本身，这就是为什么我们可以通过`全局对象的属性名`来关联`全局变量`。
+变量对象是一个抽象概念。对于不同的上下文类型，在物理上，是使用不同的对象。
+在全局上下文中变量对象就是全局对象本身，这就是为什么我们可以通过 **全局对象的属性名** 来关联 **“全局变量”**。
+
+关于全局变量：Javascript中并不存在全局变量，所谓的全局变量，不过是Global对象的一个属性，叫**全局属性**还差不多，变量和属性虽然都是数据的引用方式，但是却有很大差别。
+
+Example:
+```js
+var global = global || window;
+global.env = 'production';
+NODE_ENV = 'production';
+console.log(env);
+console.log(global.NODE_ENV);
+// 访问 全局属性 直接通过属性名就可以了。
+// 这也是为什么被误称为 全局对象 的原因之一。
+```
+
 
 让我们在全局执行上下文中考虑下面这个例子：
 
@@ -1523,9 +1571,15 @@ console.log(baz); // ReferenceError, "baz" is not defined
 ### 活动对象（activation object）
 
 
-当一个函数被`caller`调用，一个特殊的对象，叫作`活动对象`（activation object）将会被创建。这个对象中包含形参和那个特殊的`arguments`对象（是对形参的一个映射，但是值是通过索引来获取）。活动对象之后会做为函数上下文的变量对象来使用。
+当一个函数被`caller`调用，一个特殊的对象，叫作`活动对象`（activation object）将会被创建。
 
-换句话说，函数的变量对象也是一个同样简单的变量对象，但是除了变量和函数声明之外，它还存储了`形参`和`arguments`对象，并叫作活动对象。
+这个对象中包含形参和那个特殊的`arguments`对象（是对形参的一个映射，但是值是通过索引来获取）。活动对象之后会做为函数上下文的变量对象来使用。
+
+换句话说，函数的*活动对象*就是一个同样简单的*变量对象*，但是除了变量和函数声明之外，它还存储了*形参*和*arguments*对象，并叫作*活动对象*。
+
+即：*活动对象* <=> *变量对象* + *形参* + *arguments*
+
+全局上下文中并没有*形参*，更没有*arguments（实参）*，所以和函数上下文不同。
 
 考虑如下例子：
 
@@ -1542,13 +1596,15 @@ foo(10, 20);
 
 ![activation-object](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/activation-object.png)
 
-并且函数表达式baz还是没有被包含在`变量/活动对象`中。
+函数表达式baz还是没有被包含在`变量/活动对象`中。
 
 关于这个主题所有细节方面（像变量和函数声明的提升问题（hoisting））的完整描述可以在同名的章节第二章 变量对象中找到。
 
 注意，在ES5中`变量对象`和`活动对象`被并入了`词法环境模型`（lexical environments model），详细的描述可以在对应的章节找到。
 
-众所周知，在ECMAScript中我们可以使用内部函数，然后在这些内部函数我们可以引用父函数的变量或者全局上下文中的变量。当我们把变量对象命名为上下文的作用域对象，与上面讨论的原型链相似，这里有一个叫作`作用域链`的东西。
+众所周知，在ECMAScript中我们可以使用内部函数，然后在这些内部函数我们可以引用父函数的变量或者全局上下文中的变量。
+
+当我们把变量对象命名为上下文的作用域对象，与上面讨论的原型链相似，这里有一个叫作`作用域链`的东西。
 
 
 ### 作用域链(scope chain)
