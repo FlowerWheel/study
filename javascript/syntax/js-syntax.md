@@ -33,14 +33,14 @@ bool.prop // undefined
 ```
 
 
-#### `Boolean`、`Number`、`String`。
+#### `Boolean`、`Number`、`String`
 
   这三种基本类型分别存在`Boolean()`、`Number()`、`String()`内建函数。
   平时使用的时候大都使用的是字面量形式，字面量并不是对象。
   当需要的时候，它们也会被转换成对象，也就是会被转换成 **基本类型的包装类型**。
 
 
-#### `Undefined`、`Null`。
+#### `Undefined`、`Null`
 
   并不存在`Undefined()`和`Null()`内建函数，只存在`Undefined`和`Null`类型的内建对象`undefined`和`null`。
   ECMAScript认为`undefined`是从`null`派生出来的，所以把它们定义为相等的，相同的地方是都可以视为布尔值的false。
@@ -1309,6 +1309,7 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 这是一种松散的绑定关系，随时可以根据需要来绑定。因此就可以自由的将其他模块上的属性方法，绑定到自己身上，但是要避免名字冲突。
 
 
+
 ## 对象构造和原型链总结
 
 上面不论是有多少对象构造模式和原型继承模式，只要理解其本质，就容易根据自己的需要实现想要的效果，上面的各种方式都是套路。
@@ -1320,10 +1321,61 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 
 ![JavaScript Prototype Chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/javascript-prototype.png)
 
-
 上面的内容都是静态的内容，主要是想把 原型链 讲清楚。
 
-现在，在我们知道了对象的基础之后，让我们看看运行时程序的执行（runtime program execution）在ECMAScript中是如何实现的。
+
+
+## 函数
+
+
+### 函数声明和函数表达式
+
+函数声明: `function 函数名称 (参数){ 函数体 }`，也是函数定义。
+
+函数表达式： `[var f = ] function [函数名称](参数){ 函数体 }`，如果有函数名，就是命名函数表达式。
+
+所以，可以看出，如果不声明函数名称，它肯定是表达式，可如果声明了函数名称的话，如何判断是函数声明还是函数表达式呢？
+
+ECMAScript是通过上下文来区分的，如果function foo(){}是作为赋值表达式的一部分的话，那它就是一个函数表达式，如果function foo(){}被包含在一个函数体内，或者位于程序的最顶部的话，那它就是一个函数声明。
+
+```js
+function foo(){}              // 声明，因为它是程序的一部分
+
+var bar = function foo(){};   // 表达式，因为它是赋值表达式的一部分
+new function bar(){};         // 表达式，因为它是new表达式
+
+(function(){
+  function bar(){}            // 声明，因为它是函数体的一部分
+})();
+```
+
+还有一种函数表达式不太常见，就是被括号括住的(function foo(){})，他是表达式的原因是因为括号， `()`是一个分组操作符，它的内部只能包含表达式，我们来看几个例子：
+
+```js
+function foo(){}      // 函数声明
+(function foo(){});   // 函数表达式：包含在分组操作符内
+
+try {
+  (var x = 5);        // 分组操作符，只能包含表达式而不能包含语句：这里的var就是语句
+} catch(err) {
+  // SyntaxError
+}
+```
+
+在使用eval对JSON进行执行的时候，JSON字符串通常被包含在一个圆括号里：`eval('(' + json + ')')`，这样做的原因就是因为分组操作符，也就是这对括号，会让解析器强制将JSON的花括号解析成表达式而不是代码块。
+
+```js
+  try {
+    { "x": 5 }; // "{" 和 "}" 做解析成代码块
+  } catch(err) {
+    // SyntaxError
+  }
+
+  ({ "x": 5 }); // 分组操作符强制将"{" 和 "}"作为对象字面量来解析
+```
+
+
+现在，在我们知道了对象的基础之后，让我们看看运行时程序的执行**runtime program execution**在ECMAScript中是如何实现的。
 
 
 
@@ -1334,7 +1386,7 @@ C++中类的方法是隐式传递了this指针，python的方法都是显示的�
 * ECS(执行环境栈Execution Context Stack)
 * VO(变量对象，Variable Object)
 * AO(活动对象，Active Object)
-* Scope Chain(作用域链)和`[[scope]]`属性
+* ScopeChain(作用域链)和`[[scope]]`属性
 
 
 有三种类型的ECMAScript代码：`全局代码`、`函数代码`和`eval代码`
