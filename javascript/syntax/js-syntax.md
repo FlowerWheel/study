@@ -1423,6 +1423,28 @@ foo(30);
 这个`callee`被push到栈中，并成为一个`活动的`执行上下文，在`callee`的上下文结束后（`callee`可能简单的返回或者由于异常而退出，一个抛出的但没有被捕获的异常可能退出一个或者多个上下文），它会把控制权返回给`caller`，然后`caller`的上下文继续执行直到它结束，以此类推。
 
 
+@see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/caller
+
+> function.caller[Non-standard]
+> 
+> The function.caller property returns the function that invoked the specified function.
+> If the function f was invoked by the top level code, the value of f.caller is null, otherwise it's the function that called f.
+> 
+> This property replaces the obsolete arguments.caller property of the arguments object.
+> 
+> The special property `__caller__`, which returned the activation object of the caller thus allowing to reconstruct the stack, was removed for security reasons.
+
+```js
+function f(n) { g(n - 1); }
+function g(n) { if (n > 0) { f(n); } else { stop(); } }
+f(2);
+
+// f(2) -> g(1) -> f(1) -> g(0) -> stop()
+
+// stop.caller === g && f.caller === g && g.caller === f
+
+```
+
 所有ECMAScript程序的运行时可以用执行上下文栈（ECS）来表示，栈顶是当前活动的上下文：
 
 ![ec-stack](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/ec-stack.png)
