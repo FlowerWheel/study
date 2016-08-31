@@ -1,9 +1,6 @@
 # javascript-syntax
 
-http://blog.csdn.net/z742182637/article/details/51536140
-http://www.cnblogs.com/wilber2013/p/4909430.html#_nav_0
-https://www.nczonline.net/blog/2013/06/25/eval-isnt-evil-just-misunderstood/
-http://www.cnblogs.com/dolphinX/p/3524977.html
+
 
 ## 数据类型
 
@@ -50,12 +47,12 @@ bool.prop // undefined
 
 * `null`表示 **没有对象**，即该处不应该有值。
   1. 作为函数的参数，表示该函数的参数不是对象。
-  2. 作为对象原型链的终点。
+  1. 作为对象原型链的终点。
 * `undefined`表示 **缺少值**，即应该有一个值但是**未定义**。
   1. 变量被声明了，但没有赋值时，该变量`undefined`。
-  2. 调用函数时，参数没有提供，该参数`undefined`。
-  3. 对象没有赋值的属性，该属性`undefined`。
-  4. 函数没有返回值时，返回`undefined`。
+  1. 调用函数时，参数没有提供，该参数`undefined`。
+  1. 对象没有赋值的属性，该属性`undefined`。
+  1. 函数没有返回值时，返回`undefined`。
 
 
 ### 引用类型
@@ -141,10 +138,11 @@ map,filter,some,every,reduce,forEach            这些迭代方法不会改变�
 
 
 一个JS数组是特殊的, 因为：
+
 1. 它的length属性有些特殊行为:
     1. 当新的元素添加到列表中,其值自动更新;
-    2. 设置这一属性可以扩展或截断数组.
-2. JS数组也是Array的实例，可以调用不同的Array方法。
+    1. 设置这一属性可以扩展或截断数组.
+1. JS数组也是Array的实例，可以调用不同的Array方法。
 
 1、2都是JS数组的独特特性，但它们不是一个数组的最基本的特性。
 
@@ -353,6 +351,7 @@ Type        |valueOf()
 
 
 Example：
+
 ```js
 var arr1 = new Array();
 Number(arr1.valueOf());
@@ -375,7 +374,7 @@ Number(func);
 ```
 
 
-2. `parseInt(string, radix)`函数，将字符串转换为整数类型的数值。
+1. `parseInt(string, radix)`函数，将字符串转换为整数类型的数值。
 
 它也有一定的规则：
 
@@ -386,12 +385,12 @@ Number(func);
 * 如果指定radix参数，则以radix为基数进行解析。
 
 
-3. `parseFloat(string)`函数，将字符串转换为浮点数类型的数值。
+1. `parseFloat(string)`函数，将字符串转换为浮点数类型的数值。
 
 它的规则与parseInt基本相同，但也有点区别：字符串中第一个小数点符号是有效的，另外parseFloat会忽略所有前导0，如果字符串包含一个可解析为整数的数，则返回整数值而不是浮点数值。
 
 
-4. `toString(radix)`方法。
+1. `toString(radix)`方法。
 
 除`undefined`和`null`之外的所有类型的值都具有`toString()`方法，转换成字符串表示。
 
@@ -403,14 +402,14 @@ console.log({}.toString())              // [object Object]
 ```
 
 
-5. `String(mix)`函数，将任何类型的值转换为字符串，其规则为：
+1. `String(mix)`函数，将任何类型的值转换为字符串，其规则为：
 
 * `null` -> "null"
 * `undefined` -> "undefined"
 * 调用`toString()`方法，返回结果，如果没有`toString()`，则报异常，无法转换。
 
 
-6. `Boolean(mix)`函数，将任何类型的值转换为布尔值。
+1. `Boolean(mix)`函数，将任何类型的值转换为布尔值。
 
 * `false`：false、''、0、NaN、null、undefined
 * `true` : 除了以上转换问false的
@@ -426,7 +425,7 @@ console.log({}.toString())              // [object Object]
 `isNaN()`函数，经测试发现，该函数会尝试将参数值用`Number()`进行转换，如果结果为“非数值”则返回true，否则返回false。
 
 
-2. 递增递减操作符（包括前置和后置）、一元正负符号操作符
+1. 递增递减操作符（包括前置和后置）、一元正负符号操作符
 
 这些操作符适用于任何数据类型的值，针对不同类型的值，该操作符遵循以下规则（经过对比发现，其规则与Number()规则基本相同）：
 
@@ -440,7 +439,7 @@ console.log({}.toString())              // [object Object]
 “2″, ”02dd”, ”", false, 22.5, +”", -false, +new Date() 分别对以下类型的值执行后置递增操作，结果是什么？
 
 
-3. 加减乘除运算符、取模运算符
+1. 加减乘除运算符、取模运算符
 
 这些操作符针对的是运算，所以他们具有共同性：如果操作值之一不是数值，则被隐式调用`Number()`函数进行转换。具体每一种运算的详细规则请参考ECMAScript中的定义。
 
@@ -462,7 +461,7 @@ console.log({}.toString())              // [object Object]
 * 可以看出，加法运算中，如果有一个操作值为字符串类型，则将另一个操作值转换为字符串，最后连接起来。
 
 
-4. 逻辑操作符（!、&&、||）
+1. 逻辑操作符（!、&&、||）
 
 * 逻辑非 `!` 操作符首先通过`Boolean()`函数将它的操作值转换为布尔值，然后求反。
 * 逻辑与 `&&` 操作符，如果一个操作值不是布尔值时，遵循以下规则进行转换：
@@ -475,7 +474,7 @@ console.log({}.toString())              // [object Object]
   * 对于undefined、null和NaN的处理规则与逻辑与（&&）相同
 
 
-5. 关系操作符（<, >, <=, >=）
+1. 关系操作符（<, >, <=, >=）
 
 与上述操作符一样，关系操作符的操作值也可以是任意类型的，所以使用非数值类型参与比较时也需要系统进行隐式类型转换：
 
@@ -487,7 +486,7 @@ console.log({}.toString())              // [object Object]
 * 注：NaN是非常特殊的值，它不和任何类型的值相等，包括它自己，同时它与任何类型的值比较大小时都返回false。
 
 
-7. 相等操作符（==）
+1. 相等操作符（==）
 
 相等操作符会对操作值进行隐式转换后进行比较：
 
@@ -511,7 +510,7 @@ console.log({}.toString())              // [object Object]
 
 * 注意：GetValue一定会被调用，即使它的值不会被用到，但是这个表达式可能会有副作用(side-effects)。
 
-*  为什么要用void？`undefined`不是保留字，可以重新赋值。采用void方式获取undefined便成了通用准则。
+* 为什么要用void？`undefined`不是保留字，可以重新赋值。采用void方式获取undefined便成了通用准则。
 
 
 [谈谈JavaScript中的void操作符](https://segmentfault.com/a/1190000000474941)
@@ -1427,12 +1426,12 @@ foo(30);
 @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/caller
 
 > function.caller[Non-standard]
-> 
+>
 > The function.caller property returns the function that invoked the specified function.
 > If the function f was invoked by the top level code, the value of f.caller is null, otherwise it's the function that called f.
-> 
+>
 > This property replaces the obsolete arguments.caller property of the arguments object.
-> 
+>
 > The special property `__caller__`, which returned the activation object of the caller thus allowing to reconstruct the stack, was removed for security reasons.
 
 ```js
@@ -1446,6 +1445,7 @@ f(2);
 ```
 
 Example:
+
 ```js
 function trace() {
   var f = trace;
@@ -1454,7 +1454,7 @@ function trace() {
     stack += '\n' + f.name;
     f = f.caller;
   }
-  return stack;  
+  return stack;
 }
 
 function myFunc() {
@@ -1513,7 +1513,7 @@ console.log(stacks);
 
 ![execution-context](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/execution-context.png)
 
-除了这三个必需的属性`变量对象`、`this`、`作用域链`之外，执行上下文可以拥有其他附加的状态，这取决于实现。
+除了这三个必需的属性`变量/活动对象`、`作用域链`、`this`之外，执行上下文可以拥有其他附加的状态，这取决于实现。
 
 让我们详细看看上下文中的这些重要的属性。
 
@@ -1531,6 +1531,7 @@ console.log(stacks);
 关于全局变量：Javascript中并不存在全局变量，所谓的全局变量，不过是Global对象的一个属性，叫**全局属性**还差不多，变量和属性虽然都是数据的引用方式，但是却有很大差别。
 
 Example:
+
 ```js
 var global = global || window;
 global.env = 'production';
@@ -1614,15 +1615,17 @@ foo(10, 20);
 
 这个规则还是与原型链同样简单：如果一个变量在函数自身的作用域（`变量/活动对象`）中没有找到，那么将会查找它父函数（外层函数）的`变量/活动对象`，以此类推。
 
-就上下文而言，标识符指的是：*变量名称，函数声明，形参，等等*。
+就上下文而言，标识符指的是：*变量名称、函数声明、形参 等*。
 
 当一个函数在其代码中引用一个不是*局部变量*（或者局部函数或者一个形参）的标识符，那么这个标识符就叫作*自由变量*，搜索这些自由变量(free variables)正好就要用到*作用域链*。
 
-在通常情况下，作用域链是一个包含所有*Caller的变量/活动对象*__加上（在作用域链头部的）*Callee变量/活动对象*的一个列表。
+在通常情况下，*作用域链*是一个包含所有*Caller的变量/活动对象*__加上（在作用域链头部的）*Callee变量/活动对象*的一个列表。
 
 这个作用域链也可以包含任何其他对象，比如，在上下文执行过程中动态加入到作用域链中的对象－像with对象或者特殊的catch从句（catch-clauses）对象。
 
-当解析（查找）一个标识符的时候，会从作用域链中的活动对象开始查找，然后（如果这个标识符在函数自身的活动对象中没有被查找到）向作用域链的上一层查找－重复这个过程，就和原型链一样。
+当解析一个标识符的时候，会从作用域链中的*活动对象*开始查找，然后（如果这个标识符在函数自身的活动对象中没有被查找到）向作用域链的上一层查找－重复这个过程，就和原型链查找一样。
+
+综上：*作用域链* 可以看作是 *变量对象链*。
 
 ```js
 var x = 10;
@@ -1639,11 +1642,11 @@ var x = 10;
 })();
 ```
 
-我们可以假设通过隐式的`__parent__`属性来和`作用域链对象`进行关联，这个属性指向作用域链中的下一个对象。
+我们可以假设通过隐式的 `__parent__` 属性来和 `作用域链对象` 进行交互，这个属性指向作用域链中的下一个对象。
 
 这个方案可能在真实的Rhino代码中经过了测试，并且这个技术很明确得被用于ES5的词法环境中（在那里被叫作outer连接）。
 
-作用域链的另一个表现方式可以是一个简单的数组。利用`__parent__`概念，我们可以用下面的图来表现上面的例子（并且父变量对象存储在函数的`[[Scope]]`属性中）：
+作用域链的另一个表现方式可以是一个简单的数组。利用 `__parent__` 概念，我们可以用下面的图来表现上面的例子（并且父变量对象存储在函数的`[[Scope]]`属性中）：
 
 ![scope-chain](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/scope-chain.png)
 
@@ -1657,31 +1660,22 @@ var x = 10;
 Object.prototype.x = 10;
 var w = 20;
 var y = 30;
-// in SpiderMonkey global object
-// i.e. variable object of the global
-// context inherits from "Object.prototype",
-// so we may refer "not defined global
-// variable x", which is found in
-// the prototype chain
+// in SpiderMonkey global object i.e. variable object of the global context inherits from "Object.prototype",
+// so we may refer "not defined global variable x", which is found in the prototype chain
 console.log(x); // 10
 (function foo() {
   // "foo" local variables
   var w = 40;
   var x = 100;
-  // "x" is found in the
-  // "Object.prototype", because
-  // {z: 50} inherits from it
+  // "x" is found in the "Object.prototype", because {z: 50} inherits from it
   with ({z: 50}) {
     console.log(w, x, y , z); // 40, 10, 30, 50
   }
-  // after "with" object is removed
-  // from the scope chain, "x" is
-  // again found in the AO of "foo" context;
+  // after "with" object is removed from the scope chain,
+  // "x" is again found in the AO of "foo" context;
   // variable "w" is also local
   console.log(x, w); // 100, 40
-  // and that's how we may refer
-  // shadowed global "w" variable in
-  // the browser host environment
+  // and that's how we may refer shadowed global "w" variable in the browser host environment
   console.log(window.w); // 20
 })();
 ```
@@ -1692,63 +1686,56 @@ console.log(x); // 10
 
 注意，不是在所有的实现中全局对象都是继承自Object.prototype。上图中描述的行为（从全局上下文中引用「未定义」的变量x）可以在诸如SpiderMonkey引擎中进行测试。
 
-由于所有父变量对象都存在，所以在内部函数中获取父函数中的数据没有什么特别－我们就是遍历作用域链去解析（搜寻）需要的变量。
+由于所有父变量对象都存在，所以在内部函数中获取父函数中的数据没有什么特别－就是遍历作用域链去搜寻需要的变量。
 
-就像我们上边提及的，在一个上下文结束之后，它所有的状态和它自身都会被销毁，在同一时间父函数可能会返回一个内部函数，而且，这个返回的函数之后可能在另一个上下文中被调用。
+就像上边提及的，在一个上下文结束之后，它所有的状态和它自身都会被销毁，这个上下文（函数）可能会返回一个函数，这个返回的函数之后可能在另一个上下文中被调用。
+如果**自由变量**的上下文已经「消失」了，将会出现问题，有一个方式可以帮助我们解决这个问题，叫作**闭包**，其在ECMAScript中就是和作用域链的概念紧密相关的。
 
-如果自由变量的上下文已经「消失」了，那么这样的调用将会发生什么？通常来说，有一个概念可以帮助我们解决这个问题，叫作（词法）闭包，其在ECMAScript中就是和作用域链的概念紧密相关的。
-
-然后我们移动到下个部分，考虑一下执行上下文的最后一个属性。这就是关于this值的概念。
-
+然后我们移动到下个部分，考虑一下执行上下文的最后一个属性，关于this值的概念。
 
 
-## This
+
+### This
 
 
-this是一个与执行上下文相关的特殊对象。因此，它可以叫作上下文对象（也就是用来指明执行上下文是在哪个上下文中被触发的对象）。
-任何对象都可以做为上下文中的this的值。我想再一次澄清，在一些对ECMAScript执行上下文和部分this的描述中的所产生误解。this经常被错误的描述成是变量对象的一个属性。这类错误存在于比如像这本书中（即使如此，这本书的相关章节还是十分不错的）。再重复一次：
-
-this是执行上下文的一个属性，而不是变量对象的一个属性
+this是一个与执行上下文相关的特殊对象。因此，它可以叫作**上下文对象**（也就是用来指明执行上下文是在哪个上下文中被触发的对象）。
+任何对象都可以做为上下文中的this的值。我想再一次澄清，在一些对ECMAScript执行上下文和部分this的描述中的所产生误解。this经常被错误的描述成是变量对象的一个属性。
+再重复一次： **this是执行上下文的一个属性，而不是变量对象的一个属性**。
 这个特性非常重要，因为与变量相反，this从不会参与到标识符解析过程。换句话说，在代码中当访问this的时候，它的值是直接从执行上下文中获取的，并不需要任何作用域链查找。this的值只在进入上下文的时候进行一次确定。
 
-顺便说一下，与ECMAScript相反，比如，Python的方法都会拥有一个被当作简单变量的self参数，这个变量的值在各个方法中是相同的的并且在执行过程中可以被更改成其他值。在ECMAScript中，给this赋一个新值是不可能的，因为，再重复一遍，它不是一个变量并且不存在于变量对象中。
+顺便说一下，与ECMAScript相反，Python的方法都会拥有一个被当作简单变量的self参数，这个变量的值在各个方法中是相同的的并且在执行过程中可以被更改成其他值。
+在ECMAScript中，给this赋一个新值是不可能的，因为，它不是一个变量并且不存在于变量对象中。
 
 在全局上下文中，this就等于全局对象本身（这意味着，这里的this等于变量对象）：
 
 ```js
 var x = 10;
-
-console.log(
-  x, // 10
-  this.x, // 10
-  window.x // 10
-);
+console.log(x, this.x, window.x);
 ```
 
-在函数上下文的情况下，对函数的每次调用，其中的this值可能是不同的。这个this值是通过函数调用表达式（也就是函数被调用的方式）的形式由caller所提供的。举个例子，下面的函数foo是一个callee，在全局上下文中被调用，此上下文为caller。让我们通过例子看一下，对于一个代码相同的函数，this值是如何在不同的调用中（函数触发的不同方式），由caller给出不同的结果的：
+在函数上下文的情况下，对函数的每次调用，其中的this值可能是不同的。这个this值是通过函数调用表达式（也就是函数被调用的方式）的形式由caller所提供的。
+
+举个例子，下面的函数foo是一个callee，在全局上下文中被调用，此上下文为caller。
+
+让我们通过例子看一下，对于一个代码相同的函数，this值是如何在不同的调用中（函数触发的不同方式），由caller给出不同的结果的：
 
 ```js
-// the code of the "foo" function
-// never changes, but the "this" value
-// differs in every activation
+// the code of the "foo" function never changes, but the "this" value differs in every activation
 
 function foo() {
   alert(this);
 }
 
-// caller activates "foo" (callee) and
-// provides "this" for the callee
+// caller activates "foo" (callee) and provides "this" for the callee
 
 foo(); // global object
 foo.prototype.constructor(); // foo.prototype
 
-var bar = {
-  baz: foo
-};
+var bar = { baz: foo };
 
 bar.baz(); // bar
 
-(bar.baz)(); // also bar
+(bar.baz)();            // also bar
 (bar.baz = bar.baz)();  // but here is global object
 (bar.baz, bar.baz)();   // also global object
 (false || bar.baz)();   // also global object
@@ -1757,35 +1744,36 @@ var otherFoo = bar.baz;
 otherFoo(); // again global object
 ```
 
-为了深入理解this为什么（并且更本质一些－如何）在每个函数调用中可能会发生变化，你可以阅读第三章 This。在那里，上面所提到的情况都会有详细的讨论。
 
-http://www.kancloud.cn/kancloud/deep-understand-javascript/43686
+### 执行上下文总结
+
+变量/活动对象：记录运行时所需要的数据，变量、函数、形参、实参等。
+作用域链：变量/活动对象 链到一起，为引擎进行变量查找提供基础。
+this：指明了当前执行的函数作用在哪个对象身上，方法的操作主体是谁。
 
 
 
 ## 闭包
 
-在ECMAScript中，函数是一级（first-class）对象。这个术语意味着函数可以做为参数传递给其他函数（「函数类型参数」（funargs，是"functional arguments"的简称））。接收「函数类型参数」的函数叫作`高阶函数`或者，贴近数学一些，叫作高阶操作符。
+在ECMAScript中，函数是一级（first-class）对象。这个术语意味着函数可以做为参数传递给其他函数（「函数类型参数」（funargs，是"functional arguments"的简称））。
 
-同样函数也可以从其他函数中返回，返回其他函数的函数叫作以函数为值（function valued）的函数（或者叫作拥有函数类值的函数（functions with functional value））。
+接收「函数类型参数」的函数叫作`高阶函数`或者，贴近数学一些，叫作高阶操作符。同样函数也可以返回一个函数。
 
-这有两个在概念上与「函数类型参数（funargs）」和「函数类型值（functional　values）」相关的问题。
+这有两个在概念上与「函数类型参数（funargs）」和「函数类型值（functional values）」相关的问题。
 
-并且这两个子问题在"Funarg problem"（或者叫作"functional argument"问题）中很普遍。
-
-为了解决整个"funarg problem"，闭包（closure）的概念被创造了出来。
+并且这两个子问题在"Funarg problem"中很普遍。为了解决整个"funarg problem"，闭包（closure）的概念被创造了出来。
 
 我们详细的描述一下这两个子问题（我们将会看到这两个问题在ECMAScript中都是使用图中所提到的函数的`[[Scope]]`属性来解决的）。
 
-「funarg问题」的第一个子问题是「向上funarg问题」（upward funarg problem）。它会在当一个函数从另一个函数向上返回（到外层）并且使用上面所提到的自由变量的时候出现。
+「funargs问题」的第一个子问题是「向上funarg问题」（upward funarg problem）。它会在当一个函数从另一个函数中返回并且使用上面所提到的自由变量的时候出现。
 
-为了在即使父函数上下文结束的情况下也能访问其中的变量，内部函数在被创建的时候会在它的`[[Scope]]`属性中保存父函数的作用域链。
+为了在即使父函数上下文销毁的情况下也能访问其中的变量，内部函数在被创建的时候会在它的`[[Scope]]`属性中保存父函数的作用域链。
 
-所以当函数被调用的时候，它上下文的作用域链会被格式化成活动对象与`[[Scope]]`属性的和（实际上就是我们刚刚在上图中所看到的）：
+所以当函数被调用的时候，它上下文的作用域链会被格式化成 *活动对象* 与 *[[Scope]]* 属性的和：`Scope chain = Activation object + [[Scope]]`。
 
-Scope chain = Activation object + `[[Scope]]`
+函数在创建时会保存父函数的**作用域链**，这个保存下来的**作用域链**将会在未来的函数调用时用来**查找变量**。
 
-再次注意这个关键点－确切的说在创建时刻－函数会保存父函数的作用域链，因为确切的说这个保存下来的作用域链将会在未来的函数调用时用来查找变量。
+如果从对象引用层面来理解，*[[Scope]]*被另外一个对象（函数）引用，引擎不会回收这些资源，所以闭包容易带来内存泄漏的隐患。
 
 ```js
 function foo() {
@@ -1794,9 +1782,7 @@ function foo() {
     console.log(x);
   };
 }
-// "foo" returns also a function
-// and this returned function uses
-// free variable "x"
+// "foo" returns also a function and this returned function uses free variable "x"
 var returnedFunction = foo();
 // global variable "x"
 var x = 20;
@@ -1804,11 +1790,13 @@ var x = 20;
 returnedFunction(); // 10, but not 20
 ```
 
-这个类型的作用域叫作静态（或者词法）作用域。我们看到变量x在返回的bar函数的`[[Scope]]`属性中被找到。通常来说，也存在动态作用域，那么上面例子中的变量x将会被解析成20，而不是10。但是，动态作用域在ECMAScript中没有被使用。
+这个类型的作用域叫作**静态（或者词法）作用域**。我们看到变量x在返回的bar函数的`[[Scope]]`属性中被找到。通常来说，也存在动态作用域，那么上面例子中的变量x将会被解析成20，而不是10。但是，动态作用域在ECMAScript中没有被使用。
 
 「funarg问题」的第二个部分是「向下funarg问题」。这种情况下可能会存在一个父上下文，但是在解析标识符的时候可能会模糊不清。
 
-问题是：标识符该使用哪个作用域的值－以静态的方式存储在函数创建时刻的还是在执行过程中以动态方式生成的，比如caller的作用域？为了避免这种模棱两可的情况并形成闭包，静态作用域被采用：
+问题是：标识符该使用哪个作用域的值－以静态的方式存储在函数创建时刻的还是在执行过程中以动态方式生成的，比如caller的作用域？
+
+为了避免这种模棱两可的情况并形成闭包，静态作用域被采用：
 
 ```js
 // global "x"
@@ -1820,25 +1808,24 @@ function foo() {
 (function (funArg) {
   // local "x"
   var x = 20;
-  // there is no ambiguity,
-  // because we use global "x",
-  // which was statically saved in
-  // [[Scope]] of the "foo" function,
-  // but not the "x" of the caller's scope,
-  // which activates the "funArg"
+  // there is no ambiguity, because we use global "x", which was statically saved in [[Scope]] of the "foo" function,
+  // but not the "x" of the caller's scope, which activates the "funArg"
   funArg(); // 10, but not 20
 })(foo); // pass "down" foo as a "funarg"
 ```
 
-我们可以断定静态作用域是一门语言拥有闭包的必需条件。
+词法作用域/静态作用域：变量的作用域是在定义时决定而不是执行时决定，也就是说词法作用域取决于源码，通过静态分析就能确定，因此词法作用域也叫做静态作用域。 with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）。
 
-但是，一些语言可能会同时提供动态和静态作用域，允许程序员做选择－什么应该包含（closure）在内和什么不应包含在内。
+
+我们可以断定静态作用域是一门语言拥有闭包的必需条件。但是，一些语言可能会同时提供动态和静态作用域，允许程序员做选择－什么应该包含（closure）在内和什么不应包含在内。
 
 由于在ECMAScript中只使用了静态作用域（比如我们对于funarg问题的两个子问题都有解决方案），所以结论是：ECMAScript完全支持闭包，技术上是通过函数的`[[Scope]]`属性实现的。
 
 现在我们可以给闭包下一个准确的定义：
 
-闭包是一个代码块（在ECMAScript是一个函数）和以`静态方式`/`词法方式`进行存储的所有父作用域的一个集合体。所以，通过这些存储的作用域，函数可以很容易的找到自由变量。
+闭包是一个代码块（在ECMAScript是一个函数）和以`静态方式`/`词法方式`进行存储的所有父作用域的一个集合体。所以，通过这些存储的作用域，函数可以很容易的找到**自由变量**。
+
+闭包使得一个函数有权访问另一个函数作用域中的变量。
 
 注意，由于每个（标准的）函数都在创建的时候保存了`[[Scope]]`，所以理论上来讲，ECMAScript中的所有函数都是闭包。
 
@@ -1895,49 +1882,12 @@ data[2](); // 2
 ```
 
 
-
-## 闭包
-
-有权访问另一个函数作用域中的变量的函数
-
-当函数被调用时 会创建一个 执行环境 和相应 作用域链  然后使用arguments和其他命名函数初始化 活动对象
-
 c/c++: 函数无法嵌套定义，可以传递函数指针
 java c#:
 python ruby
 go swift
 javascript typescript coffeescript ...
 
-```js
-'use strict';
-var classA = function () {
-  this.prop1 = 1;
-};
-
-classA.prototype.func1 = function () {
-  var that = this,
-      var1 = 2;
-
-  function f() {
-    return function () {
-      console.log(var1);
-    }.apply(that);
-  }
-
-  f();
-};
-
-var objA = new ClassA();
-objA.func1();
-```
-
-有时候一个方法定义的地方和使用的地方会相隔十万八千里，那方法执行时，它能访问哪些变量，不能访问哪些变量，这个怎么判断呢？这个就是我们这次需要分析的问题—词法作用域
-
-词法作用域：变量的作用域是在定义时决定而不是执行时决定，也就是说词法作用域取决于源码，通过静态分析就能确定，因此词法作用域也叫做静态作用域。 with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）。
-
-
-
-## 函数表达式
 
 
 ## 执行过程
@@ -1945,66 +1895,60 @@ objA.func1();
 
 ### 执行顺序
 
- * 编译型语言，编译步骤分为：词法分析、语法分析、语义检查、代码优化和字节生成。
- * 解释型语言，通过词法分析和语法分析得到语法分析树后，就可以开始解释执行了。这里是一个简单原始的关于解析过程的原理，仅作为参考，详细的解析过程（各种JS引擎还有不同）还需要更深一步的研究
+* 编译型语言，编译步骤分为：词法分析、语法分析、语义检查、代码优化和字节生成。
+* 解释型语言，通过词法分析和语法分析得到语法分析树后，就可以开始解释执行了。这里是一个简单原始的关于解析过程的原理，仅作为参考，详细的解析过程（各种JS引擎还有不同）还需要更深一步的研究
 
- JavaScript执行过程，如果一个文档流中包含多个script代码段（用script标签分隔的js代码或引入的js文件），它们的运行顺序是：
+JavaScript执行过程，如果一个文档流中包含多个script代码段（用script标签分隔的js代码或引入的js文件），它们的运行顺序是：
 
- * 阶段一：解析
+* 阶段一：解析
   * 步骤1. 载入第一个代码段（js执行引擎并非一行一行地执行程序，而是一段一段地分析执行的）。
   * 步骤2. 做词法分析->[词法作用域] 和 语法分析->[语法分析树]，有错则报语法错误(Syntax Error)（解析时错误，比如括号不匹配等），并跳转到步骤5。
   * 步骤3. 对[var]变量和[function]定义做`预解析`（永远不会报错的，因为只解析正确的声明）。
- * 阶段二：执行
+* 阶段二：执行
   * 步骤4. 执行代码段，有错则报错（运行时错误，比如变量未定义）。
- * 步骤5. 如果还有下一个代码段，则读入下一个代码段，重复步骤2。
+  * 步骤5. 如果还有下一个代码段，则读入下一个代码段，重复步骤2。
   * 步骤6. 结束
 
- * JS代码是一段段执行的。也就是以函数内部的活动代码为单位，一段段活动代码执行。
- * 实例化就是调用对象（Call Object）的过程，上面我们一直说这个分析很像类结构。
- * 这次就真的是把这个像类的词法分析出来的结果进行伪类的实例化了。
- * 实例化的同时，这个调用对象的一个属性被初始化成一个名叫 arguments 的属性，
- * 它引用了这个函数的 Arguments 对象，Arguments 对象是函数的实际参数。
+* JS代码是一段段执行的。也就是以函数内部的活动代码为单位，一段段活动代码执行。
+* 实例化就是调用对象（Call Object）的过程，上面我们一直说这个分析很像类结构。
+* 这次就真的是把这个像类的词法分析出来的结果进行伪类的实例化了。
+* 实例化的同时，这个调用对象的一个属性被初始化成一个名叫 arguments 的属性，
+* 它引用了这个函数的 Arguments 对象，Arguments 对象是函数的实际参数。
 
 
 ### 关键步骤
 
- 上面的过程，我们主要是分成两个阶段
- * 解析：通过语法分析和预解析构造合法的语法分析树。
- * 执行：执行具体的某个函数，JS引擎在执行每个函数实例时，都会创建一个执行环境（ExecutionContext）和活动对象（ActiveObject）（它们属于宿主对象，与函数实例的生命周期保持一致）
+上面的过程，我们主要是分成两个阶段
+
+* 解析：通过语法分析和预解析构造合法的语法分析树。
+* 执行：执行具体的某个函数，JS引擎在执行每个函数实例时，都会创建一个执行环境（ExecutionContext）和活动对象（ActiveObject）（它们属于宿主对象，与函数实例的生命周期保持一致）
 
 
 ### 关键概念
 
- * 语法分析树（SyntaxTree）
-  * 可以直观地表示出这段代码的相关信息，具体的实现就是JS引擎创建了一些表，
-  * 用来记录每个方法的 内部变量集（variables）、内嵌函数集（functions）和作用域（scope）等
-
- * 执行环境（ExecutionContext）
-  * 可理解为一个记录当前执行的方法【外部描述信息】的对象,
-  * 记录所执行方法的类型，名称，参数和活动对象（activeObject）
-
- * 活动对象（activeObject）
-  * 可理解为一个记录当前执行的方法【内部执行信息】的对象,
-  * 记录 内部变量集（variables）、内嵌函数集（functions）、实参（arguments）、作用域链（scopeChain）等执行所需信息，
+* 语法分析树（SyntaxTree）
+  * 可以直观地表示出这段代码的相关信息，具体的实现就是JS引擎创建了一些表。
+  * 用来记录每个方法的 内部变量集（variables）、内嵌函数集（functions）和作用域（scope）等。
+* 执行环境（ExecutionContext）
+  * 可理解为一个记录当前执行的方法【外部描述信息】的对象。
+  * 记录所执行方法的类型，名称，参数和活动对象（activeObject）。
+* 活动对象（activeObject）
+  * 可理解为一个记录当前执行的方法【内部执行信息】的对象。
+  * 记录 内部变量集（variables）、内嵌函数集（functions）、实参（arguments）、作用域链（scopeChain）等执行所需信息。
   * 其中 内部变量集（variables）、内嵌函数集（functions）是直接从第一步建立的语法分析树复制过来的.
-  * 方法开始执行，活动对象里的内部变量集全部被重置为 undefined, 创建形参（parameters）和实参（arguments）对象，同名的实参，形参和变量之间是【引用】关系, 执行方法内的赋值语句，这才会对变量集中的变量进行赋值处理
-  * 变量查找规则是首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object
-  * 方法执行完成后，内部变量值不会被重置，至于变量什么时候被销毁, 方法内变量的生存周期取决于方法实例是否存在活动引用，如没有就销毁活动对象
-
- * 词法作用域
+  * 方法开始执行，活动对象里的内部变量集全部被重置为 undefined, 创建形参（parameters）和实参（arguments）对象，同名的实参，形参和变量之间是【引用】关系, 执行方法内的赋值语句，这才会对变量集中的变量进行赋值处理。
+  * 变量查找规则是首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object。
+  * 方法执行完成后，内部变量值不会被重置，至于变量什么时候被销毁, 方法内变量的生存周期取决于方法实例是否存在活动引用，如没有就销毁活动对象。
+* 词法作用域
   * 变量的作用域是在定义时决定而不是执行时决定，也就是说词法作用域取决于源码，通过静态分析就能确定，因此词法作用域也叫做静态作用域。
-  * with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）
-
- * 作用域链
+  * with和eval除外，所以只能说JS的作用域机制非常接近词法作用域（Lexical scope）。
+* 作用域链
   * 词法作用域的实现机制就是作用域链（scopeChain）。
-  * 作用域链是一套按名称查找（Name Lookup）的机制，
-  * 首先在当前执行环境的 ActiveObject 中寻找，没找到，
-  * 则顺着作用域链到父 ActiveObject 中寻找，一直找到全局调用对象（Global Object）
-
- * 闭包
+  * 作用域链是一套按名称查找（Name Lookup）的机制。
+  * 首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着作用域链到父 ActiveObject 中寻找，一直找到全局调用对象（Global Object）。
+* 闭包
   * 闭包是一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。
-  * 保护函数内的变量安全。通过保护变量的安全实现JS私有属性和 私有方法（不能被外部访问）.
-  * 在内存中维持一个变量。
+  * 保护函数内的变量安全。通过保护变量的安全实现JS私有属性和 私有方法（不能被外部访问）.在内存中维持一个变量。
   * 闭包就是将函数内部和函数外部连接起来的一座桥梁。让外部环境有接口访问内部变量。
   * 闭包函数可以访问所保持的作用域链上的外部环境。
 
@@ -2016,16 +1960,9 @@ lexical-analyzer  Lexer  Tokenizer
 
 词法分析主要分为3步：
 
- * 第1步：分析形参
- * 第2步：分析变量声明
- * 第3步：分析函数声明
-
-http://blog.csdn.net/guixuecheng/article/details/43670323
-
-JavaScript的每个函数function都有自己的作用域，使用Active Object（简称AO）活动对象来保存，在相互嵌套的函数中形成了作用域链，如图：
-作用域链就是从里到外的AO链变量的寻找：
-
-函数fn3中使用的变量，如在fn3作用域内寻找不到，则往外层fn2作用域寻找，以此类推，直到全局对象window
+* 第1步：分析形参
+* 第2步：分析变量声明
+* 第3步：分析函数声明
 
 
 ### 1、解析模拟
@@ -2163,6 +2100,7 @@ var ExecutionContext = {
 上面每一个方法的执行环境都存储了相应方法的类型（function）、方法名称（funcName）、活动对象（ActiveObject）、作用域链（scopeChain）等信息。
 
 其关键点如下：
+
 * body属性，直接指向当前方法的活动对象
 * scopeChain属性，作用域链，它是一个链表结构，根据语法分析树中当前方法对应的scope属性，它指向scope对应的方法的活动对象（ActivceObject），变量查找就是跟着这条链条查找的活动对象
 
@@ -2444,15 +2382,15 @@ function timedChunk(items, process, context, callback){
 ### Timer
 
 
-* How JavaScript Timers Work
+#### How JavaScript Timers Work？
 
 从基础的层面来讲，理解JavaScript的定时器是如何工作的是非常重要的。
 计时器的执行常常和我们的直观想象不同，那是因为JavaScript引擎是单线程的。
 我们先来认识一下下面三个函数是如何控制计时器的。
 
-  * `var id = setTimeout(fn, delay);`       - 初始化一个计时器，然后在指定的时间间隔后执行。该函数返回一个唯一的标志ID（Number类型），我们可以使用它来取消计时器。
-  * `var id = setInterval(fn, delay);`      - 和setTimeout有些类似，但它是连续调用一个函数（时间间隔是delay参数）直到它被取消。
-  * `clearInterval(id);, clearTimeout(id);` - 使用计时器ID（setTimeout 和 setInterval的返回值）来取消计时器回调的发生
+* `var id = setTimeout(fn, delay);`       - 初始化一个计时器，然后在指定的时间间隔后执行。该函数返回一个唯一的标志ID（Number类型），我们可以使用它来取消计时器。
+* `var id = setInterval(fn, delay);`      - 和setTimeout有些类似，但它是连续调用一个函数（时间间隔是delay参数）直到它被取消。
+* `clearInterval(id);, clearTimeout(id);` - 使用计时器ID（setTimeout 和 setInterval的返回值）来取消计时器回调的发生
 
 为了理解计时器的内在执行原理，有一个重要的概念需要加以探讨：计时器的延迟(delay)是无法得到保障的。
 由于所有JavaScript代码是在一个线程里执行的，所有异步事件（例如，鼠标点击和计时器）只有拥有执行机会时才会执行。
@@ -2518,7 +2456,7 @@ setTimeout 和 setInterval 在执行异步代码的时候有着根本的不同
 如果setInterval回调函数的执行时间将足够长（比指定的时间间隔长），它们将连续执行并且彼此之间没有时间间隔。
 上述这些知识点都是非常重要的。了解了JavaScript引擎是如何工作的，尤其是大量的异步事件（连续）发生时，才能为构建高级应用程序打好基础。
 
-* 零延迟 `setTimeout(func, 0)`
+#### 零延迟 `setTimeout(func, 0)`
 
 零延迟并不是意味着回调函数立刻执行，它取决于主线程当前是否空闲与“任务队列”里其前面正在等待的任务。
 
@@ -2545,7 +2483,7 @@ setTimeout 和 setInterval 在执行异步代码的时候有着根本的不同
 // this is a msg from a callback1
 ```
 
-* 用 setTimeout 模仿 setInterval
+#### 用 setTimeout 模仿 setInterval
 
 ```js
 function setIntervalSimulation(cb, m) {
@@ -2660,7 +2598,7 @@ for(var i = 0; i< 100000000; i++){};
   JS代码肯定执行在一个线程中这是毋庸置疑的。通过上面的描述也无须另一个线程。所以有些博客中说有一个EventLoop线程，我觉的是没必要的。
   其他线程是在js调用异步函数是产生的，但不是一定需要创建新的线程。如Node中监听文件描述符只用一个线程就够了，如果这个线程已经存在就无须再创建。
 
-2. TasksQueue中的队列是谁放进来的？是否有一个维护队列的线程？
+1. TasksQueue中的队列是谁放进来的？是否有一个维护队列的线程？
 
   异步函数是JS引擎的在运行环境中的扩展。
 
@@ -2671,7 +2609,10 @@ JavaScript是单线程的，同一时刻只能执行特定的任务。而浏览�
 当Stack栈（JS主线程）为空时，就会读取Queue队列（任务队列）的第一个任务（队首），然后执行。
 JavaScript为了避免复杂性，而实现单线程执行。而今JavaScript却变得越来越不简单了，当然这也是JavaScript迷人的地方。
 
+
+
 ## 参考
+
 * javascript-the-core [翻译](http://weizhifeng.net/javascript-the-core.html) [原文](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/)
 * http://www.raychase.net/1968?replytocom=51795
 * http://www.codeceo.com/article/javascript-threaded.html
@@ -2683,3 +2624,8 @@ JavaScript为了避免复杂性，而实现单线程执行。而今JavaScript却
 * http://blog.thomasbelin.fr/p/javascript-single-threaded-et-asynchrone/
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop
 * http://www.ruanyifeng.com/blog/2014/10/event-loop.html
+* http://blog.csdn.net/z742182637/article/details/51536140
+* http://www.cnblogs.com/wilber2013/p/4909430.html#_nav_0
+* https://www.nczonline.net/blog/2013/06/25/eval-isnt-evil-just-misunderstood/
+* http://www.cnblogs.com/dolphinX/p/3524977.html
+* http://www.kancloud.cn/kancloud/deep-understand-javascript/43686
