@@ -2169,10 +2169,30 @@ function eventloop() {
 eventloop();
 ```
 
+![eventloop-in-browser](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/eventloop-in-browser.png)
+
+![eventloop-in-nodejs](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/eventloop-in-nodejs.png)
+
+EventLoop绝不能阻塞，阻不阻塞不是JavaScript决定的。保证当应用等待异步请求返回时，其仍能处理其它操作。
+
 “任务队列”是一个包含事件处理函数的队列。
 如果I/O设备完成任务或用户触发事件，那么相关事件处理函数就会进入“任务队列”，当主线程处理完上一个任务时，就会调度“任务队列”里第一个待处理任务。
 当然，对于定时器，当到达其指定时间时，才会把相应任务插到“任务队列”尾部。
 所以所谓的任务 可以认为是 事件处理函数。
+
+#### Runtime
+
+![runtime](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/runtime.png)
+
+![stack-heap-queue](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/stack-heap-queue.png)
+
+* Stack 这里放着JavaScript正在执行的任务，每个任务被称为帧（frame）。
+* Heap 一个用来表示内存中一大片非结构化区域的名字，对象都被分配在这。
+* TasksQueue 一个 JavaScript Runtime 包含了一个任务队列，该队列是由一系列待处理的任务（包含事件处理函数）组成。
+
+每个任务都有相对应的函数，当栈为空时，就会从任务队列中取出一个任务，并处理之。
+该处理会调用与该任务相关联的一系列函数（因此会创建一个初始栈帧）。
+当该任务处理完毕后，栈就会再次为空。
 
 #### 任务不能被中断
 
@@ -2181,9 +2201,6 @@ eventloop();
 这与操作系统的进程调度模式有根本的不同，操作系统不能允许一个进程长时间占有CPU，以保证其他程序能够有机会得到执行。
 一个比较好解决方案是：将任务完成时间缩短，或者尽可能将一个任务分成多个任务执行，但是这需要开发人员来保证。
 
-#### 绝不能阻塞
-
-EventLoop绝不能阻塞，阻不阻塞不是JavaScript决定的。保证当应用等待异步请求返回时，其仍能处理其它操作。
 
 #### 只有EventLoop是不够的
 
