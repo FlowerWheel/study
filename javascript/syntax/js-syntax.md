@@ -2155,7 +2155,7 @@ JavaScript的**EventLoop**的**并发模型**，其原理和操作系统进程�
 
 In computer science, the event loop, message dispatcher, message loop, message pump, or run loop is a programming construct that waits for and dispatches events or messages in a program. 
 
-之所以被称为EventLoop，是因为它以以下类似方式实现：
+之所以被称为EventLoop，是因为它是用类似以下方式实现：
 
 ```js
 // other code
@@ -2163,7 +2163,7 @@ function eventloop() {
   while(eventHandler = waitForEvents()){
     eventHandler.processEvent();
   }
-  sleep('4ms');
+  sleep(); // 睡一下
   eventloop();
 }
 eventloop();
@@ -2173,28 +2173,28 @@ eventloop();
 
 ![eventloop-in-nodejs](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/eventloop-in-nodejs.png)
 
-EventLoop绝不能阻塞，阻不阻塞不是JavaScript决定的。保证当应用等待异步请求返回时，其仍能处理其它操作。
+从图中来看，EventLoop好像并不是V8引擎的一部分，如果真是这样的话，那么在EventLoop应该是Node.js或Browser实现的，不过这不影响理解。
 
-“任务队列”是一个包含事件处理函数的队列。
-如果I/O设备完成任务或用户触发事件，那么相关事件处理函数就会进入“任务队列”，当主线程处理完上一个任务时，就会调度“任务队列”里第一个待处理任务。
-当然，对于定时器，当到达其指定时间时，才会把相应任务插到“任务队列”尾部。
-所以所谓的任务 可以认为是 事件处理函数。
+EventLoop绝不能阻塞，这个位置阻不阻塞不是JavaScript代码能决定的。保证当应用等待异步请求返回时，其仍能处理其它操作。
 
-#### Runtime
 
-![runtime](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/runtime.png)
+#### 任务队列
 
-![stack-heap-queue](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/stack-heap-queue.png)
+![memory-layout](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/memory-layout.jpg)
+
+![memory-layout](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/memory-layout-1.png)
 
 * Stack 这里放着JavaScript正在执行的任务，每个任务被称为帧（frame）。
 * Heap 一个用来表示内存中一大片非结构化区域的名字，对象都被分配在这。
 * TasksQueue 一个 JavaScript Runtime 包含了一个任务队列，该队列是由一系列待处理的任务（包含事件处理函数）组成。
 
-每个任务都有相对应的函数，当栈为空时，就会从任务队列中取出一个任务，并处理之。
-该处理会调用与该任务相关联的一系列函数（因此会创建一个初始栈帧）。
-当该任务处理完毕后，栈就会再次为空。
+每个任务都有相对应的函数，当栈为空时，就会从任务队列中取出一个任务，然后进行处理。
+该处理会调用与该任务相关联的一系列函数（因此会创建一个初始栈帧），当该任务处理完毕后，栈就会再次为空。
 
-#### 任务不能被中断
+如果I/O设备完成任务或用户触发事件，那么相关事件处理函数就会进入“任务队列”，当主线程处理完上一个任务时，就会调度“任务队列”里第一个待处理任务。
+当然，对于定时器，当到达其指定时间时，才会把相应任务插到“任务队列”尾部。
+
+任务不能被中断。
 
 每当某个任务执行完后，其它任务才会被执行。也就是说，当一个函数运行时，它不能被取代且会在其它代码运行前先完成。不会像多线程那样，多个任务交替执行。
 当然，这也带来一个缺点：当一个任务完成时间过长，那么应用就不能及时处理用户的交互（如点击事件），甚至导致该应用奔溃。
@@ -2208,30 +2208,7 @@ EventLoop绝不能阻塞，阻不阻塞不是JavaScript决定的。保证当应�
 
 其实我们已经知道答案，那就是异步函数。异步函数的回掉函数在异步函数执行完成之后，被放入了任务队列。同步函数是没有这个能力的，因为没这个需要。
 
-#### 再谈并发
-
-前面所说的单线程指的是我们编写的JavaScript代码是运行在一个线程当中，而JavaScript起的作用是并发调度。
-
-从我们的角度，JavaScript确实是并发的，因为JS同时可以处理很多任务，但是实际上这些任务并不是JavaScript引擎处理的，而是由运行环境的扩展（如setTimeout）来实现的。
-这些扩展作为JavaScript的一部分，在调用的时候肯定是JS线程在执行，扩展程序在执行时可以创建其他线程来工作，JS线程将不会阻塞继续向下执行，而这个新线程在任务处理完成之后，将回掉函数插入到JS的任务队列中。
-如果扩展代码是同步的，如Node.jsApi的fs部分的同步函数，那么JS执行线程将被阻塞。
-JavaScript只是把任务交代出去，对任务的结果进行处理，处理的函数已经通过回掉的方式写好了，处理回掉的时候，可以回掉函数由安排了另外的异步任务。
-
-
-### Runtime
-
-![runtime](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/runtime.png)
-
-* Stack 这里放着JavaScript正在执行的任务，每个任务被称为帧（frame）。
-* Heap 一个用来表示内存中一大片非结构化区域的名字，对象都被分配在这。
-* TasksQueue 一个 JavaScript Runtime 包含了一个任务队列，该队列是由一系列待处理的任务（包含事件处理函数）组成。
-
-每个任务都有相对应的函数，当栈为空时，就会从任务队列中取出一个任务，并处理之。
-该处理会调用与该任务相关联的一系列函数（因此会创建一个初始栈帧）。
-当该任务处理完毕后，栈就会再次为空。
-
-
-### 异步和回掉
+#### 异步和回掉
 
 回掉可以看作是一种协议，用来进行消息通知，Node.js的事件驱动同样也是用来消息通知，但同样也是由回掉函数来处理，Promise也是基于回掉的。
 
@@ -2247,10 +2224,9 @@ function sort(compare) {
 [回调函数](https://zh.wikipedia.org/wiki/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0)
 [回调函数是什么？](https://www.zhihu.com/question/19801131)
 
+#### 事件轮询和异步回掉带来的效果
 
-## 事件轮询和异步回掉带来的效果
-
-**改变了代码的执行顺，代码的执行顺序不再是按照代码的前后关系逐句执行。**
+> 改变了代码的执行顺，代码的执行顺序不再是按照代码的前后关系逐句执行。
 
 代码一段一段入栈（ECS）执行，因为栈的一个单元（EC）可以看作是一个函数，所以这里一段代码就当作一个函数来理解。
 
@@ -2258,11 +2234,11 @@ function sort(compare) {
 
 肯定是不是了。怎么可能让CPU闲着，并且还有很多事情做，只是这些事情还没说开始。
 
-### 那这个时候 JS 该做什么？
+那这个时候 JS 该做什么？
 
 大家都知道，当最外层的代码执行过之后，JS在等待一些事件发生，然后对这些事件进行相应的处理。那么该做的就是等待事件发生。
 
-### 正在做什么？
+正在做什么？
 
 最外层的代码做的工作可以看作是初始化工作，加载各个模块，初始化数据库连接、创建目录、注册各种事件处理函数、发起请求、监听网络等。即向系统交代我们的期待。
 
@@ -2274,10 +2250,8 @@ JS在这里充当了任务的生产者，任务结果的消费者。这样做可
 
 1. JS引擎开始执行全局环境下的代码，创建全局执行环境并入栈，然后开始*事件循环*。
 1. JS引擎读取堆栈信息，这种方式下，第一次栈一定不为空。
-  1. 如果有任务需要处理，将任务相关处理函数推入执行环境栈中。
-     处理任务的过程可能还是向系统交代其他工作。
-     下一个待处理的任务什么时候处理取决于这个任务什么时候处理完成。
-  1. 如果没有任务需要处理，JS引擎过一会儿再来看看。
+    1. 如果有任务需要处理，将任务相关处理函数推入执行环境栈中。处理任务的过程可能还是向系统交代其他工作。下一个待处理的任务什么时候处理取决于这个任务什么时候处理完成。
+    1. 如果没有任务需要处理，JS引擎过一会儿再来看看。
 
 所以异步函数带来的效果就是，代码执行的时机是不确定的，它取决于异步函数什么时候完成，在还取决于在任务队列中的位置，先进先出。
 执行时机不再是代码的静态位置决定，但是闭包却又是静态作用域决定的。这两点结合在一起构成一个强大的模型。
@@ -2285,7 +2259,15 @@ JS在这里充当了任务的生产者，任务结果的消费者。这样做可
 通过上面的分析可以看到，JS的执行过程实际上类似于树的遍历，但是既不是广度的也不是深度的，是时间优先的，谁先有机会执行就谁先。
 而且这颗树在持续不断的生长，甚至没有边界，直到进程退出。遍历过的部分正常情况都会被回收，静态的代码是有限的，动态的活动对象是无限的。
 
+
 #### 结论
+
+单线程指的是我们编写的JavaScript代码是运行在一个线程当中，而JavaScript引擎进行的是并发调度。
+
+从我们的角度，JavaScript确实是并发的，因为JS同时可以处理很多任务，但是实际上这些任务并不是JavaScript引擎处理的，而是由运行环境的扩展（如setTimeout）来实现的。
+这些扩展作为JavaScript的一部分，在调用的时候肯定是JS线程在执行，扩展程序在执行时可以创建其他线程来工作，JS线程将不会阻塞继续处理其他任务，而这个新线程在任务处理完成之后，会将回掉函数插入到JS的任务队列中。
+如果扩展代码是同步的，如Node.jsApi的fs部分的同步函数，那么JS执行线程将被阻塞。
+JavaScript只是把任务交代出去，对任务的结果进行处理，处理的函数已经通过回掉的方式写好了，处理函数可以继续安排新的异步任务。
 
 单线程：指的是JavaScript代码是在同一个线程中运行。任何一段JavaScript代码阻塞了执行流，那么程序将会卡在这里。
 任务队列：上面说有有一个线程负责与其他线程交互，其实可以没有，JS扩展作为运行环境的一部分，具有与JS引擎交互的能力，如异步完成之后，将任务处理程序放入任务队列。
@@ -2299,91 +2281,6 @@ JS在这里充当了任务的生产者，任务结果的消费者。这样做可
 
   异步函数是JS引擎的在运行环境中的扩展。
 
-
-
-### 下面这段代码执行后会有什么效果？
-
-
-```js
-setTimeout(function alertA(){
-  alert('A');
-}, 0);
-while(true){};
-alert('B');
-```
-
-这段代码，我们希望可以弹出一个警告框A出来，但是始终没有来，而且，在FireFox中会提示脚本忙，并询问你是否要终止这段脚本的执行，选择终止以后，A倒是弹出来了，但是B却弹不出来了。
-
-因为浏览器多个事件放入队列中执行，事件是没法中断的（如：鼠标响应事件、页面渲染事件、定时器事件等）。
-*B*所在的那段脚本被终止了（因为干坏事被浏览器发现了），但是*A*所在的事件逻辑*alertA*已经进入了事件队列，并没有被终止。
-*setTimeout*调用之后，这个定时任务已经交代出去了，也就是0s后调用*Timeout*处理函数，但是由于主线程一直在循环，所以事件处理函数*alertA*并没有机会执行。
-从这个例子也可以看出，JavaScript的延迟执行并不一定按照你预订的时间来，时间到了，主线程要有空才行。
-
-但是既然这里希望马上执行，为什么把alertA放到setTimeout里呢？原因很简单，因为这里希望把这部分逻辑放到事件队列中去。
-
-如图，JavaScript引擎在逐个执行各类事件的处理函数。
-
-![thread.png](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/thread.png)
-
-*B*所在的那段脚本被终止了，为什么*alertA*还能被执行？
-
-
-### sleep
-
-
-JavaScript是没有*sleep*方法的，如果非要*sleep*，我们只能实现一个*伪sleep*，因为这个循环会不断消耗CPU去比对时间，并不是真正的sleep，而是没有响应地工作：
-
-```js
-function sleep(time) {
-  var start = Date.now();
-  while (Date.now() - start < time) {
-  }
-}
-```
-
-
-### 拆分耗时逻辑
-
-
-很多时候我们需要把耗时的逻辑拆分，腾出时间来给其他逻辑的执行。
-下面的代码源自《Timed array processing in JavaScript》这篇文章，作者首先给出一个这样的拆分逻辑执行的框架代码：
-
-```js
-function chunk(array, process, context){
-    var items = array.concat();
-    setTimeout(function(){
-        var item = items.shift();
-        process.call(context, item);
-        if (items.length > 0){
-            setTimeout(arguments.callee, 100);
-        }
-    }, 100);
-}
-```
-
-但他同时也马上指出了其中的问题，100毫秒的间隔延时太长了，也许25毫秒就够了，但是不能为0，0也可以使得这个执行拆分成多个事件进入队列，但是我们需要给UI的更新渲染等等留一些时间。于是他又改进了一下：
-
-```js
-// Copyright 2009 Nicholas C. Zakas. All rights reserved.
-// MIT Licensed
-function timedChunk(items, process, context, callback){
-    var todo = items.concat();
-    setTimeout(function(){
-        var start = +new Date();
-        do {
-             process.call(context, todo.shift());
-        } while (todo.length > 0 && (+new Date() - start < 50));
-
-        if (todo.length > 0){
-            setTimeout(arguments.callee, 25);
-        } else {
-            callback(items);
-        }
-    }, 25);
-}
-```
-
-可以看见，这可以更充分地利用时间，执行的任务放到一个数组中，只要每次chunk内执行的时间不足50毫秒，就继续执行；一旦超过50毫秒，就留给外部事件25毫秒去处理。
 
 
 ### Timer
@@ -2533,7 +2430,7 @@ var timer = setIntervalSimulation(function () {
 // 第1次：2007 ms
 // 第2次：2013 ms
 // 第3次：3008 ms
-// 
+//
 // Node.js的输入如下：
 // 第1次：2331 ms
 // 第2次：4664 ms
@@ -2543,6 +2440,95 @@ var timer = setIntervalSimulation(function () {
 
 
 可见，Node.js的`setInterval`很可能是用`setTimeout`模拟实现的。
+
+
+### 实例
+
+#### 下面这段代码执行后会有什么效果？
+
+
+```js
+setTimeout(function alertA(){
+  alert('A');
+}, 0);
+while(true){};
+alert('B');
+```
+
+这段代码，我们希望可以弹出一个警告框A出来，但是始终没有来，而且，在FireFox中会提示脚本忙，并询问你是否要终止这段脚本的执行，选择终止以后，A倒是弹出来了，但是B却弹不出来了。
+
+因为浏览器多个事件放入队列中执行，事件是没法中断的（如：鼠标响应事件、页面渲染事件、定时器事件等）。
+*B*所在的那段脚本被终止了（因为干坏事被浏览器发现了），但是*A*所在的事件逻辑*alertA*已经进入了事件队列，并没有被终止。
+*setTimeout*调用之后，这个定时任务已经交代出去了，也就是0s后调用*Timeout*处理函数，但是由于主线程一直在循环，所以事件处理函数*alertA*并没有机会执行。
+从这个例子也可以看出，JavaScript的延迟执行并不一定按照你预订的时间来，时间到了，主线程要有空才行。
+
+但是既然这里希望马上执行，为什么把alertA放到setTimeout里呢？原因很简单，因为这里希望把这部分逻辑放到事件队列中去。
+
+如图，JavaScript引擎在逐个执行各类事件的处理函数。
+
+![thread.png](https://raw.githubusercontent.com/liuyanjie/study/master/javascript/syntax/images/thread.png)
+
+*B*所在的那段脚本被终止了，为什么*alertA*还能被执行？
+
+
+#### sleep
+
+
+JavaScript是没有*sleep*方法的，如果非要*sleep*，我们只能实现一个*伪sleep*，因为这个循环会不断消耗CPU去比对时间，并不是真正的sleep，而是没有响应地工作：
+
+```js
+function sleep(time) {
+  var start = Date.now();
+  while (Date.now() - start < time) {
+  }
+}
+```
+
+
+#### 拆分耗时逻辑
+
+
+很多时候我们需要把耗时的逻辑拆分，腾出时间来给其他逻辑的执行。
+下面的代码源自《Timed array processing in JavaScript》这篇文章，作者首先给出一个这样的拆分逻辑执行的框架代码：
+
+```js
+function chunk(array, process, context){
+    var items = array.concat();
+    setTimeout(function(){
+        var item = items.shift();
+        process.call(context, item);
+        if (items.length > 0){
+            setTimeout(arguments.callee, 100);
+        }
+    }, 100);
+}
+```
+
+但他同时也马上指出了其中的问题，100毫秒的间隔延时太长了，也许25毫秒就够了，但是不能为0，0也可以使得这个执行拆分成多个事件进入队列，但是我们需要给UI的更新渲染等等留一些时间。于是他又改进了一下：
+
+```js
+// Copyright 2009 Nicholas C. Zakas. All rights reserved.
+// MIT Licensed
+function timedChunk(items, process, context, callback){
+    var todo = items.concat();
+    setTimeout(function(){
+        var start = +new Date();
+        do {
+             process.call(context, todo.shift());
+        } while (todo.length > 0 && (+new Date() - start < 50));
+
+        if (todo.length > 0){
+            setTimeout(arguments.callee, 25);
+        } else {
+            callback(items);
+        }
+    }, 25);
+}
+```
+
+可以看见，这可以更充分地利用时间，执行的任务放到一个数组中，只要每次chunk内执行的时间不足50毫秒，就继续执行；一旦超过50毫秒，就留给外部事件25毫秒去处理。
+
+
 
 ## Node.js & Browser
 
